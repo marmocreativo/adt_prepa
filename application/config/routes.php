@@ -42,6 +42,12 @@ $route['admin/base_de_datos/(:any)'] = 'Admin_Base_De_Datos/$1';
 /* - Publicaciones - */
 $route['admin/tipos'] = 'Admin_Tipos';
 $route['admin/tipos/(:any)'] = 'Admin_Tipos/$1';
+$route['admin/equipos'] = 'Admin_Equipos';
+$route['admin/equipos/(:any)'] = 'Admin_Equipos/$1';
+$route['admin/proyectos'] = 'Admin_Proyectos';
+$route['admin/proyectos/(:any)'] = 'Admin_Proyectos/$1';
+$route['admin/tareas'] = 'Admin_Tareas';
+$route['admin/tareas/(:any)'] = 'Admin_Tareas/$1';
 $route['admin/categorias'] = 'Admin_Categorias';
 $route['admin/categorias/(:any)'] = 'Admin_Categorias/$1';
 $route['admin/publicaciones'] = 'Admin_Publicaciones';

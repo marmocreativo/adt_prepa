@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin_Equipos extends CI_Controller {
+class Admin_Proyectos extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		// Cargo las Opciones
@@ -36,7 +36,7 @@ class Admin_Equipos extends CI_Controller {
 
 
 		// Título General
-		$this->data['titulo']  = 'Equipos | Administrador | '.$this->data['op']['titulo_sitio'];
+		$this->data['titulo']  = 'Proyectos | Administrador | '.$this->data['op']['titulo_sitio'];
 	}
 
 	public function index()
@@ -47,7 +47,7 @@ class Admin_Equipos extends CI_Controller {
 		$parametros_and = array();
 		$tipo = $this->data['tipo'];
 		$this->data['consulta']['tipo'] = $tipo;
-		$orden = verificar_variable('GET','orden','EQUIPO_NOMBRE ASC');
+		$orden = verificar_variable('GET','orden','PROYECTO_NOMBRE ASC');
 		$this->data['consulta']['orden'] = $orden;
 		$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',$this->data['op']['cantidad_publicaciones_por_pagina']);
 		$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
@@ -58,8 +58,8 @@ class Admin_Equipos extends CI_Controller {
 		$this->data['consulta']['busqueda'] = $busqueda;
 		// Expando la busqueda y genero los $parametros_or
 		if(!empty($busqueda)){
-			$parametros_or['equipos.EQUIPO_NOMBRE']=$busqueda;
-			$parametros_or['equipos.EQUIPO_DESCRIPCION']=$busqueda;
+			$parametros_or['equipos.PROYECTO_NOMBRE']=$busqueda;
+			$parametros_or['equipos.PROYECTO_DESCRIPCION']=$busqueda;
 			$parametros_or['meta_datos.DATO_VALOR']=$busqueda;
 		}
 		// Genero los parametros AND
@@ -68,7 +68,7 @@ class Admin_Equipos extends CI_Controller {
 		$parametros_and['meta_datos.TIPO_OBJETO']='equipo';
 
 		$tablas_join = array(
-			'meta_datos' => 'meta_datos.ID_OBJETO = equipos.ID_EQUIPO'
+			'meta_datos' => 'meta_datos.ID_OBJETO = equipos.ID_PROYECTO'
 		);
 
 		// Busco si hay una vista especializada para el tipo
@@ -122,7 +122,7 @@ class Admin_Equipos extends CI_Controller {
 		$parametros_and = array();
 		$tipo = $this->data['tipo'];
 		$this->data['consulta']['tipo'] = $tipo;
-		$orden = verificar_variable('GET','orden','EQUIPO_NOMBRE ASC');
+		$orden = verificar_variable('GET','orden','PROYECTO_NOMBRE ASC');
 		$this->data['consulta']['orden'] = $orden;
 		$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',$this->data['op']['cantidad_publicaciones_por_pagina']);
 		$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
@@ -133,8 +133,8 @@ class Admin_Equipos extends CI_Controller {
 		$this->data['consulta']['busqueda'] = $busqueda;
 		// Expando la busqueda y genero los $parametros_or
 		if(!empty($busqueda)){
-			$parametros_or['equipos.EQUIPO_NOMBRE']=$busqueda;
-			$parametros_or['equipos.EQUIPO_DESCRIPCION']=$busqueda;
+			$parametros_or['equipos.PROYECTO_NOMBRE']=$busqueda;
+			$parametros_or['equipos.PROYECTO_DESCRIPCION']=$busqueda;
 		}
 		// Genero los parametros AND
 		$parametros_and['equipos.ESTADO']='papelera';
@@ -203,20 +203,20 @@ class Admin_Equipos extends CI_Controller {
 		$id_borrador = generador_aleatorio(4);
 
 		$parametros = array(
-			'EQUIPO_NOMBRE' => 'Equipo '.$id_borrador,
+			'PROYECTO_NOMBRE' => 'Proyecto '.$id_borrador,
 			'URL' => 'borrador-'.$id_borrador,
-			'EQUIPO_DESCRIPCION' => '',
+			'PROYECTO_DESCRIPCION' => '',
 			'IMAGEN' => $imagen,
 			'IMAGEN_FONDO' => $imagen_fondo,
 			'TIPO' => $this->input->get('tipo'),
 			'ESTADO' => 'inactivo',
 			'ORDEN' => 0,
 		);
-		$equipo_id = $this->GeneralModel->crear('equipos',$parametros);
+		$proyecto_id = $this->GeneralModel->crear('equipos',$parametros);
 
 		//Meta autor
 		$parametros_meta = array(
-			'ID_OBJETO'=>$equipo_id,
+			'ID_OBJETO'=>$proyecto_id,
 			'DATO_NOMBRE'=>'meta_autor',
 			'DATO_VALOR'=>$_SESSION['usuario']['nombre'].' '.$_SESSION['usuario']['apellidos'],
 			'TIPO_OBJETO'=>'equipo',
@@ -229,12 +229,12 @@ class Admin_Equipos extends CI_Controller {
 
 
 		$this->session->set_flashdata('exito', 'Borrador creado correctamente');
-		redirect(base_url('admin/equipos/actualizar?id='.$equipo_id.'&consulta='.$consulta));
+		redirect(base_url('admin/equipos/actualizar?id='.$proyecto_id.'&consulta='.$consulta));
 	}
 	public function actualizar()
 	{
 
-		$this->form_validation->set_rules('EquipoNombre', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
+		$this->form_validation->set_rules('ProyectoNombre', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
 
 		if($this->form_validation->run())
     {
@@ -295,12 +295,12 @@ class Admin_Equipos extends CI_Controller {
 
 
 			$parametros = array(
-				'EQUIPO_NOMBRE' =>  $this->input->post('EstadoNombre'),
+				'PROYECTO_NOMBRE' =>  $this->input->post('EstadoNombre'),
 				'URL' =>  $this->input->post('Url'),
-				'EQUIPO_DESCRIPCION' =>  $this->input->post('EquipoDescripcion'),
+				'PROYECTO_DESCRIPCION' =>  $this->input->post('ProyectoDescripcion'),
 				'IMAGEN' => $imagen,
 				'IMAGEN_FONDO' => $imagen_fondo,
-				'COLOR' =>  $this->input->post('EquipoColor'),
+				'COLOR' =>  $this->input->post('ProyectoColor'),
 				'TIPO' =>  $this->input->post('Tipo'),
 				'ESTADO' =>  $this->input->post('Estado'),
 				'ORDEN' =>  $this->input->post('Orden'),
@@ -325,7 +325,7 @@ class Admin_Equipos extends CI_Controller {
 			}
 
 			// Mensaje Feedback
-			$this->session->set_flashdata('exito', 'Equipo actualizado correctamente');
+			$this->session->set_flashdata('exito', 'Proyecto actualizado correctamente');
 			//  Redirecciono
 			switch ($this->input->post('Guardar')) {
 				case 'Continuar':
@@ -339,7 +339,7 @@ class Admin_Equipos extends CI_Controller {
 
     }else{
 
-			$this->data['equipo'] = $this->GeneralModel->detalles('equipos',['ID_EQUIPO'=>$_GET['id']]);
+			$this->data['equipo'] = $this->GeneralModel->detalles('equipos',['ID_PROYECTO'=>$_GET['id']]);
 			$this->data['tipo'] = $this->data['equipo']['TIPO'];
 			$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'equipo'],'','','');
 			$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
@@ -358,12 +358,12 @@ class Admin_Equipos extends CI_Controller {
 		// Decodifico la consulta
 		$consulta = json_decode(base64_decode($_GET['consulta']));
 		// switch para activar o desactivar elemento usando el "estado" envio el estado actual
-		$this->GeneralModel->activar('equipos',['ID_EQUIPO'=>$_GET['id']],$_GET['estado']);
+		$this->GeneralModel->activar('equipos',['ID_PROYECTO'=>$_GET['id']],$_GET['estado']);
 		// Obtengo los datos de la entrada
-		$entrada = $this->GeneralModel->detalles('equipos',['ID_EQUIPO'=>$_GET['id']]);
+		$entrada = $this->GeneralModel->detalles('equipos',['ID_PROYECTO'=>$_GET['id']]);
 
 		// Mensaje Feedback
-		$this->session->set_flashdata('exito', 'Equipos actualizada correctamente');
+		$this->session->set_flashdata('exito', 'Proyectos actualizada correctamente');
 		redirect(base_url('admin/equipos?tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
 	}
 
@@ -375,22 +375,22 @@ class Admin_Equipos extends CI_Controller {
 		$parametros = array(
 			'ESTADO'=>'papelera'
 		);
-		$this->GeneralModel->actualizar('equipos',['ID_EQUIPO'=>$_GET['id']],$parametros);
+		$this->GeneralModel->actualizar('equipos',['ID_PROYECTO'=>$_GET['id']],$parametros);
 
 		// Mensaje Feedback
-		$this->session->set_flashdata('exito', 'Equipo enviado a la papelera');
+		$this->session->set_flashdata('exito', 'Proyecto enviado a la papelera');
 		redirect(base_url('admin/equipos?tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
 	}
 
 	public function borrar_permanente()
 	{
-		$equipos = $this->GeneralModel->detalles('equipos',['ID_EQUIPO'=>$_GET['id']]);
+		$proyectos = $this->GeneralModel->detalles('equipos',['ID_PROYECTO'=>$_GET['id']]);
 
         // check if the institucione exists before trying to delete it
-        if(isset($categoria['ID_EQUIPO']))
+        if(isset($categoria['ID_PROYECTO']))
         {
 						// Borro la categoría
-            $this->GeneralModel->borrar('equipos',['ID_EQUIPO'=>$_GET['id']]);
+            $this->GeneralModel->borrar('equipos',['ID_PROYECTO'=>$_GET['id']]);
 						// Mensaje Feedback
 						$this->session->set_flashdata('exito', 'Categorías borradas');
 						//  Redirecciono
