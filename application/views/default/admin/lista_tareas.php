@@ -1,25 +1,24 @@
-<div class="contenido-principal">
 <div class="row  mb-4">
 	<div class="col-12 col-md-8">
-		<h3>Equipos</h3>
+		<h3>Tareas</h3>
 	</div>
 	<div class="col-12 col-md-4">
 		<div class="btn-group btn-group float-right" role="group" aria-label="Barra de tareas">
-				<a href="<?php echo base_url('admin/equipos/papelera'); ?>" class="btn btn-outline-danger"> <i class="fa fa-trash"></i> ver papelera</a>
-				<a href="<?php echo base_url('admin/equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
+				<a href="<?php echo base_url('admin/tareas/papelera'); ?>" class="btn btn-outline-danger"> <i class="fa fa-trash"></i> ver papelera</a>
+				<a href="<?php echo base_url('admin/tareas/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
 		</div>
 	</div>
 </div>
 <div class="row mb-4">
 	<div class="col">
 		<?php retro_alimentacion(); ?>
-		<form class="form-inline float-right" action="<?php echo base_url('admin/equipos'); ?>" method="get" enctype="multipart/form-data">
+		<form class="form-inline float-right" action="<?php echo base_url('admin/tareas'); ?>" method="get" enctype="multipart/form-data">
 			<input type="hidden" name="tipo" value="<?php echo $tipo; ?>">
 			<div class="form-group mr-2">
 				<select class="form-control" name="orden">
 					<option value="">Ordenar por</option>
-					<option value="EQUIPO_NOMBRE ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='EQUIPO_NOMBRE ASC'){ echo 'selected'; } ?>>Alfabético A-Z</option>
-					<option value="EQUIPO_NOMBRE DESC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='EQUIPO_NOMBRE DESC'){ echo 'selected'; } ?>>Alfabético Z-A</option>
+					<option value="TAREA_TITULO ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='TAREA_TITULO ASC'){ echo 'selected'; } ?>>Alfabético A-Z</option>
+					<option value="TAREA_TITULO DESC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='TAREA_TITULO DESC'){ echo 'selected'; } ?>>Alfabético Z-A</option>
 					<option value="ORDEN ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='ORDEN ASC'){ echo 'selected'; } ?>>Orden Personalizado</option>
 				</select>
 			</div>
@@ -42,45 +41,52 @@
 </div>
 <div class="row">
 	<div class="col">
-		<div class="row mb-3 ui-sortable">
-			<?php foreach($equipos as $equipo){ ?>
-			<div class="col-6 col-sm-4 col-md-3 p-1" id="item-<?php echo $equipo->ID_EQUIPO; ?>" class="ui-sortable-handle">
-				<div class="card equipo">
-					<div class="card-header text-center bg-<?php echo $equipo->COLOR; ?>">
-						<?php echo $equipo->EQUIPO_NOMBRE; ?>
-					</div>
-					<div class="card-body  bg-<?php echo $equipo->COLOR; ?> text-center p-1">
-						<img src="<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN); ?>" class="rounded-circle" width="50%">
-						<hr>
-						<?php echo word_limiter($equipo->EQUIPO_DESCRIPCION,10); ?>
-					</div>
-					<?php if($equipo->ESTADO!='papelera'){ ?>
-					<div class="card-footer py-1">
-						<div class="row">
-							<div class="col-4 p-2">
-								<?php if($equipo->ESTADO=='activo'){ ?>
-								<a href="<?php echo base_url('admin/equipos/activar')."?id=".$equipo->ID_EQUIPO."&estado=".$equipo->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-success"> <span class="fa fa-check-circle"></span> </a>
+		<table class="table table-sm table-striped">
+				<thead>
+					<tr>
+							<th>#</th>
+							<th>Imágen</th>
+							<th>Nombre</th>
+							<th>Descripción</th>
+							<th>Estado</th>
+							<th class="text-right">Controles</th>
+					</tr>
+				</thead>
+				<tbody class="ui-sortable" data-tabla="tareas" data-columna="ID_TAREA">
+				<?php foreach($tareas as $tarea){ ?>
+					<tr id="item-<?php echo $tarea->ID_TAREA; ?>" class="ui-sortable-handle">
+						<th scope="row"><?php echo $tarea->ID_TAREA; ?></th>
+						<td>
+							<img src="<?php echo base_url('contenido/img/categorias/'.$tarea->IMAGEN); ?>" alt="" width="50px">
+						</td>
+						<?php $color = $this->GeneralModel->detalles('meta_datos',['DATO_NOMBRE'=>'color','ID_OBJETO'=>$tarea->ID_TAREA,'TIPO_OBJETO'=>'categoria']); ?>
+						<td><?php echo $tarea->TAREA_TITULO; ?><br>
+							<i style="display: block; width: 100%; height: 20px; background-color:<?php echo $color['DATO_VALOR']; ?>"></i>
+						</td>
+						<td><?php echo word_limiter($tarea->TAREA_DESCRIPCION,10); ?></td>
+						<td>
+							<?php if($tarea->ESTADO=='activo'){ ?>
+							<a href="<?php echo base_url('admin/tareas/activar')."?id=".$tarea->ID_TAREA."&estado=".$tarea->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-outline-success"> <span class="fa fa-check-circle"></span> </a>
+						<?php } ?>
+						<?php if($tarea->ESTADO=='inactivo'){ ?>
+							<a href="<?php echo base_url('admin/tareas/activar')."?id=".$tarea->ID_TAREA."&estado=".$tarea->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-outline-danger"> <span class="fa fa-times-circle"></span> </a>
+						<?php } ?>
+						<?php if($tarea->ESTADO=='papelera'){ ?>
+							<a href="<?php echo base_url('admin/tareas/activar')."?id=".$tarea->ID_TAREA."&estado=inactivo&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-outline-danger"> Restaurar </a>
+						<?php } ?>
+						</td>
+						<td>
+							<div class="btn-group float-right" role="group">
+							<?php if($tarea->ESTADO!='papelera'){ ?>
+								<a href="<?php echo base_url('admin/tareas/actualizar?id='.$tarea->ID_TAREA."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-sm btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
+								<button data-enlace='<?php echo base_url('admin/tareas/borrar?id='.$tarea->ID_TAREA."&consulta=".base64_encode(json_encode($consulta))); ?>' class="btn btn-sm btn-danger borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
 							<?php } ?>
-							<?php if($equipo->ESTADO=='inactivo'){ ?>
-								<a href="<?php echo base_url('admin/equipos/activar')."?id=".$equipo->ID_EQUIPO."&estado=".$equipo->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> <span class="fa fa-times-circle"></span> </a>
-							<?php } ?>
-							<?php if($equipo->ESTADO=='papelera'){ ?>
-								<a href="<?php echo base_url('admin/equipos/activar')."?id=".$equipo->ID_EQUIPO."&estado=inactivo&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> Restaurar </a>
-							<?php } ?>
-							</div>
-							<div class="col-4 p-2">
-								<a href="<?php echo base_url('admin/equipos/actualizar?id='.$equipo->ID_EQUIPO."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-sm btn-block btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
-							</div>
-							<div class="col-4 p-2">
-								<button data-enlace='<?php echo base_url('admin/equipos/borrar?id='.$equipo->ID_EQUIPO."&consulta=".base64_encode(json_encode($consulta))); ?>' class="btn btn-sm btn-danger btn-block borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
-							</div>
 						</div>
-					</div>
-					<?php } ?>
-				</div>
-			</div>
-			<?php } ?>
-		</div>
+						</td>
+					</tr>
+				<?php } ?>
+				</tbody>
+		</table>
 		<?php if($cantidad_paginas>1){ ?>
 		<div class="row justify-content-md-center">
 			<div class="col-2">
@@ -110,5 +116,4 @@
 		</div>
 		<?php } ?>
 	</div>
-</div>
 </div>

@@ -12,7 +12,7 @@
 <div class="row mb-4">
 	<div class="col">
 		<?php retro_alimentacion(); ?>
-		<form class="form-inline" action="<?php echo base_url('admin/usuarios'); ?>" method="get" enctype="multipart/form-data">
+		<form class="form-inline float-right" action="<?php echo base_url('admin/usuarios'); ?>" method="get" enctype="multipart/form-data">
 			<input type="hidden" name="categoria" value="<?php echo $consulta['categoria']; ?>">
 			<input type="hidden" name="tipo" value="<?php echo $tipo; ?>">
 			<div class="form-group mr-2">
@@ -46,7 +46,7 @@
 </div>
 <div class="row">
 	<div class="col">
-		<table class="table table-responsive table-sm table-striped">
+		<table class="table table-striped">
 				<thead>
 					<tr>
 							<th>Nombre</th>

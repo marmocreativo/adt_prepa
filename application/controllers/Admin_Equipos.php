@@ -53,7 +53,7 @@ class Admin_Equipos extends CI_Controller {
 		$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
 		$pagina = verificar_variable('GET','pagina','1');
 		$this->data['consulta']['pagina'] = $pagina;
-		$agrupar = '';
+		$agrupar = 'equipos.ID_EQUIPO';
 		$busqueda = verificar_variable('GET','busqueda','');
 		$this->data['consulta']['busqueda'] = $busqueda;
 		// Expando la busqueda y genero los $parametros_or
@@ -233,11 +233,11 @@ class Admin_Equipos extends CI_Controller {
 	}
 	public function actualizar()
 	{
-
 		$this->form_validation->set_rules('EquipoNombre', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
 
 		if($this->form_validation->run())
     {
+
 			// Datos de consulta anterior
 			if(isset($_POST['consulta'])&&!empty($_POST['consulta'])){
 				$consulta = json_decode(base64_decode($_POST['consulta']));
@@ -262,7 +262,7 @@ class Admin_Equipos extends CI_Controller {
 				$extension = '.jpg';
 				$tipo_imagen = 'image/jpeg';
 				$calidad = 80;
-				$nombre = 'categoria-'.uniqid();
+				$nombre = 'equipo-'.uniqid();
 				$destino = $this->data['op']['ruta_imagenes'].'equipos/';
 				// Subo la imagen y obtengo el nombre Default si va vacía
 				$imagen = subir_imagen($archivo,$ancho,$alto,$corte,$extension,$tipo_imagen,$calidad,$nombre,$destino);
@@ -283,7 +283,7 @@ class Admin_Equipos extends CI_Controller {
 				$extension = '.jpg';
 				$tipo_imagen = 'image/jpeg';
 				$calidad = 80;
-				$nombre = 'categoria-'.uniqid();
+				$nombre = 'equipo-'.uniqid();
 				$destino = $this->data['op']['ruta_imagenes'].'equipos/';
 				// Subo la imagen y obtengo el nombre Default si va vacía
 				$imagen_fondo = subir_imagen($archivo,$ancho,$alto,$corte,$extension,$tipo_imagen,$calidad,$nombre,$destino);
@@ -293,9 +293,8 @@ class Admin_Equipos extends CI_Controller {
 			}
 
 
-
 			$parametros = array(
-				'EQUIPO_NOMBRE' =>  $this->input->post('EstadoNombre'),
+				'EQUIPO_NOMBRE' =>  $this->input->post('EquipoNombre'),
 				'URL' =>  $this->input->post('Url'),
 				'EQUIPO_DESCRIPCION' =>  $this->input->post('EquipoDescripcion'),
 				'IMAGEN' => $imagen,
@@ -306,7 +305,7 @@ class Admin_Equipos extends CI_Controller {
 				'ORDEN' =>  $this->input->post('Orden'),
 			);
 
-      $this->GeneralModel->actualizar('equipos',['ID_CATEGORIA'=>$this->input->post('Identificador')],$parametros);
+      $this->GeneralModel->actualizar('equipos',['ID_EQUIPO'=>$this->input->post('Identificador')],$parametros);
 
 			// Borro los metadatos existentes
 			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$this->input->post('Identificador'),'TIPO_OBJETO'=>'equipo']);
@@ -321,6 +320,21 @@ class Admin_Equipos extends CI_Controller {
 					);
 					// Creo las entradas a la galeria
 					$this->GeneralModel->crear('meta_datos',$parametros_meta);
+				}
+			}
+
+			// USUARIOS
+			// Borro las categorías existentes
+			$this->GeneralModel->borrar('equipos_usuarios',['ID_EQUIPO'=>$this->input->post('Identificador')]);
+
+			if(isset($_POST['EquiposUsuarios'])&&!empty($_POST['EquiposUsuarios'])){
+				foreach($_POST['EquiposUsuarios'] as $usuario){
+					$parametros = array(
+						'ID_EQUIPO' => $this->input->post('Identificador'),
+						'ID_USUARIO' => $usuario
+		      );
+					// Creo la relación de categorías
+		      $this->GeneralModel->crear('equipos_usuarios',$parametros);
 				}
 			}
 

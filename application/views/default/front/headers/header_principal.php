@@ -53,20 +53,16 @@
 
       <!-- Page Content  -->
       <div id="content">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <div class="container-fluid">
-
-                  <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                      <i class="fas fa-align-justify"></i>
-                  </button>
-                  <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <i class="fas fa-align-justify"></i>
-                  </button>
-
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-										<ul class="navbar-nav ml-auto d-flex align-items-center">
-											<?php $this->load->view($this->data['op']['plantilla'].$dispositivo.'/front/widgets/menu_usuarios'); ?>
-										</ul>
-                  </div>
-              </div>
-          </nav>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-4 p-0">
+							<button type="button" id="sidebarCollapse" class="btn btn-primary"> <i class="fas fa-align-justify"></i> </button>
+						</div>
+						<div class="col-4 text-center p-0">
+							<img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" alt="" width="50" class="">
+						</div>
+						<div class="col-4 text-right p-0">
+								<?php $this->load->view($this->data['op']['plantilla'].$dispositivo.'/front/widgets/menu_usuarios'); ?>
+						</div>
+					</div>
+				</div>

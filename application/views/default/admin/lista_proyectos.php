@@ -41,52 +41,40 @@
 </div>
 <div class="row">
 	<div class="col">
-		<table class="table table-sm table-striped">
-				<thead>
-					<tr>
-							<th>#</th>
-							<th>Imágen</th>
-							<th>Nombre</th>
-							<th>Descripción</th>
-							<th>Estado</th>
-							<th class="text-right">Controles</th>
-					</tr>
-				</thead>
-				<tbody class="ui-sortable" data-tabla="proyectos" data-columna="ID_PROYECTO">
-				<?php foreach($proyectos as $proyecto){ ?>
-					<tr id="item-<?php echo $proyecto->ID_PROYECTO; ?>" class="ui-sortable-handle">
-						<th scope="row"><?php echo $proyecto->ID_PROYECTO; ?></th>
-						<td>
-							<img src="<?php echo base_url('contenido/img/categorias/'.$proyecto->IMAGEN); ?>" alt="" width="50px">
-						</td>
-						<?php $color = $this->GeneralModel->detalles('meta_datos',['DATO_NOMBRE'=>'color','ID_OBJETO'=>$proyecto->ID_PROYECTO,'TIPO_OBJETO'=>'categoria']); ?>
-						<td><?php echo $proyecto->PROYECTO_NOMBRE; ?><br>
-							<i style="display: block; width: 100%; height: 20px; background-color:<?php echo $color['DATO_VALOR']; ?>"></i>
-						</td>
-						<td><?php echo word_limiter($proyecto->PROYECTO_DESCRIPCION,10); ?></td>
-						<td>
-							<?php if($proyecto->ESTADO=='activo'){ ?>
-							<a href="<?php echo base_url('admin/proyectos/activar')."?id=".$proyecto->ID_PROYECTO."&estado=".$proyecto->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-outline-success"> <span class="fa fa-check-circle"></span> </a>
-						<?php } ?>
-						<?php if($proyecto->ESTADO=='inactivo'){ ?>
-							<a href="<?php echo base_url('admin/proyectos/activar')."?id=".$proyecto->ID_PROYECTO."&estado=".$proyecto->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-outline-danger"> <span class="fa fa-times-circle"></span> </a>
-						<?php } ?>
-						<?php if($proyecto->ESTADO=='papelera'){ ?>
-							<a href="<?php echo base_url('admin/proyectos/activar')."?id=".$proyecto->ID_PROYECTO."&estado=inactivo&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-outline-danger"> Restaurar </a>
-						<?php } ?>
-						</td>
-						<td>
-							<div class="btn-group float-right" role="group">
-							<?php if($proyecto->ESTADO!='papelera'){ ?>
-								<a href="<?php echo base_url('admin/categorias/actualizar?id='.$proyecto->ID_PROYECTO."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-sm btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
-								<button data-enlace='<?php echo base_url('admin/categorias/borrar?id='.$proyecto->ID_PROYECTO."&consulta=".base64_encode(json_encode($consulta))); ?>' class="btn btn-sm btn-danger borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
+		<div class="row mb-3 ui-sortable">
+			<?php foreach($proyectos as $proyecto){ ?>
+			<div class="col-12" id="item-<?php echo $proyecto->ID_PROYECTO; ?>" class="ui-sortable-handle">
+				<div class="card equipo">
+					<div class="card-body  bg-<?php echo $proyecto->COLOR; ?> p-3">
+								<p class="h6 text-white"><img src="<?php echo base_url('contenido/img/proyectos/'.$proyecto->IMAGEN); ?>" class="rounded-circle float-left mr-2" width="50"><?php echo $proyecto->PROYECTO_NOMBRE; ?></p>
+					</div>
+					<?php if($proyecto->ESTADO!='papelera'){ ?>
+					<div class="card-footer py-1">
+						<div class="row">
+							<div class="col-4 p-2">
+								<?php if($proyecto->ESTADO=='activo'){ ?>
+								<a href="<?php echo base_url('admin/proyectos/activar')."?id=".$proyecto->ID_PROYECTO."&estado=".$proyecto->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-success"> <span class="fa fa-check-circle"></span> </a>
 							<?php } ?>
+							<?php if($proyecto->ESTADO=='inactivo'){ ?>
+								<a href="<?php echo base_url('admin/proyectos/activar')."?id=".$proyecto->ID_PROYECTO."&estado=".$proyecto->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> <span class="fa fa-times-circle"></span> </a>
+							<?php } ?>
+							<?php if($proyecto->ESTADO=='papelera'){ ?>
+								<a href="<?php echo base_url('admin/proyectos/activar')."?id=".$proyecto->ID_PROYECTO."&estado=inactivo&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> Restaurar </a>
+							<?php } ?>
+							</div>
+							<div class="col-4 p-2">
+								<a href="<?php echo base_url('admin/proyectos/actualizar?id='.$proyecto->ID_PROYECTO."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-sm btn-block btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
+							</div>
+							<div class="col-4 p-2">
+								<button data-enlace='<?php echo base_url('admin/proyectos/borrar?id='.$proyecto->ID_PROYECTO."&consulta=".base64_encode(json_encode($consulta))); ?>' class="btn btn-sm btn-danger btn-block borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
+							</div>
 						</div>
-						</td>
-					</tr>
-				<?php } ?>
-				</tbody>
-		</table>
+					</div>
+					<?php } ?>
+				</div>
+			</div>
+			<?php } ?>
+		</div>
 		<?php if($cantidad_paginas>1){ ?>
 		<div class="row justify-content-md-center">
 			<div class="col-2">

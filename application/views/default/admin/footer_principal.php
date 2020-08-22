@@ -1,3 +1,12 @@
+<div class="footer bg-dark text-white">
+	<div class="container">
+		<div class="row">
+			<div class="col text-center">
+				<?php echo date('Y'); ?>
+			</div>
+		</div>
+	</div>
+</div>
 </div><!-- /Content -->
 </div><!-- /Wraper -->
 <button onclick="topFunction()" id="volver_arriba" class="btn btn-primary" title="volver arriba"> <i class="fa fa-chevron-up"></i> </button>
@@ -9,6 +18,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
 <script src="<?php echo base_url('assets/plugins/'); ?>jquery-ui/jquery-ui.bundle.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url('assets/plugins/'); ?>jquery-ui-touch-punch/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/plugins/'); ?>dropzone/dist/dropzone.js" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/plugins/'); ?>nested-sortable/jquery.mjs.nestedSortable.js" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/plugins/'); ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
