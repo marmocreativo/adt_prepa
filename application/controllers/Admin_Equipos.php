@@ -231,6 +231,7 @@ class Admin_Equipos extends CI_Controller {
 		$this->session->set_flashdata('exito', 'Borrador creado correctamente');
 		redirect(base_url('admin/equipos/actualizar?id='.$equipo_id.'&consulta='.$consulta));
 	}
+
 	public function actualizar()
 	{
 		$this->form_validation->set_rules('EquipoNombre', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
@@ -345,8 +346,11 @@ class Admin_Equipos extends CI_Controller {
 				case 'Continuar':
 					redirect(base_url('admin/equipos/actualizar?id='.$this->input->post('Identificador').'&consulta='.$_GET['consulta']));
 					break;
-				default:
+				case 'Lista':
 					redirect(base_url('admin/equipos?tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
+					break;
+				default:
+				redirect(base_url('admin/equipos/detalles?id='.$this->input->post('Identificador')));
 					break;
 			}
 
@@ -366,6 +370,36 @@ class Admin_Equipos extends CI_Controller {
 			$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
 		}
 
+	}
+	public function detalles()
+	{
+		$this->data['equipo'] = $this->GeneralModel->detalles('equipos',['ID_EQUIPO'=>$_GET['id']]);
+		$this->data['tipo'] = $this->data['equipo']['TIPO'];
+		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'equipo'],'','','');
+		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; };
+		$this->data['usuarios'] = $this->GeneralModel->lista_join('equipos_usuarios',['usuarios'=>'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO'],'',['equipos_usuarios.ID_EQUIPO'=>$this->data['equipo']['ID_EQUIPO'],'usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','');
+		// Reviso la vista especializada
+		$this->data['vista'] = vista_especializada('default'.$this->data['dispositivo'],'/admin/','detalles_','equipos','_'.$this->data['tipo']);
+
+		// Cargo Vistas
+		$this->load->view('default'.$this->data['dispositivo'].'/admin/header_principal',$this->data);
+		$this->load->view($this->data['vista'],$this->data);
+		$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
+	}
+	public function proyectos()
+	{
+		$this->data['equipo'] = $this->GeneralModel->detalles('equipos',['ID_EQUIPO'=>$_GET['id']]);
+		$this->data['tipo'] = $this->data['equipo']['TIPO'];
+		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'equipo'],'','','');
+		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; };
+		$this->data['proyectos'] = $this->GeneralModel->lista_join('equipos_proyectos',['proyectos'=>'equipos_proyectos.ID_PROYECTO = proyectos.ID_PROYECTO'],'',['equipos_proyectos.ID_EQUIPO'=>$this->data['equipo']['ID_EQUIPO'],'proyectos.ESTADO'=>'activo'],'proyectos.PROYECTO_NOMBRE ASC','','','');
+		// Reviso la vista especializada
+		$this->data['vista'] = vista_especializada('default'.$this->data['dispositivo'],'/admin/','proyectos_','equipos','_'.$this->data['tipo']);
+
+		// Cargo Vistas
+		$this->load->view('default'.$this->data['dispositivo'].'/admin/header_principal',$this->data);
+		$this->load->view($this->data['vista'],$this->data);
+		$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
 	}
 	public function activar()
 	{

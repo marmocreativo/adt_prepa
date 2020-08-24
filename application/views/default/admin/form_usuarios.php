@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <form action="<?php echo base_url('admin/usuarios/crear') ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Tipo" value="<?php echo $tipo; ?>">
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
@@ -105,3 +106,4 @@
 		</div>
 	</div>
 </form>
+</div>

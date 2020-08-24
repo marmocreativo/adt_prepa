@@ -3,6 +3,7 @@
 	<div class="row justify-content-center mt-5">
 		<div class="col-12 col-sm-8 col-md-4">
 			<form class="border rounded p-5"  action="<?php echo base_url('usuarios/crear');?>" method="post">
+				<img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" alt="" class="img-fluid">
 				<h3 class="mb-4 text-center">Registrar Usuario</h3>
 				<div class="row">
 					<div class="col-12 col-md-6">
@@ -35,10 +36,6 @@
 							 <input type="password" class="form-control"name="UsuarioPassConf" placeholder="" required>
 						 </div>
 					 </div>
-				 </div>
-				 <div class="form-check">
-					 <input type="checkbox" class="form-check-input" name="TerminosyCondiciones" id="TerminosyCondiciones" required>
-					 <label class="form-check-label" for="TerminosyCondiciones">Acepto los términos y condiciones</label>
 				 </div>
 				 <hr>
 				<button type="submit" class="btn btn-success btn-round btn-block shadow-sm">Registrarme</button>

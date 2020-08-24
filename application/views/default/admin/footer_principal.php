@@ -17,6 +17,8 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="<?php echo base_url('assets/plugins/'); ?>jquery-ui/jquery-ui.bundle.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/plugins/'); ?>jquery-ui-touch-punch/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url('assets/plugins/'); ?>dropzone/dist/dropzone.js" type="text/javascript"></script>
@@ -33,11 +35,23 @@
 <?php $this->load->view('default'.$dispositivo.'/scripts/scripts_front'); ?>
 
 <script type="text/javascript">
-	$(document).ready(function () {
-			$('#sidebarCollapse').on('click', function () {
-					$('#sidebar').toggleClass('active');
-			});
-	});
+  $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+          theme: "minimal"
+      });
+
+      $('#dismiss, .overlay').on('click', function () {
+          $('#sidebar').removeClass('active');
+          $('.overlay').removeClass('active');
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').addClass('active');
+          $('.overlay').addClass('active');
+          $('.collapse.in').toggleClass('in');
+          $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+  });
 </script>
 </body>
 </html>

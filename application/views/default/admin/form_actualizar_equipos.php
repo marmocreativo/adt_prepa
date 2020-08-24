@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <div class="contenido-principal">
 	<form action="<?php echo base_url('admin/equipos/actualizar') ?>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Identificador" value="<?php echo $equipo['ID_EQUIPO']; ?>">
@@ -41,7 +42,7 @@
 				</div>
 				<div class="row">
 					<?php
-					$colores = array('indigo', 'blue', 'indigo','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','primary','secondary','success','info','warning','danger','light','dark');
+					$colores = array('primary','indigo', 'blue','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','light','dark');
 					?>
 					<?php foreach($colores as $color){ ?>
 					<div class="col-2 col-md-1 p-1">
@@ -58,7 +59,7 @@
 				<?php } ?>
 				</div>
 				<hr>
-				<h6>Agregar usuarios</h6>
+				<h6>Agregar equipos</h6>
 				<?php
 					$usuarios = $this->GeneralModel->lista('usuarios','',['ESTADO'=>'activo'],'','','');
 					$equipos_usuarios = $this->GeneralModel->lista('equipos_usuarios','',['ID_EQUIPO'=>$equipo['ID_EQUIPO']],'','','');
@@ -108,4 +109,5 @@
 			</div>
 		</div>
 	</form>
+</div>
 </div>

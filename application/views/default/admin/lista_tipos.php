@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <div class="row mb-4">
 	<div class="col-8">
 		<h3>Tipos | <?php echo $tipo; ?></h3>
@@ -57,4 +58,5 @@
 				</tbody>
 		</table>
 	</div>
+</div>
 </div>

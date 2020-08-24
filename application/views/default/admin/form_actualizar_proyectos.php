@@ -1,16 +1,17 @@
+<div class="contenido_principal">
 <form action="<?php echo base_url('admin/proyectos/actualizar') ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Identificador" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
 	<input type="hidden" name="ImagenActual" value="<?php echo $proyecto['IMAGEN'] ?>">
 	<input type="hidden" name="ImagenFondoActual" value="<?php echo $proyecto['IMAGEN_FONDO'] ?>">
 	<input type="hidden" name="Orden" value="<?php echo $proyecto['ORDEN'] ?>">
-	<input type="hidden" name="Tipo" value="<?php echo $equipo['TIPO'] ?>">
+	<input type="hidden" name="Tipo" value="<?php echo $proyecto['TIPO'] ?>">
 	<input type="hidden" name="Meta[autor]" value="<?php if(isset($meta_datos['autor'])){ echo $meta_datos['autor']; }else{ echo $_SESSION['usuario']['nombre'].' '.$_SESSION['usuario']['apellidos']; } ?>">
 	<div class="row mb-4">
-		<div class="col-8">
+		<div class="col-6">
 			<h3>Proyectos</h3>
 		</div>
-		<div class="col-4">
+		<div class="col-6">
 			<button type="submit" class="btn btn-success float-right"> <i class="fa fa-save"></i> Guardar</button>
 		</div>
 	</div>
@@ -35,12 +36,25 @@
 				<input type="text" class="form-control UrlAmigableResultado" name="Url" value="<?php echo $proyecto['URL'] ?>" required>
 			</div>
 			<div class="form-group">
+				<label for="ProyectoDuracion">Duración</label>
+				<select class="form-control" name="ProyectoDuracion" id="seleccionar_duracion_proyecto">
+					<option value="permanente" <?php if($proyecto['DURACION']=='permanente'){ echo 'selected'; } ?>>Permanente</option>
+					<option value="temporal" <?php if($proyecto['DURACION']=='temporal'){ echo 'selected'; } ?>>Temporal</option>
+				</select>
+			</div>
+			<div class="collapse" id="formulario_duracion_proyecto">
+				<div class="form-group">
+					<label for="FechaEntrega">Fecha Entrega</label>
+					<input type="text" class="form-control datepicker" name="FechaEntrega" value="<?php if(!empty($proyecto['FECHA_ENTREGA'])){ echo date('d-m-Y', strtotime($proyecto['FECHA_ENTREGA'])); } ?>">
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="ProyectoDescripcion">Descripción</label>
 				<textarea name="ProyectoDescripcion" class="form-control" rows="8"><?php echo $proyecto['PROYECTO_DESCRIPCION'] ?></textarea>
 			</div>
 			<div class="row">
 				<?php
-				$colores = array('indigo', 'blue', 'indigo','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','primary','secondary','success','info','warning','danger','light','dark');
+				$colores = array('primary','indigo', 'blue','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','light','dark');
 				?>
 				<?php foreach($colores as $color){ ?>
 				<div class="col-2 col-md-1 p-1">
@@ -60,43 +74,21 @@
 			<h6>Agregar equipos</h6>
 			<?php
 				$equipos = $this->GeneralModel->lista('equipos','',['ESTADO'=>'activo'],'','','');
-				$equipos_proyectos = $this->GeneralModel->lista('equipos_usuarios','',['ID_EQUIPO'=>$equipo['ID_EQUIPO']],'','','');
-				$usuarios_asignados = array();
-				foreach($equipos_usuarios as $seleccion){
-					$usuarios_asignados[] = $seleccion->ID_USUARIO;
+				$equipos_proyectos = $this->GeneralModel->lista('equipos_proyectos','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'','','');
+				$equipos_asignados = array();
+				foreach($equipos_proyectos as $seleccion){
+					$equipos_asignados[] = $seleccion->ID_EQUIPO;
 				}
-				?>
+			?>
 			<ul class="list-group">
-				<?php foreach($usuarios as $usuario){ ?>
+				<?php foreach($equipos as $equipo){ ?>
 				<li  class="list-group-item text-dark">
 						<label class="form-check-label" >
-							<input type="checkbox" class="" name="EquiposUsuarios[]"
-							value="<?php echo $usuario->ID_USUARIO; ?>"
-							<?php if(in_array($usuario->ID_USUARIO,$usuarios_asignados)){ echo "checked"; } ?>
+							<input type="checkbox" class="" name="ProyectoEquipos[]"
+							value="<?php echo $equipo->ID_EQUIPO; ?>"
+							<?php if(in_array($equipo->ID_EQUIPO,$equipos_asignados)){ echo "checked"; } ?>
 							>
-							<?php echo $usuario->USUARIO_NOMBRE.''.$usuario->USUARIO_APELLIDOS; ?></label>
-				</li>
-			<?php } ?>
-			</ul>
-			<hr>
-			<h6>Agregar usuarios</h6>
-			<?php
-				$usuarios = $this->GeneralModel->lista('usuarios','',['ESTADO'=>'activo'],'','','');
-				$equipos_usuarios = $this->GeneralModel->lista('equipos_usuarios','',['ID_EQUIPO'=>$equipo['ID_EQUIPO']],'','','');
-				$usuarios_asignados = array();
-				foreach($equipos_usuarios as $seleccion){
-					$usuarios_asignados[] = $seleccion->ID_USUARIO;
-				}
-				?>
-			<ul class="list-group">
-				<?php foreach($usuarios as $usuario){ ?>
-				<li  class="list-group-item text-dark">
-						<label class="form-check-label" >
-							<input type="checkbox" class="" name="EquiposUsuarios[]"
-							value="<?php echo $usuario->ID_USUARIO; ?>"
-							<?php if(in_array($usuario->ID_USUARIO,$usuarios_asignados)){ echo "checked"; } ?>
-							>
-							<?php echo $usuario->USUARIO_NOMBRE.''.$usuario->USUARIO_APELLIDOS; ?></label>
+							<?php echo $equipo->EQUIPO_NOMBRE; ?></label>
 				</li>
 			<?php } ?>
 			</ul>
@@ -129,3 +121,4 @@
 		</div>
 	</div>
 </form>
+</div>

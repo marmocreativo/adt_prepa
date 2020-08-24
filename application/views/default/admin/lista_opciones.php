@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <form action="<?php echo base_url('admin/opciones') ?>" method="post" enctype="multipart/form-data">
 <div class="row  mb-4">
 	<div class="col-8">
@@ -67,3 +68,4 @@
 	</div>
 </div>
 </form>
+</div>

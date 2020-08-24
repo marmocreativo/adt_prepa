@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	<!-- Main CSS -->
-	<link href="<?php echo base_url('assets/css/'); ?>bootstrap.css" rel="stylesheet"/>
+	<link href="<?php echo base_url('assets/css/'); ?>bootstrap.css?v=<?php echo date('i'); ?>" rel="stylesheet"/>
 
 	<!-- Animation CSS -->
 	<link href="<?php echo base_url('assets/css/'); ?>animate.css" rel="stylesheet"/>
@@ -40,20 +40,24 @@
 		<script src="<?php echo base_url('assets/plugins/tinymce-bootstrap-plugin'); ?>/plugin/plugin.min.js"></script>
 
 	<!-- Custom CSS -->
-	<link href="<?php echo base_url('assets/css/'); ?>estilos.css" rel="stylesheet"/>
+	<link href="<?php echo base_url('assets/css/'); ?>estilos.css?v=<?php echo date('i'); ?>" rel="stylesheet"/>
 
 </head>
 <body>
 	<div class="load-screen bg-secondary"><div class="lds-dual-ring"></div></div>
 
     <div class="wrapper">
-        <!-- Sidebar  -->
-	        <nav id="sidebar" class="bg-primary active">
+			<!-- Sidebar  -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+
             <div class="sidebar-header">
                 <a class="navbar-brand" href="<?php echo base_url(); ?>"><img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" alt="" class="img-fluid"></a>
             </div>
-						<?php $this->load->view('default'.$dispositivo.'/admin/widgets/menu_principal'); ?>
 
+            <?php $this->load->view('default'.$dispositivo.'/admin/widgets/menu_principal'); ?>
         </nav>
 
       <!-- Page Content  -->

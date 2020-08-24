@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <form action="<?php echo base_url('admin/tipos/crear') ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Identificador" value="<?php echo $opcion['ID']; ?>">
 	<div class="row mb-4">
@@ -25,3 +26,4 @@
 		</div>
 	</div>
 </form>
+</div>

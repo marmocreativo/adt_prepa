@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <div class="row  mb-4">
 	<div class="col-12 col-md-8">
 		<h3>Proyectos</h3>
@@ -12,66 +13,52 @@
 <div class="row mb-4">
 	<div class="col">
 		<?php retro_alimentacion(); ?>
-		<form class="form-inline float-right" action="<?php echo base_url('admin/proyectos'); ?>" method="get" enctype="multipart/form-data">
-			<input type="hidden" name="tipo" value="<?php echo $tipo; ?>">
-			<div class="form-group mr-2">
-				<select class="form-control" name="orden">
-					<option value="">Ordenar por</option>
-					<option value="PROYECTO_NOMBRE ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='PROYECTO_NOMBRE ASC'){ echo 'selected'; } ?>>Alfabético A-Z</option>
-					<option value="PROYECTO_NOMBRE DESC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='PROYECTO_NOMBRE DESC'){ echo 'selected'; } ?>>Alfabético Z-A</option>
-					<option value="ORDEN ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='ORDEN ASC'){ echo 'selected'; } ?>>Orden Personalizado</option>
-				</select>
-			</div>
-			<div class="form-group mr-2">
-				<select class="form-control" name="mostrar_por_pagina">
-					<option value="">mostrar por página</option>
-					<option value="<?php echo $op['cantidad_publicaciones_por_pagina'] ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina'] ?></option>
-					<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*2; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*2){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*2; ?></option>
-					<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*5; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*5){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*5; ?></option>
-					<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*10; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*10){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*10; ?></option>
-				</select>
-			</div>
-			<div class="form-group mr-2">
-				<input type="text" class="form-control" name="busqueda" value="<?php echo verificar_variable('GET','busqueda',''); ?>" placeholder="Buscar">
-			</div>
-			<button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i> </button>
-
-		</form>
+		<div class="collapse" id="formulario_orden">
+			<form class="" action="<?php echo base_url('admin/proyectos'); ?>" method="get" enctype="multipart/form-data">
+				<input type="hidden" name="tipo" value="<?php echo $tipo; ?>">
+				<div class="form-group mr-2">
+					<select class="form-control" name="orden">
+						<option value="">Ordenar por</option>
+						<option value="PROYECTO_NOMBRE ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='PROYECTO_NOMBRE ASC'){ echo 'selected'; } ?>>Alfabético A-Z</option>
+						<option value="PROYECTO_NOMBRE DESC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='PROYECTO_NOMBRE DESC'){ echo 'selected'; } ?>>Alfabético Z-A</option>
+						<option value="ORDEN ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='ORDEN ASC'){ echo 'selected'; } ?>>Orden Personalizado</option>
+					</select>
+				</div>
+				<div class="form-group mr-2">
+					<select class="form-control" name="mostrar_por_pagina">
+						<option value="">mostrar por página</option>
+						<option value="<?php echo $op['cantidad_publicaciones_por_pagina'] ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina'] ?></option>
+						<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*2; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*2){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*2; ?></option>
+						<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*5; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*5){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*5; ?></option>
+						<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*10; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*10){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*10; ?></option>
+					</select>
+				</div>
+				<div class="form-group mr-2">
+					<input type="text" class="form-control" name="busqueda" value="<?php echo verificar_variable('GET','busqueda',''); ?>" placeholder="Buscar">
+				</div>
+				<button type="submit" class="btn btn-primary btn-block"> <i class="fa fa-search"></i> </button>
+			</form>
+		</div>
+		<a class="btn btn-light btn-block mt-3" data-toggle="collapse" href="#formulario_orden" role="button" aria-expanded="false" aria-controls="formulario_orden"> + Filtrar y ordenar </a>
 	</div>
 </div>
 <div class="row">
 	<div class="col">
 		<div class="row mb-3 ui-sortable">
 			<?php foreach($proyectos as $proyecto){ ?>
-			<div class="col-12" id="item-<?php echo $proyecto->ID_PROYECTO; ?>" class="ui-sortable-handle">
-				<div class="card equipo">
-					<div class="card-body  bg-<?php echo $proyecto->COLOR; ?> p-3">
-								<p class="h6 text-white"><img src="<?php echo base_url('contenido/img/proyectos/'.$proyecto->IMAGEN); ?>" class="rounded-circle float-left mr-2" width="50"><?php echo $proyecto->PROYECTO_NOMBRE; ?></p>
-					</div>
-					<?php if($proyecto->ESTADO!='papelera'){ ?>
-					<div class="card-footer py-1">
-						<div class="row">
-							<div class="col-4 p-2">
-								<?php if($proyecto->ESTADO=='activo'){ ?>
-								<a href="<?php echo base_url('admin/proyectos/activar')."?id=".$proyecto->ID_PROYECTO."&estado=".$proyecto->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-success"> <span class="fa fa-check-circle"></span> </a>
-							<?php } ?>
-							<?php if($proyecto->ESTADO=='inactivo'){ ?>
-								<a href="<?php echo base_url('admin/proyectos/activar')."?id=".$proyecto->ID_PROYECTO."&estado=".$proyecto->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> <span class="fa fa-times-circle"></span> </a>
-							<?php } ?>
-							<?php if($proyecto->ESTADO=='papelera'){ ?>
-								<a href="<?php echo base_url('admin/proyectos/activar')."?id=".$proyecto->ID_PROYECTO."&estado=inactivo&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> Restaurar </a>
-							<?php } ?>
-							</div>
-							<div class="col-4 p-2">
-								<a href="<?php echo base_url('admin/proyectos/actualizar?id='.$proyecto->ID_PROYECTO."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-sm btn-block btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
-							</div>
-							<div class="col-4 p-2">
-								<button data-enlace='<?php echo base_url('admin/proyectos/borrar?id='.$proyecto->ID_PROYECTO."&consulta=".base64_encode(json_encode($consulta))); ?>' class="btn btn-sm btn-danger btn-block borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
-							</div>
+			<div class="col-12 col-sm-6 col-md-4">
+				<a href="<?php echo base_url('admin/proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
+					<div class="card">
+						<div class="card-body">
+							<h2 class="h6 text-<?php echo $proyecto->COLOR; ?>"><?php echo $proyecto->PROYECTO_NOMBRE; ?></h2>
+							<span class="badge bg-<?php echo $proyecto->COLOR; ?>"><?php echo $proyecto->DURACION; ?></span>
+						</div>
+						<div class="card-footer">
+							<span class="float-left"> <i class="fa fa-check-square"></i> <?php echo $proyecto->ESTADO; ?></span>
+							<span class="float-right"> <i class="fa fa-calendar"></i> <?php echo $proyecto->FECHA_ENTREGA; ?></span>
 						</div>
 					</div>
-					<?php } ?>
-				</div>
+				</a>
 			</div>
 			<?php } ?>
 		</div>
@@ -104,4 +91,5 @@
 		</div>
 		<?php } ?>
 	</div>
+</div>
 </div>

@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <div class="row  mb-4">
 	<div class="col-12 col-md-8">
 		<h3>Titulo</h3>
@@ -16,4 +17,5 @@
 	<div class="col">
 		Listado
 	</div>
+</div>
 </div>

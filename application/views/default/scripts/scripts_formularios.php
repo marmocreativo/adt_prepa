@@ -279,5 +279,21 @@ function cargar_municipios(){
     });
   }
 
+  // PANELES COLAPSABLES
+  if ( $( "#seleccionar_duracion_proyecto" ).length ) {
+    $('#seleccionar_duracion_proyecto').on('change', function(e){
+      var duracion = $(this).val();
+      switch (duracion) {
+        case 'permanente':
+        $('#formulario_duracion_proyecto').addClass('collapse');
+          break;
+        case 'temporal':
+        $('#formulario_duracion_proyecto').removeClass('collapse');
+          break;
+
+      }
+    });
+  }
+
 
 </script>

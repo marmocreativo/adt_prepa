@@ -277,8 +277,8 @@ class Admin_Proyectos extends CI_Controller {
 			if(!empty($_FILES['ImagenFondo']['name'])){
 
 				$archivo = $_FILES['ImagenFondo']['tmp_name'];
-				$ancho = $this->data['op']['ancho_imagenes_publicaciones'];
-				$alto = $this->data['op']['alto_imagenes_publicaciones'];
+				$ancho = '1920';
+				$alto = '1080';
 				$corte = 'corte';
 				$extension = '.jpg';
 				$tipo_imagen = 'image/jpeg';
@@ -293,11 +293,11 @@ class Admin_Proyectos extends CI_Controller {
 			}
 
 
-
 			$parametros = array(
 				'PROYECTO_NOMBRE' =>  $this->input->post('ProyectoNombre'),
 				'URL' =>  $this->input->post('Url'),
 				'PROYECTO_DESCRIPCION' =>  $this->input->post('ProyectoDescripcion'),
+				'DURACION' =>  $this->input->post('ProyectoDuracion'),
 				'IMAGEN' => $imagen,
 				'IMAGEN_FONDO' => $imagen_fondo,
 				'COLOR' =>  $this->input->post('ProyectoColor'),
@@ -305,6 +305,10 @@ class Admin_Proyectos extends CI_Controller {
 				'ESTADO' =>  $this->input->post('Estado'),
 				'ORDEN' =>  $this->input->post('Orden'),
 			);
+
+			if(!null==$this->input->post('FechaEntrega')){
+				$parametros['FECHA_ENTREGA'] = date('Y-m-d',strtotime($this->input->post('FechaEntrega')));
+			}
 
       $this->GeneralModel->actualizar('proyectos',['ID_PROYECTO'=>$this->input->post('Identificador')],$parametros);
 
@@ -324,6 +328,21 @@ class Admin_Proyectos extends CI_Controller {
 				}
 			}
 
+			// USUARIOS
+			// Borro las categorías existentes
+			$this->GeneralModel->borrar('equipos_proyectos',['ID_PROYECTO'=>$this->input->post('Identificador')]);
+
+			if(isset($_POST['ProyectoEquipos'])&&!empty($_POST['ProyectoEquipos'])){
+				foreach($_POST['ProyectoEquipos'] as $equipo){
+					$parametros = array(
+						'ID_EQUIPO' => $equipo,
+						'ID_PROYECTO' => $this->input->post('Identificador')
+		      );
+					// Creo la relación de categorías
+		      $this->GeneralModel->crear('equipos_proyectos',$parametros);
+				}
+			}
+
 			// Mensaje Feedback
 			$this->session->set_flashdata('exito', 'Proyecto actualizado correctamente');
 			//  Redirecciono
@@ -331,8 +350,11 @@ class Admin_Proyectos extends CI_Controller {
 				case 'Continuar':
 					redirect(base_url('admin/proyectos/actualizar?id='.$this->input->post('Identificador').'&consulta='.$_GET['consulta']));
 					break;
-				default:
+				case 'Lista':
 					redirect(base_url('admin/proyectos?tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
+					break;
+				default:
+					redirect(base_url('admin/proyectos/detalles?id='.$this->input->post('Identificador')));
 					break;
 			}
 
@@ -351,6 +373,40 @@ class Admin_Proyectos extends CI_Controller {
 			$this->load->view($this->data['vista'],$this->data);
 			$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
 		}
+
+	}
+	public function detalles()
+	{
+
+		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
+		$this->data['tipo'] = $this->data['equipo']['TIPO'];
+		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'equipo'],'','','');
+		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+		$this->data['tareas_agrupadas'] = $this->GeneralModel->lista_join('tareas','','',['ID_PROYECTO'=>$this->data['proyecto']['ID_PROYECTO']],'FECHA_ENTREGA ASC','','','FECHA_ENTREGA');
+		// Reviso la vista especializada
+		$this->data['vista'] = vista_especializada('default'.$this->data['dispositivo'],'/admin/','detalles_','proyectos','_'.$this->data['tipo']);
+
+		// Cargo Vistas
+		$this->load->view('default'.$this->data['dispositivo'].'/admin/header_principal',$this->data);
+		$this->load->view($this->data['vista'],$this->data);
+		$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
+
+	}
+	public function equipos()
+	{
+
+		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
+		$this->data['tipo'] = $this->data['equipo']['TIPO'];
+		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'equipo'],'','','');
+		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+		$this->data['equipos'] = $this->GeneralModel->lista_join('equipos_proyectos',['equipos'=>'equipos_proyectos.ID_EQUIPO = equipos.ID_EQUIPO'],'',['equipos_proyectos.ID_PROYECTO'=>$this->data['proyecto']['ID_PROYECTO'],'equipos.ESTADO'=>'activo'],'equipos.EQUIPO_NOMBRE ASC','','','');
+		// Reviso la vista especializada
+		$this->data['vista'] = vista_especializada('default'.$this->data['dispositivo'],'/admin/','equipos_','proyectos','_'.$this->data['tipo']);
+
+		// Cargo Vistas
+		$this->load->view('default'.$this->data['dispositivo'].'/admin/header_principal',$this->data);
+		$this->load->view($this->data['vista'],$this->data);
+		$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
 
 	}
 	public function activar()

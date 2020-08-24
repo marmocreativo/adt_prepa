@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <div class="row  mb-4">
 	<div class="col-12 col-md-8">
 		<h3>Tareas</h3>
@@ -116,4 +117,5 @@
 		</div>
 		<?php } ?>
 	</div>
+</div>
 </div>

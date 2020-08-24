@@ -4,6 +4,7 @@
 				<?php retro_alimentacion(); ?>
 			<form class="border rounded p-5" action="<?php echo base_url('login/iniciar_sesion');?>" method="post">
 				<input type="hidden" name="UrlRedirect" value="<?php echo verificar_variable('GET','url_redirect',''); ?>">
+				<img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" alt="" class="img-fluid">
 				<h3 class="mb-4 text-center">Inicia Sesión</h3>
 				<div class="form-group">
 					<label for="UsuarioCorreo"> Correo</label>

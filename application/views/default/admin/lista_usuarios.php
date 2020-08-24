@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <div class="row  mb-4">
 	<div class="col-12 col-md-8">
 		<h3>Usuarios | <?php echo $tipo; ?></h3>
@@ -109,4 +110,5 @@
 		</div>
 		<?php } ?>
 	</div>
+</div>
 </div>

@@ -1,3 +1,4 @@
+<div class="contenido_principal">
 <form action="<?php echo base_url('admin/tareas/actualizar') ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Identificador" value="<?php echo $opcion['ID']; ?>">
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
@@ -38,7 +39,7 @@
 			</div>
 			<div class="row">
 				<?php
-				$colores = array('indigo', 'blue', 'indigo','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','primary','secondary','success','info','warning','danger','light','dark');
+				$colores = array('primary','indigo', 'blue','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','light','dark');
 				?>
 				<?php foreach($colores as $color){ ?>
 				<div class="col-3 col-sm-2 col-md-1">
@@ -81,3 +82,4 @@
 		</div>
 	</div>
 </form>
+</div>

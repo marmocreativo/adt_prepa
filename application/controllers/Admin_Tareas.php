@@ -187,45 +187,25 @@ class Admin_Tareas extends CI_Controller {
 
 	public function crear()
 	{
+		$this->form_validation->set_rules('TareaTitulo', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
+		$this->form_validation->set_rules('FechaEntrega', 'Fecha de Entrega', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
 
-		if(isset($_GET['consulta'])&&!empty($_GET['consulta'])){
-			$consulta = json_decode(base64_decode($_GET['consulta']));
-		}else{
-				$consulta->tipo = '';
-				$consulta->orden = '';
-				$consulta->mostrar_por_pagina = '';
-				$consulta->pagina = '';
-				$consulta->busqueda = '';
+		if($this->form_validation->run())
+    {
+				$parametros = array(
+					'ID_PROYECTO' => $this->input->post('IdProyecto'),
+					'TAREA_TITULO' => $this->input->post('TareaTitulo'),
+					'TAREA_DESCRIPCION' => $this->input->post('TareaDescripcion'),
+					'FECHA_ENTREGA' => date('Y-m-d',strtotime($this->input->post('FechaEntrega'))),
+					'TIPO' => $this->input->post('Tipo'),
+					'ESTADO' => $this->input->post('Estado')
+				);
+				$tarea_id = $this->GeneralModel->crear('tareas',$parametros);
+
+				$this->session->set_flashdata('exito', 'Tarea creada correctamente');
+				redirect(base_url('admin/proyectos/detalles?id='.$this->input->post('IdProyecto')));
 		}
 
-		$id_borrador = generador_aleatorio(4);
-
-		$parametros = array(
-			'TAREA_TITULO' => 'Tarea '.$id_borrador,
-			'URL' => 'borrador-'.$id_borrador,
-			'TAREA_DESCRIPCION' => '',
-			'TIPO' => $this->input->get('tipo'),
-			'ESTADO' => 'inactivo',
-			'ORDEN' => 0,
-		);
-		$tarea_id = $this->GeneralModel->crear('tareas',$parametros);
-
-		//Meta autor
-		$parametros_meta = array(
-			'ID_OBJETO'=>$tarea_id,
-			'DATO_NOMBRE'=>'meta_autor',
-			'DATO_VALOR'=>$_SESSION['usuario']['nombre'].' '.$_SESSION['usuario']['apellidos'],
-			'TIPO_OBJETO'=>'equipo',
-		);
-
-		$this->GeneralModel->crear('meta_datos',$parametros_meta);
-
-		// Reenvio consulta
-		$consulta = base64_encode(json_encode($consulta));
-
-
-		$this->session->set_flashdata('exito', 'Borrador creado correctamente');
-		redirect(base_url('admin/tareas/actualizar?id='.$tarea_id.'&consulta='.$consulta));
 	}
 	public function actualizar()
 	{
