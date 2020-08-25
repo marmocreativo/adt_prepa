@@ -66,7 +66,7 @@ class Autenticacion extends CI_Controller {
 						redirect($this->input->post('UrlRedirect'));
 					}else{
 						// Redirecciono al panel del usuario
-						redirect(base_url('usuarios'));
+						redirect(base_url(''));
 					}
 				}
 			}else{
