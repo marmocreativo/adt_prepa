@@ -383,6 +383,7 @@ class Admin_Proyectos extends CI_Controller {
 		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'equipo'],'','','');
 		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
 		$this->data['tareas_agrupadas'] = $this->GeneralModel->lista_join('tareas','','',['ID_PROYECTO'=>$this->data['proyecto']['ID_PROYECTO']],'FECHA_ENTREGA ASC','','','FECHA_ENTREGA');
+		$this->data['equipos'] = $this->GeneralModel->lista_join('equipos_proyectos',['equipos'=>'equipos_proyectos.ID_EQUIPO = equipos.ID_EQUIPO'],'',['equipos_proyectos.ID_PROYECTO'=>$this->data['proyecto']['ID_PROYECTO'],'equipos.ESTADO'=>'activo'],'equipos.EQUIPO_NOMBRE ASC','','','');
 		// Reviso la vista especializada
 		$this->data['vista'] = vista_especializada('default'.$this->data['dispositivo'],'/admin/','detalles_','proyectos','_'.$this->data['tipo']);
 

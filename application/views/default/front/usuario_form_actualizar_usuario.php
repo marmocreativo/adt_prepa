@@ -21,7 +21,7 @@
 		</div>
 	</div>
 	<div class="row mb-4">
-		<div class="col-12 col-md-8">
+		<div class="col-12 col-md-3">
 			<hr>
 				<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN']); ?>" alt="" class="img-fluid mx-auto mb-2">
 				<div class="form-group">
@@ -34,6 +34,8 @@
 				<label for="ImagenFondo">Imágen Fondo <small class="text-danger"> Peso Máximo (<?php echo ini_get('upload_max_filesize'); ?>)</small></label>
 				<input type="file" class="form-control" name="ImagenFondo" value="" accept="image/*">
 			</div>
+		</div>
+		<div class="col-12 col-md-4">
 			<div class="form-group">
 				<label for="UsuarioNombre">Nombre</label>
 				<input type="text" class="form-control" name="UsuarioNombre" value="<?php echo $usuario['USUARIO_NOMBRE']; ?>" required>
@@ -59,25 +61,13 @@
 				<label for="UsuarioTelefono">Teléfono</label>
 				<input type="text" class="form-control" name="UsuarioTelefono" value="<?php echo $usuario['USUARIO_TELEFONO']; ?>">
 			</div>
-			<div class="row">
-				<?php
-				$colores = array('primary','indigo', 'blue','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','light','dark');
-				?>
-				<?php foreach($colores as $color){ ?>
-				<div class="col-2 col-md-1 p-1">
-					<label for="UsuarioColor<?php echo $color; ?>" title="<?php echo $color; ?>">
-					<div class="card">
-						<div class="card-body bg-<?php echo $color; ?>">
-						</div>
-						<div class="card-footer">
-							<input  type="radio" name="UsuarioColor" id="UsuarioColor<?php echo $color; ?>" value="<?php echo $color; ?>" <?php if($usuario['COLOR']==$color){ echo 'checked'; } ?>>
-						</div>
-					</div>
-					</label>
-				</div>
-			<?php } ?>
+			<div class="form-group">
+				<label for="UsuarioFechaNacimiento">Fecha Nacimiento</label>
+				<input type="text" class="form-control datepicker" name="UsuarioFechaNacimiento" value="<?php echo date('d-m-Y', strtotime($usuario['USUARIO_FECHA_NACIMIENTO'])); ?>">
 			</div>
-			<hr>
+			<input type="hidden" name="FechaRegistro" value="<?php echo date('d-m-Y'); ?>">
+		</div>
+		<div class="col-12 col-md-4">
 			<h6>Equipos del usuario</h6>
 			<?php
 				$equipos = $this->GeneralModel->lista('equipos','',['ESTADO'=>'activo'],'','','');
@@ -99,14 +89,24 @@
 				</li>
 			<?php } ?>
 			</ul>
-			<hr>
-		</div>
-		<div class="col-12 col-md-4">
-			<div class="form-group">
-				<label for="UsuarioFechaNacimiento">Fecha Nacimiento</label>
-				<input type="text" class="form-control datepicker" name="UsuarioFechaNacimiento" value="<?php echo date('d-m-Y', strtotime($usuario['USUARIO_FECHA_NACIMIENTO'])); ?>">
+			<div class="row">
+				<?php
+				$colores = array('indigo', 'blue','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','dark');
+				?>
+				<?php foreach($colores as $color){ ?>
+				<div class="col-2 col-md-2 p-1">
+					<label for="UsuarioColor<?php echo $color; ?>" title="<?php echo $color; ?>">
+					<div class="card">
+						<div class="card-body bg-<?php echo $color; ?>">
+						</div>
+						<div class="card-footer">
+							<input  type="radio" name="UsuarioColor" id="UsuarioColor<?php echo $color; ?>" value="<?php echo $color; ?>" <?php if($usuario['COLOR']==$color){ echo 'checked'; } ?>>
+						</div>
+					</div>
+					</label>
+				</div>
+			<?php } ?>
 			</div>
-			<input type="hidden" name="FechaRegistro" value="<?php echo date('d-m-Y'); ?>">
 		</div>
 	</div>
 	<div class="row">
