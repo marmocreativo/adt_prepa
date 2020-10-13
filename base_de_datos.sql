@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-08-2020 a las 15:31:43
+-- Tiempo de generación: 13-10-2020 a las 21:24:21
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.2.31
 
@@ -20,6 +20,58 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `adt_prepa`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `archivos`
+--
+
+CREATE TABLE `archivos` (
+  `ID_ARCHIVO` int(11) NOT NULL,
+  `ARCHIVO_NOMBRE` varchar(255) NOT NULL,
+  `ARCHIVO_NOMENCLATURA` varchar(255) NOT NULL,
+  `ARCHIVO_DESCRIPCION` text NOT NULL,
+  `KEYWORDS` text NOT NULL,
+  `LENGUAJE` varchar(255) NOT NULL DEFAULT 'es',
+  `ARCHIVO_ETIQUETAS` text NOT NULL,
+  `VERSION_ACTUAL` int(11) NOT NULL DEFAULT 1,
+  `ARCHIVO_URL` varchar(255) NOT NULL,
+  `EDITABLE_URL` varchar(255) NOT NULL,
+  `EXTENCION_ARCHIVO` varchar(255) NOT NULL,
+  `EXTENCION_EDITABLE` varchar(255) NOT NULL DEFAULT '.zip',
+  `FECHA_CREACION` timestamp NULL DEFAULT NULL,
+  `FECHA_ACTUALIZACION` timestamp NOT NULL DEFAULT current_timestamp(),
+  `TIPO` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `archivos_carpetas`
+--
+
+CREATE TABLE `archivos_carpetas` (
+  `ID` int(11) NOT NULL,
+  `ID_ARCHIVO` int(11) NOT NULL,
+  `ID_CARPETA` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carpetas`
+--
+
+CREATE TABLE `carpetas` (
+  `ID_CARPETA` int(11) NOT NULL,
+  `CARPETA_NOMBRE` varchar(255) NOT NULL,
+  `CARPETA_NOMENCLATURA` varchar(255) NOT NULL,
+  `URL` varchar(255) NOT NULL,
+  `CARPETA_PADRE` int(11) NOT NULL,
+  `VISIBLE` varchar(255) NOT NULL DEFAULT 'visible',
+  `ESTADO` varchar(255) NOT NULL DEFAULT 'activo'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -81,7 +133,8 @@ CREATE TABLE `equipos` (
 
 INSERT INTO `equipos` (`ID_EQUIPO`, `EQUIPO_NOMBRE`, `URL`, `EQUIPO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `COLOR`, `TIPO`, `ESTADO`, `ORDEN`) VALUES
 (1, 'Equipo RREA', 'equipo-rrea', 'Pequeña descripción del equipo', 'default.jpg', 'fondo_default.jpg', 'pink', 'general', 'activo', 0),
-(2, 'Equipo 97D3', 'borrador-97D3', '', 'default.jpg', 'fondo_default.jpg', 'green', 'general', 'activo', 1);
+(2, 'Equipo 97D3', 'borrador-97D3', '', 'default.jpg', 'fondo_default.jpg', 'green', 'general', 'activo', 1),
+(3, 'Equipo 44VS', 'borrador-44VS', '', 'default.jpg', 'fondo_default.jpg', 'primary', 'general', 'inactivo', 0);
 
 -- --------------------------------------------------------
 
@@ -119,10 +172,10 @@ CREATE TABLE `equipos_usuarios` (
 --
 
 INSERT INTO `equipos_usuarios` (`ID_EQUIPO`, `ID_USUARIO`, `ROL_USUARIO`) VALUES
-(2, '5c0653d43d92e7.75019474', 'miembro'),
 (2, '5f400801858cd8.64544354', 'miembro'),
+(1, '5f400557ec9b74.36456554', 'miembro'),
 (1, '5c0653d43d92e7.75019474', 'miembro'),
-(1, '5f400557ec9b74.36456554', 'miembro');
+(2, '5c0653d43d92e7.75019474', 'miembro');
 
 -- --------------------------------------------------------
 
@@ -163,9 +216,10 @@ INSERT INTO `meta_datos` (`ID_OBJETO`, `DATO_NOMBRE`, `DATO_VALOR`, `TIPO_OBJETO
 ('0', 'meta_autor', 'Manuel Marmolejo Martínez', 'equipo'),
 ('5f400557ec9b74.36456554', 'secreto', 'RGJX6F', 'usuario'),
 ('5f400801858cd8.64544354', 'secreto', 'GX3TW3', 'usuario'),
-('5c0653d43d92e7.75019474', 'secreto', '5K79WU', 'usuario'),
 ('0', 'meta_autor', 'Manuel Marmolejo Martínez', 'equipo'),
 ('2', 'autor', 'Manuel Marmolejo Martínez', 'equipo'),
+('3', 'meta_autor', 'Manuel Marmolejo Martínez', 'equipo'),
+('5c0653d43d92e7.75019474', 'secreto', 'J66CL7', 'usuario'),
 ('1', 'autor', 'Manuel Marmolejo Martínez', 'equipo');
 
 -- --------------------------------------------------------
@@ -270,7 +324,7 @@ CREATE TABLE `proyectos` (
 --
 
 INSERT INTO `proyectos` (`ID_PROYECTO`, `PROYECTO_NOMBRE`, `URL`, `PROYECTO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `DURACION`, `FECHA_INICIO`, `FECHA_FINAL`, `FECHA_ENTREGA`, `COLOR`, `TIPO`, `ESTADO`, `ORDEN`) VALUES
-(1, 'Proyecto permanente', 'proyecto-permanente', '', 'default.jpg', 'fondo_default.jpg', 'temporal', NULL, NULL, '2020-08-29', 'yellow', 'general', 'activo', 0);
+(1, 'Proyecto permanente', 'proyecto-permanente', 'Esta es la descripción del proyecto', 'default.jpg', 'fondo_default.jpg', 'temporal', NULL, NULL, '2020-08-29', 'yellow', 'general', 'activo', 0);
 
 -- --------------------------------------------------------
 
@@ -370,7 +424,6 @@ INSERT INTO `tipos` (`ID`, `TIPO_NOMBRE`, `TIPO_NOMBRE_SINGULAR`, `TIPO_NOMBRE_P
 (21, 'enlace', 'Enlace', 'Enlaces', 'multimedia'),
 (22, 'youtube', 'Youtube', 'Youtube', 'multimedia'),
 (23, 'general', 'General', 'Generales', 'proyectos'),
-(24, 'matriz', 'Matriz', 'Matrices', 'proyectos'),
 (25, 'general', 'General', 'Generales', 'equipos'),
 (26, 'general', 'General', 'Generales', 'tareas');
 
@@ -405,7 +458,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`ID_USUARIO`, `ID_SOCIAL`, `SOCIAL_LOGIN`, `USUARIO_NOMBRE`, `USUARIO_APELLIDOS`, `USUARIO_CORREO`, `USUARIO_TELEFONO`, `USUARIO_FECHA_NACIMIENTO`, `IMAGEN`, `IMAGEN_FONDO`, `COLOR`, `USUARIO_PASSWORD`, `USUARIO_LISTA_DE_CORREO`, `FECHA_REGISTRO`, `FECHA_ACTUALIZACION`, `TIPO`, `ESTADO`) VALUES
-('5c0653d43d92e7.75019474', '', '', 'Manuel', 'Marmolejo Martínez', 'marmocreativo@gmail.com', '5523995604 ', '1989-04-18', 'equipo-5f4359ee04313.jpg', 'usuario-5f435a9e5ba50.jpg', 'orange', '$2y$10$DbFvC2gsgQG3aODXsp0a4OUN1ERS.XFFE1pe/RTDkncia0ynhuBHy', 'si', '2019-01-01 06:00:00', '2020-08-24 13:35:41', 'administrador', 'activo'),
+('5c0653d43d92e7.75019474', '', '', 'Manuel', 'Marmolejo Martínez', 'marmocreativo@gmail.com', '5523995604 ', '1970-01-01', 'equipo-5f4359ee04313.jpg', 'usuario-5f435a9e5ba50.jpg', 'orange', '$2y$10$DbFvC2gsgQG3aODXsp0a4OUN1ERS.XFFE1pe/RTDkncia0ynhuBHy', 'no', '2019-01-01 06:00:00', '2020-09-09 10:57:47', 'administrador', 'activo'),
 ('5f400557ec9b74.36456554', '', '', 'Fulanito', 'Pérez', 'stmarmo@hotmail.com', '55555555', '1970-01-01', 'default.jpg', 'fondo_default.jpg', 'primary', '$2y$10$vPreFxNk1ZQayykVTFFBBOcIK8rp.R6xGOSDsx92AHR.nyYRL2CvK', 'si', '2020-08-22 00:33:12', '2020-08-22 00:33:12', 'usuario', 'activo'),
 ('5f400801858cd8.64544354', '', '', 'Sutanito', 'Jonaz', 'prueba1@correo.com', '222222', '1970-01-01', 'default.jpg', 'fondo_default.jpg', 'primary', '$2y$10$gpL/rYnNfgnKy.LTalzAMOyVO7XXQqqYBkAwINStN3C1SCBIw.j1O', 'si', '2020-08-22 00:44:33', '2020-08-22 00:44:33', 'usuario', 'activo');
 
@@ -451,6 +504,24 @@ CREATE TABLE `usuarios_tarea` (
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `archivos`
+--
+ALTER TABLE `archivos`
+  ADD PRIMARY KEY (`ID_ARCHIVO`);
+
+--
+-- Indices de la tabla `archivos_carpetas`
+--
+ALTER TABLE `archivos_carpetas`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `carpetas`
+--
+ALTER TABLE `carpetas`
+  ADD PRIMARY KEY (`ID_CARPETA`);
 
 --
 -- Indices de la tabla `categorias`
@@ -536,6 +607,24 @@ ALTER TABLE `usuarios_seguridad`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `archivos`
+--
+ALTER TABLE `archivos`
+  MODIFY `ID_ARCHIVO` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `archivos_carpetas`
+--
+ALTER TABLE `archivos_carpetas`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `carpetas`
+--
+ALTER TABLE `carpetas`
+  MODIFY `ID_CARPETA` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
@@ -545,7 +634,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `ID_EQUIPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_EQUIPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `galerias`
