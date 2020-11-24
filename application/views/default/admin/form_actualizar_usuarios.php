@@ -43,6 +43,10 @@
 				<input type="text" class="form-control" name="UsuarioApellidos" value="<?php echo $usuario['USUARIO_APELLIDOS']; ?>" >
 			</div>
 			<div class="form-group">
+				<label for="Meta['curriculum']">Curriculum</label>
+				<input type="text" class="form-control" name="Meta['curriculum']" value="<?php if(isset($meta_datos['curriculum'])){ echo $meta_datos['curriculum']; } ?>" >
+			</div>
+			<div class="form-group">
 				<label for="UsuarioCorreo">Correo</label>
 				<input type="text" class="form-control" name="UsuarioCorreo" value="<?php echo $usuario['USUARIO_CORREO']; ?>" required autocomplete="new-password">
 			</div>
