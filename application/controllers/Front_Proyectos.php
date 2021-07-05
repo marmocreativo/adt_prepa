@@ -68,7 +68,6 @@ class Front_Proyectos extends CI_Controller {
 		// Asignar a equipo
 
 		if(isset($_GET['id_equipo'])){
-			//Meta autor
 			$parametros_meta = array(
 				'ID_EQUIPO'=>$_GET['id_equipo'],
 				'ID_PROYECTO'=>$proyecto_id
@@ -184,7 +183,7 @@ class Front_Proyectos extends CI_Controller {
 						'ID_OBJETO'=>$this->input->post('Identificador'),
 						'DATO_NOMBRE'=>$nombre,
 						'DATO_VALOR'=>$valor,
-						'TIPO_OBJETO'=>'equipo',
+						'TIPO_OBJETO'=>'proyecto',
 					);
 					// Creo las entradas a la galeria
 					$this->GeneralModel->crear('meta_datos',$parametros_meta);
@@ -208,35 +207,54 @@ class Front_Proyectos extends CI_Controller {
 
 			// Mensaje Feedback
 			$this->session->set_flashdata('exito', 'Proyecto actualizado correctamente');
-			//  Redirecciono
-			switch ($this->input->post('Guardar')) {
-				case 'Continuar':
-					redirect(base_url('admin/proyectos/actualizar?id='.$this->input->post('Identificador').'&consulta='.$_GET['consulta']));
-					break;
-				case 'Lista':
-					redirect(base_url('admin/proyectos?tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
-					break;
-				default:
-					redirect(base_url('admin/proyectos/detalles?id='.$this->input->post('Identificador')));
-					break;
-			}
 
+			redirect(base_url('proyectos/detalles?id='.$this->input->post('Identificador')));
 
     }else{
 
 			$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
-			$this->data['tipo'] = $this->data['equipo']['TIPO'];
+			$this->data['tipo'] = $this->data['proyecto']['TIPO'];
+			// Open Tags
+			$this->data['titulo']  = $this->data['proyecto']['PROYECTO_NOMBRE'];
+			$this->data['descripcion']  = $this->data['proyecto']['PROYECTO_DESCRIPCION'];
+			$this->data['imagen']  = base_url('contenido/img/equipos/'.$this->data['proyecto']['IMAGEN']);
+
 			$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'equipo'],'','','');
 			$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
-			// Reviso la vista especializada
-			$this->data['vista'] = vista_especializada('default'.$this->data['dispositivo'],'/admin/','form_actualizar_','proyectos','_'.$this->data['tipo']);
 
-			// Cargo Vistas
-			$this->load->view('default'.$this->data['dispositivo'].'/admin/header_principal',$this->data);
-			$this->load->view($this->data['vista'],$this->data);
-			$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_form_actualizar_proyectos',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 		}
 
+	}
+	public function detalles(){
+		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
+		$this->data['tipo'] = $this->data['proyecto']['TIPO'];
+		// Open Tags
+		$this->data['titulo']  = $this->data['proyecto']['PROYECTO_NOMBRE'];
+		$this->data['descripcion']  = $this->data['proyecto']['PROYECTO_DESCRIPCION'];
+		$this->data['imagen']  = base_url('contenido/img/proyectos/'.$this->data['proyecto']['IMAGEN']);
+
+		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'proyecto'],'','','');
+		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+
+		// Variables de busqueda
+		$parametros_and = array();
+		$parametros_or = array();
+
+		$parametros_and['tareas.ID_PROYECTO'] = $_GET['id'];
+
+		$tablas_join = array();
+
+
+		// Consulta
+		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'FECHA_INICIO ASC','','','');
+
+		// Cargo Vistas
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_detalles_proyecto',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 
 }

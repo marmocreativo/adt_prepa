@@ -307,7 +307,7 @@ class Front_Equipos extends CI_Controller {
 		$parametros_and = array();
 		$parametros_or = array();
 
-		$parametros_and['proyectos.ESTADO'] = 'activo';
+		$parametros_and['proyectos.ESTADO !='] = 'borrador';
 
 		$tablas_join = array();
 		$tablas_join['equipos_proyectos'] = 'equipos_proyectos.ID_PROYECTO = proyectos.ID_PROYECTO';
@@ -318,7 +318,7 @@ class Front_Equipos extends CI_Controller {
 		$this->data['pub_totales'] = $this->GeneralModel->conteo('proyectos',$tablas_join,$parametros_or,$parametros_and,'');
 
 		// Consulta
-		$this->data['proyectos'] = $this->GeneralModel->lista_join('proyectos',$tablas_join,$parametros_or,$parametros_and,'FECHA_INICIO','','','');
+		$this->data['proyectos'] = $this->GeneralModel->lista_join('proyectos',$tablas_join,$parametros_or,$parametros_and,'FECHA_INICIO ASC','','','');
 
 		// Cargo Vistas
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);

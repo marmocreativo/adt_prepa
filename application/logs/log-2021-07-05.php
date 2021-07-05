@@ -176,3 +176,335 @@ ERROR - 2021-07-05 06:36:17 --> Query error: Column 'TIPO' cannot be null - Inva
 ERROR - 2021-07-05 06:36:41 --> Query error: Column 'TIPO' cannot be null - Invalid query: INSERT INTO `proyectos` (`PROYECTO_NOMBRE`, `URL`, `PROYECTO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `TIPO`, `ESTADO`, `ORDEN`) VALUES ('Proyecto 2PVZ', 'borrador-2PVZ', '', 'default.jpg', 'fondo_default.jpg', NULL, 'activo', 0)
 ERROR - 2021-07-05 06:36:58 --> Severity: Notice --> Undefined variable: consulta D:\xampp\htdocs\adt_prepa\application\controllers\Front_Proyectos.php 91
 ERROR - 2021-07-05 06:36:58 --> 404 Page Not Found: Front_Proyectos/actualizar
+ERROR - 2021-07-05 07:47:49 --> Severity: Notice --> Undefined variable: consulta D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_proyectos.php 76
+ERROR - 2021-07-05 07:47:49 --> Severity: Notice --> Undefined variable: proyectos D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_proyectos.php 115
+ERROR - 2021-07-05 07:47:49 --> Severity: Warning --> Invalid argument supplied for foreach() D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_proyectos.php 115
+ERROR - 2021-07-05 07:47:49 --> Severity: Notice --> Undefined variable: cantidad_paginas D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_proyectos.php 132
+ERROR - 2021-07-05 07:47:55 --> Severity: Notice --> Undefined variable: consulta D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_tareas.php 45
+ERROR - 2021-07-05 07:47:55 --> Severity: Notice --> Undefined variable: tareas D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_tareas.php 93
+ERROR - 2021-07-05 07:47:55 --> Severity: Warning --> Invalid argument supplied for foreach() D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_tareas.php 93
+ERROR - 2021-07-05 07:47:55 --> Severity: Notice --> Undefined variable: cantidad_paginas D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_tareas.php 127
+ERROR - 2021-07-05 07:47:58 --> Severity: Notice --> Undefined variable: consulta D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_proyectos.php 76
+ERROR - 2021-07-05 07:47:58 --> Severity: Notice --> Undefined variable: proyectos D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_proyectos.php 115
+ERROR - 2021-07-05 07:47:58 --> Severity: Warning --> Invalid argument supplied for foreach() D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_proyectos.php 115
+ERROR - 2021-07-05 07:47:58 --> Severity: Notice --> Undefined variable: cantidad_paginas D:\xampp\htdocs\adt_prepa\application\views\default\front\front_lista_proyectos.php 132
+ERROR - 2021-07-05 07:48:03 --> 404 Page Not Found: Equpos/detalles
+ERROR - 2021-07-05 08:10:58 --> Severity: Notice --> Undefined variable: consulta D:\xampp\htdocs\adt_prepa\application\controllers\Front_Proyectos.php 90
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined index: equipo D:\xampp\htdocs\adt_prepa\application\controllers\Front_Proyectos.php 216
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\controllers\Front_Proyectos.php 216
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: titulo D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 8
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: titulo D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 13
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: descripcion D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 14
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: imagen D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 15
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: titulo D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 84
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 4
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 4
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 9
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 9
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 33
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 33
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 37
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 37
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 41
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 41
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 65
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 65
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 89
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 89
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 93
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 93
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 99
+ERROR - 2021-07-05 08:10:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 99
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: titulo D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 8
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: titulo D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 13
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: descripcion D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 14
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: imagen D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 15
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: titulo D:\xampp\htdocs\adt_prepa\application\views\default\front\headers\header_principal.php 84
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 4
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 4
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 9
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 9
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 33
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 33
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 37
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 37
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 41
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 41
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 65
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 65
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 89
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 89
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 93
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 93
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 99
+ERROR - 2021-07-05 08:11:23 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 99
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 4
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 4
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 9
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 9
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 33
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 33
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 37
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 37
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 41
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 41
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 54
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 65
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 65
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 89
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 89
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 93
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 93
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 99
+ERROR - 2021-07-05 08:11:59 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 99
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 3
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 3
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 5
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 5
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 31
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 31
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 36
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 36
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 40
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 40
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 64
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 64
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 87
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 87
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 92
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 92
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 98
+ERROR - 2021-07-05 08:12:33 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 98
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 3
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 3
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 5
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 5
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 6
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 7
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 8
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 31
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 31
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 32
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 36
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 36
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 40
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 40
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 53
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 64
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 64
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 87
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 87
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 88
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 92
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 92
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Undefined variable: equipo D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 98
+ERROR - 2021-07-05 08:12:56 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 98
+ERROR - 2021-07-05 08:15:45 --> 404 Page Not Found: Admin/proyectos
+ERROR - 2021-07-05 08:16:18 --> Severity: Warning --> Creating default object from empty value D:\xampp\htdocs\adt_prepa\application\controllers\Front_Proyectos.php 107
+ERROR - 2021-07-05 08:16:18 --> 404 Page Not Found: Front_Proyectos/detalles
+ERROR - 2021-07-05 08:21:42 --> Severity: Notice --> Undefined index: equipo D:\xampp\htdocs\adt_prepa\application\controllers\Front_Proyectos.php 237
+ERROR - 2021-07-05 08:21:42 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\controllers\Front_Proyectos.php 237
+ERROR - 2021-07-05 08:23:30 --> Severity: error --> Exception: syntax error, unexpected ')' D:\xampp\htdocs\adt_prepa\application\views\default\front\front_detalles_proyecto.php 10

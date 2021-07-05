@@ -43,7 +43,7 @@
 	<div class="row">
 		<?php foreach($equipos as $equipo){ ?>
 		<div class="col-12 col-md-2">
-			<a href="<?php echo base_url('equpos/detalles?id='.$equipo->ID_EQUIPO); ?>">
+			<a href="<?php echo base_url('equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
 				<div class="equipo card card-body mb-3">
 					<h3 class="h5"><?php echo $equipo->EQUIPO_NOMBRE; ?></h3>
 					<p># Proyectos activos</p>
