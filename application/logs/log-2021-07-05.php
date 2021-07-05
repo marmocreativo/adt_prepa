@@ -171,3 +171,8 @@ ERROR - 2021-07-05 05:20:32 --> Severity: Notice --> Trying to access array offs
 ERROR - 2021-07-05 05:20:32 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 93
 ERROR - 2021-07-05 05:20:32 --> Severity: Notice --> Trying to access array offset on value of type null D:\xampp\htdocs\adt_prepa\application\views\default\front\front_form_actualizar_equipos.php 99
 ERROR - 2021-07-05 05:22:22 --> 404 Page Not Found: Front_Equipos/detalles
+ERROR - 2021-07-05 06:36:17 --> Severity: Warning --> Creating default object from empty value D:\xampp\htdocs\adt_prepa\application\controllers\Front_Proyectos.php 55
+ERROR - 2021-07-05 06:36:17 --> Query error: Column 'TIPO' cannot be null - Invalid query: INSERT INTO `proyectos` (`PROYECTO_NOMBRE`, `URL`, `PROYECTO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `TIPO`, `ESTADO`, `ORDEN`) VALUES ('Proyecto Z4RA', 'borrador-Z4RA', '', 'default.jpg', 'fondo_default.jpg', NULL, 'activo', 0)
+ERROR - 2021-07-05 06:36:41 --> Query error: Column 'TIPO' cannot be null - Invalid query: INSERT INTO `proyectos` (`PROYECTO_NOMBRE`, `URL`, `PROYECTO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `TIPO`, `ESTADO`, `ORDEN`) VALUES ('Proyecto 2PVZ', 'borrador-2PVZ', '', 'default.jpg', 'fondo_default.jpg', NULL, 'activo', 0)
+ERROR - 2021-07-05 06:36:58 --> Severity: Notice --> Undefined variable: consulta D:\xampp\htdocs\adt_prepa\application\controllers\Front_Proyectos.php 91
+ERROR - 2021-07-05 06:36:58 --> 404 Page Not Found: Front_Proyectos/actualizar

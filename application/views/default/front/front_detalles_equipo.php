@@ -2,6 +2,7 @@
 	<div class="d-flex justify-content-between">
 		<div class="titulo">
 				<h2>Proyectos del equipo</h2>
+				<?php var_dump($proyectos); ?>
 		</div>
 		<div class="formulario">
 			<a href="<?php echo base_url('proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
