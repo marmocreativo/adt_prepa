@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2020 a las 21:24:21
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.2.31
+-- Tiempo de generación: 05-07-2021 a las 07:04:48
+-- Versión del servidor: 10.4.13-MariaDB
+-- Versión de PHP: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,58 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `adt_prepa`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `archivos`
---
-
-CREATE TABLE `archivos` (
-  `ID_ARCHIVO` int(11) NOT NULL,
-  `ARCHIVO_NOMBRE` varchar(255) NOT NULL,
-  `ARCHIVO_NOMENCLATURA` varchar(255) NOT NULL,
-  `ARCHIVO_DESCRIPCION` text NOT NULL,
-  `KEYWORDS` text NOT NULL,
-  `LENGUAJE` varchar(255) NOT NULL DEFAULT 'es',
-  `ARCHIVO_ETIQUETAS` text NOT NULL,
-  `VERSION_ACTUAL` int(11) NOT NULL DEFAULT 1,
-  `ARCHIVO_URL` varchar(255) NOT NULL,
-  `EDITABLE_URL` varchar(255) NOT NULL,
-  `EXTENCION_ARCHIVO` varchar(255) NOT NULL,
-  `EXTENCION_EDITABLE` varchar(255) NOT NULL DEFAULT '.zip',
-  `FECHA_CREACION` timestamp NULL DEFAULT NULL,
-  `FECHA_ACTUALIZACION` timestamp NOT NULL DEFAULT current_timestamp(),
-  `TIPO` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `archivos_carpetas`
---
-
-CREATE TABLE `archivos_carpetas` (
-  `ID` int(11) NOT NULL,
-  `ID_ARCHIVO` int(11) NOT NULL,
-  `ID_CARPETA` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `carpetas`
---
-
-CREATE TABLE `carpetas` (
-  `ID_CARPETA` int(11) NOT NULL,
-  `CARPETA_NOMBRE` varchar(255) NOT NULL,
-  `CARPETA_NOMENCLATURA` varchar(255) NOT NULL,
-  `URL` varchar(255) NOT NULL,
-  `CARPETA_PADRE` int(11) NOT NULL,
-  `VISIBLE` varchar(255) NOT NULL DEFAULT 'visible',
-  `ESTADO` varchar(255) NOT NULL DEFAULT 'activo'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -134,7 +82,8 @@ CREATE TABLE `equipos` (
 INSERT INTO `equipos` (`ID_EQUIPO`, `EQUIPO_NOMBRE`, `URL`, `EQUIPO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `COLOR`, `TIPO`, `ESTADO`, `ORDEN`) VALUES
 (1, 'Equipo RREA', 'equipo-rrea', 'Pequeña descripción del equipo', 'default.jpg', 'fondo_default.jpg', 'pink', 'general', 'activo', 0),
 (2, 'Equipo 97D3', 'borrador-97D3', '', 'default.jpg', 'fondo_default.jpg', 'green', 'general', 'activo', 1),
-(3, 'Equipo 44VS', 'borrador-44VS', '', 'default.jpg', 'fondo_default.jpg', 'primary', 'general', 'inactivo', 0);
+(3, 'Equipo 44VS', 'borrador-44VS', '', 'default.jpg', 'fondo_default.jpg', 'primary', 'general', 'inactivo', 0),
+(4, 'Equipo de prueba', 'equipo-de-prueba', '', 'default.jpg', 'fondo_default.jpg', 'primary', 'general', 'activo', 0);
 
 -- --------------------------------------------------------
 
@@ -153,7 +102,8 @@ CREATE TABLE `equipos_proyectos` (
 
 INSERT INTO `equipos_proyectos` (`ID_EQUIPO`, `ID_PROYECTO`) VALUES
 (1, 1),
-(2, 1);
+(2, 1),
+(4, 2);
 
 -- --------------------------------------------------------
 
@@ -172,10 +122,7 @@ CREATE TABLE `equipos_usuarios` (
 --
 
 INSERT INTO `equipos_usuarios` (`ID_EQUIPO`, `ID_USUARIO`, `ROL_USUARIO`) VALUES
-(2, '5f400801858cd8.64544354', 'miembro'),
-(1, '5f400557ec9b74.36456554', 'miembro'),
-(1, '5c0653d43d92e7.75019474', 'miembro'),
-(2, '5c0653d43d92e7.75019474', 'miembro');
+(4, '5c0653d43d92e7.75019474', 'miembro');
 
 -- --------------------------------------------------------
 
@@ -220,7 +167,9 @@ INSERT INTO `meta_datos` (`ID_OBJETO`, `DATO_NOMBRE`, `DATO_VALOR`, `TIPO_OBJETO
 ('2', 'autor', 'Manuel Marmolejo Martínez', 'equipo'),
 ('3', 'meta_autor', 'Manuel Marmolejo Martínez', 'equipo'),
 ('5c0653d43d92e7.75019474', 'secreto', 'J66CL7', 'usuario'),
-('1', 'autor', 'Manuel Marmolejo Martínez', 'equipo');
+('1', 'autor', 'Manuel Marmolejo Martínez', 'equipo'),
+('4', 'autor', 'Manuel Marmolejo Martínez', 'equipo'),
+('2', 'meta_autor', 'Manuel Marmolejo Martínez', 'proyectos');
 
 -- --------------------------------------------------------
 
@@ -324,7 +273,8 @@ CREATE TABLE `proyectos` (
 --
 
 INSERT INTO `proyectos` (`ID_PROYECTO`, `PROYECTO_NOMBRE`, `URL`, `PROYECTO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `DURACION`, `FECHA_INICIO`, `FECHA_FINAL`, `FECHA_ENTREGA`, `COLOR`, `TIPO`, `ESTADO`, `ORDEN`) VALUES
-(1, 'Proyecto permanente', 'proyecto-permanente', 'Esta es la descripción del proyecto', 'default.jpg', 'fondo_default.jpg', 'temporal', NULL, NULL, '2020-08-29', 'yellow', 'general', 'activo', 0);
+(1, 'Proyecto permanente', 'proyecto-permanente', 'Esta es la descripción del proyecto', 'default.jpg', 'fondo_default.jpg', 'temporal', NULL, NULL, '2020-08-29', 'yellow', 'general', 'activo', 0),
+(2, 'Proyecto IWCF', 'Proyecto-IWCF', '', 'default.jpg', 'fondo_default.jpg', 'permanente', NULL, NULL, NULL, 'primary', 'general', 'activo', 0);
 
 -- --------------------------------------------------------
 
@@ -383,7 +333,9 @@ CREATE TABLE `tareas` (
   `FECHA_ENTREGA` date DEFAULT NULL,
   `TAREA_TITULO` varchar(255) NOT NULL,
   `TAREA_DESCRIPCION` text NOT NULL,
-  `TAREA_ENLACE` varchar(255) NOT NULL,
+  `TAREA_ENLACE_ENTREGABLE` varchar(255) NOT NULL,
+  `TAREA_ENLACE_EDITABLES` varchar(255) NOT NULL,
+  `PRIORIDAD` varchar(255) NOT NULL DEFAULT 'media',
   `COLOR` varchar(255) NOT NULL DEFAULT 'primary',
   `TIPO` varchar(255) NOT NULL DEFAULT 'general',
   `ESTADO` varchar(255) NOT NULL DEFAULT 'pendiente'
@@ -393,10 +345,25 @@ CREATE TABLE `tareas` (
 -- Volcado de datos para la tabla `tareas`
 --
 
-INSERT INTO `tareas` (`ID_TAREA`, `ID_PROYECTO`, `ID_TAREA_PADRE`, `ID_USUARIO`, `TAREA_DIA_COMPLETO`, `FECHA_INICIO`, `FECHA_FINAL`, `FECHA_ENTREGA`, `TAREA_TITULO`, `TAREA_DESCRIPCION`, `TAREA_ENLACE`, `COLOR`, `TIPO`, `ESTADO`) VALUES
-(4, 1, NULL, NULL, 'si', '2020-08-24 12:13:40', NULL, '2020-08-25', 'Tarea de ejemplo', '', '', 'primary', 'general', 'pendiente'),
-(5, 1, NULL, NULL, 'si', '2020-08-24 12:13:54', NULL, '2020-08-25', 'Otra tarea', 'asdasd', '', 'primary', 'general', 'pendiente'),
-(6, 1, NULL, NULL, 'si', '2020-08-24 12:14:06', NULL, '2020-08-26', 'Otra tarea 2', 'asadasdsad', '', 'primary', 'general', 'pendiente');
+INSERT INTO `tareas` (`ID_TAREA`, `ID_PROYECTO`, `ID_TAREA_PADRE`, `ID_USUARIO`, `TAREA_DIA_COMPLETO`, `FECHA_INICIO`, `FECHA_FINAL`, `FECHA_ENTREGA`, `TAREA_TITULO`, `TAREA_DESCRIPCION`, `TAREA_ENLACE_ENTREGABLE`, `TAREA_ENLACE_EDITABLES`, `PRIORIDAD`, `COLOR`, `TIPO`, `ESTADO`) VALUES
+(4, 1, NULL, NULL, 'si', '2020-08-24 12:13:40', NULL, '2020-08-25', 'Tarea de ejemplo', '', '', '', 'media', 'primary', 'general', 'pendiente'),
+(5, 1, NULL, NULL, 'si', '2020-08-24 12:13:54', NULL, '2020-08-25', 'Otra tarea', 'asdasd', '', '', 'media', 'primary', 'general', 'pendiente'),
+(6, 1, NULL, NULL, 'si', '2020-08-24 12:14:06', NULL, '2020-08-26', 'Otra tarea 2', 'asadasdsad', '', '', 'media', 'primary', 'general', 'pendiente');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tareas_mensajes`
+--
+
+CREATE TABLE `tareas_mensajes` (
+  `ID` int(11) NOT NULL,
+  `ID_TAREA` int(11) NOT NULL,
+  `MENSAJE` text NOT NULL,
+  `FECHA_REGISTRO` datetime NOT NULL DEFAULT current_timestamp(),
+  `ENLACE` varchar(255) NOT NULL,
+  `ADJUNTO` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -490,10 +457,10 @@ CREATE TABLE `usuarios_seguridad` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios_tarea`
+-- Estructura de tabla para la tabla `usuarios_tareas`
 --
 
-CREATE TABLE `usuarios_tarea` (
+CREATE TABLE `usuarios_tareas` (
   `ID_USUARIO` varchar(255) NOT NULL,
   `ID_TAREA` varchar(255) NOT NULL,
   `USUARIO_ASIGNACION` varchar(255) NOT NULL DEFAULT 'produccion',
@@ -504,24 +471,6 @@ CREATE TABLE `usuarios_tarea` (
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `archivos`
---
-ALTER TABLE `archivos`
-  ADD PRIMARY KEY (`ID_ARCHIVO`);
-
---
--- Indices de la tabla `archivos_carpetas`
---
-ALTER TABLE `archivos_carpetas`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `carpetas`
---
-ALTER TABLE `carpetas`
-  ADD PRIMARY KEY (`ID_CARPETA`);
 
 --
 -- Indices de la tabla `categorias`
@@ -584,6 +533,12 @@ ALTER TABLE `tareas`
   ADD PRIMARY KEY (`ID_TAREA`);
 
 --
+-- Indices de la tabla `tareas_mensajes`
+--
+ALTER TABLE `tareas_mensajes`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indices de la tabla `tipos`
 --
 ALTER TABLE `tipos`
@@ -607,24 +562,6 @@ ALTER TABLE `usuarios_seguridad`
 --
 
 --
--- AUTO_INCREMENT de la tabla `archivos`
---
-ALTER TABLE `archivos`
-  MODIFY `ID_ARCHIVO` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `archivos_carpetas`
---
-ALTER TABLE `archivos_carpetas`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `carpetas`
---
-ALTER TABLE `carpetas`
-  MODIFY `ID_CARPETA` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
@@ -634,7 +571,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `ID_EQUIPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_EQUIPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `galerias`
@@ -664,7 +601,7 @@ ALTER TABLE `opciones`
 -- AUTO_INCREMENT de la tabla `proyectos`
 --
 ALTER TABLE `proyectos`
-  MODIFY `ID_PROYECTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_PROYECTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `publicaciones`
@@ -683,6 +620,12 @@ ALTER TABLE `reacciones`
 --
 ALTER TABLE `tareas`
   MODIFY `ID_TAREA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `tareas_mensajes`
+--
+ALTER TABLE `tareas_mensajes`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tipos`
