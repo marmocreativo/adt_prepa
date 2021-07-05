@@ -19,7 +19,7 @@
 						<select class="form-control" name="orden">
 							<option value="">Ordenar por</option>
 							<option value="ORDEN ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='ORDEN ASC'){ echo 'selected'; } ?>>Orden Personalizado</option>
-							<option value="EQUIPO_NOMBRE ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='PUBLICACION_TITULO ASC'){ echo 'selected'; } ?>>Alfabético A-Z</option>
+							<option value="EQUIPO_NOMBRE ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='EQUIPO_NOMBRE ASC'){ echo 'selected'; } ?>>Alfabético A-Z</option>
 						</select>
 				</div>
 				<div class="col">

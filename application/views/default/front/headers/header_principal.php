@@ -72,6 +72,11 @@
 		        </a>
 		      </li>
 					<li class="nav-item">
+		        <a href="<?php echo base_url('lista_usuarios'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		         	<i class="fas fa-user fa-lg"></i> <span class="etiqueta_menu">Usuarios</span>
+		        </a>
+		      </li>
+					<li class="nav-item">
 		        <a href="<?php echo base_url('opciones'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
 		         	<i class="fas fa-cogs fa-lg"></i> <span class="etiqueta_menu">Opciones</span>
 		        </a>

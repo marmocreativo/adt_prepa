@@ -164,39 +164,31 @@ if ( ! function_exists('retro_alimentacion'))
       */
       if(!null==$CI->session->flashdata()){
         if(isset($_SESSION['alerta'])){
-            echo '<div class="alert alert-danger alert-dismissible">';
-            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>';
+            echo '<div class="alert alert-danger alert-dismissible fade show">';
             echo '<h5 class="alert-heading"><i class="fa fa-exclamation-triangle"></i> ';
             echo $_SESSION['alerta'].'</h5>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
             echo '</div> <hr>';
         }
         if(isset($_SESSION['advertencia'])){
-            echo '<div class="alert alert-warning alert-dismissible">';
-            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>';
+            echo '<div class="alert alert-warning alert-dismissible fade show">';
             echo '<h5 class="alert-heading"><i class="fa fa-exclamation-circle"></i> ';
             echo $_SESSION['advertencia'].'</h5>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
             echo '</div> <hr>';
         }
         if(isset($_SESSION['exito'])){
-            echo '<div class="alert alert-success alert-dismissible">';
-            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>';
+            echo '<div class="alert alert-success alert-dismissible fade show">';
             echo '<h5 class="alert-heading"><i class="fa fa-check-circle"></i> ';
             echo $_SESSION['exito'].'</h5>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
             echo '</div> <hr>';
         }
         if(isset($_SESSION['mensaje'])){
-            echo '<div class="alert alert-secondary alert-dismissible">';
-            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>';
+            echo '<div class="alert alert-secondary alert-dismissible fade show">';
             echo '<h5 class="alert-heading"><i class="fa fa-info-circle"></i> ';
             echo $_SESSION['mensaje'].'</h5>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
             echo '</div> <hr>';
         }
       }

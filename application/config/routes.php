@@ -54,6 +54,8 @@ $route['proyectos'] = 'Front_Proyectos';
 $route['proyectos/(:any)'] = 'Front_Proyectos/$1';
 $route['tareas'] = 'Front_Tareas';
 $route['tareas/(:any)'] = 'Front_Tareas/$1';
+$route['lista_usuarios'] = 'Front_Usuarios';
+$route['lista_usuarios/(:any)'] = 'Front_Usuarios/$1';
 /*
 | -------------------------------------------------------------------------
 | RUTAS USUARIOS

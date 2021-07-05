@@ -7,18 +7,19 @@
 			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
 			<ul class="list-group">
+				<?php foreach($tareas as $tarea){ ?>
 			  <li class="list-group-item">
-			    <i class="fas fa-check-square text-success"></i>
-			    Nombre de la tarea
+					<a href="<?php echo base_url('tareas/detalles?id='.$tarea->ID_TAREA); ?>">
+				    <i class="fas fa-check-square text-success"></i>
+				    <?php echo $tarea->TAREA_TITULO; ?>
+					</a>
 			  </li>
-				<li class="list-group-item">
-			    <i class="fas fa-square text-light"></i>
-			    Nombre de la tarea
-			  </li>
+			<?php } ?>
 			</ul>
 		</div>
 		<div class="col-8">
 			<div class="detalles_tarea">
+				<!--
 				<h3>Nombre de la tarea</h3>
 				<p>Fecha Creación: <b>04/07/2021</b></p>
 				<p>Fecha Final: <b>04/07/2021</b></p>
@@ -29,6 +30,7 @@
 				<img src="<?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" width="50px" class="rounded-circle" alt="">
 				<img src="<?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" width="50px" class="rounded-circle" alt="">
 				<img src="<?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" width="50px" class="rounded-circle" alt="">
+			-->
 			</div>
 		</div>
 	</div>

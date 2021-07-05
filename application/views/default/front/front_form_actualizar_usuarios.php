@@ -1,5 +1,5 @@
 <div class="contenido_principal">
-<form action="<?php echo base_url('admin/usuarios/actualizar') ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('lista_usuarios/actualizar') ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
 	<input type="hidden" name="Identificador" value="<?php echo $usuario['ID_USUARIO']; ?>">
 	<input type="hidden" name="Tipo" value="<?php echo $usuario['TIPO']; ?>">
@@ -21,19 +21,7 @@
 		</div>
 	</div>
 	<div class="row mb-4">
-		<div class="col-12 col-md-8">
-			<hr>
-				<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN']); ?>" alt="" class="img-fluid mx-auto mb-2">
-				<div class="form-group">
-					<label for="Imagen">Imágen</label>
-					<input type="file" class="form-control" name="Imagen" value="" accept="image/*">
-				</div>
-			<hr>
-			<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN_FONDO']); ?>" alt="" class="img-fluid mx-auto mb-2">
-			<div class="form-group">
-				<label for="ImagenFondo">Imágen Fondo <small class="text-danger"> Peso Máximo (<?php echo ini_get('upload_max_filesize'); ?>)</small></label>
-				<input type="file" class="form-control" name="ImagenFondo" value="" accept="image/*">
-			</div>
+		<div class="col-12 col-md-9">
 			<div class="form-group">
 				<label for="UsuarioNombre">Nombre</label>
 				<input type="text" class="form-control" name="UsuarioNombre" value="<?php echo $usuario['USUARIO_NOMBRE']; ?>" required>
@@ -105,7 +93,19 @@
 			</ul>
 			<hr>
 		</div>
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-md-3">
+			<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN']); ?>" alt="" class="img-fluid mx-auto mb-2">
+			<div class="form-group">
+				<label for="Imagen">Imágen</label>
+				<input type="file" class="form-control" name="Imagen" value="" accept="image/*">
+			</div>
+		<hr>
+		<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN_FONDO']); ?>" alt="" class="img-fluid mx-auto mb-2">
+		<div class="form-group">
+			<label for="ImagenFondo">Imágen Fondo <small class="text-danger"> Peso Máximo (<?php echo ini_get('upload_max_filesize'); ?>)</small></label>
+			<input type="file" class="form-control" name="ImagenFondo" value="" accept="image/*">
+		</div>
+		<hr>
 			<div class="form-group">
 				<label for="Estado">Estado</label>
 				<select class="form-control" name="Estado">

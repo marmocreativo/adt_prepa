@@ -1,6 +1,6 @@
 <div class="contenido_principal">
-<form action="<?php echo base_url('admin/usuarios/crear') ?>" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="Tipo" value="<?php echo $tipo; ?>">
+<form action="<?php echo base_url('usuarios/crear') ?>" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="Tipo" value="usuario">
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
 	<input type="hidden" name="Meta[secreto]" value="<?php if(isset($meta_datos['secreto'])){ echo $meta_datos['secreto']; }else{ echo generador_aleatorio(6); } ?>">
 	<div class="row mb-4">

@@ -101,6 +101,14 @@
 					<option value="inactivo" <?php if($proyecto['ESTADO']=='inactivo'){ echo 'selected'; } ?>>Inactivo</option>
 				</select>
 			</div>
+			<div class="form-group">
+				<label for="FechaInicio">Fecha Inicio (Inicio del proyecto, puede ser una fecha antigua)</label>
+				<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php echo date('d-m-Y'); ?>">
+			</div>
+			<div class="form-group">
+				<label for="FechaFinal">Fecha Final (Dead line)</label>
+				<input type="text" class="form-control datepicker" name="FechaFinal" value="">
+			</div>
 			<hr>
 				<img src="<?php echo base_url('contenido/img/proyectos/'.$proyecto['IMAGEN']); ?>" alt="" class="img-fluid mx-auto mb-2">
 				<div class="form-group">
