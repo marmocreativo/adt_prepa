@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-07-2021 a las 07:04:48
+-- Tiempo de generación: 05-07-2021 a las 13:19:24
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -103,7 +103,9 @@ CREATE TABLE `equipos_proyectos` (
 INSERT INTO `equipos_proyectos` (`ID_EQUIPO`, `ID_PROYECTO`) VALUES
 (1, 1),
 (2, 1),
-(4, 2);
+(4, 2),
+(1, 3),
+(4, 3);
 
 -- --------------------------------------------------------
 
@@ -165,11 +167,12 @@ INSERT INTO `meta_datos` (`ID_OBJETO`, `DATO_NOMBRE`, `DATO_VALOR`, `TIPO_OBJETO
 ('5f400801858cd8.64544354', 'secreto', 'GX3TW3', 'usuario'),
 ('0', 'meta_autor', 'Manuel Marmolejo Martínez', 'equipo'),
 ('2', 'autor', 'Manuel Marmolejo Martínez', 'equipo'),
-('3', 'meta_autor', 'Manuel Marmolejo Martínez', 'equipo'),
 ('5c0653d43d92e7.75019474', 'secreto', 'J66CL7', 'usuario'),
 ('1', 'autor', 'Manuel Marmolejo Martínez', 'equipo'),
 ('4', 'autor', 'Manuel Marmolejo Martínez', 'equipo'),
-('2', 'meta_autor', 'Manuel Marmolejo Martínez', 'proyectos');
+('2', 'meta_autor', 'Manuel Marmolejo Martínez', 'proyectos'),
+('3', 'meta_autor', 'Manuel Marmolejo Martínez', 'proyectos'),
+('3', 'autor', 'Manuel Marmolejo Martínez', 'proyecto');
 
 -- --------------------------------------------------------
 
@@ -262,8 +265,11 @@ CREATE TABLE `proyectos` (
   `FECHA_INICIO` date DEFAULT NULL,
   `FECHA_FINAL` date DEFAULT NULL,
   `FECHA_ENTREGA` date DEFAULT NULL,
+  `ENLACE_ENTREGABLE` varchar(255) DEFAULT NULL,
+  `ENLACE_EDITABLE` varchar(255) DEFAULT NULL,
   `COLOR` varchar(255) NOT NULL DEFAULT 'primary',
   `TIPO` varchar(255) NOT NULL DEFAULT 'general',
+  `PRIORIDAD` varchar(255) NOT NULL DEFAULT 'media',
   `ESTADO` varchar(255) NOT NULL DEFAULT 'activo',
   `ORDEN` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -272,9 +278,10 @@ CREATE TABLE `proyectos` (
 -- Volcado de datos para la tabla `proyectos`
 --
 
-INSERT INTO `proyectos` (`ID_PROYECTO`, `PROYECTO_NOMBRE`, `URL`, `PROYECTO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `DURACION`, `FECHA_INICIO`, `FECHA_FINAL`, `FECHA_ENTREGA`, `COLOR`, `TIPO`, `ESTADO`, `ORDEN`) VALUES
-(1, 'Proyecto permanente', 'proyecto-permanente', 'Esta es la descripción del proyecto', 'default.jpg', 'fondo_default.jpg', 'temporal', NULL, NULL, '2020-08-29', 'yellow', 'general', 'activo', 0),
-(2, 'Proyecto IWCF', 'Proyecto-IWCF', '', 'default.jpg', 'fondo_default.jpg', 'permanente', NULL, NULL, NULL, 'primary', 'general', 'activo', 0);
+INSERT INTO `proyectos` (`ID_PROYECTO`, `PROYECTO_NOMBRE`, `URL`, `PROYECTO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `DURACION`, `FECHA_INICIO`, `FECHA_FINAL`, `FECHA_ENTREGA`, `ENLACE_ENTREGABLE`, `ENLACE_EDITABLE`, `COLOR`, `TIPO`, `PRIORIDAD`, `ESTADO`, `ORDEN`) VALUES
+(1, 'Proyecto permanente', 'proyecto-permanente', 'Esta es la descripción del proyecto', 'default.jpg', 'fondo_default.jpg', 'temporal', NULL, NULL, '2020-08-29', NULL, NULL, 'yellow', 'general', 'media', 'activo', 0),
+(2, 'Proyecto IWCF', 'Proyecto-IWCF', '', 'default.jpg', 'fondo_default.jpg', 'permanente', '2021-07-04', '2021-07-06', NULL, NULL, NULL, 'primary', 'general', 'media', 'activo', 0),
+(3, 'Proyecto de prueba', 'proyecto-de-prueba', '', 'default.jpg', 'fondo_default.jpg', 'permanente', NULL, NULL, NULL, NULL, NULL, 'primary', 'general', 'media', 'activo', 0);
 
 -- --------------------------------------------------------
 
@@ -601,7 +608,7 @@ ALTER TABLE `opciones`
 -- AUTO_INCREMENT de la tabla `proyectos`
 --
 ALTER TABLE `proyectos`
-  MODIFY `ID_PROYECTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_PROYECTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `publicaciones`
