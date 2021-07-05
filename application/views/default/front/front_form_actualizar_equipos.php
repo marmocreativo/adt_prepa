@@ -1,6 +1,6 @@
 <div class="contenido_principal">
 <div class="contenido-principal">
-	<form action="<?php echo base_url('admin/equipos/actualizar') ?>" method="post" enctype="multipart/form-data">
+	<form action="<?php echo base_url('equipos/actualizar') ?>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Identificador" value="<?php echo $equipo['ID_EQUIPO']; ?>">
 		<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
 		<input type="hidden" name="ImagenActual" value="<?php echo $equipo['IMAGEN'] ?>">

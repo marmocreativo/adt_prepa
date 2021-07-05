@@ -1,3 +1,70 @@
+<div class="lista_proyectos">
+	<div class="d-flex">
+		<div class="titulo">
+				<h2>Mis proyectos</h2>
+		</div>
+		<div class="formulario">
+			<form class="row" action="<?php echo base_url('proyectos/busqueda'); ?>" method="get">
+				<div class="col">
+					<input type="text" class="form-control" name="Busqueda" value="<?php echo verificar_variable('GET','Busqueda','Buscar'); ?>">
+				</div>
+				<div class="col">
+					<button type="submit" class="btn btn-primary"> Aplicar </button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="encabezado_lista_proyectos row">
+		<div class="col proyecto_nombre">
+			Nombre
+		</div>
+		<div class="col-1 proyecto_status">
+			Status
+		</div>
+		<div class="col-1 proyecto_prioridad">
+			Prioridad
+		</div>
+		<div class="col-1 proyecto_fecha_inicio">
+			Fecha Inicio
+		</div>
+		<div class="col-1 proyecto_fecha_final">
+			Fecha Entrega
+		</div>
+		<div class="col-1 proyecto_enlace_editables">
+			Editables
+		</div>
+		<div class="col-1 proyecto_enlace_entregable">
+			Entregables
+		</div>
+	</div>
+	<!-- Lista de proyectos -->
+	<div class="proyecto row">
+		<div class="col proyecto_nombre">
+			Nombre
+		</div>
+		<div class="col-1 proyecto_status">
+			A tiempo
+		</div>
+		<div class="col-1 proyecto_prioridad">
+			Urgente
+		</div>
+		<div class="col-1 proyecto_fecha_inicio">
+			04-07-2021
+		</div>
+		<div class="col-1 proyecto_fecha_final">
+			04-08-2021
+		</div>
+		<div class="col-1 proyecto_enlace_editables">
+			<a href="#"><i class="fab fa-google-drive"></i></a>
+		</div>
+		<div class="col-1 proyecto_enlace_entregable">
+			<a href="#"><i class="fas fa-link"></i></a>
+		</div>
+	</div>
+	<!-- /lista de proyectos -->
+
+</div>
+<!--
 <div class="contenido_principal">
 <div class="row  mb-4">
 	<div class="col-12 col-md-8">
@@ -93,3 +160,4 @@
 	</div>
 </div>
 </div>
+-->

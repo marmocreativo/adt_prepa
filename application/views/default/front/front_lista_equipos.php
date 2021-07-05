@@ -1,3 +1,85 @@
+<div class="lista_equipos">
+	<div class="d-flex justify-content-between">
+		<div class="titulo">
+				<h2>Mis equipos</h2>
+		</div>
+		<div class="formulario pl-4">
+			<form class="row" action="<?php echo base_url('equipos'); ?>" method="get">
+				<div class="col">
+					<input type="text" class="form-control" name="busqueda" value="<?php echo verificar_variable('GET','busqueda',''); ?>" placeholder="Buscar">
+				</div>
+				<div class="col">
+						<select class="form-control" name="todo">
+							<option value="">Mostrar</option>
+							<option value="si" <?php if(isset($_GET['todo'])&&$_GET['todo']=='si'){ echo 'selected'; } ?>>Todos los equipos</option>
+							<option value="no" <?php if(isset($_GET['todo'])&&$_GET['todo']=='no'){ echo 'selected'; } ?>>Solo mis equipos</option>
+						</select>
+				</div>
+				<div class="col">
+						<select class="form-control" name="orden">
+							<option value="">Ordenar por</option>
+							<option value="ORDEN ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='ORDEN ASC'){ echo 'selected'; } ?>>Orden Personalizado</option>
+							<option value="EQUIPO_NOMBRE ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='PUBLICACION_TITULO ASC'){ echo 'selected'; } ?>>Alfabético A-Z</option>
+						</select>
+				</div>
+				<div class="col">
+						<select class="form-control" name="mostrar_por_pagina">
+							<option value="">mostrar por página</option>
+							<option value="<?php echo $op['cantidad_publicaciones_por_pagina'] ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina'] ?></option>
+							<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*2; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*2){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*2; ?></option>
+							<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*5; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*5){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*5; ?></option>
+							<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*10; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*10){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*10; ?></option>
+						</select>
+				</div>
+				<div class="col">
+					<button type="submit" class="btn btn-primary"> Aplicar </button>
+				</div>
+			</form>
+		</div>
+		<div class="controles">
+			<a href="<?php echo base_url('equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
+		</div>
+	</div>
+	<div class="row">
+		<?php foreach($equipos as $equipo){ ?>
+		<div class="col-12 col-md-2">
+			<a href="<?php echo base_url('equpos/detalles?id='.$equipo->ID_EQUIPO); ?>">
+				<div class="equipo card card-body mb-3">
+					<h3 class="h5"><?php echo $equipo->EQUIPO_NOMBRE; ?></h3>
+					<p># Proyectos activos</p>
+					<p># Miembros</p>
+				</div>
+			</a>
+		</div>
+		<?php } ?>
+	</div>
+	<?php if($cantidad_paginas>1){ ?>
+	<div class="row justify-content-md-center">
+		<div class="col-2">
+			<a href="<?php echo base_url('equipos?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
+		</div>
+		<div class="col-2">
+			<form class="enviar_enter" action="<?php echo base_url('equipos'); ?>" method="get">
+				<input type="hidden" name="orden" value="<?php echo $consulta['orden'] ?>">
+				<input type="hidden" name="mostrar_por_pagina" value="<?php echo $consulta['mostrar_por_pagina'] ?>">
+				<div class="form-group">
+					<div class="input-group">
+						<input type="number" class="form-control" name="pagina" value="<?php echo $pagina; ?>" min="1" max="<?php echo $cantidad_paginas; ?>">
+						<div class="input-group-append">
+							<span class="input-group-text">/<?php echo $cantidad_paginas; ?></span>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-2">
+			<a href="<?php echo base_url('equipos?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
+		</div>
+	</div>
+	<?php } ?>
+</div>
+
+<!--
 <div class="contenido_principal">
 <div class="row  mb-4">
 	<div class="col-12 col-md-8">
@@ -74,7 +156,7 @@
 								</div>
 							</div>
 						</div>
-						-->
+						- ->
 					</div>
 				</a>
 			</div>
@@ -111,3 +193,4 @@
 	</div>
 </div>
 </div>
+-->

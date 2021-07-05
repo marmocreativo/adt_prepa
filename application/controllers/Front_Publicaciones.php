@@ -11,10 +11,12 @@ class Front_Publicaciones extends CI_Controller {
 		$this->data['op'] = opciones_default();
 
 		// Verifico Sesión
+		/*
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
 			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
+		*/
 
 		// reviso el dispositivo
 		if($this->agent->is_mobile()){
@@ -33,7 +35,7 @@ class Front_Publicaciones extends CI_Controller {
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
 
 		// Open Tags
-		$this->data['titulo']  = $this->data['op']['titulo_sitio'];
+		$this->data['titulo']  = 'Inicio';
 		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
 		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 

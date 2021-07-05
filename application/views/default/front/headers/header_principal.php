@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	<!-- Main CSS -->
-	<link href="<?php echo base_url('assets/css/'); ?>bootstrap.css?v=<?php echo date('i'); ?>" rel="stylesheet"/>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 	<!-- Animation CSS -->
 	<link href="<?php echo base_url('assets/css/'); ?>animate.css" rel="stylesheet"/>
@@ -45,34 +45,63 @@
 </head>
 <body>
 	<div class="load-screen bg-secondary"><div class="lds-dual-ring"></div></div>
-
-    <div class="wrapper">
-			<!-- Sidebar  -->
-        <nav id="sidebar">
-            <div id="dismiss">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-
-            <div class="sidebar-header">
-                <a class="navbar-brand" href="<?php echo base_url(); ?>"><img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" alt="" class="img-fluid"></a>
-            </div>
-
-            <?php $this->load->view('default'.$dispositivo.'/front/widgets/menu_principal'); ?>
-        </nav>
-
-      <!-- Page Content  -->
-      <div id="content">
-          <div class="container-fluid">
-						<div class="row">
-							<div class="col-4 p-0">
-							  <button type="button" id="sidebarCollapse" class="btn btn-primary"> <i class="fas fa-align-justify"></i> </button>
+		<div class="envolvente">
+			<div class="sidebar">
+				<a href="/" class="d-block p-3 link-dark text-decoration-none" title="">
+		      <img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" class="logo_menu" alt="">
+		    </a>
+				<ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+		      <li class="nav-item">
+		        <a href="<?php echo base_url(); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		         	<i class="fas fa-tachometer-alt fa-lg"></i> <span class="etiqueta_menu">Inicio</span>
+		        </a>
+		      </li>
+					<li class="nav-item">
+		        <a href="<?php echo base_url('tareas'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		         	<i class="fas fa-calendar fa-lg"></i> <span class="etiqueta_menu">Tareas</span>
+		        </a>
+		      </li>
+					<li class="nav-item">
+		        <a href="<?php echo base_url('proyectos'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		         	<i class="fas fa-project-diagram fa-lg"></i> <span class="etiqueta_menu">Proyectos</span>
+		        </a>
+		      </li>
+					<li class="nav-item">
+		        <a href="<?php echo base_url('equipos'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		         	<i class="fas fa-users fa-lg"></i> <span class="etiqueta_menu">Equipos</span>
+		        </a>
+		      </li>
+					<li class="nav-item">
+		        <a href="<?php echo base_url('opciones'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		         	<i class="fas fa-cogs fa-lg"></i> <span class="etiqueta_menu">Opciones</span>
+		        </a>
+		      </li>
+		    </ul>
+			</div>
+			<div class="contenedor_principal">
+				<div class="encabezado_principal d-flex justify-content-between">
+					<div class="titulo">
+						<h1 class="h1"><?php echo $titulo; ?></h1>
+					</div>
+					<div class="controles">
+						<form class="row" action="<?php echo base_url(); ?>" method="get">
+							<div class="col">
+								<div class="form-group d-flex">
+									<label for="FechaInicio" class="m-3">del</label>
+									<input type="text" class="form-control form-control-sm datepicker" name="FechaInicio" value="<?php echo verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days'))); ?>">
+								</div>
 							</div>
-							<div class="col-4 text-center p-0">
-								<img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" alt="" width="50" class="">
+							<div class="col">
+								<div class="form-group d-flex">
+									<label for="FechaFInal" class="m-3">al</label>
+									<input type="text" class="form-control form-control-sm datepicker" name="FechaFInal" value="<?php echo verificar_variable('GET','fecha_final',date('d-m-Y')); ?>">
+								</div>
 							</div>
-							<div class="col-4 text-right p-0">
-									<?php $this->load->view($this->data['op']['plantilla'].$dispositivo.'/front/widgets/menu_usuarios'); ?>
+							<div class="col d-grid">
+								<button type="submit" class="btn btn-secondary" name="button"> <i class="fas fa-search"></i> </button>
 							</div>
-						</div>
-          </div>
-					<div class="separador"></div>
+						</form>
+
+					</div>
+				</div>
+			<div class="contenido_principal">
