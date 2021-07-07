@@ -1,5 +1,5 @@
 <div class="estadisticas_generales mb-3">
-	<h2>Estadísticas Generales</h2>
+	<h2>Estadísticas Generales PROBANDO</h2>
 	<div class="row">
 		<div class="col-8">
 			<div class="estadistica_progreso">
