@@ -1,5 +1,6 @@
 <div class="estadisticas_generales mb-3">
 	<h2>Tareas del proyecto</h2>
+	<h5>Esta es una prueba</h5>
 	<div class="p-2">
 		<a href="<?php echo base_url('proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-warning"> <i class="fas fa-pencil-alt"></i> Editar proyecto</a>
 		<!-- Button trigger modal -->
