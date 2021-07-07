@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-07-2021 a las 13:19:24
--- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.8
+-- Tiempo de generación: 05-07-2021 a las 21:14:46
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -75,16 +75,6 @@ CREATE TABLE `equipos` (
   `ORDEN` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `equipos`
---
-
-INSERT INTO `equipos` (`ID_EQUIPO`, `EQUIPO_NOMBRE`, `URL`, `EQUIPO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `COLOR`, `TIPO`, `ESTADO`, `ORDEN`) VALUES
-(1, 'Equipo RREA', 'equipo-rrea', 'Pequeña descripción del equipo', 'default.jpg', 'fondo_default.jpg', 'pink', 'general', 'activo', 0),
-(2, 'Equipo 97D3', 'borrador-97D3', '', 'default.jpg', 'fondo_default.jpg', 'green', 'general', 'activo', 1),
-(3, 'Equipo 44VS', 'borrador-44VS', '', 'default.jpg', 'fondo_default.jpg', 'primary', 'general', 'inactivo', 0),
-(4, 'Equipo de prueba', 'equipo-de-prueba', '', 'default.jpg', 'fondo_default.jpg', 'primary', 'general', 'activo', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -95,17 +85,6 @@ CREATE TABLE `equipos_proyectos` (
   `ID_EQUIPO` int(11) NOT NULL,
   `ID_PROYECTO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `equipos_proyectos`
---
-
-INSERT INTO `equipos_proyectos` (`ID_EQUIPO`, `ID_PROYECTO`) VALUES
-(1, 1),
-(2, 1),
-(4, 2),
-(1, 3),
-(4, 3);
 
 -- --------------------------------------------------------
 
@@ -118,13 +97,6 @@ CREATE TABLE `equipos_usuarios` (
   `ID_USUARIO` varchar(255) NOT NULL,
   `ROL_USUARIO` varchar(255) NOT NULL DEFAULT 'miembro'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `equipos_usuarios`
---
-
-INSERT INTO `equipos_usuarios` (`ID_EQUIPO`, `ID_USUARIO`, `ROL_USUARIO`) VALUES
-(4, '5c0653d43d92e7.75019474', 'miembro');
 
 -- --------------------------------------------------------
 
@@ -274,15 +246,6 @@ CREATE TABLE `proyectos` (
   `ORDEN` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `proyectos`
---
-
-INSERT INTO `proyectos` (`ID_PROYECTO`, `PROYECTO_NOMBRE`, `URL`, `PROYECTO_DESCRIPCION`, `IMAGEN`, `IMAGEN_FONDO`, `DURACION`, `FECHA_INICIO`, `FECHA_FINAL`, `FECHA_ENTREGA`, `ENLACE_ENTREGABLE`, `ENLACE_EDITABLE`, `COLOR`, `TIPO`, `PRIORIDAD`, `ESTADO`, `ORDEN`) VALUES
-(1, 'Proyecto permanente', 'proyecto-permanente', 'Esta es la descripción del proyecto', 'default.jpg', 'fondo_default.jpg', 'temporal', NULL, NULL, '2020-08-29', NULL, NULL, 'yellow', 'general', 'media', 'activo', 0),
-(2, 'Proyecto IWCF', 'Proyecto-IWCF', '', 'default.jpg', 'fondo_default.jpg', 'permanente', '2021-07-04', '2021-07-06', NULL, NULL, NULL, 'primary', 'general', 'media', 'activo', 0),
-(3, 'Proyecto de prueba', 'proyecto-de-prueba', '', 'default.jpg', 'fondo_default.jpg', 'permanente', NULL, NULL, NULL, NULL, NULL, 'primary', 'general', 'media', 'activo', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -347,15 +310,6 @@ CREATE TABLE `tareas` (
   `TIPO` varchar(255) NOT NULL DEFAULT 'general',
   `ESTADO` varchar(255) NOT NULL DEFAULT 'pendiente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tareas`
---
-
-INSERT INTO `tareas` (`ID_TAREA`, `ID_PROYECTO`, `ID_TAREA_PADRE`, `ID_USUARIO`, `TAREA_DIA_COMPLETO`, `FECHA_INICIO`, `FECHA_FINAL`, `FECHA_ENTREGA`, `TAREA_TITULO`, `TAREA_DESCRIPCION`, `TAREA_ENLACE_ENTREGABLE`, `TAREA_ENLACE_EDITABLES`, `PRIORIDAD`, `COLOR`, `TIPO`, `ESTADO`) VALUES
-(4, 1, NULL, NULL, 'si', '2020-08-24 12:13:40', NULL, '2020-08-25', 'Tarea de ejemplo', '', '', '', 'media', 'primary', 'general', 'pendiente'),
-(5, 1, NULL, NULL, 'si', '2020-08-24 12:13:54', NULL, '2020-08-25', 'Otra tarea', 'asdasd', '', '', 'media', 'primary', 'general', 'pendiente'),
-(6, 1, NULL, NULL, 'si', '2020-08-24 12:14:06', NULL, '2020-08-26', 'Otra tarea 2', 'asadasdsad', '', '', 'media', 'primary', 'general', 'pendiente');
 
 -- --------------------------------------------------------
 
@@ -432,9 +386,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`ID_USUARIO`, `ID_SOCIAL`, `SOCIAL_LOGIN`, `USUARIO_NOMBRE`, `USUARIO_APELLIDOS`, `USUARIO_CORREO`, `USUARIO_TELEFONO`, `USUARIO_FECHA_NACIMIENTO`, `IMAGEN`, `IMAGEN_FONDO`, `COLOR`, `USUARIO_PASSWORD`, `USUARIO_LISTA_DE_CORREO`, `FECHA_REGISTRO`, `FECHA_ACTUALIZACION`, `TIPO`, `ESTADO`) VALUES
-('5c0653d43d92e7.75019474', '', '', 'Manuel', 'Marmolejo Martínez', 'marmocreativo@gmail.com', '5523995604 ', '1970-01-01', 'equipo-5f4359ee04313.jpg', 'usuario-5f435a9e5ba50.jpg', 'orange', '$2y$10$DbFvC2gsgQG3aODXsp0a4OUN1ERS.XFFE1pe/RTDkncia0ynhuBHy', 'no', '2019-01-01 06:00:00', '2020-09-09 10:57:47', 'administrador', 'activo'),
-('5f400557ec9b74.36456554', '', '', 'Fulanito', 'Pérez', 'stmarmo@hotmail.com', '55555555', '1970-01-01', 'default.jpg', 'fondo_default.jpg', 'primary', '$2y$10$vPreFxNk1ZQayykVTFFBBOcIK8rp.R6xGOSDsx92AHR.nyYRL2CvK', 'si', '2020-08-22 00:33:12', '2020-08-22 00:33:12', 'usuario', 'activo'),
-('5f400801858cd8.64544354', '', '', 'Sutanito', 'Jonaz', 'prueba1@correo.com', '222222', '1970-01-01', 'default.jpg', 'fondo_default.jpg', 'primary', '$2y$10$gpL/rYnNfgnKy.LTalzAMOyVO7XXQqqYBkAwINStN3C1SCBIw.j1O', 'si', '2020-08-22 00:44:33', '2020-08-22 00:44:33', 'usuario', 'activo');
+('5c0653d43d92e7.75019474', '', '', 'Manuel', 'Marmolejo Martínez', 'marmocreativo@gmail.com', '5523995604 ', '1970-01-01', 'equipo-5f4359ee04313.jpg', 'usuario-5f435a9e5ba50.jpg', 'orange', '$2y$10$DbFvC2gsgQG3aODXsp0a4OUN1ERS.XFFE1pe/RTDkncia0ynhuBHy', 'no', '2019-01-01 06:00:00', '2020-09-09 10:57:47', 'administrador', 'activo');
 
 -- --------------------------------------------------------
 
@@ -578,7 +530,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `ID_EQUIPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_EQUIPO` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `galerias`
@@ -608,7 +560,7 @@ ALTER TABLE `opciones`
 -- AUTO_INCREMENT de la tabla `proyectos`
 --
 ALTER TABLE `proyectos`
-  MODIFY `ID_PROYECTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_PROYECTO` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `publicaciones`
@@ -626,7 +578,7 @@ ALTER TABLE `reacciones`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `ID_TAREA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_TAREA` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas_mensajes`
