@@ -1,69 +1,93 @@
 <div class="estadisticas_generales mb-3">
 	<h2>Estadísticas Generales PROBANDO</h2>
 	<div class="row">
-		<div class="col-8">
-			<div class="estadistica_progreso">
-				<div class="etiqueta">
-					Status de proyectos
-				</div>
-				<div class="progreso">
-					<div class="progress">
-					  <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-					  <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-					  <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-				</div>
+		<div class="col-8 line">
+			<div class="estadistica_progreso row align-item-center g-0">
+        <div class="col-3">
+          <div class="etiqueta">
+            Status de proyectos
+          </div>
+        </div>
+    
+        <div class="col">
+          <div class="progreso">
+            <div class="progress">
+              <div class="progress-bar bg-s-atiempo" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+              <div class="progress-bar bg-s-revision" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+              <div class="progress-bar bg-s-retraso" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20%</div>
+            </div>
+          </div>
+        </div>
+				
 			</div>
-			<div class="estadistica_progreso">
-				<div class="etiqueta">
-					Proyectos terminados
-				</div>
-				<div class="progreso">
-					<div class="progress">
-					  <div class="progress-bar bg-primary" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-					  <div class="progress-bar bg-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-				</div>
+			<div class="estadistica_progreso row aling-item-center g-0">
+
+        <div class="col-3">
+          <div class="etiqueta">
+            Proyectos terminados
+          </div>
+        </div>
+
+				<div class="col">
+          <div class="progreso">
+            <div class="progress">
+              <div class="progress-bar bg-p-baja" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
+              <div class="progress-bar bg-s-terminado" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">50 Activos</div>
+            </div>
+          </div>
+        </div>
+				
 			</div>
-			<div class="estadistica_progreso">
-				<div class="etiqueta">
-					Prioridad de proyectos
-				</div>
-				<div class="progreso">
-					<div class="progress">
-					  <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-					  <div class="progress-bar bg-primary" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-					  <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-						<div class="progress-bar bg-primary" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-				</div>
+			<div class="estadistica_progreso row aling-item-center g-0">
+        <div class="col-3">
+          <div class="etiqueta">
+            Prioridad de proyectos
+          </div>
+        </div>
+				
+        <div class="col">
+          <div class="progreso">
+            <div class="progress">
+              <div class="progress-bar bg-p-baja" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar bg-p-media" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar bg-p-alta" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar bg-p-urgente" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+				
 			</div>
 		</div>
 		<div class="col-4">
-			<p># Proyectos están en revisión</p>
-			<p># Hay mas del 50% de proyectos urgentes</p>
-			<p># Proyectos terminan esta semana</p>
+			<p><span class="icon-revision"> </span> Proyectos están en revisión</p>
+			<p><span class="icon-urgente"></span> Hay mas del 50% de proyectos urgentes</p>
+			<p><span class="icon-atiempo"></span> Proyectos terminan esta semana</p>
 		</div>
 	</div>
 </div>
 
 <div class="lista_proyectos">
-	<div class="d-flex">
-		<div class="titulo">
+	<div class="d-flex row  aling-item-center">
+    <div class="col-2">
+      <div class="titulo">
 				<h2>Mis proyectos</h2>
 		</div>
-		<div class="formulario">
-			<form class="row" action="<?php echo base_url('proyectos/busqueda'); ?>" method="get">
-				<div class="col">
-					<input type="text" class="form-control" name="Busqueda" value="<?php echo verificar_variable('GET','Busqueda','Buscar'); ?>">
-				</div>
-				<div class="col">
-					<button type="submit" class="btn btn-primary"> Aplicar </button>
-				</div>
-			</form>
-		</div>
+    </div>
+		<div class="col">
+      <div class="formulario">
+        <form class="row" action="<?php echo base_url('proyectos/busqueda'); ?>" method="get">
+          <div class="col-3">
+            <input type="text" class="form-control" name="Busqueda" value="<?php echo verificar_variable('GET','Busqueda','Buscar'); ?>">
+          </div>
+          <div class="col">
+            <button type="submit" class="btn btn-secondary"> Aplicar </button>
+          </div>
+        </form>
+      </div>
+    </div>
+		
 	</div>
-	<div class="encabezado_lista_proyectos row">
+	<div class="encabezado_lista_proyectos row mt-4">
 		<div class="col proyecto_nombre">
 			Nombre
 		</div>
@@ -87,14 +111,14 @@
 		</div>
 	</div>
 	<!-- Lista de proyectos -->
-	<div class="proyecto row">
+	<div class="proyecto row align-items-center ">
 		<div class="col proyecto_nombre">
 			Nombre
 		</div>
-		<div class="col-1 proyecto_status">
+		<div class="col-1 proyecto_status bg-s-atiempo">
 			A tiempo
 		</div>
-		<div class="col-1 proyecto_prioridad">
+		<div class="col-1 proyecto_prioridad bg-p-urgente">
 			Urgente
 		</div>
 		<div class="col-1 proyecto_fecha_inicio">

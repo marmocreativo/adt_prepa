@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
 	<meta charset="utf-8"/>
-	<link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url('assets/img/apple-icon-76x76.png'); ?>">
-	<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/favicon-96x96.png'); ?>">
+	<link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url('assets/img/logo.png'); ?>">
+	<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/favicon.png'); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	<title><?php echo $titulo ?></title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
@@ -38,6 +38,10 @@
 	<link href="<?php echo base_url('assets/plugins/'); ?>sweetalert2/dist/sweetalert2.css" rel="stylesheet" type="text/css" />
 	<script src="https://cdn.tiny.cloud/1/y3nn7mnqo19xsacsvznxqarsmohkoz42yat38khcnolpk6bf/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 		<script src="<?php echo base_url('assets/plugins/tinymce-bootstrap-plugin'); ?>/plugin/plugin.min.js"></script>
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
 	<!-- Custom CSS -->
 	<link href="<?php echo base_url('assets/css/'); ?>estilos.css?v=<?php echo date('i'); ?>" rel="stylesheet"/>
@@ -48,36 +52,36 @@
 		<div class="envolvente">
 			<div class="sidebar">
 				<a href="/" class="d-block p-3 link-dark text-decoration-none" title="">
-		      <img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" class="logo_menu" alt="">
+		      <img src="<?php echo base_url('assets/img/logo.png'); ?>" class="logo_menu" alt="">
 		    </a>
 				<ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
 		      <li class="nav-item">
-		        <a href="<?php echo base_url(); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-		         	<i class="fas fa-tachometer-alt fa-lg"></i> <span class="etiqueta_menu">Inicio</span>
+		        <a href="<?php echo base_url(); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		         	<i class="fas fa-columns fa-lg"></i> <span class="etiqueta_menu">Inicio</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('tareas'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-		         	<i class="fas fa-calendar fa-lg"></i> <span class="etiqueta_menu">Tareas</span>
+		        <a href="<?php echo base_url('tareas'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		         	<i class="fas fa-tasks fa-lg"></i> <span class="etiqueta_menu">Tareas</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('proyectos'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('proyectos'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
 		         	<i class="fas fa-project-diagram fa-lg"></i> <span class="etiqueta_menu">Proyectos</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('equipos'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('equipos'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
 		         	<i class="fas fa-users fa-lg"></i> <span class="etiqueta_menu">Equipos</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('lista_usuarios'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('lista_usuarios'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
 		         	<i class="fas fa-user fa-lg"></i> <span class="etiqueta_menu">Usuarios</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('opciones'); ?>" class="nav-link text-white py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('opciones'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
 		         	<i class="fas fa-cogs fa-lg"></i> <span class="etiqueta_menu">Opciones</span>
 		        </a>
 		      </li>
@@ -89,7 +93,7 @@
 						<h1 class="h1"><?php echo $titulo; ?></h1>
 					</div>
 					<div class="controles">
-						<form class="row" action="<?php echo base_url(); ?>" method="get">
+						<form class="row date" action="<?php echo base_url(); ?>" method="get">
 							<div class="col">
 								<div class="form-group d-flex">
 									<label for="FechaInicio" class="m-3">del</label>

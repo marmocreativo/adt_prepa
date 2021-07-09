@@ -32,12 +32,12 @@
 						</select>
 				</div>
 				<div class="col">
-					<button type="submit" class="btn btn-primary"> Aplicar </button>
+					<button type="submit" class="btn btn-secondary"> Aplicar </button>
 				</div>
 			</form>
 		</div>
 	</div>
-	<div class="encabezado_lista_proyectos row">
+	<div class="encabezado_lista_proyectos row mt-4">
 		<div class="col proyecto_nombre">
 			Nombre
 		</div>
