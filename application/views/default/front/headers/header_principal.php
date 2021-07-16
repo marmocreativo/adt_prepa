@@ -56,12 +56,12 @@
 		    </a>
 				<ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
 		      <li class="nav-item">
-		        <a href="<?php echo base_url(); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url(); ?>" class="nav-link text-white  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
 		         	<i class="fas fa-columns fa-lg"></i> <span class="etiqueta_menu">Inicio</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('tareas'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo site_url('tareas'); ?>" class="nav-link text-white py-3 " aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Tareas">
 		         	<i class="fas fa-tasks fa-lg"></i> <span class="etiqueta_menu">Tareas</span>
 		        </a>
 		      </li>
@@ -88,25 +88,25 @@
 		    </ul>
 			</div>
 			<div class="contenedor_principal">
-				<div class="encabezado_principal d-flex justify-content-between">
-					<div class="titulo">
+				<div class="row encabezado_principal d-flex justify-content-between">
+					<div class="col-12 col-md-6 titulo">
 						<h1 class="h1"><?php echo $titulo; ?></h1>
 					</div>
-					<div class="controles">
-						<form class="row date" action="<?php echo base_url(); ?>" method="get">
+					<div class="col-12 col-md-6 controles">
+						<form class="row aling-item-center date" action="<?php echo base_url(); ?>" method="get">
 							<div class="col">
 								<div class="form-group d-flex">
-									<label for="FechaInicio" class="m-3">del</label>
+									<label for="FechaInicio" class="m">del</label>
 									<input type="text" class="form-control form-control-sm datepicker" name="FechaInicio" value="<?php echo verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days'))); ?>">
 								</div>
 							</div>
 							<div class="col">
 								<div class="form-group d-flex">
-									<label for="FechaFInal" class="m-3">al</label>
+									<label for="FechaFInal" class="m">al</label>
 									<input type="text" class="form-control form-control-sm datepicker" name="FechaFInal" value="<?php echo verificar_variable('GET','fecha_final',date('d-m-Y')); ?>">
 								</div>
 							</div>
-							<div class="col d-grid">
+							<div class="col">
 								<button type="submit" class="btn btn-secondary" name="button"> <i class="fas fa-search"></i> </button>
 							</div>
 						</form>

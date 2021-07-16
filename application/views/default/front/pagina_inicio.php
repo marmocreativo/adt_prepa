@@ -1,15 +1,15 @@
 <div class="estadisticas_generales mb-3">
 	<h2>Estadísticas Generales PROBANDO</h2>
 	<div class="row">
-		<div class="col-8 line">
+		<div class="col-12 col-md-8 line">
 			<div class="estadistica_progreso row align-item-center g-0">
-        <div class="col-3">
+        <div class="col-12 col-md-3">
           <div class="etiqueta">
             Status de proyectos
           </div>
         </div>
     
-        <div class="col">
+        <div class="col-12 col-md-8">
           <div class="progreso">
             <div class="progress">
               <div class="progress-bar bg-s-atiempo" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
@@ -22,13 +22,13 @@
 			</div>
 			<div class="estadistica_progreso row aling-item-center g-0">
 
-        <div class="col-3">
+        <div class="col-12 col-md-3">
           <div class="etiqueta">
             Proyectos terminados
           </div>
         </div>
 
-				<div class="col">
+				<div class="col-12 col-md-8">
           <div class="progreso">
             <div class="progress">
               <div class="progress-bar bg-p-baja" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
@@ -39,13 +39,13 @@
 				
 			</div>
 			<div class="estadistica_progreso row aling-item-center g-0">
-        <div class="col-3">
+        <div class="col-12 col-md-3">
           <div class="etiqueta">
             Prioridad de proyectos
           </div>
         </div>
 				
-        <div class="col">
+        <div class="col-12 col-md-8">
           <div class="progreso">
             <div class="progress">
               <div class="progress-bar bg-p-baja" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
@@ -58,25 +58,25 @@
 				
 			</div>
 		</div>
-		<div class="col-4">
-			<p><span class="icon-revision"> </span> Proyectos están en revisión</p>
-			<p><span class="icon-urgente"></span> Hay mas del 50% de proyectos urgentes</p>
-			<p><span class="icon-atiempo"></span> Proyectos terminan esta semana</p>
+		<div class="col-12 col-md-4 mt-3">
+			<p><i class="fas fa-circle bg-icon-s-revision"></i> Proyectos están en revisión</p>
+			<p><i class="fas fa-circle bg-icon-p-urgente"></i> Hay mas del 50% de proyectos urgentes</p>
+			<p><i class="fas fa-circle bg-icon-s-atiempo"></i> Proyectos terminan esta semana</p>
 		</div>
 	</div>
 </div>
 
 <div class="lista_proyectos">
 	<div class="d-flex row  aling-item-center">
-    <div class="col-2">
+    <div class="col-12 col-md-4">
       <div class="titulo">
 				<h2>Mis proyectos</h2>
 		</div>
     </div>
-		<div class="col">
+		<div class="col-12 col-md-7">
       <div class="formulario">
         <form class="row" action="<?php echo base_url('proyectos/busqueda'); ?>" method="get">
-          <div class="col-3">
+          <div class="col">
             <input type="text" class="form-control" name="Busqueda" value="<?php echo verificar_variable('GET','Busqueda','Buscar'); ?>">
           </div>
           <div class="col">
@@ -87,7 +87,7 @@
     </div>
 		
 	</div>
-	<div class="encabezado_lista_proyectos row mt-4">
+	<div class="slide encabezado_lista_proyectos  mt-4">
 		<div class="col proyecto_nombre">
 			Nombre
 		</div>
@@ -111,8 +111,9 @@
 		</div>
 	</div>
 	<!-- Lista de proyectos -->
-	<div class="proyecto row align-items-center ">
-		<div class="col proyecto_nombre">
+	<div class="slide proyecto  align-items-center ">
+		
+    <div class="col proyecto_nombre">
 			Nombre
 		</div>
 		<div class="col-1 proyecto_status bg-s-atiempo">
@@ -133,6 +134,7 @@
 		<div class="col-1 proyecto_enlace_entregable">
 			<a href="#"><i class="fas fa-link"></i></a>
 		</div>
+    
 	</div>
 	<!-- /lista de proyectos -->
 

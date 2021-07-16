@@ -36,9 +36,9 @@ Bootstrap Overwrite
 .text-white{
   color: #7e828f!important;
 }
-/* [aria-current] {
+  .nav-link [aria-current] {
     color:#f8d092!important;
-  } */
+  } 
 .text-white:active, .text-white:hover{
   color:#f8d092!important;
 }
@@ -47,6 +47,11 @@ Bootstrap Overwrite
   background-color: transparent!important;
 }
 
+.m{
+  
+  margin: 1rem 0!important;
+
+}
 i.fab.fa-google-drive, i.fas.fa-link {
     color: #3a4053;
 }
@@ -105,7 +110,7 @@ h2{
   border: 1px solid #e89a23;
   color:#8f6200;
 }
-.bg-s-retraso{
+.bg-s-retraso, .bg-danger{
   background-color: var(--s-retraso);
   border: 1px solid #d92a08;
   color:#c9381c;
@@ -132,7 +137,24 @@ h2{
   background-color: var(--p-baja);
   color:#1f6cf0;
 }
-
+.bg-icon-s-revision{
+    background-color: var(--s-revision);
+    border: 6px solid #f8d092;
+    color: #e89a23;
+    border-radius: 50px;
+}
+.bg-icon-p-urgente{
+  background-color: var(--p-urgente);
+  border: 6px solid #d5cbf5;
+  color: #501ff0;
+  border-radius: 50px;
+}
+.bg-icon-s-atiempo{
+  background-color:var(--s-atiempo);
+  border: 6px solid #94e0ac;
+  color: #24c958; 
+  border-radius: 50px;
+}
 .icon-atiempo, .icon-revision, .icon-urgente{
   background-repeat: no-repeat;
   padding-left: 30px;
@@ -252,12 +274,59 @@ h2{
   font-weight: 500;
   line-height: 1em;
 }
-
+.slide{
+  display: flex;
+  overflow-x: scroll;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+}
+.slide::-webkit-scrollbar {
+ background-color: #ccc; 
+  height: 3px;
+}
+.slide::-webkit-scrollbar-thumb {
+  background-color: #666;
+}
 .proyecto_nombre, .proyecto_status , .proyecto_prioridad , .proyecto_fecha_inicio, .proyecto_fecha_final,.proyecto_enlace_editables,.proyecto_enlace_entregable{
   padding: 10px;
+  min-width: 140px;
+  text-align: center;
+}
+.lista-p{
+  text-decoration:none
 }
 
 /* Small devices (landscape phones, 576px and up) */
+@media (max-width: 575.8px){
+  .contenido_principal{
+  padding: 0;
+  }
+  .estadisticas_generales{
+    padding: 1em 1.5em;
+  }
+  .etiqueta{
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0.8em;
+  }
+  .progreso{
+    margin: 0;
+  }
+  .progress{
+    border-radius: 50px;
+  }
+  .line{
+    border-bottom: 1px solid #c8cdd9;
+    padding-bottom: 1em;
+  }
+  .lista_proyectos{
+    padding: 10px;
+  }
+  .lista_proyectos .formulario .form-control, .lista_proyectos .formulario .btn-secondary{
+  margin: 4px 0;
+}
+}
 @media (min-width: 576px) {
 
 }
