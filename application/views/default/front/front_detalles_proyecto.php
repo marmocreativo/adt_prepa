@@ -2,7 +2,7 @@
 	<h2>Tareas del proyecto</h2>
 	<h5>Esta es una prueba</h5>
 	<div class="p-2">
-		<a href="<?php echo base_url('proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-warning"> <i class="fas fa-pencil-alt"></i> Editar proyecto</a>
+		<a href="<?php echo base_url('proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-warning"> <i class="fas fa-pencil-alt"></i> Editar</a>
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#NuevaTarea">
 		  Nueva tarea
@@ -79,12 +79,22 @@
 			</div>
 
 	</div>
-	<div class="row">
-		<div class="col-4">
-			Progreso
-			<div class="progress mb-3">
-			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
+	<div class="row g-0">
+		<div class="col-12 col-md-3">
+			<div class="etiqueta">
+        Progreso
+      </div>
+    </div>
+    <div class="col-12 col-md-8">
+      <div class="progreso">
+        <div class="progress mb-3">
+          <div class="progress-bar striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          <!-- <div class="progress-bar progress-bar-striped bg-s-terminado" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div> -->
+        </div>
+        
+      </div>
+    </div>
+			
 			<ul class="list-group">
 				<?php foreach($tareas as $tarea){ ?>
 			  <li class="list-group-item">
@@ -95,8 +105,11 @@
 			  </li>
 			<?php } ?>
 			</ul>
-		</div>
-		<div class="col-8">
+		
+	</div>
+
+  <div class="row">
+    <div class="col-8">
 			<div class="detalles_tarea">
 				<!--
 				AQUÍ SE VERAN LOS DETALLES DE LA TAREA
@@ -113,5 +126,5 @@
 				-->
 			</div>
 		</div>
-	</div>
+  </div>
 </div>
