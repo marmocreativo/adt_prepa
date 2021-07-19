@@ -161,7 +161,7 @@ h2{
   padding-bottom: 7px;
   vertical-align: text-bottom;
 }
-.icon-atiempo{
+/* .icon-atiempo{
   background-image: url("../img/icon-atiempo.png");
 }
 .icon-revision{
@@ -170,12 +170,14 @@ h2{
 .icon-urgente{
   background-image: url("../img/icon-urgente.png");
 }
-
+ */
 .lista_proyectos .titulo{
   margin-top: 5px;
 }
 
-
+.lista_equipos a { 
+ text-decoration: none;
+}
 
 /*-------- PÁGINA DE CARGA -------*/
 .load-screen{
@@ -257,6 +259,9 @@ h2{
   padding: 30px;
   background-color: #eee;
 }
+.lista_equipos{
+  padding: 30px;
+}
 
 .encabezado_lista_proyectos{
   background-color: #fff;
@@ -296,11 +301,7 @@ h2{
   text-decoration:none
 }
 
-.striped:end{
-  background-image: linear-gradient(
-45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
-    background-size: 1rem 1rem;
-}
+
 /* .estadisticas_generales .progress-bar{
   border-radius: 50px;
 } */
@@ -328,10 +329,13 @@ h2{
     border-bottom: 1px solid #c8cdd9;
     padding-bottom: 1em;
   }
-  .lista_proyectos{
+  .lista_proyectos,.lista_equipos{
     padding: 10px;
   }
-  .lista_proyectos .formulario .form-control, .lista_proyectos .formulario .btn-secondary{
+  .lista_equipos{
+    background-color: #fafafa;
+  }
+  .lista_proyectos .formulario .form-control, .lista_equipos,.lista_proyectos .formulario .btn-secondary{
   margin: 4px 0;
 }
 }
