@@ -262,6 +262,9 @@ h2{
 .lista_equipos{
   padding: 30px;
 }
+.h5{
+  font-weight: 600!important;
+}
 
 .encabezado_lista_proyectos{
   background-color: #fff;
