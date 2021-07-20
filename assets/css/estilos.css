@@ -83,8 +83,11 @@ h2{
 }
 .contenido_principal{
   background-color: #fff;
+  padding: 5px;
 }
-
+.contenido-principal{
+  padding: 10px;
+}
 .etiqueta {
   color: #737785;
   background-color: #f6f6f6;

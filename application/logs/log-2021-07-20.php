@@ -175,3 +175,4 @@ ERROR - 2021-07-20 00:40:09 --> Severity: Warning --> Attempt to read property "
 ERROR - 2021-07-20 00:40:09 --> Severity: Warning --> Undefined variable $equipo C:\xampp\sites\adt_prepa\application\views\default\front\front_lista_equipos.php 45
 ERROR - 2021-07-20 00:40:09 --> Severity: Warning --> Attempt to read property "EQUIPO_NOMBRE" on null C:\xampp\sites\adt_prepa\application\views\default\front\front_lista_equipos.php 45
 ERROR - 2021-07-20 18:45:07 --> 404 Page Not Found: Assets/img
+ERROR - 2021-07-20 23:59:43 --> 404 Page Not Found: Assets/img

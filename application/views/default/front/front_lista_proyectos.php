@@ -96,7 +96,7 @@
 							break;
 					}
 				?>
-			<div class="col-1 proyecto_status <?php echo $color_estado; ?>">
+			<div class="col-1 proyecto_status <?php echo $color_estado;?>">
 				
 				<span><?php echo $mensaje_estado; ?></span>
 			</div>

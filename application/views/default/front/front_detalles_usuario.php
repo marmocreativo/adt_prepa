@@ -1,4 +1,4 @@
-<div class="lista_proyectos">
+<div class="contenido-principal">
 	<div class="d-flex justify-content-between">
 		<div class="titulo">
 				<h2>Perfil del usuario</h2>
