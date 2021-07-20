@@ -266,6 +266,8 @@ h2{
   font-weight: 600!important;
 }
 
+
+
 .encabezado_lista_proyectos{
   background-color: #fff;
   padding: 5px;
@@ -340,7 +342,10 @@ h2{
   }
   .lista_proyectos .formulario .form-control, .lista_equipos,.lista_proyectos .formulario .btn-secondary{
   margin: 4px 0;
-}
+  }
+  .lista_equipos .equipo img{
+    padding: 1.5em;
+  }
 }
 @media (min-width: 576px) {
 

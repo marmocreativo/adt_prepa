@@ -36,7 +36,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-1  col-md-2 controles">
+		<div class="col-6  col-md-2 controles">
 			<a href="<?php echo base_url('equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
 		</div>
 	</div>
