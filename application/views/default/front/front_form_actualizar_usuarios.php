@@ -1,4 +1,4 @@
-<div class="contenido_principal">
+<div class="lista_equipos">
 <form action="<?php echo base_url('lista_usuarios/actualizar') ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
 	<input type="hidden" name="Identificador" value="<?php echo $usuario['ID_USUARIO']; ?>">
@@ -10,9 +10,9 @@
 		<div class="col-6">
 			<h3>Usuarios</h3>
 		</div>
-		<div class="col-6">
+		<!-- <div class="col-6">
 			<button type="submit" class="btn btn-success float-right"> <i class="fa fa-save"></i> Guardar</button>
-		</div>
+		</div> -->
 	</div>
 	<div class="row mb-4">
 		<div class="col">

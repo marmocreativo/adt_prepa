@@ -7,11 +7,13 @@
 			<a href="<?php echo base_url('lista_usuarios/actualizar?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-warning"> <i class="fa fa-pencil"></i> Editar</a>
 		</div>
 	</div>
+  <hr>
 	<div class="row">
 		<div class="col-4">
-			<div class="">
+			<div >
 				<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN']); ?>" class="rounded-circle imagen_perfil" width="50%">
 			</div>
+      
 			<table class="table">
 				<tr>
 					<td> <i class="fa fa-birthday-cake"></i></td>
