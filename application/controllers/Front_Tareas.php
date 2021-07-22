@@ -112,8 +112,6 @@ class Front_Tareas extends CI_Controller {
 	public function crear()
 	{
 		$this->form_validation->set_rules('TareaTitulo', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
-		$this->form_validation->set_rules('FechaEntrega', 'Fecha de Entrega', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
-
 		if($this->form_validation->run())
     {
 				$parametros = array(
@@ -122,6 +120,7 @@ class Front_Tareas extends CI_Controller {
 					'TAREA_DESCRIPCION' => $this->input->post('TareaDescripcion'),
 					'TAREA_ENLACE_EDITABLES' =>  $this->input->post('EnlaceEditables'),
 					'TAREA_ENLACE_ENTREGABLE' =>  $this->input->post('EnlaceEntregables'),
+					'FECHA_ENTREGA' =>  date('Y-m-d', strtotime($this->input->post('FechaEntrega'))),
 					'PRIORIDAD' =>  $this->input->post('Prioridad'),
 					'TIPO' => $this->input->post('Tipo'),
 					'ESTADO' => $this->input->post('Estado')
@@ -144,6 +143,9 @@ class Front_Tareas extends CI_Controller {
 
 				$this->session->set_flashdata('exito', 'Tarea creada correctamente');
 				redirect(base_url('proyectos/detalles?id='.$this->input->post('IdProyecto')));
+		}else{
+			$this->session->set_flashdata('error', 'No se pudo crear la tarea');
+			redirect(base_url('proyectos/detalles?id='.$this->input->post('IdProyecto')));
 		}
 
 	}
@@ -170,6 +172,7 @@ class Front_Tareas extends CI_Controller {
 
 		if($this->form_validation->run())
     {
+
 			$parametros = array(
 				'ID_PROYECTO' =>  $this->input->post('IdProyecto'),
 				'ID_TAREA_PADRE' =>  0,
@@ -178,6 +181,7 @@ class Front_Tareas extends CI_Controller {
 				'TAREA_ENLACE_EDITABLES' =>  $this->input->post('EnlaceEditables'),
 				'TAREA_ENLACE_ENTREGABLE' =>  $this->input->post('EnlaceEntregables'),
 				'PRIORIDAD' =>  $this->input->post('Prioridad'),
+				'FECHA_ENTREGA' =>  date('Y-m-d', strtotime($this->input->post('FechaEntrega'))),
 				'TIPO' =>  $this->input->post('Tipo'),
 				'ESTADO' =>  $this->input->post('Estado'),
 			);
@@ -219,7 +223,6 @@ class Front_Tareas extends CI_Controller {
 			$this->session->set_flashdata('exito', 'Proyecto actualizado correctamente');
 			//  Redirecciono
 			redirect(base_url('tareas/detalles?id='.$this->input->post('Identificador')));
-
 
     }else{
 
