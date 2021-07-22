@@ -37,6 +37,10 @@
 									</select>
 								</div>
 								<div class="form-group">
+									<label for="FechaEntrega">Fecha de Entrega</label>
+									<input type="date" class="form-control" name="FechaEntrega" value="">
+								</div>
+								<div class="form-group">
 									<label for="EnlaceEditables">Enlace Archivos Editables</label>
 									<input type="text" class="form-control" name="EnlaceEditables" value="<?php echo $proyecto['ENLACE_EDITABLE'] ?>">
 								</div>
@@ -81,14 +85,24 @@
 	<div class="row">
 		<div class="col-4">
 			Progreso
+			<!--
 			<div class="progress mb-3">
 			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
+		-->
 			<ul class="list-group">
 				<?php foreach($tareas as $tarea){ ?>
 			  <li class="list-group-item">
 					<a href="<?php echo base_url('tareas/detalles?id='.$tarea->ID_TAREA); ?>">
+						<?php if($tarea->ESTADO=='pendiente'){ ?>
+				    <i class="fas fa-square text-secondary"></i>
+						<?php } ?>
+						<?php if($tarea->ESTADO=='en desarrollo'){ ?>
+				    <i class="fas fa-square text-warning"></i>
+						<?php } ?>
+						<?php if($tarea->ESTADO=='completo'){ ?>
 				    <i class="fas fa-check-square text-success"></i>
+						<?php } ?>
 				    <?php echo $tarea->TAREA_TITULO; ?>
 					</a>
 			  </li>
