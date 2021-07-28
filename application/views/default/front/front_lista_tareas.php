@@ -3,25 +3,14 @@
 	<div class="row">
 		<div class="col-4">
 			Progreso
-			<!--
 			<div class="progress mb-3">
 			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
-		-->
 			<ul class="list-group">
 				<?php foreach($tareas as $tarea){ ?>
-					<?php $detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$tarea->ID_TAREA]) ?>
 			  <li class="list-group-item">
 					<a href="<?php echo base_url('tareas/detalles?id='.$tarea->ID_TAREA); ?>">
-						<?php if($detalles_tarea['ESTADO']=='pendiente'){ ?>
-				    <i class="fas fa-square text-secondary"></i>
-						<?php } ?>
-						<?php if($detalles_tarea['ESTADO']=='en desarrollo'){ ?>
-				    <i class="fas fa-square text-warning"></i>
-						<?php } ?>
-						<?php if($detalles_tarea['ESTADO']=='completo'){ ?>
 				    <i class="fas fa-check-square text-success"></i>
-						<?php } ?>
 				    <?php echo $tarea->TAREA_TITULO; ?>
 					</a>
 			  </li>

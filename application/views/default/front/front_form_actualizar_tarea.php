@@ -22,10 +22,6 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label for="FechaEntrega">Fecha de Entrega</label>
-			<input type="date" class="form-control" name="FechaEntrega" value="<?php echo date('d-m-Y',strtotime($tarea['FECHA_ENTREGA'])); ?>">
-		</div>
-		<div class="form-group">
 			<label for="EnlaceEditables">Enlace Archivos Editables</label>
 			<input type="text" class="form-control" name="EnlaceEditables" value="<?php echo $tarea['TAREA_ENLACE_EDITABLES'] ?>">
 		</div>
