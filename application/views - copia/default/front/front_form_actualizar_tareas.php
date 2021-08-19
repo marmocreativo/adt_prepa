@@ -5,7 +5,6 @@
 	<input type="hidden" name="ImagenActual" value="<?php echo $tarea['IMAGEN'] ?>">
 	<input type="hidden" name="ImagenFondoActual" value="<?php echo $tarea['IMAGEN_FONDO'] ?>">
 	<input type="hidden" name="Orden" value="<?php echo $tarea['ORDEN'] ?>">
-	<input type="hidden" name="TareaColor" value="primary">
 	<div class="row mb-4">
 		<div class="col-8">
 			<h3>Tareas</h3>
@@ -38,6 +37,34 @@
 				<label for="TareaDescripcion">Descripción</label>
 				<textarea name="TareaDescripcion" class="form-control" rows="8"><?php echo $tarea['TAREA_DESCRIPCION'] ?></textarea>
 			</div>
+			<div class="row">
+				<?php
+				$colores = array('primary','indigo', 'blue','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','light','dark');
+				?>
+				<?php foreach($colores as $color){ ?>
+				<div class="col-3 col-sm-2 col-md-1">
+					<label for="TareaColor<?php echo $color; ?>" title="<?php echo $color; ?>">
+					<div class="card">
+						<div class="card-body bg-<?php echo $color; ?>">
+						</div>
+						<div class="card-footer">
+							<input  type="radio" name="TareaColor" id="TareaColor<?php echo $color; ?>" value="<?php echo $color; ?>" <?php if($tarea['COLOR']==$color){ echo 'checked'; } ?>>
+						</div>
+					</div>
+					</label>
+				</div>
+			<?php } ?>
+			</div>
+			<!--
+			<div class="form-group">
+				<label for="Meta[color]">Color</label>
+				<input type="text" class="form-control ColorPicker" autocomplete="no" name="Meta[color]" value="<?php if(isset($meta_datos['color'])){ echo $meta_datos['color']; } ?>">
+			</div>
+			<div class="form-group">
+				<label for="Meta[icono]">Icono</label>
+				<input type="text" class="form-control IconPicker" autocomplete="no" name="Meta[icono]" value="<?php if(isset($meta_datos['icono'])){ echo $meta_datos['icono']; } ?>">
+			</div>
+			-->
 		</div>
 		<div class="col-12 col-md-3">
 			<div class="form-group">

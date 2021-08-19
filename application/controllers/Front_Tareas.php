@@ -111,9 +111,8 @@ class Front_Tareas extends CI_Controller {
 	}
 	public function crear()
 	{
+		var_dump($_POST);
 		$this->form_validation->set_rules('TareaTitulo', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
-		$this->form_validation->set_rules('FechaEntrega', 'Fecha de Entrega', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
-
 		if($this->form_validation->run())
     {
 				$parametros = array(

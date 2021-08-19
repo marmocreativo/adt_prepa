@@ -1,9 +1,7 @@
 		</div><!-- / contenido_principal -->
 	</div><!-- / contenedor_principal -->
 </div><!-- / envolvente -->
-<!--
 <button onclick="topFunction()" id="volver_arriba" class="btn btn-primary" title="volver arriba"> <i class="fa fa-chevron-up"></i> </button>
--->
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
