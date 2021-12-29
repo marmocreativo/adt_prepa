@@ -6,6 +6,7 @@
 	<input type="hidden" name="ImagenActual" value="<?php echo $usuario['IMAGEN'] ?>">
 	<input type="hidden" name="ImagenFondoActual" value="<?php echo $usuario['IMAGEN_FONDO'] ?>">
 	<input type="hidden" name="Meta[secreto]" value="<?php if(isset($meta_datos['secreto'])){ echo $meta_datos['secreto']; }else{ echo generador_aleatorio(6); } ?>">
+	<input type="hidden" name="UsuarioColor" value="primary">
 	<div class="row mb-4">
 		<div class="col-6">
 			<h3>Usuarios</h3>
@@ -89,24 +90,6 @@
 				</li>
 			<?php } ?>
 			</ul>
-			<div class="row">
-				<?php
-				$colores = array('indigo', 'blue','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','dark');
-				?>
-				<?php foreach($colores as $color){ ?>
-				<div class="col-2 col-md-2 p-1">
-					<label for="UsuarioColor<?php echo $color; ?>" title="<?php echo $color; ?>">
-					<div class="card">
-						<div class="card-body bg-<?php echo $color; ?>">
-						</div>
-						<div class="card-footer">
-							<input  type="radio" name="UsuarioColor" id="UsuarioColor<?php echo $color; ?>" value="<?php echo $color; ?>" <?php if($usuario['COLOR']==$color){ echo 'checked'; } ?>>
-						</div>
-					</div>
-					</label>
-				</div>
-			<?php } ?>
-			</div>
 		</div>
 	</div>
 	<div class="row">

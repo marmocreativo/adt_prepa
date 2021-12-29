@@ -8,6 +8,7 @@
 		<input type="hidden" name="Orden" value="<?php echo $equipo['ORDEN'] ?>">
 		<input type="hidden" name="Tipo" value="<?php echo $equipo['TIPO'] ?>">
 		<input type="hidden" name="Meta[autor]" value="<?php if(isset($meta_datos['autor'])){ echo $meta_datos['autor']; }else{ echo $_SESSION['usuario']['nombre'].' '.$_SESSION['usuario']['apellidos']; } ?>">
+		<input type="hidden" name="EquipoColor" value="primary">
 		<div class="row mb-4">
 			<div class="col-6">
 				<h3>Equipos</h3>
@@ -39,24 +40,6 @@
 				<div class="form-group">
 					<label for="EquipoDescripcion">Descripción</label>
 					<textarea name="EquipoDescripcion" class="form-control" rows="8"><?php echo $equipo['EQUIPO_DESCRIPCION'] ?></textarea>
-				</div>
-				<div class="row">
-					<?php
-					$colores = array('primary','indigo', 'blue','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','light','dark');
-					?>
-					<?php foreach($colores as $color){ ?>
-					<div class="col-2 col-md-1 p-1">
-						<label for="EquipoColor<?php echo $color; ?>" title="<?php echo $color; ?>">
-						<div class="card">
-							<div class="card-body bg-<?php echo $color; ?>">
-							</div>
-							<div class="card-footer">
-								<input  type="radio" name="EquipoColor" id="EquipoColor<?php echo $color; ?>" value="<?php echo $color; ?>" <?php if($equipo['COLOR']==$color){ echo 'checked'; } ?>>
-							</div>
-						</div>
-						</label>
-					</div>
-				<?php } ?>
 				</div>
 				<hr>
 				<h6>Agregar equipos</h6>

@@ -1,28 +1,28 @@
 <div class="lista_equipos">
-	<div class="d-flex justify-content-between">
-		<div class="titulo">
+	<div class="row d-flex justify-content-between">
+		<div class="col-12 col-md-4 titulo">
 				<h2>Mis equipos</h2>
 		</div>
-		<div class="formulario pl-4">
+		<div class="col-12 col-md-6 formulario pl-4">
 			<form class="row" action="<?php echo base_url('equipos'); ?>" method="get">
-				<div class="col">
+				<div class="col-4 col-md-2">
 					<input type="text" class="form-control" name="busqueda" value="<?php echo verificar_variable('GET','busqueda',''); ?>" placeholder="Buscar">
 				</div>
-				<div class="col">
+				<div class="col-4 col-md-2">
 						<select class="form-control" name="todo">
 							<option value="">Mostrar</option>
 							<option value="si" <?php if(isset($_GET['todo'])&&$_GET['todo']=='si'){ echo 'selected'; } ?>>Todos los equipos</option>
 							<option value="no" <?php if(isset($_GET['todo'])&&$_GET['todo']=='no'){ echo 'selected'; } ?>>Solo mis equipos</option>
 						</select>
 				</div>
-				<div class="col">
+				<div class="col-4 col-md-2">
 						<select class="form-control" name="orden">
 							<option value="">Ordenar por</option>
 							<option value="ORDEN ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='ORDEN ASC'){ echo 'selected'; } ?>>Orden Personalizado</option>
 							<option value="EQUIPO_NOMBRE ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='EQUIPO_NOMBRE ASC'){ echo 'selected'; } ?>>Alfabético A-Z</option>
 						</select>
 				</div>
-				<div class="col">
+				<div class="col-4 col-md-2">
 						<select class="form-control" name="mostrar_por_pagina">
 							<option value="">mostrar por página</option>
 							<option value="<?php echo $op['cantidad_publicaciones_por_pagina'] ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina'] ?></option>
@@ -31,22 +31,23 @@
 							<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*10; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*10){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*10; ?></option>
 						</select>
 				</div>
-				<div class="col">
+				<div class="col-4 col-md-2 mb-3">
 					<button type="submit" class="btn btn-primary"> Aplicar </button>
 				</div>
 			</form>
 		</div>
-		<div class="controles">
+		<div class="col-6  col-md-2 controles">
 			<a href="<?php echo base_url('equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row mt-4">
+  
 		<?php foreach($equipos as $equipo){ ?>
 		<div class="col-12 col-md-2">
 			<a href="<?php echo base_url('equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
 				<div class="equipo card card-body mb-3">
-					<h3 class="h5"><?php echo $equipo->EQUIPO_NOMBRE; ?></h3>
-					<p># Proyectos activos</p>
+					<h3 class="h5"><i class="fas fa-circle bg-icon-p-urgente"></i> <?php echo $equipo->EQUIPO_NOMBRE; ?></h3>
+					<p># Proyectos activos </p>
 					<p># Miembros</p>
 				</div>
 			</a>
