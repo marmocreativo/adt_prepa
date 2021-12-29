@@ -9,16 +9,178 @@ html {
 body{
   height: 100%;
   overflow: hidden;
-  background: #fafafa;
+  background: #fafafa;  
+  font-family: 'Work Sans', sans-serif !important;
 }
+
+:root {
+  /* colores Status*/
+
+  --s-atiempo: #58e083;
+  --s-revision: #feb156;
+  --s-retraso: #ff5f41;
+  --s-terminado: #dfe4e9;
+
+  /* colore Prioridad */
+  --p-urgente: #501ff0;
+  --p-alta: #1f6cf0;
+  --p-media: #26acff;
+  --p-baja: #8cdeee;
+
+}
+
 
 /*
 Bootstrap Overwrite
 */
+.text-white{
+  color: #7e828f!important;
+}
+  .nav-link [aria-current] {
+    color:#f8d092!important;
+  } 
+.text-white:active, .text-white:hover{
+  color:#f8d092!important;
+}
+.active{
+  color:#f8d092!important;
+  background-color: transparent!important;
+}
+
+.m{
+  
+  margin: 1rem 0!important;
+
+}
+i.fab.fa-google-drive, i.fas.fa-link {
+    color: #3a4053;
+}
+
+h1,h2,h3,h4,h5,h6{
+ font-weight: 700 !important;
+ font-family: 'Work Sans', sans-serif;
+ color: #3a4053
+}
+
+.progress{
+  height: 36px;
+   border-top-right-radius: 50px 50px;
+  border-bottom-right-radius: 50px 50px;
+}
 
 /*
 Estilos personales
 */
+
+form.date{
+  line-height: 0.5;
+}
+form.date button{
+  width: 60px;
+}
+h2{
+  font-size: 18px;
+}
+.contenido_principal{
+  background-color: #fff;
+  padding: 5px;
+}
+.contenido-principal{
+  padding: 10px;
+}
+.etiqueta {
+  color: #737785;
+  background-color: #f6f6f6;
+  border-radius: 50px;
+  border: 1px solid #dfe4e9;
+  padding: 0.5em ;
+  font-size: 14px;
+  z-index: 1000;
+  position: relative;
+  margin-bottom: 12px;
+}
+.progreso{
+  margin-left: -1em;
+}
+
+.bg-s-atiempo{
+  background-color:var(--s-atiempo);
+  border: 1px solid #27b555;
+  color: #06872e;
+}
+.bg-s-revision{
+  background-color:var(--s-revision);
+  border: 1px solid #e89a23;
+  color:#8f6200;
+}
+.bg-s-retraso, .bg-danger{
+  background-color: var(--s-retraso);
+  border: 1px solid #d92a08;
+  color:#c9381c;
+}
+.bg-s-terminado{
+  background-color: var(--s-terminado);
+  border: 1px solid #c8cdd9;
+  color: #737785;
+}
+
+.bg-p-urgente{
+  background-color: var(--p-urgente);
+  color: #f6f6f6;
+}
+.bg-p-alta{
+  background-color: var(--p-alta);
+  color: #f6f6f6;
+}
+.bg-p-media{
+  background-color: var(--p-media);
+  color: #f6f6f6;
+}
+.bg-p-baja{
+  background-color: var(--p-baja);
+  color:#1f6cf0;
+}
+.bg-icon-s-revision{
+    background-color: var(--s-revision);
+    border: 6px solid #f8d092;
+    color: #e89a23;
+    border-radius: 50px;
+}
+.bg-icon-p-urgente{
+  background-color: var(--p-urgente);
+  border: 6px solid #d5cbf5;
+  color: #501ff0;
+  border-radius: 50px;
+}
+.bg-icon-s-atiempo{
+  background-color:var(--s-atiempo);
+  border: 6px solid #94e0ac;
+  color: #24c958; 
+  border-radius: 50px;
+}
+.icon-atiempo, .icon-revision, .icon-urgente{
+  background-repeat: no-repeat;
+  padding-left: 30px;
+  padding-bottom: 7px;
+  vertical-align: text-bottom;
+}
+/* .icon-atiempo{
+  background-image: url("../img/icon-atiempo.png");
+}
+.icon-revision{
+  background-image: url("../img/icon-revision.png");
+}
+.icon-urgente{
+  background-image: url("../img/icon-urgente.png");
+}
+ */
+.lista_proyectos .titulo{
+  margin-top: 5px;
+}
+
+.lista_equipos a { 
+ text-decoration: none;
+}
 
 /*-------- PÁGINA DE CARGA -------*/
 .load-screen{
@@ -70,9 +232,9 @@ Estilos personales
 .sidebar{
   order: 1;
   flex-grow: 1;
-  max-width: 100px;
+  max-width: 64px;
   text-align: center;
-  background-color: #555;
+  background-color: #3a4053;
 }
 .logo_menu{
   width: 100%;
@@ -88,7 +250,7 @@ Estilos personales
 }
 .encabezado_principal{
   padding: 10px;
-  background-color: #eee;
+  background-color: #f6f6f6;
 }
 .contenido_principal{
   padding: 20px;
@@ -100,19 +262,94 @@ Estilos personales
   padding: 30px;
   background-color: #eee;
 }
+.lista_equipos{
+  padding: 30px;
+}
+.h5{
+  font-weight: 600!important;
+}
+
+
 
 .encabezado_lista_proyectos{
   background-color: #fff;
   padding: 5px;
   border-radius: 30px;
   margin-bottom: 20px;
+  color: #9c5ee9;
+  font-weight: 500;
+  line-height: 1em;
 }
 .proyecto{
   background-color: #fff;
-  padding: 5px;
+  padding:5px;
+  color: #3a4053;
+  font-weight: 500;
+  line-height: 1em;
+}
+.slide{
+  display: flex;
+  overflow-x: scroll;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+}
+.slide::-webkit-scrollbar {
+ background-color: #ccc; 
+  height: 3px;
+}
+.slide::-webkit-scrollbar-thumb {
+  background-color: #666;
+}
+.proyecto_nombre, .proyecto_status , .proyecto_prioridad , .proyecto_fecha_inicio, .proyecto_fecha_final,.proyecto_enlace_editables,.proyecto_enlace_entregable{
+  padding: 10px;
+  min-width: 140px;
+  text-align: center;
+}
+.lista-p{
+  text-decoration:none
 }
 
+
+/* .estadisticas_generales .progress-bar{
+  border-radius: 50px;
+} */
 /* Small devices (landscape phones, 576px and up) */
+@media (max-width: 575.8px){
+  .contenido_principal{
+  padding: 0;
+  }
+  .estadisticas_generales{
+    padding: 1em 1.5em;
+  }
+  .etiqueta{
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0.8em;
+  }
+  .progreso{
+    margin: 0;
+  }
+  .progress{
+    border-radius: 50px;
+  }
+  .line{
+    border-bottom: 1px solid #c8cdd9;
+    padding-bottom: 1em;
+  }
+  .lista_proyectos,.lista_equipos{
+    padding: 10px;
+  }
+  .lista_equipos{
+    background-color: #fafafa;
+  }
+  .lista_proyectos .formulario .form-control, .lista_equipos,.lista_proyectos .formulario .btn-secondary{
+  margin: 4px 0;
+  }
+  .lista_equipos .equipo img{
+    padding: 1.5em;
+  }
+}
 @media (min-width: 576px) {
 
 }
@@ -124,6 +361,9 @@ Estilos personales
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  .line{
+    border-right: 1px solid #c8cdd9;
+  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
