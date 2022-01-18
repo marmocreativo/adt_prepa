@@ -41,14 +41,18 @@
 		</div>
 	</div>
 	<div class="row mt-4">
-  
+
 		<?php foreach($equipos as $equipo){ ?>
 		<div class="col-12 col-md-2">
 			<a href="<?php echo base_url('equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
 				<div class="equipo card card-body mb-3">
 					<h3 class="h5"><i class="fas fa-circle bg-icon-p-urgente"></i> <?php echo $equipo->EQUIPO_NOMBRE; ?></h3>
-					<p># Proyectos activos </p>
-					<p># Miembros</p>
+					<?php
+						$numero_proyectos = $this->GeneralModel->conteo('equipos_proyectos','','',['ID_EQUIPO'=>$equipo->ID_EQUIPO],'');
+						$numero_miembros = $this->GeneralModel->conteo('equipos_usuarios','','',['ID_EQUIPO'=>$equipo->ID_EQUIPO],'');
+					?>
+					<p><?php echo $numero_proyectos; ?> Proyectos activos </p>
+					<p><?php echo $numero_miembros; ?> Miembros</p>
 				</div>
 			</a>
 		</div>

@@ -14,6 +14,14 @@
 			<textarea name="TareaDescripcion" rows="3" class="form-control"><?php echo $tarea['TAREA_DESCRIPCION']; ?></textarea>
 		</div>
 		<div class="form-group">
+			<label for="FechaInicio">Fecha Inicio (Fecha de asignación puede ser una fecha antigua)</label>
+			<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php echo date('d-m-Y', strtotime($tarea['FECHA_INICIO'])); ?>">
+		</div>
+		<div class="form-group">
+			<label for="FechaFinal">Fecha Final (Dead line)</label>
+			<input type="text" class="form-control datepicker" name="FechaFinal" value="<?php echo date('d-m-Y', strtotime($tarea['FECHA_FINAL'])); ?>">
+		</div>
+		<div class="form-group">
 			<label for="Prioridad">Prioridad</label>
 			<select class="form-select" name="Prioridad">
 				<option value="normal" <?php if($tarea['PRIORIDAD']=='normal'){ echo 'selected'; } ?>>Normal</option>

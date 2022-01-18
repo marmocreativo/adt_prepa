@@ -165,19 +165,6 @@ class Front_Equipos extends CI_Controller {
 
 		if($this->form_validation->run())
     {
-
-			// Datos de consulta anterior
-			if(isset($_POST['consulta'])&&!empty($_POST['consulta'])){
-				$consulta = json_decode(base64_decode($_POST['consulta']));
-			}else{
-					$consulta->tipo = '';
-					$consulta->orden = '';
-					$consulta->mostrar_por_pagina = '';
-					$consulta->pagina = '';
-					$consulta->busqueda = '';
-			}
-
-
 			/*
 			PROCESO DE LA IMAGEN
 			*/
@@ -326,4 +313,34 @@ class Front_Equipos extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 
+	public function borrar(){
+		$equipo = $this->GeneralModel->detalles('equipos',['ID_EQUIPO'=>$_GET['id']]);
+
+        // check if the institucione exists before trying to delete it
+        if(isset($equipo['ID_EQUIPO']))
+        {
+						// Borro la categoría
+            $this->GeneralModel->borrar('equipos',['ID_EQUIPO'=>$_GET['id']]);
+
+						$proyectos = $this->GeneralModel->lista('equipos_proyectos','',['ID_EQUIPO'=>$_GET['id']],'','','');
+						foreach($proyectos as $proyecto){
+							$this->GeneralModel->borrar('proyectos',['ID_PROYECTO'=>$proyecto->ID_PROYECTO]);
+							$this->GeneralModel->borrar('tareas',['ID_PROYECTO'=>$proyecto->ID_PROYECTO]);
+						}
+						$this->GeneralModel->borrar('equipos_proyectos',['ID_EQUIPO'=>$_GET['id']]);
+						$this->GeneralModel->borrar('equipos_usuarios',['ID_EQUIPO'=>$_GET['id']]);
+
+
+
+						// Mensaje Feedback
+						$this->session->set_flashdata('exito', 'Equipo borrado');
+						//  Redirecciono
+            redirect(base_url('equipos'));
+        } else {
+					// Mensaje Feedback
+					$this->session->set_flashdata('alerta', 'La Entrada que intentaste borrar no existe');
+					//  Redirecciono
+	         redirect(base_url('admin/proyectos'));
+				}
+	}
 }

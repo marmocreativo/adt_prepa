@@ -5,6 +5,7 @@
 		</div>
 		<div class="formulario">
 			<a href="<?php echo base_url('lista_usuarios/actualizar?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-warning"> <i class="fa fa-pencil"></i> Editar</a>
+			<a href="<?php echo base_url('lista_usuarios/borrar?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-outline-danger"> <i class="fa fa-trash"></i> Borrar</a>
 		</div>
 	</div>
   <hr>
@@ -13,7 +14,7 @@
 			<div >
 				<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN']); ?>" class="rounded-circle imagen_perfil" width="50%">
 			</div>
-      
+
 			<table class="table">
 				<tr>
 					<td> <i class="fa fa-birthday-cake"></i></td>

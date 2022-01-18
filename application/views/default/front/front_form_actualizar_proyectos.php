@@ -36,6 +36,15 @@
 				<label for="Url">URL Amigable <small class="text-warning">Auto completado por el sistema</small> </label>
 				<input type="text" class="form-control UrlAmigableResultado" name="Url" value="<?php echo $proyecto['URL'] ?>" required>
 			</div>
+
+			<div class="form-group">
+				<label for="Prioridad">Prioridad</label>
+				<select class="form-select" name="Prioridad">
+					<option value="normal" <?php if($proyecto['PRIORIDAD']=='normal'){ echo 'selected'; } ?>>Normal</option>
+					<option value="alta" <?php if($proyecto['PRIORIDAD']=='alta'){ echo 'selected'; } ?>>Alta</option>
+					<option value="urgente" <?php if($proyecto['PRIORIDAD']=='urgente'){ echo 'selected'; } ?>>Urgente</option>
+				</select>
+			</div>
 			<div class="form-group">
 				<label for="ProyectoDuracion">Duración</label>
 				<select class="form-control" name="ProyectoDuracion" id="seleccionar_duracion_proyecto">
@@ -81,16 +90,17 @@
 				<label for="Estado">Estado</label>
 				<select class="form-control" name="Estado">
 					<option value="activo" <?php if($proyecto['ESTADO']=='activo'){ echo 'selected'; } ?>>Activo</option>
-					<option value="inactivo" <?php if($proyecto['ESTADO']=='inactivo'){ echo 'selected'; } ?>>Inactivo</option>
+					<option value="revision" <?php if($proyecto['ESTADO']=='revision'){ echo 'selected'; } ?>>Revisión</option>
+					<option value="terminado" <?php if($proyecto['ESTADO']=='terminado'){ echo 'selected'; } ?>>Terminado</option>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="FechaInicio">Fecha Inicio (Inicio del proyecto, puede ser una fecha antigua)</label>
-				<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php echo date('d-m-Y'); ?>">
+				<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php echo date('d-m-Y', strtotime($proyecto['FECHA_INICIO'])); ?>">
 			</div>
 			<div class="form-group">
 				<label for="FechaFinal">Fecha Final (Dead line)</label>
-				<input type="text" class="form-control datepicker" name="FechaFinal" value="">
+				<input type="text" class="form-control datepicker" name="FechaFinal" value="<?php echo date('d-m-Y', strtotime($proyecto['FECHA_FINAL'])); ?>">
 			</div>
 			<hr>
 				<img src="<?php echo base_url('contenido/img/proyectos/'.$proyecto['IMAGEN']); ?>" alt="" class="img-fluid mx-auto mb-2">

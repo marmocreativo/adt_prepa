@@ -8,6 +8,7 @@
 				<div class="col-4 col-md-2">
 					<input type="text" class="form-control" name="busqueda" value="<?php echo verificar_variable('GET','busqueda',''); ?>" placeholder="Buscar">
 				</div>
+				<!--
 				<div class="col-4 col-md-2">
 						<select class="form-control" name="todo">
 							<option value="">Mostrar</option>
@@ -15,6 +16,7 @@
 							<option value="no" <?php if(isset($_GET['todo'])&&$_GET['todo']=='no'){ echo 'selected'; } ?>>Solo mis equipos</option>
 						</select>
 				</div>
+			-->
 				<div class="col-4 col-md-2">
 						<select class="form-control" name="orden">
 							<option value="">Ordenar por</option>
@@ -54,18 +56,12 @@
 		<div class="col-1 proyecto_fecha_final">
 			Fecha Entrega
 		</div>
-		<div class="col-1 proyecto_enlace_editables">
-			Editables
-		</div>
-		<div class="col-1 proyecto_enlace_entregable">
-			Entregables
-		</div>
 	</div>
 
 	<!-- Lista de proyectos -->
-	
+
 	<?php foreach($proyectos as $proyecto){ ?>
-	<a class="lista-p" href="<?php echo base_url('proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>"> 
+	<a class="lista-p" href="<?php echo base_url('proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
 		<div class="slide proyecto aling-item-center ">
 			<div class="col proyecto_nombre">
 				<?php echo $proyecto->PROYECTO_NOMBRE; ?>
@@ -97,7 +93,7 @@
 					}
 				?>
 			<div class="col-1 proyecto_status <?php echo $color_estado;?>">
-				
+
 				<span><?php echo $mensaje_estado; ?></span>
 			</div>
 			<div class="col-1 proyecto_prioridad bg-p-media">
@@ -109,18 +105,8 @@
 			<div class="col-1 proyecto_fecha_final">
 				<?php echo date('d-m-Y',strtotime($proyecto->FECHA_FINAL)); ?>
 			</div>
-			<div class="col-1 proyecto_enlace_editables">
-				<?php if(!empty($proyecto->ENLACE_EDITABLE)){ ?>
-				<a href="<?php echo $proyecto->ENLACE_EDITABLE; ?>"><i class="fab fa-google-drive"></i></a>
-				<?php } ?>
-			</div>
-			<div class="col-1 proyecto_enlace_entregable">
-				<?php if(!empty($proyecto->ENLACE_ENTREGABLE)){ ?>
-				<a href="<?php echo $proyecto->ENLACE_ENTREGABLE; ?>"><i class="fas fa-link"></i></a>
-				<?php } ?>
-			</div>
 		</div>
-	</a> 
+	</a>
 	<?php } ?>
 	<!-- /lista de proyectos -->
 

@@ -1,13 +1,14 @@
 <div class="estadisticas_generales mb-3">
 	<h2>Tareas del proyecto</h2>
-	<h5>Esta es una prueba</h5>
 	<div class="p-2">
 		<a href="<?php echo base_url('proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-warning"> <i class="fas fa-pencil-alt"></i> Editar</a>
 		<!-- Button trigger modal -->
+		<?php if($proyecto['ESTADO']!='terminado'){ ?>
 		<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#NuevaTarea">
 		  Nueva tarea
 		</button>
-
+		<a href="<?php echo base_url('proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-danger"> <i class="fas fa-trash"></i> Eliminar</a>
+		<?php } ?>
 			<!-- Modal -->
 			<div class="modal fade" id="NuevaTarea" tabindex="-1" aria-labelledby="NuevaTareaLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -28,6 +29,14 @@
 								<div class="form-group">
 									<label for="TareaDescripcion">Descripción</label>
 									<textarea name="TareaDescripcion" rows="3" class="form-control"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="FechaInicio">Fecha Inicio (Fecha de asignación puede ser una fecha antigua)</label>
+									<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php echo date('d-m-Y'); ?>">
+								</div>
+								<div class="form-group">
+									<label for="FechaFinal">Fecha Final (Dead line)</label>
+									<input type="text" class="form-control datepicker" name="FechaFinal" value="">
 								</div>
 								<div class="form-group">
 									<label for="Prioridad">Prioridad</label>
@@ -80,6 +89,7 @@
 
 	</div>
 	<div class="row g-0">
+		<?php if($proyecto['DURACION']!='permanente'){ ?>
 		<div class="col-12 col-md-3">
 			<div class="etiqueta">
         Progreso
@@ -91,21 +101,40 @@
           <div class="progress-bar striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
           <!-- <div class="progress-bar progress-bar-striped bg-s-terminado" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div> -->
         </div>
-        
+
       </div>
     </div>
-			
+		<?php } ?>
+
 			<ul class="list-group">
 				<?php foreach($tareas as $tarea){ ?>
 			  <li class="list-group-item">
 					<a href="<?php echo base_url('tareas/detalles?id='.$tarea->ID_TAREA); ?>">
-				    <i class="fas fa-check-square text-success"></i>
+						<?php
+							// variables de estado
+							switch ($tarea->ESTADO) {
+								case 'pendiente':
+									$icono = "far fa-clock";
+									$color = 'text-secondary';
+									break;
+								case 'en desarrollo':
+									$icono = "far fa-square";
+									$color = 'text-warning';
+									// code...
+									break;
+								case 'completo':
+									$icono = "fas fa-check-square";
+									$color = 'text-success';
+									break;
+							}
+						?>
+				    <i class="<?php echo $icono.' '.$color; ?>"></i>
 				    <?php echo $tarea->TAREA_TITULO; ?>
 					</a>
 			  </li>
 			<?php } ?>
 			</ul>
-		
+
 	</div>
 
   <div class="row">

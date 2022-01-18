@@ -111,7 +111,6 @@ class Front_Tareas extends CI_Controller {
 	}
 	public function crear()
 	{
-		var_dump($_POST);
 		$this->form_validation->set_rules('TareaTitulo', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
 		if($this->form_validation->run())
     {
@@ -121,6 +120,8 @@ class Front_Tareas extends CI_Controller {
 					'TAREA_DESCRIPCION' => $this->input->post('TareaDescripcion'),
 					'TAREA_ENLACE_EDITABLES' =>  $this->input->post('EnlaceEditables'),
 					'TAREA_ENLACE_ENTREGABLE' =>  $this->input->post('EnlaceEntregables'),
+					'FECHA_INICIO' =>  date('Y-m-d', strtotime($this->input->post('FechaInicio'))),
+					'FECHA_FINAL' =>    date('Y-m-d', strtotime($this->input->post('FechaFinal'))),
 					'PRIORIDAD' =>  $this->input->post('Prioridad'),
 					'TIPO' => $this->input->post('Tipo'),
 					'ESTADO' => $this->input->post('Estado')
@@ -165,6 +166,7 @@ class Front_Tareas extends CI_Controller {
 
 	public function actualizar()
 	{
+
 		$this->form_validation->set_rules('TareaTitulo', 'Título', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
 
 		if($this->form_validation->run())
@@ -176,10 +178,16 @@ class Front_Tareas extends CI_Controller {
 				'TAREA_DESCRIPCION' =>  $this->input->post('TareaDescripcion'),
 				'TAREA_ENLACE_EDITABLES' =>  $this->input->post('EnlaceEditables'),
 				'TAREA_ENLACE_ENTREGABLE' =>  $this->input->post('EnlaceEntregables'),
+				'FECHA_INICIO' =>  date('Y-m-d', strtotime($this->input->post('FechaInicio'))),
+				'FECHA_FINAL' =>    date('Y-m-d', strtotime($this->input->post('FechaFinal'))),
 				'PRIORIDAD' =>  $this->input->post('Prioridad'),
 				'TIPO' =>  $this->input->post('Tipo'),
 				'ESTADO' =>  $this->input->post('Estado'),
 			);
+
+			if($this->input->post('Estado')=='completo'){
+				$parametros['FECHA_ENTREGA'] = date('Y-m-d');
+			}
 
       $this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$this->input->post('Identificador')],$parametros);
 

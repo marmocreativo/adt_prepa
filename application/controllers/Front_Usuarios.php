@@ -356,4 +356,26 @@ class Front_Usuarios extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 
+	public function borrar(){
+		$usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_GET['id']]);
+
+        // check if the institucione exists before trying to delete it
+        if(isset($usuario['ID_USUARIO']))
+        {
+						$this->GeneralModel->borrar('tareas',['ID_USUARIO'=>$_GET['id']]);
+						$this->GeneralModel->borrar('equipos_usuarios',['ID_USUARIO'=>$_GET['id']]);
+
+
+
+						// Mensaje Feedback
+						$this->session->set_flashdata('exito', 'Equipo borrado');
+						//  Redirecciono
+            redirect(base_url('usuarios'));
+        } else {
+					// Mensaje Feedback
+					$this->session->set_flashdata('alerta', 'La Entrada que intentaste borrar no existe');
+					//  Redirecciono
+	         redirect(base_url('usuarios'));
+				}
+	}
 }

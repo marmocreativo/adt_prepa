@@ -5,7 +5,8 @@
 		</div>
 		<div class="col-12 col-md-4 formulario p-2">
 			<a href="<?php echo base_url('equipos/actualizar?id='.$equipo['ID_EQUIPO']); ?>" class="btn btn-warning"> <i class="fas fa-pencil-alt"></i> Editar equipo</a>
-			<a href="<?php echo base_url('proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
+			<a href="<?php echo base_url('proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo proyecto</a>
+			<a href="<?php echo base_url('equipos/borrar?id='.$equipo['ID_EQUIPO']); ?>" class="btn btn-outline-danger"> <i class="fas fa-trash"></i> Borrar equipo</a>
 		</div>
 	</div>
 	<div class="slide encabezado_lista_proyectos mt-4">
@@ -65,7 +66,7 @@
 					}
 				?>
 			<div class="col-1 proyecto_status <?php echo $color_estado; ?>">
-				
+
 				<span><?php echo $mensaje_estado; ?></span>
 			</div>
 			<div class="col-1 proyecto_prioridad bg-p-media">

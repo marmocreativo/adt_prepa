@@ -8,18 +8,19 @@
             Status de proyectos
           </div>
         </div>
-    
+
         <div class="col-12 col-md-8">
           <div class="progreso">
             <div class="progress">
-              <div class="progress-bar bg-s-atiempo" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
-              <div class="progress-bar bg-s-revision" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-              <div class="progress-bar bg-s-retraso" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20%</div>
+              <div class="progress-bar bg-s-atiempo" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+              <div class="progress-bar bg-s-revision" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+              <div class="progress-bar bg-s-retraso" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
             </div>
           </div>
         </div>
-				
+
 			</div>
+			<!--
 			<div class="estadistica_progreso row aling-item-center g-0">
 
         <div class="col-12 col-md-3">
@@ -36,7 +37,7 @@
             </div>
           </div>
         </div>
-				
+
 			</div>
 			<div class="estadistica_progreso row aling-item-center g-0">
         <div class="col-12 col-md-3">
@@ -44,7 +45,7 @@
             Prioridad de proyectos
           </div>
         </div>
-				
+
         <div class="col-12 col-md-8">
           <div class="progreso">
             <div class="progress">
@@ -55,9 +56,11 @@
             </div>
           </div>
         </div>
-				
+
 			</div>
-		</div>
+
+	-->
+	</div>
 		<div class="col-12 col-md-4 mt-3">
 			<p><i class="fas fa-circle bg-icon-s-revision"></i> Proyectos están en revisión</p>
 			<p><i class="fas fa-circle bg-icon-p-urgente"></i> Hay mas del 50% de proyectos urgentes</p>
@@ -66,7 +69,7 @@
 	</div>
 </div>
 
-<div class="lista_proyectos">
+<div class="lista_proyectos d-none">
 	<div class="d-flex row  aling-item-center">
     <div class="col-12 col-md-4">
       <div class="titulo">
@@ -85,7 +88,7 @@
         </form>
       </div>
     </div>
-		
+
 	</div>
 	<div class="slide encabezado_lista_proyectos  mt-4">
 		<div class="col proyecto_nombre">
@@ -112,7 +115,7 @@
 	</div>
 	<!-- Lista de proyectos -->
 	<div class="slide proyecto  align-items-center ">
-		
+
     <div class="col proyecto_nombre">
 			Nombre
 		</div>
@@ -134,7 +137,7 @@
 		<div class="col-1 proyecto_enlace_entregable">
 			<a href="#"><i class="fas fa-link"></i></a>
 		</div>
-    
+
 	</div>
 	<!-- /lista de proyectos -->
 
