@@ -1,8 +1,7 @@
 
-	<div class="row justify-content-center mt-5">
-		<div class="col-12 col-sm-8 col-md-6 col-lg-4">
-				<?php retro_alimentacion(); ?>
-			<form class="border rounded p-5" action="<?php echo base_url('login/iniciar_sesion');?>" method="post">
+	<div class="row justify-content-center">
+		<div class="col-12 col-sm-8 col-md-6 col-lg-4 p-4">
+			<form class="text-center" action="<?php echo base_url('login/iniciar_sesion');?>" method="post">
 				<input type="hidden" name="UrlRedirect" value="<?php echo verificar_variable('GET','url_redirect',''); ?>">
 				<img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" alt="" class="img-fluid">
 				<h3 class="mb-4 text-center">Inicia Sesión</h3>
@@ -26,3 +25,4 @@
 			</form>
 		</div>
 	</div>
+ q

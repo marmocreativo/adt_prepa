@@ -96,20 +96,18 @@
 					</div>
 					<div class="col-12 col-md-6 controles">
 						<form class="row aling-item-center date" action="<?php echo base_url(); ?>" method="get">
-							<div class="col">
+							<div class="col-4 p-2">
 								<div class="form-group d-flex">
-									<label for="FechaInicio" class="m">del</label>
 									<input type="text" class="form-control form-control-sm datepicker" name="FechaInicio" value="<?php echo verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days'))); ?>">
 								</div>
 							</div>
-							<div class="col">
+							<div class="col-4 p-2">
 								<div class="form-group d-flex">
-									<label for="FechaFInal" class="m">al</label>
 									<input type="text" class="form-control form-control-sm datepicker" name="FechaFInal" value="<?php echo verificar_variable('GET','fecha_final',date('d-m-Y')); ?>">
 								</div>
 							</div>
-							<div class="col">
-								<button type="submit" class="btn btn-secondary" name="button"> <i class="fas fa-search"></i> </button>
+							<div class="col-4 p-2">
+								<button type="submit" class="btn btn-secondary btn-sm w-100" name="button"> <i class="fas fa-search"></i> </button>
 							</div>
 						</form>
 
