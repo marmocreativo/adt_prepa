@@ -1,3 +1,4 @@
+<a href="<?php echo base_url('lista_usuarios/crear?tipo=usuario'); ?>" class="btn btn-success btn-round"> <i class="fa fa-plus"></i></a>
 <div class="lista_equipos">
 	<div class="row d-flex justify-content-between">
 		<div class="col-12 col-md-4 titulo">
@@ -5,17 +6,17 @@
 		</div>
 		<div class="col-12 col-md-6 formulario pl-4">
 			<form class="row mb-3" action="<?php echo base_url('lista_usuarios'); ?>" method="get">
-				<div class="col-4 col-md-2">
+				<div class="col-12 col-md-2 mb-2">
 					<input type="text" class="form-control" name="busqueda" value="<?php echo verificar_variable('GET','busqueda',''); ?>" placeholder="Buscar">
 				</div>
-				<div class="col-4 col-md-2">
+				<div class="col-6 col-md-2 mb-2">
 						<select class="form-control" name="orden">
 							<option value="">Ordenar por</option>
 							<option value="ORDEN ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='ORDEN ASC'){ echo 'selected'; } ?>>Orden Personalizado</option>
 							<option value="USUARIO_NOMBRE ASC" <?php if(isset($_GET['orden'])&&$_GET['orden']=='USUARIO_NOMBRE ASC'){ echo 'selected'; } ?>>Alfabético A-Z</option>
 						</select>
 				</div>
-				<div class="col-4 col-md-2">
+				<div class="col-6 col-md-2 mb-2">
 						<select class="form-control" name="mostrar_por_pagina">
 							<option value="">mostrar por página</option>
 							<option value="<?php echo $op['cantidad_publicaciones_por_pagina'] ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina'] ?></option>
@@ -24,13 +25,10 @@
 							<option value="<?php echo $op['cantidad_publicaciones_por_pagina']*10; ?>" <?php if(isset($_GET['mostrar_por_pagina'])&&$_GET['mostrar_por_pagina']==$op['cantidad_publicaciones_por_pagina']*10){ echo 'selected'; } ?>>Mostrar <?php echo $op['cantidad_publicaciones_por_pagina']*10; ?></option>
 						</select>
 				</div>
-				<div class="col-6 col-md-2">
-					<button type="submit" class="btn btn-primary"> Aplicar </button>
+				<div class="col-12 col-md-2 mb-2">
+					<button type="submit" class="btn btn-secondary w-100"> Aplicar </button>
 				</div>
 			</form>
-		</div>
-		<div class="col-6 col-md-2 controles">
-			<a href="<?php echo base_url('lista_usuarios/crear?tipo=usuario'); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
 		</div>
 	</div>
 	<div class="row mt-3">

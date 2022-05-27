@@ -33,6 +33,8 @@ class Admin_Usuarios extends CI_Controller {
 		// Cargo los modelos
 		// Variables Globales
 			$this->data['tipo'] = verificar_variable('GET','tipo','usuario');
+			$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days')));
+			$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d 00:00:00'));
 		// reviso si existe la vista especializada
 
 

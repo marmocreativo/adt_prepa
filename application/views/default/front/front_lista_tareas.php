@@ -11,10 +11,13 @@
 				$cantidad_tareas_completas ++;
 			}
 		}
-
-		$porcentaje_completo = ($cantidad_tareas_completas*100)/$cantidad_tareas;
+		if($cantidad_tareas>0){
+			$porcentaje_completo = ($cantidad_tareas_completas*100)/$cantidad_tareas;
+		}else{
+			$porcentaje_completo =100;
+		}
 		?>
-		<div class="col-4">
+		<div class="col-12 col-md-4">
 			Progreso
 			<div class="progress mb-3">
 			  <div class="progress-bar" role="progressbar" style="width: <?php echo $porcentaje_completo; ?>%" aria-valuenow="<?php echo $porcentaje_completo; ?>" aria-valuemin="0" aria-valuemax="100"></div>

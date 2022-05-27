@@ -1,4 +1,4 @@
-<div class="contenido_principal">
+<div class="contenido_principal p-3">
 <form action="<?php echo base_url('usuarios/crear') ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Tipo" value="usuario">
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">

@@ -9,7 +9,7 @@ html {
 body{
   height: 100%;
   overflow: hidden;
-  background: #fafafa;  
+  background: #fafafa;
   font-family: 'Work Sans', sans-serif !important;
 }
 
@@ -38,7 +38,7 @@ Bootstrap Overwrite
 }
   .nav-link [aria-current] {
     color:#f8d092!important;
-  } 
+  }
 .text-white:active, .text-white:hover{
   color:#f8d092!important;
 }
@@ -48,7 +48,7 @@ Bootstrap Overwrite
 }
 
 .m{
-  
+
   margin: 1rem 0!important;
 
 }
@@ -155,7 +155,7 @@ h2{
 .bg-icon-s-atiempo{
   background-color:var(--s-atiempo);
   border: 6px solid #94e0ac;
-  color: #24c958; 
+  color: #24c958;
   border-radius: 50px;
 }
 .icon-atiempo, .icon-revision, .icon-urgente{
@@ -178,7 +178,7 @@ h2{
   margin-top: 5px;
 }
 
-.lista_equipos a { 
+.lista_equipos a {
  text-decoration: none;
 }
 
@@ -294,7 +294,7 @@ h2{
   scroll-snap-type: x proximity;
 }
 .slide::-webkit-scrollbar {
- background-color: #ccc; 
+ background-color: #ccc;
   height: 3px;
 }
 .slide::-webkit-scrollbar-thumb {
@@ -307,6 +307,14 @@ h2{
 }
 .lista-p{
   text-decoration:none
+}
+
+.btn-round{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding:25px 30px;
+  border-radius: 50px;
 }
 
 

@@ -32,6 +32,8 @@ class Admin_Base_De_Datos extends CI_Controller {
 
 		// Título General
 		$this->data['titulo']  = 'Administrador | '.$this->data['op']['titulo_sitio'];
+		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days')));
+		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d 00:00:00'));
 
 		// Cargo los modelos
 	}

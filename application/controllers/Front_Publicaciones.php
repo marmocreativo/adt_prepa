@@ -16,7 +16,7 @@ class Front_Publicaciones extends CI_Controller {
 			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
-		
+
 
 		// reviso el dispositivo
 		if($this->agent->is_mobile()){
@@ -27,6 +27,8 @@ class Front_Publicaciones extends CI_Controller {
 		}
 
 		$this->data['tipo'] = verificar_variable('GET','tipo','');
+		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days')));
+		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d 00:00:00'));
 	}
 
 	public function index()

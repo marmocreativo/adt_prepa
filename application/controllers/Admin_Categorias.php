@@ -39,6 +39,8 @@ class Admin_Categorias extends CI_Controller {
 			$this->data['tipo_objeto'] = verificar_variable('GET','tipo_objeto','publicacion');
 		}
 		// reviso si existe la vista especializada
+		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days')));
+		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d 00:00:00'));
 
 
 		// Título General
