@@ -2,7 +2,7 @@
 	<div class="encabezado_usuario p-2" style="background-image: url('<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN_FONDO']); ?>');">
 		<div class="row">
 			<div class="col-12 text-center">
-				<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN']); ?>" class="rounded-circle imagen_perfil" width="50%"><?php echo $usuario['EQUIPO_NOMBRE']; ?>
+				<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN']); ?>" class="rounded-circle imagen_perfil" width="100%">
 			</div>
 		</div>
 	</div>
@@ -22,7 +22,7 @@
 			    <a class="nav-link" href="<?php echo base_url('usuarios/equipos?id='.$usuario['ID_USUARIO']); ?>"> <i class="fa fa-users"></i> </a>
 			  </li>
 			</ul>
-			<div class="bg-white p-2 py-4">
+			<div class="bg-white p-2 py-4 text-center">
 				<table class="table">
 					<tr>
 						<td> <i class="fa fa-birthday-cake"></i></td>

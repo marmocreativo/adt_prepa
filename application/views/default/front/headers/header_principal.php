@@ -15,7 +15,7 @@
 		<meta property="og:image" content="<?php echo $imagen; ?>" />
 
 	<!-- Font Awesome Icons -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<!-- Main CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -51,7 +51,7 @@
 	<div class="load-screen bg-secondary"><div class="lds-dual-ring"></div></div>
 		<div class="envolvente">
 			<div class="sidebar">
-				<a href="/" class="d-block p-3 link-dark text-decoration-none" title="">
+				<a href="<?php echo base_url(); ?>" class="d-block p-3 link-dark text-decoration-none" title="">
 		      <img src="<?php echo base_url('assets/img/logo.png'); ?>" class="logo_menu" alt="">
 		    </a>
 				<ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
