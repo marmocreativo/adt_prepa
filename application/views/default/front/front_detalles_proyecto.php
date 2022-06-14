@@ -128,6 +128,7 @@
 									break;
 							}
 						?>
+						<p class="h4"><?php echo date('d / M'); ?></p>
 				    <i class="<?php echo $icono.' '.$color; ?>"></i>
 				    <?php echo $tarea->TAREA_TITULO; ?>
 					</a>

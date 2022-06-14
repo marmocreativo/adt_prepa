@@ -52,7 +52,7 @@ class Front_Tareas extends CI_Controller {
 		$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
 		$pagina = verificar_variable('GET','pagina','1');
 		$this->data['consulta']['pagina'] = $pagina;
-		$agrupar = 'tareas.ID_TAREA';
+		$agrupar = '';
 		$this->data['consulta']['agrupar'] = $agrupar;
 
 		$parametros_and = array();
@@ -116,6 +116,8 @@ class Front_Tareas extends CI_Controller {
 		$this->form_validation->set_rules('TareaTitulo', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
 		if($this->form_validation->run())
     {
+
+				if(!empty($this->input->post('FechaFinal'))){ $fecha_final = date('Y-m-d', strtotime($this->input->post('FechaFinal'))); }else{ $fecha_final = null; }
 				$parametros = array(
 					'ID_PROYECTO' => $this->input->post('IdProyecto'),
 					'TAREA_TITULO' => $this->input->post('TareaTitulo'),
@@ -123,7 +125,7 @@ class Front_Tareas extends CI_Controller {
 					'TAREA_ENLACE_EDITABLES' =>  $this->input->post('EnlaceEditables'),
 					'TAREA_ENLACE_ENTREGABLE' =>  $this->input->post('EnlaceEntregables'),
 					'FECHA_INICIO' =>  date('Y-m-d', strtotime($this->input->post('FechaInicio'))),
-					'FECHA_FINAL' =>    date('Y-m-d', strtotime($this->input->post('FechaFinal'))),
+					'FECHA_FINAL' =>    $fecha_final,
 					'PRIORIDAD' =>  $this->input->post('Prioridad'),
 					'TIPO' => $this->input->post('Tipo'),
 					'ESTADO' => $this->input->post('Estado')
@@ -144,8 +146,14 @@ class Front_Tareas extends CI_Controller {
 					}
 				}
 
-				$this->session->set_flashdata('exito', 'Tarea creada correctamente');
-				redirect(base_url('proyectos/detalles?id='.$this->input->post('IdProyecto')));
+				if(empty($this->input->post('IdProyecto'))){
+					$this->session->set_flashdata('exito', 'Tarea creada correctamente');
+					redirect(base_url('tareas'));
+				}else{
+					$this->session->set_flashdata('exito', 'Tarea creada correctamente');
+					redirect(base_url('proyectos/detalles?id='.$this->input->post('IdProyecto')));
+				}
+
 		}
 
 	}

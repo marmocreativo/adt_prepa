@@ -1,5 +1,5 @@
 <div class="row">
-<div class="col-4">
+<div class="col-12 col-md-4">
 	<form class="" action="<?php echo base_url('tareas/actualizar'); ?>" method="post">
 		<input type="hidden" name="Identificador" value="<?php echo $tarea['ID_TAREA']; ?>">
 		<input type="hidden" name="IdProyecto" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
@@ -39,13 +39,13 @@
 		</div>
 		<div class="">
 			<?php
-					$usuarios = $this->GeneralModel->lista_join('usuarios',['equipos_usuarios'=>'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO'],'',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','usuarios.ID_USUARIO');
+					$usuarios = $this->GeneralModel->lista('usuarios','',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','');
 					$id_asignados = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','','');
 					$usuarios_asignados = array();
 					foreach($id_asignados as $id_asig){
 						$usuarios_asignados[] =$id_asig->ID_USUARIO;
 					}
-					//var_dump($usuarios_asignados);
+					//var_dump($usuarios);
 
 			?>
 			<h4>Asignar a:</h4>

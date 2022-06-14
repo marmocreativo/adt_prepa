@@ -1,4 +1,4 @@
-<a href="<?php echo base_url('equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success btn-round"> <i class="fa fa-plus"></i></a>
+<a href="<?php echo base_url('equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success btn-circulo-flotante"> <i class="fa fa-plus"></i></a>
 <div class="lista_equipos">
 	<div class="row d-flex justify-content-between">
 		<div class="col-12 col-md-4 titulo">

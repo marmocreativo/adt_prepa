@@ -10,14 +10,6 @@ class Front_Publicaciones extends CI_Controller {
 		}
 		$this->data['op'] = opciones_default();
 
-		// Verifico Sesión
-
-		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
-		}
-
-
 		// reviso el dispositivo
 		if($this->agent->is_mobile()){
 			//$this->data['dispositivo']  = "mobile";
@@ -41,8 +33,34 @@ class Front_Publicaciones extends CI_Controller {
 		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
 		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_login',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/pagina_inicio',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+
+		// Vistas
+	}
+
+	public function resumen()
+	{
+
+		// Verifico Sesión
+
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
+			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+
+
+		// Verifico el switch de mantenimiento
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+
+		// Open Tags
+		$this->data['titulo']  = 'Inicio';
+		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
+		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
+
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/resumen',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 
 		// Vistas
@@ -50,6 +68,14 @@ class Front_Publicaciones extends CI_Controller {
 
 	public function tipo()
 	{
+
+		// Verifico Sesión
+
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
+			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+
 		// Verifico el switch de mantenimiento
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
 		// Datos Generales
@@ -75,6 +101,14 @@ class Front_Publicaciones extends CI_Controller {
 	}
 	public function categoria()
 	{
+
+		// Verifico Sesión
+
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
+			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+
 		// Verifico el switch de mantenimiento
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
 
@@ -168,6 +202,14 @@ class Front_Publicaciones extends CI_Controller {
 
 	public function busqueda()
 	{
+
+		// Verifico Sesión
+
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
+			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+
 		// Verifico el switch de mantenimiento
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
 
@@ -253,6 +295,15 @@ class Front_Publicaciones extends CI_Controller {
 
 	public function publicacion()
 	{
+
+		// Verifico Sesión
+
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
+			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+
+
 		// Verifico el switch de mantenimiento
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
 
@@ -300,6 +351,15 @@ class Front_Publicaciones extends CI_Controller {
 	}
 	public function reaccionar()
 	{
+
+		// Verifico Sesión
+
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
+			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+
+
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
 			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
@@ -341,6 +401,15 @@ class Front_Publicaciones extends CI_Controller {
 	}
 	public function contacto()
 	{
+
+		// Verifico Sesión
+
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
+			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+
+
 		// Verifico el switch de mantenimiento
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
 
@@ -359,6 +428,15 @@ class Front_Publicaciones extends CI_Controller {
 
 	public function enviar_mensaje()
 	{
+
+		// Verifico Sesión
+
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
+			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+
+
 		// Verifico el switch de mantenimiento
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
 

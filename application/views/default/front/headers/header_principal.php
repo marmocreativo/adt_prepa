@@ -56,7 +56,7 @@
 		    </a>
 				<ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
 		      <li class="nav-item">
-		        <a href="<?php echo base_url(); ?>" class="nav-link text-white  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('resumen'); ?>" class="nav-link text-white  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
 		         	<i class="fas fa-columns fa-lg"></i> <span class="etiqueta_menu">Inicio</span>
 		        </a>
 		      </li>
