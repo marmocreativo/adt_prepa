@@ -13,7 +13,6 @@ class Front_Equipos extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -157,7 +156,6 @@ class Front_Equipos extends CI_Controller {
 		$consulta = base64_encode(json_encode($consulta));
 
 
-		$this->session->set_flashdata('exito', 'Borrador creado correctamente');
 		redirect(base_url('equipos/actualizar?id='.$equipo_id.'&consulta='.$consulta));
 	}
 
@@ -256,7 +254,6 @@ class Front_Equipos extends CI_Controller {
 			}
 
 			// Mensaje Feedback
-			$this->session->set_flashdata('exito', 'Equipo actualizado correctamente');
 			//  Redirecciono
 			redirect(base_url('equipos/detalles?id='.$this->input->post('Identificador')));
 
@@ -335,12 +332,10 @@ class Front_Equipos extends CI_Controller {
 
 
 						// Mensaje Feedback
-						$this->session->set_flashdata('exito', 'Equipo borrado');
 						//  Redirecciono
             redirect(base_url('equipos'));
         } else {
 					// Mensaje Feedback
-					$this->session->set_flashdata('alerta', 'La Entrada que intentaste borrar no existe');
 					//  Redirecciono
 	         redirect(base_url('admin/proyectos'));
 				}

@@ -54,7 +54,6 @@ class Autenticacion extends CI_Controller {
 				$parametros = $this->GeneralModel->detalles('usuarios',['USUARIO_CORREO'=>$correo]);
 				if($parametros['ESTADO']!='activo'){
 						// Mensaje de feedback
-						$this->session->set_flashdata('alerta', 'Tu cuenta parece estar inactiva por favor contacta con nosotros.');
 						// redirección
 						redirect(base_url('login'));
 				}else{
@@ -71,7 +70,6 @@ class Autenticacion extends CI_Controller {
 				}
 			}else{
 				// Mensaje de feedback
-				$this->session->set_flashdata('alerta', 'Tu correo y contraseña no coinciden');
 				// redirección
 					// Si no coinciden vuelvo a cargar el formulario
 					redirect(base_url('login'));
@@ -148,10 +146,8 @@ class Autenticacion extends CI_Controller {
 				// envio el correo
 				if($this->email->send()){
 					// Genero la retroalimentacion
-					$this->session->set_flashdata('exito', 'Encontramos tu cuenta, te hemos enviado un correo con un enlace seguro para recuperar tu contraseña');
 				}else{
 					// Genero la retroalimentacion
-					$this->session->set_flashdata('advertencia', 'Encontramos tu cuenta, pero no hemos podido enviar un correo seguro para recuperarla, por favor intentalo de nuevo');
 				}
 				// redirecciono
 				redirect(base_url('login'));
@@ -159,7 +155,6 @@ class Autenticacion extends CI_Controller {
 			}else{
 					// Si no coinciden vuelvo a cargar el formulario
 					// Mensaje de feedback
-					$this->session->set_flashdata('alerta', 'No encontramos ninguna cuenta con los datos que proporcionaste');
 					// redirección
 					redirect(base_url('login/recuperar_pass'));
 			}
@@ -199,7 +194,6 @@ class Autenticacion extends CI_Controller {
 				$this->AutenticacionModel->restaurar_pass($id,$parametros);
 				$this->AutenticacionModel->desactivar_pin($id,$clave);
 				// Mensaje de feedback
-				$this->session->set_flashdata('exito', 'Tu contraseña ha sido restaurada correctamente');
 				redirect(base_url('login'));
 			}else{
 				if($this->AutenticacionModel->verificar_pin($id,$clave)){
@@ -209,7 +203,6 @@ class Autenticacion extends CI_Controller {
 						$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 				}else{
 					// Mensaje de feedback
-					$this->session->set_flashdata('alerta', 'El enlace que utilizaste no es válido.');
 					// SI el PIN no es valido regreso y mando error
 					redirect(base_url('login'));
 				}
@@ -217,7 +210,6 @@ class Autenticacion extends CI_Controller {
 
 		}else{
 			// Si no tengo las variables definidas redirecciono directo al Login
-			$this->session->set_flashdata('alerta', 'El enlace que utilizaste no es válido.');
 			redirect(base_url('login'));
 		}
 	}
@@ -225,7 +217,6 @@ class Autenticacion extends CI_Controller {
 	{
 		// Login Form
 		session_destroy();
-		$this->session->set_flashdata('exito', 'Sesión cerrada correctamente');
 		redirect(base_url('login'));
 	}
 }

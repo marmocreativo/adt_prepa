@@ -1,5 +1,5 @@
 
-<a href="<?php echo base_url('proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success btn-round"> <i class="fa fa-plus"></i> </a>
+<a href="<?php echo base_url('proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success btn-round btn-circulo-flotante"> <i class="fa fa-plus"></i> </a>
 <div class="lista_proyectos">
 	<div class="row d-flex justify-content-between">
 		<div class=" col-12 col-md-4 titulo d-flex justify-content-between">

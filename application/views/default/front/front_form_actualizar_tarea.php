@@ -1,5 +1,5 @@
 <div class="row">
-<div class="col-12 col-md-4">
+<div class="col-12 col-md-6">
 	<form class="" action="<?php echo base_url('tareas/actualizar'); ?>" method="post">
 		<input type="hidden" name="Identificador" value="<?php echo $tarea['ID_TAREA']; ?>">
 		<input type="hidden" name="IdProyecto" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
@@ -10,32 +10,54 @@
 			<input type="text" class="form-control" name="TareaTitulo" value="<?php echo $tarea['TAREA_TITULO']; ?>">
 		</div>
 		<div class="form-group">
-			<label for="TareaDescripcion">Descripción</label>
-			<textarea name="TareaDescripcion" rows="3" class="form-control"><?php echo $tarea['TAREA_DESCRIPCION']; ?></textarea>
+			<label for="TareaDescripcion">Notas</label>
+			<textarea name="TareaDescripcion" rows="3" class="form-control TextEditorSmall"><?php echo $tarea['TAREA_DESCRIPCION']; ?></textarea>
 		</div>
-		<div class="form-group">
-			<label for="FechaInicio">Fecha Inicio (Fecha de asignación puede ser una fecha antigua)</label>
-			<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php echo date('d-m-Y', strtotime($tarea['FECHA_INICIO'])); ?>">
+		<div class="row my-2">
+			<div class="col-12 col-md-6">
+				<div class="form-group">
+					<label for="FechaInicio">Fecha Inicio</label>
+					<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php echo date('d-m-Y', strtotime($tarea['FECHA_INICIO'])); ?>">
+					<div class="form-text">Puede ser una fecha anterior</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-6">
+				<div class="form-group">
+					<label for="FechaFinal">Fecha Final</label>
+					<input type="text" class="form-control datepicker" name="FechaFinal" value="<?php echo date('d-m-Y', strtotime($tarea['FECHA_FINAL'])); ?>">
+					<div class="form-text">(Dead line) si la tarea se entrega después de esta fecha se considera atrasada</div>
+				</div>
+			</div>
 		</div>
-		<div class="form-group">
-			<label for="FechaFinal">Fecha Final (Dead line)</label>
-			<input type="text" class="form-control datepicker" name="FechaFinal" value="<?php echo date('d-m-Y', strtotime($tarea['FECHA_FINAL'])); ?>">
-		</div>
-		<div class="form-group">
-			<label for="Prioridad">Prioridad</label>
-			<select class="form-select" name="Prioridad">
-				<option value="normal" <?php if($tarea['PRIORIDAD']=='normal'){ echo 'selected'; } ?>>Normal</option>
-				<option value="alta" <?php if($tarea['PRIORIDAD']=='alta'){ echo 'selected'; } ?>>Alta</option>
-				<option value="urgente" <?php if($tarea['PRIORIDAD']=='urgente'){ echo 'selected'; } ?>>Urgente</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label for="EnlaceEditables">Enlace Archivos Editables</label>
-			<input type="text" class="form-control" name="EnlaceEditables" value="<?php echo $tarea['TAREA_ENLACE_EDITABLES'] ?>">
-		</div>
-		<div class="form-group">
-			<label for="EnlaceEntregables">Enlace Archivos Entregables</label>
-			<input type="text" class="form-control" name="EnlaceEntregables" value="<?php echo $tarea['TAREA_ENLACE_ENTREGABLE'] ?>">
+		<div class="row my-2">
+			<div class="col-12 col-md-6">
+				<div class="form-group">
+					<label for="EnlaceEditables">Enlace Archivos Editables</label>
+					<input type="text" class="form-control" name="EnlaceEditables" value="<?php echo $tarea['TAREA_ENLACE_EDITABLES'] ?>">
+				</div>
+				<div class="form-group">
+					<label for="EnlaceEntregables">Enlace Archivos Entregables</label>
+					<input type="text" class="form-control" name="EnlaceEntregables" value="<?php echo $tarea['TAREA_ENLACE_ENTREGABLE'] ?>">
+				</div>
+			</div>
+			<div class="col-12 col-md-6">
+				<div class="form-group">
+					<label for="Prioridad">Prioridad</label>
+					<select class="form-select" name="Prioridad">
+						<option value="normal" <?php if($tarea['PRIORIDAD']=='normal'){ echo 'selected'; } ?>>Normal</option>
+						<option value="alta" <?php if($tarea['PRIORIDAD']=='alta'){ echo 'selected'; } ?>>Alta</option>
+						<option value="urgente" <?php if($tarea['PRIORIDAD']=='urgente'){ echo 'selected'; } ?>>Urgente</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="Estado">Estado</label>
+					<select class="form-control" name="Estado">
+						<option value="pendiente" <?php if($tarea['ESTADO']=='pendiente'){ echo 'selected'; } ?>>Pendiente</option>
+						<option value="en desarrollo" <?php if($tarea['ESTADO']=='en desarrollo'){ echo 'selected'; } ?>>En Desarrollo</option>
+						<option value="completo" <?php if($tarea['ESTADO']=='completo'){ echo 'selected'; } ?>>Completo</option>
+					</select>
+				</div>
+			</div>
 		</div>
 		<div class="">
 			<?php
@@ -62,14 +84,7 @@
 			<?php } ?>
 			</ul>
 		</div>
-		<div class="form-group">
-			<label for="Estado">Estado</label>
-			<select class="form-control" name="Estado">
-				<option value="pendiente" <?php if($tarea['ESTADO']=='pendiente'){ echo 'selected'; } ?>>Pendiente</option>
-				<option value="en desarrollo" <?php if($tarea['ESTADO']=='en desarrollo'){ echo 'selected'; } ?>>En Desarrollo</option>
-				<option value="completo" <?php if($tarea['ESTADO']=='completo'){ echo 'selected'; } ?>>Completo</option>
-			</select>
-		</div>
+
 	</div>
 	<div class="modal-footer">
 		<button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Guardar</button>

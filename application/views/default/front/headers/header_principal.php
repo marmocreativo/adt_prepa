@@ -56,27 +56,27 @@
 		    </a>
 				<ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
 		      <li class="nav-item">
-		        <a href="<?php echo base_url('resumen'); ?>" class="nav-link text-white  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('resumen'); ?>" class="nav-link text-white  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Resumen">
 		         	<i class="fas fa-columns fa-lg"></i> <span class="etiqueta_menu">Inicio</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo site_url('tareas'); ?>" class="nav-link text-white py-3 " aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Tareas">
+		        <a href="<?php echo site_url('tareas'); ?>" class="nav-link text-white py-3 " aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Mis Tareas">
 		         	<i class="fas fa-tasks fa-lg"></i> <span class="etiqueta_menu">Tareas</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('proyectos'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('proyectos'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Proyectos">
 		         	<i class="fas fa-project-diagram fa-lg"></i> <span class="etiqueta_menu">Proyectos</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('equipos'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('equipos'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Equipos">
 		         	<i class="fas fa-users fa-lg"></i> <span class="etiqueta_menu">Equipos</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('lista_usuarios'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('lista_usuarios'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Usuarios">
 		         	<i class="fas fa-user fa-lg"></i> <span class="etiqueta_menu">Usuarios</span>
 		        </a>
 		      </li>

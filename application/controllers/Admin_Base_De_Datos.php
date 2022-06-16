@@ -12,12 +12,10 @@ class Admin_Base_De_Datos extends CI_Controller {
 
 		// Verifico Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Verifico Permiso
 		if(!verificar_permiso(['administrador'])){
-			$this->session->set_flashdata('alerta', 'No tienes permiso de entrar en esa sección');
 			redirect(base_url('usuario'));
 		}
 
@@ -118,12 +116,10 @@ class Admin_Base_De_Datos extends CI_Controller {
 				             $temp_line = '';
 				         }
 				     }
-						 $this->session->set_flashdata('exito', 'Base de datos restaurada');
 						 redirect(base_url('admin/base_de_datos'));
 				 }
 			 }
 	 }else{
-		 $this->session->set_flashdata('alerta', 'No subiste un archivo válido');
 		 redirect(base_url('admin/base_de_datos'));
 	 }
 

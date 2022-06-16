@@ -7,6 +7,46 @@
 |
 */
 
+if ( ! function_exists('fechas_es'))
+{
+    function fechas_es($fecha_original)
+    {
+      $CI =& get_instance();
+
+      $dia = date('d', strtotime($fecha_original));
+      $mes = date('n', strtotime($fecha_original));
+      $anio = date('Y', strtotime($fecha_original));
+      $meses = [
+        '',
+        'Ene',
+        'Feb',
+        'Mar',
+        'Abr',
+        'May',
+        'Jun',
+        'Jul',
+        'Ago',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dic'
+      ];
+
+      $mes_letra = $meses[$mes];
+
+      return($dia.'/'.$mes_letra);
+
+    }
+}
+
+
+/*
+| -------------------------------------------------------------------------
+| OPCIONES GLOBALES
+| -------------------------------------------------------------------------
+|
+*/
+
 if ( ! function_exists('opciones_default'))
 {
     function opciones_default()

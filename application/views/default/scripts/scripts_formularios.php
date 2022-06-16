@@ -193,19 +193,19 @@ activar_reordenar();
     }
 
     if ( $( ".TextEditorSmall" ).length ) {
-
+      console.log('crear editor');
 
     tinymce.init({
         selector: '.TextEditorSmall',
-        height: 500,
+        height: 300,
         relative_urls : false,
         remove_script_host : false,
         convert_urls : true,
         plugins: 'advlist autolink link image lists charmap print preview help table code responsivefilemanager',
+        menubar: false,
          toolbar: [
-         'undo redo ',
          'cut copy paste | styleselect | alignleft aligncenter alignright alignjustify | bold italic | link responsivefilemanager  | code'],
-         contextmenu: "link image imagetools table spellchecker ",
+         contextmenu: "",
       });
     }
 

@@ -38,7 +38,6 @@ class Usuarios_Inicio extends CI_Controller {
 
 		// Inicio Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Datos Generales
@@ -144,10 +143,8 @@ class Usuarios_Inicio extends CI_Controller {
 			// envio el correo
 			if($this->email->send()){
 				// Genero la retroalimentacion
-				$this->session->set_flashdata('exito', 'Tu registro se completó correctamente, ahora puedes iniciar sesión, te enviamos un correo de confirmación');
 			}else{
 				// Genero la retroalimentacion
-				$this->session->set_flashdata('advertencia', 'Tu registro se completó correctamente, ahora puedes iniciar sesión, no pudimos enviar un correo de confirmación');
 			}
 
 			// redirecciono
@@ -293,7 +290,6 @@ class Usuarios_Inicio extends CI_Controller {
 			}
 
 			// Redirecciono
-			$this->session->set_flashdata('exito', 'Usuario actualizado correctamente');
 			redirect(base_url('usuarios/detalles?id='.$this->input->post('Identificador')));
 
 		}else{
@@ -309,7 +305,6 @@ class Usuarios_Inicio extends CI_Controller {
 	public function actualizar_pass()
 	{
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Open Tags
@@ -336,11 +331,9 @@ class Usuarios_Inicio extends CI_Controller {
 				);
 				// Actualizo la contraseña
 				$this->AutenticacionModel->restaurar_pass($id,$parametros);
-				$this->session->set_flashdata('exito', 'Contraseña Actualizada');
 				redirect(base_url('usuarios/actualizar'));
 			}else{
 				// Repido proceso
-				$this->session->set_flashdata('alerta', 'Tu contraseña actual no coincide con la que nos proporcionaste');
 				redirect(base_url('usuarios/actualizar_pass'));
 			}
 			//$usuario_id = $this->UsuariosModel->actualizar($_SESSION['usuario']['id'],$parametros);

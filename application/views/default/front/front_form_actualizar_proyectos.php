@@ -32,10 +32,8 @@
 					data-id="<?php echo $proyecto['ID_PROYECTO'] ?>"
 					value="<?php echo $proyecto['PROYECTO_NOMBRE'] ?>" required>
 			</div>
-			<div class="form-group">
-				<label for="Url">URL Amigable <small class="text-warning">Auto completado por el sistema</small> </label>
-				<input type="text" class="form-control UrlAmigableResultado" name="Url" value="<?php echo $proyecto['URL'] ?>" required>
-			</div>
+
+			<input type="hidden" class="form-control UrlAmigableResultado" name="Url" value="<?php echo $proyecto['URL'] ?>" required>
 
 			<div class="form-group">
 				<label for="Prioridad">Prioridad</label>

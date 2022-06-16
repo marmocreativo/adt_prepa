@@ -9,12 +9,10 @@ class Admin_Tipos extends CI_Controller {
 
 		// Verifico Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Verifico Permiso
 		if(!verificar_permiso(['administrador'])){
-			$this->session->set_flashdata('alerta', 'No tienes permiso de entrar en esa sección');
 			redirect(base_url('usuario'));
 		}
 
@@ -83,7 +81,6 @@ class Admin_Tipos extends CI_Controller {
 	    $tipo_id = $this->GeneralModel->crear('tipos',$parametros);
 
 			// Redirecciono
-			$this->session->set_flashdata('exito', 'Tipo creado correctamente');
 	    redirect(base_url('admin/tipos?tipo='.$this->input->post('TipoObjeto')));
 
 
@@ -122,7 +119,6 @@ class Admin_Tipos extends CI_Controller {
 		    $this->GeneralModel->actualizar('tipos',['ID'=>$this->input->post('Identificador')],$parametros);
 
 				// Redirecciono
-				$this->session->set_flashdata('exito', 'Tipo creado correctamente');
 		    redirect(base_url('admin/tipos?tipo='.$this->input->post('TipoObjeto')));
 
 
@@ -149,12 +145,10 @@ class Admin_Tipos extends CI_Controller {
 					// Borro la categoría
           $this->GeneralModel->borrar('tipos',['ID'=>$_GET['id']]);
 					// Mensaje Feedback
-					$this->session->set_flashdata('exito', 'Tipo borrado');
 					//  Redirecciono
           redirect(base_url('admin/tipos?tipo='.$tipo['TIPO_OBJETO']));
       } else {
 				// Mensaje Feedback
-				$this->session->set_flashdata('alerta', 'La Entrada que intentaste borrar no existe');
 				//  Redirecciono
          redirect(base_url('admin/tipos'));
 			}

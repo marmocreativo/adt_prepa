@@ -13,7 +13,6 @@ class Front_Tareas extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -46,7 +45,7 @@ class Front_Tareas extends CI_Controller {
 		$this->data['consulta']['fecha_inicio'] = $fecha_inicio;
 		$fecha_final = verificar_variable('GET','fecha_final',date('d-m-Y'));
 		$this->data['consulta']['fecha_final'] = $fecha_final;
-		$orden = verificar_variable('GET','orden','');
+		$orden = verificar_variable('GET','orden','FECHA_FINAL ASC');
 		$this->data['consulta']['orden'] = $orden;
 		$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',$this->data['op']['cantidad_publicaciones_por_pagina']);
 		$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
@@ -138,8 +137,7 @@ class Front_Tareas extends CI_Controller {
 							'ID_USUARIO' => $usuario,
 							'ID_TAREA' => $tarea_id,
 							'USUARIO_ASIGNACION'=> 'produccion',
-							'FECHA_ASIGNACION'=>date('Y-m-d H:i:s'),
-							'ESTADO'=>'activo'
+							'FECHA_ASIGNACION'=>date('Y-m-d H:i:s')
 			      );
 						// Creo la relación de categorías
 			      $this->GeneralModel->crear('usuarios_tareas',$parametros);
@@ -147,10 +145,8 @@ class Front_Tareas extends CI_Controller {
 				}
 
 				if(empty($this->input->post('IdProyecto'))){
-					$this->session->set_flashdata('exito', 'Tarea creada correctamente');
 					redirect(base_url('tareas'));
 				}else{
-					$this->session->set_flashdata('exito', 'Tarea creada correctamente');
 					redirect(base_url('proyectos/detalles?id='.$this->input->post('IdProyecto')));
 				}
 
@@ -224,8 +220,7 @@ class Front_Tareas extends CI_Controller {
 						'ID_USUARIO' => $usuario,
 						'ID_TAREA' => $this->input->post('Identificador'),
 						'USUARIO_ASIGNACION'=> 'produccion',
-						'FECHA_ASIGNACION'=>date('Y-m-d H:i:s'),
-						'ESTADO'=>'activo'
+						'FECHA_ASIGNACION'=>date('Y-m-d H:i:s')
 					);
 					// Creo la relación de categorías
 					$this->GeneralModel->crear('usuarios_tareas',$parametros);
@@ -233,7 +228,6 @@ class Front_Tareas extends CI_Controller {
 			}
 
 			// Mensaje Feedback
-			$this->session->set_flashdata('exito', 'Proyecto actualizado correctamente');
 			//  Redirecciono
 			redirect(base_url('tareas/detalles?id='.$this->input->post('Identificador')));
 

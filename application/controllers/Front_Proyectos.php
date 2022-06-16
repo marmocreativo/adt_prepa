@@ -13,7 +13,6 @@ class Front_Proyectos extends CI_Controller {
 		// Verifico Sesión
 		/*
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		*/
@@ -157,8 +156,6 @@ class Front_Proyectos extends CI_Controller {
 
 		$this->GeneralModel->crear('meta_datos',$parametros_meta);
 
-
-		$this->session->set_flashdata('exito', 'Borrador creado correctamente');
 		redirect(base_url('proyectos/actualizar?id='.$proyecto_id));
 	}
 	public function actualizar()
@@ -266,7 +263,6 @@ class Front_Proyectos extends CI_Controller {
 			}
 
 			// Mensaje Feedback
-			$this->session->set_flashdata('exito', 'Proyecto actualizado correctamente');
 
 			redirect(base_url('proyectos/detalles?id='.$this->input->post('Identificador')));
 
@@ -331,12 +327,10 @@ class Front_Proyectos extends CI_Controller {
 
 						$this->GeneralModel->borrar('tareas',['ID_PROYECTO'=>$_GET['id']]);
 						// Mensaje Feedback
-						$this->session->set_flashdata('exito', 'Categorías borradas');
 						//  Redirecciono
             redirect(base_url('proyectos'));
         } else {
 					// Mensaje Feedback
-					$this->session->set_flashdata('alerta', 'La Entrada que intentaste borrar no existe');
 					//  Redirecciono
 	         redirect(base_url('admin/proyectos'));
 				}

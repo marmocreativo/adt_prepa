@@ -10,7 +10,6 @@ class Admin_Instalar extends CI_Controller {
 	{
 		if ($this->db->table_exists('opciones') )
 		{
-			$this->session->set_flashdata('advertencia', 'Ya existe una base de datos instalada');
 			redirect(base_url());
 		}
 		else
@@ -28,7 +27,6 @@ class Admin_Instalar extends CI_Controller {
 	            $temp_line = '';
 	        }
 	    }
-			$this->session->set_flashdata('exito', 'Sitio Instalado correctamente');
 			redirect(base_url());
 		}
 

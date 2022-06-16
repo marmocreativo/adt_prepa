@@ -13,7 +13,6 @@ class Front_Usuarios extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -183,7 +182,6 @@ class Front_Usuarios extends CI_Controller {
 			}
 
 			// Redirecciono
-			$this->session->set_flashdata('exito', 'Usuario creado correctamente');
       redirect(base_url('lista_usuarios/detalles?id='.$id_usuario));
 
     }else{
@@ -319,7 +317,6 @@ class Front_Usuarios extends CI_Controller {
 				}
 
 				// Redirecciono
-				$this->session->set_flashdata('exito', 'Usuario actualizado correctamente');
 	      redirect(base_url('lista_usuarios/detalles?id='.$this->input->post('Identificador')));
 
 	    }else{
@@ -341,6 +338,71 @@ class Front_Usuarios extends CI_Controller {
 	}
 
 	public function detalles(){
+		// Variables de busqueda
+		$this->data['consulta']=array();
+		$todo = verificar_variable('GET','todo','si');
+		$this->data['consulta']['todo'] = $todo;
+		$busqueda = verificar_variable('GET','busqueda','');
+		$this->data['consulta']['busqueda'] = $busqueda;
+		$fecha_inicio = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days')));
+		$this->data['consulta']['fecha_inicio'] = $fecha_inicio;
+		$fecha_final = verificar_variable('GET','fecha_final',date('d-m-Y'));
+		$this->data['consulta']['fecha_final'] = $fecha_final;
+		$orden = verificar_variable('GET','orden','FECHA_FINAL ASC');
+		$this->data['consulta']['orden'] = $orden;
+		$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',$this->data['op']['cantidad_publicaciones_por_pagina']);
+		$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
+		$pagina = verificar_variable('GET','pagina','1');
+		$this->data['consulta']['pagina'] = $pagina;
+		$agrupar = '';
+		$this->data['consulta']['agrupar'] = $agrupar;
+
+		$parametros_and = array();
+		$parametros_or = array();
+
+		$parametros_and['tareas.ESTADO !='] = 'borrador';
+
+		if(!empty($busqueda)){
+			$parametros_or['tareas.TAREA_TITULO'] = $busqueda;
+		}
+		$tablas_join = array();
+			$tablas_join['usuarios_tareas'] = 'usuarios_tareas.ID_TAREA = tareas.ID_TAREA';
+		$parametros_and['usuarios_tareas.ID_USUARIO'] = $_GET['id'];
+		//var_dump($parametros_and);
+
+		// Paginador
+		$this->data['pub_totales'] = $this->GeneralModel->conteo('tareas',$tablas_join,$parametros_or,$parametros_and,$agrupar);
+		$this->data['pub_por_pagina'] = $mostrar_por_pagina;
+		$this->data['cantidad_paginas'] = ceil($this->data['pub_totales']/$this->data['pub_por_pagina']);
+		$this->data['pagina'] = $pagina;
+
+		// Página siguiente
+		if($this->data['pagina']!=$this->data['cantidad_paginas']){
+			$this->data['pagina_siguiente']=$this->data['pagina'] +1;
+		}else{
+			$this->data['pagina_siguiente']=$this->data['pagina'];
+		}
+		// Página Anterior
+		if($this->data['pagina']!=1){
+			$this->data['pagina_anterior']=$this->data['pagina'] -1;
+		}else{
+			$this->data['pagina_anterior']=$this->data['pagina'];
+		}
+		// Offset
+		if($this->data['pagina']!=1){
+			$this->data['offset'] =$this->data['pub_por_pagina']*($this->data['pagina']-1);
+		}else{
+			$this->data['offset']='';
+		}
+		// Consultas rápidas
+		$this->data['consulta_actual'] = 'busqueda='.$busqueda.'&todo='.$todo.'fecha_inicio='.$fecha_inicio.'&fecha_final='.$fecha_final.'&orden='.$orden.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$pagina;
+		$this->data['consulta_siguiente'] = 'busqueda='.$busqueda.'&todo='.$todo.'fecha_inicio='.$fecha_inicio.'&fecha_final='.$fecha_final.'&orden='.$orden.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$this->data['pagina_siguiente'];
+		$this->data['consulta_anterior'] = 'busqueda='.$busqueda.'&todo='.$todo.'fecha_inicio='.$fecha_inicio.'&fecha_final='.$fecha_final.'&orden='.$orden.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$this->data['pagina_anterior'];
+
+		// Consulta
+		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,$orden,$mostrar_por_pagina,$this->data['offset'],$agrupar);
+
+
 		$this->data['usuario'] = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_GET['id']]);
 		$this->data['tipo'] = $this->data['usuario']['TIPO'];
 		// Open Tags
@@ -370,12 +432,10 @@ class Front_Usuarios extends CI_Controller {
 
 
 						// Mensaje Feedback
-						$this->session->set_flashdata('exito', 'Equipo borrado');
 						//  Redirecciono
             redirect(base_url('usuarios'));
         } else {
 					// Mensaje Feedback
-					$this->session->set_flashdata('alerta', 'La Entrada que intentaste borrar no existe');
 					//  Redirecciono
 	         redirect(base_url('usuarios'));
 				}

@@ -2,7 +2,10 @@
   window.onload = function() {
       $(".load-screen").animate({opacity:0},500,function(){$(".load-screen").css('display','none'); });
       $("body").css('overflow','auto');
-
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
   };
 
   // Botón back to top

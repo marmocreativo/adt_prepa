@@ -71,6 +71,7 @@ $route['usuarios/(:any)'] = 'Usuarios_Inicio/$1';
 | -------------------------------------------------------------------------
 |
 */
+$route['resumen'] = 'Front_Publicaciones/resumen/';
 $route['sitemap.xml'] = 'Front_Publicaciones/sitemap/';
 $route['reparar_EN_CMS'] = 'Admin_Instalar';
 $route['mantenimiento'] = 'Front_Publicaciones/mantenimiento';

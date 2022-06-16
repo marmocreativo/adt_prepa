@@ -46,7 +46,6 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -72,7 +71,6 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -105,7 +103,6 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -206,7 +203,6 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -299,7 +295,6 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -355,13 +350,11 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -390,10 +383,8 @@ class Front_Publicaciones extends CI_Controller {
 
 		}else{
 			if(empty($url_redirect)){
-				$this->session->set_flashdata('alerta', 'Un error ocurrió, tu reacción no se guardó');
 				redirect($url_redirect);
 			}else{
-				$this->session->set_flashdata('alerta', 'Un error ocurrió, tu reacción no se guardó');
 				redirect(base_url());
 			}
 		}
@@ -405,7 +396,6 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -432,7 +422,6 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
 			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
@@ -479,11 +468,9 @@ class Front_Publicaciones extends CI_Controller {
 				// envio el correo
 				if($this->email->send()){
 					// Genero la retroalimentacion
-					$this->session->set_flashdata('exito', 'Tu mensaje ha sido enviado, nos comunicaremos contigo a la brevedad');
 					$this->email->print_debugger();
 				}else{
 					// Genero la retroalimentacion
-					$this->session->set_flashdata('advertencia', 'No hemos podido enviar tu mensaje, inténtalo de nuevo mas tarde');
 					$this->email->print_debugger();
 				}
 				// redirecciono
