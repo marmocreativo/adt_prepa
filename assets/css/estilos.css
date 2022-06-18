@@ -71,6 +71,19 @@ h1,h2,h3,h4,h5,h6{
 /*
 Estilos personales
 */
+.bg-image{
+  min-height: 100px;
+  padding:20px;
+  background-size: cover;
+  background-position: center center;
+}
+
+.enlace_carpetas{
+  width:100%;
+  text-align: center;
+  padding:30px 10px;;
+  background-color: #eee;
+}
 
 form.date{
   line-height: 0.5;

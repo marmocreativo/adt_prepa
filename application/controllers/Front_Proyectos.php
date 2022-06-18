@@ -28,8 +28,8 @@ class Front_Proyectos extends CI_Controller {
 		$this->data['tipo'] = verificar_variable('GET','tipo','');
 
 
-		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days')));
-		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d 00:00:00'));
+		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -15 days')));
+		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));
 
 
 	}

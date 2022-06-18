@@ -77,22 +77,6 @@
 			<?php } ?>
 			</ul>
 		</div>
-		<div class="col-8">
-			<div class="detalles_tarea">
-				<!--
-				<h3>Nombre de la tarea</h3>
-				<p>Fecha Creación: <b>04/07/2021</b></p>
-				<p>Fecha Final: <b>04/07/2021</b></p>
-				<p>Descripción e instrucciones de la tarea a realizar</p>
-				<hr>
-				<h4>Usuarios</h4>
-				<img src="<?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" width="50px" class="rounded-circle" alt="">
-				<img src="<?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" width="50px" class="rounded-circle" alt="">
-				<img src="<?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" width="50px" class="rounded-circle" alt="">
-				<img src="<?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" width="50px" class="rounded-circle" alt="">
-			-->
-			</div>
-		</div>
 	</div>
 </div>
 

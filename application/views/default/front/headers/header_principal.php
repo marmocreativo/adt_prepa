@@ -94,7 +94,7 @@
 					<div class="col-12 col-md-6 titulo">
 						<h1 class="h1"><?php echo $titulo; ?></h1>
 					</div>
-					<div class="col-12 col-md-6 controles">
+					<div class="col-12 col-md-3 controles">
 						<form class="row aling-item-center date" action="<?php echo base_url(); ?>" method="get">
 							<div class="col-4 p-2">
 								<div class="form-group d-flex">
