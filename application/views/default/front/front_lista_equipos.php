@@ -41,16 +41,24 @@
 	<div class="row mt-4">
 
 		<?php foreach($equipos as $equipo){ ?>
-		<div class="col-12 col-md-2">
+		<div class="col-12 col-md-4">
 			<a href="<?php echo base_url('equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
-				<div class="equipo card card-body mb-3">
-					<h3 class="h5"><i class="fas fa-circle bg-icon-p-urgente"></i> <?php echo $equipo->EQUIPO_NOMBRE; ?></h3>
+				<div class="equipo card card-body mb-3 p-0">
+					<div class="bg-image d-flex align-items-center m-0 p-0" style="background-image: url(<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN_FONDO); ?>)">
+						<img src="<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN); ?>" class="rounded-circle mx-1" width="50">
+						<h3 class="h5"> <?php echo $equipo->EQUIPO_NOMBRE; ?></h3>
+					</div>
+
 					<?php
 						$numero_proyectos = $this->GeneralModel->conteo('equipos_proyectos','','',['ID_EQUIPO'=>$equipo->ID_EQUIPO],'');
 						$numero_miembros = $this->GeneralModel->conteo('equipos_usuarios','','',['ID_EQUIPO'=>$equipo->ID_EQUIPO],'');
 					?>
-					<p><?php echo $numero_proyectos; ?> Proyectos activos </p>
-					<p><?php echo $numero_miembros; ?> Miembros</p>
+					<table class="table">
+						<tr>
+							<td class="text-center"><i class="fas fa-project-diagram"></i> Proyectos <b><?php echo $numero_proyectos; ?></b> </td>
+							<td class="text-center"><i class="fa fa-users"></i> Miembros <b><?php echo $numero_miembros; ?></b> </td>
+						</tr>
+					</table>
 				</div>
 			</a>
 		</div>

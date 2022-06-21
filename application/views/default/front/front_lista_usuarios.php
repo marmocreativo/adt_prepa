@@ -33,12 +33,16 @@
 	</div>
 	<div class="row mt-3">
 		<?php foreach($usuarios as $usuario){ ?>
-		<div class="col-12 col-md-2">
+		<div class="col-6 col-sm-4 col-md-3">
 			<a href="<?php echo base_url('lista_usuarios/detalles?id='.$usuario->ID_USUARIO); ?>">
-				<div class="equipo card card-body mb-3">
-					<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario->IMAGEN) ?>" class="img-fluid rounded-circle" alt="">
-					<h3 class="h5"><?php echo $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS; ?></h3>
-					<p><?php echo $usuario->USUARIO_CORREO ?></p>
+				<div class="equipo card card-body mb-3 p-0">
+					<div class="text-center">
+						<div class="bg-image d-flex align-items-center" style="background-image: url(<?php echo base_url('contenido/img/usuarios/'.$usuario->IMAGEN_FONDO); ?>); min-height:100px;"></div>
+						<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario->IMAGEN); ?>" class="rounded-circle imagen_perfil" style="width:100%; max-width: 100px; margin-top:-100px;">
+					</div>
+					<div class="p-2 text-center">
+						<h3 class="h6"><?php echo $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS; ?></h3>
+					</div>
 				</div>
 			</a>
 		</div>

@@ -6,7 +6,6 @@
 	<div class="row">
 		<div class="col-12 col-md-4 mt-3">
 			<div class="d-flex justify-content-between align-items-center">
-				<h3><?php echo $tarea['TAREA_TITULO']; ?></h3>
 				<div class="dropdown">
 				  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 				    <i class="fas fa-ellipsis-v"></i>
