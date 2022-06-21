@@ -208,4 +208,42 @@ class Front_Tareas extends CI_Controller {
 		}
 	}
 
+	public function agregar_mensaje(){
+		$this->form_validation->set_rules('IdTarea', 'Identificador', 'required', array( 'required' => 'Debes designar el %s.' ));
+		if($this->form_validation->run())
+    {
+
+				if(!empty($this->input->post('FechaFinal'))){ $fecha_final = date('Y-m-d', strtotime($this->input->post('FechaFinal'))); }else{ $fecha_final = null; }
+				$parametros = array(
+					'ID_TAREA' => $this->input->post('IdTarea'),
+					'MENSAJE' => $this->input->post('Mensaje'),
+					'ENLACE' => $this->input->post('Enlace'),
+				);
+				$this->GeneralModel->crear('tareas_mensajes',$parametros);
+
+				$parametros = array(
+					'ID_TAREA' => $this->input->post('IdTarea'),
+					'MENSAJE' => $this->input->post('Mensaje')
+				);
+				$this->GeneralModel->crear('tareas_mensajes',$parametros);
+
+				// Asigno la tarea
+				if(isset($_POST['Usuarios'])&&!empty($_POST['Usuarios'])){
+					foreach($_POST['Usuarios'] as $usuario){
+						$parametros = array(
+							'ID_USUARIO' => $usuario,
+							'ID_TAREA' => $tarea_id,
+							'USUARIO_ASIGNACION'=> 'produccion',
+							'FECHA_ASIGNACION'=>date('Y-m-d H:i:s')
+			      );
+						// Creo la relación de categorías
+			      $this->GeneralModel->crear('usuarios_tareas',$parametros);
+					}
+				}
+
+				redirect(base_url('tareas/detalles?id='.$this->input->post('IdTarea')));
+
+		}
+	}
+
 }

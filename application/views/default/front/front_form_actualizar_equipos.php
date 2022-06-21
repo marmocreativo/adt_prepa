@@ -1,4 +1,3 @@
-<div class="contenido_principal">
 <div class="contenido-principal">
 	<form action="<?php echo base_url('equipos/actualizar') ?>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Identificador" value="<?php echo $equipo['ID_EQUIPO']; ?>">
@@ -9,22 +8,10 @@
 		<input type="hidden" name="Tipo" value="<?php echo $equipo['TIPO'] ?>">
 		<input type="hidden" name="Meta[autor]" value="<?php if(isset($meta_datos['autor'])){ echo $meta_datos['autor']; }else{ echo $_SESSION['usuario']['nombre'].' '.$_SESSION['usuario']['apellidos']; } ?>">
 		<input type="hidden" name="EquipoColor" value="primary">
+		<input type="hidden" class="form-control UrlAmigableResultado" name="Url" value="<?php echo $equipo['URL'] ?>" required>
+
 		<div class="row mb-4">
-			<div class="col-6">
-				<h3>Equipos</h3>
-			</div>
-			<div class="col-6">
-				<button type="submit" class="btn btn-success float-right"> <i class="fa fa-save"></i> Guardar</button>
-			</div>
-		</div>
-		<div class="row mb-4">
-			<div class="col">
-				<?php retro_alimentacion(); ?>
-				<h5>Actualizar Equipo</h5>
-			</div>
-		</div>
-		<div class="row mb-4">
-			<div class="col-12 col-md-9 mb-4">
+			<div class="col-12 col-md-6 mb-4">
 				<div class="form-group">
 					<label for="EquipoNombre">Nombre</label>
 					<input type="text" class="form-control UrlAmigableOrigen" name="EquipoNombre"
@@ -34,12 +21,8 @@
 						value="<?php echo $equipo['EQUIPO_NOMBRE'] ?>" required>
 				</div>
 				<div class="form-group">
-					<label for="Url">URL Amigable <small class="text-warning">Auto completado por el sistema</small> </label>
-					<input type="text" class="form-control UrlAmigableResultado" name="Url" value="<?php echo $equipo['URL'] ?>" required>
-				</div>
-				<div class="form-group">
 					<label for="EquipoDescripcion">Descripción</label>
-					<textarea name="EquipoDescripcion" class="form-control" rows="8"><?php echo $equipo['EQUIPO_DESCRIPCION'] ?></textarea>
+					<textarea name="EquipoDescripcion" class="form-control TextEditorSmall" rows="8"><?php echo $equipo['EQUIPO_DESCRIPCION'] ?></textarea>
 				</div>
 				<hr>
 				<h6>Agregar equipos</h6>
@@ -64,15 +47,14 @@
 				<?php } ?>
 				</ul>
 			</div>
-			<div class="col-12 col-md-3  mb-4">
-				<div class="form-group">
-					<label for="Estado">Estado</label>
-					<select class="form-control" name="Estado">
-						<option value="activo" <?php if($equipo['ESTADO']=='activo'){ echo 'selected'; } ?>>Activo</option>
-						<option value="inactivo" <?php if($equipo['ESTADO']=='inactivo'){ echo 'selected'; } ?>>Inactivo</option>
-					</select>
-				</div>
-				<hr>
+			<div class="col-12 col-md-2 mb-4">
+					<div class="form-group">
+						<label for="Estado">Estado</label>
+						<select class="form-control" name="Estado">
+							<option value="activo" <?php if($equipo['ESTADO']=='activo'){ echo 'selected'; } ?>>Activo</option>
+							<option value="inactivo" <?php if($equipo['ESTADO']=='inactivo'){ echo 'selected'; } ?>>Inactivo</option>
+						</select>
+					</div>
 					<img src="<?php echo base_url('contenido/img/equipos/'.$equipo['IMAGEN']); ?>" alt="" class="img-fluid mx-auto mb-2">
 					<div class="form-group">
 						<label for="Imagen">Imágen</label>
@@ -92,5 +74,4 @@
 			</div>
 		</div>
 	</form>
-</div>
 </div>
