@@ -232,7 +232,7 @@ class Front_Tareas extends CI_Controller {
 					foreach($_POST['Usuarios'] as $usuario){
 						$parametros = array(
 							'ID_USUARIO' => $usuario,
-							'ID_TAREA' => $tarea_id,
+							'ID_TAREA' => $this->input->post('IdTarea'),
 							'USUARIO_ASIGNACION'=> 'produccion',
 							'FECHA_ASIGNACION'=>date('Y-m-d H:i:s')
 			      );
