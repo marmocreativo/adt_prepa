@@ -41,14 +41,7 @@
 				</div>
 			</div>
 			<div class="col-12 col-md-6">
-				<div class="form-group">
-					<label for="Prioridad">Prioridad</label>
-					<select class="form-select" name="Prioridad">
-						<option value="normal" <?php if($tarea['PRIORIDAD']=='normal'){ echo 'selected'; } ?>>Normal</option>
-						<option value="alta" <?php if($tarea['PRIORIDAD']=='alta'){ echo 'selected'; } ?>>Alta</option>
-						<option value="urgente" <?php if($tarea['PRIORIDAD']=='urgente'){ echo 'selected'; } ?>>Urgente</option>
-					</select>
-				</div>
+				<input type="hidden" name="Prioridad" value="<?php echo $tarea['PRIORIDAD']; ?>">
 				<div class="form-group">
 					<label for="Estado">Estado</label>
 					<select class="form-control" name="Estado">

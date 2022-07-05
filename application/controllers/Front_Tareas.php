@@ -122,6 +122,16 @@ class Front_Tareas extends CI_Controller {
 		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'tarea'],'','','');
 		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
 
+		$this->data['todos_usuarios'] = $this->GeneralModel->lista('usuarios','','','','','');
+		$this->data['array_usuarios'] = array();
+		foreach($this->data['todos_usuarios'] as $user_data){
+			$this->data['array_usuarios'][$user_data->ID_USUARIO]= array(
+				'NOMBRE' => $user_data->USUARIO_NOMBRE.' '.$user_data->USUARIO_APELLIDOS,
+				'CORREO' => $user_data->USUARIO_CORREO,
+				'IMAGEN' => $user_data->IMAGEN,
+			);
+		}
+
 		// Cargo Vistas
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_detalles_tarea',$this->data);
@@ -154,6 +164,17 @@ class Front_Tareas extends CI_Controller {
 			}
 
       $this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$this->input->post('Identificador')],$parametros);
+
+			$mensaje = 'Se actualizó la información de la tarea';
+			$usuarios_asignados = implode(', ', $_POST['Usuarios']);
+			// Genero el mensaje
+			$parametros = array(
+				'ID_TAREA' => $this->input->post('Identificador'),
+				'ID_USUARIO' => $_SESSION['usuario']['id'],
+				'MENSAJE' => $mensaje,
+				'ASIGNACIONES' => $usuarios_asignados,
+			);
+			$this->GeneralModel->crear('tareas_mensajes',$parametros);
 
 			// Borro los metadatos existentes
 			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$this->input->post('Identificador'),'TIPO_OBJETO'=>'equipo']);
@@ -212,22 +233,44 @@ class Front_Tareas extends CI_Controller {
 		$this->form_validation->set_rules('IdTarea', 'Identificador', 'required', array( 'required' => 'Debes designar el %s.' ));
 		if($this->form_validation->run())
     {
+			$usuarios_anteriores = $_POST['asignaciones_actuales'];
+			$usuarios_asignados = implode(', ', $_POST['Usuarios']);
+			$mensaje = $this->input->post('Mensaje');
+			$tipo = 'mensaje';
+
+			if($_POST['EstadoActual']!=$_POST['EstadoTarea']){
+				$mensaje .= '<br>Se cambio el estado a: <b>'.$_POST['EstadoTarea'].'</b>';
+			}
+
+			if($usuarios_anteriores!=$usuarios_asignados){
+				$mensaje .= '<br>Reasignado a:';
+				$tipo = 'reasignacion';
+			}
+
+
+
+
 
 				if(!empty($this->input->post('FechaFinal'))){ $fecha_final = date('Y-m-d', strtotime($this->input->post('FechaFinal'))); }else{ $fecha_final = null; }
 				$parametros = array(
 					'ID_TAREA' => $this->input->post('IdTarea'),
-					'MENSAJE' => $this->input->post('Mensaje'),
+					'ID_USUARIO' => $this->input->post('IdUsuario'),
+					'MENSAJE' => $mensaje,
+					'ASIGNACIONES' => $usuarios_asignados,
 					'ENLACE' => $this->input->post('Enlace'),
+					'TIPO' => $tipo
 				);
 				$this->GeneralModel->crear('tareas_mensajes',$parametros);
 
 				$parametros = array(
-					'ID_TAREA' => $this->input->post('IdTarea'),
-					'MENSAJE' => $this->input->post('Mensaje')
+					'ESTADO' => $this->input->post('EstadoTarea'),
 				);
-				$this->GeneralModel->crear('tareas_mensajes',$parametros);
+				$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$this->input->post('IdTarea')],$parametros);
+
+
 
 				// Asigno la tarea
+				$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$this->input->post('IdTarea')]);
 				if(isset($_POST['Usuarios'])&&!empty($_POST['Usuarios'])){
 					foreach($_POST['Usuarios'] as $usuario){
 						$parametros = array(

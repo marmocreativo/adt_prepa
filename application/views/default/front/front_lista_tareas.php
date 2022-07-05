@@ -59,15 +59,7 @@
 							</div>
 						</div>
 						<div class="col-12 col-md-6">
-							<div class="form-group">
-								<label for="Prioridad">Prioridad</label>
-								<select class="form-select" name="Prioridad">
-									<option value="normal">Normal</option>
-									<option value="alta">Alta</option>
-									<option value="urgente">Urgente</option>
-								</select>
-							</div>
-
+							<input type="hidden" name="Prioridad" value="normal">
 							<input type="hidden" class="" name="Usuarios[]" value="<?php echo $_SESSION['usuario']['id']; ?>" >
 							<div class="form-group">
 								<label for="Estado">Estado</label>
