@@ -19,6 +19,10 @@
 						<td><i class="fas fa-stopwatch"></i>Final</td>
 						<td><?php echo fechas_es($proyecto['FECHA_FINAL']); ?></td>
 					</tr>
+					<tr>
+						<td>Estado</td>
+						<td><?php echo $proyecto['ESTADO']; ?></td>
+					</tr>
 				</table>
 				<hr>
 				<div class="row">

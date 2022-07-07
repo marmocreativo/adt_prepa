@@ -2,69 +2,95 @@
 	<h2>Estadísticas Generales PROBANDO</h2>
 	<div class="row">
 		<div class="col-12 col-md-8 line">
-			<div class="estadistica_progreso row align-item-center g-0">
-        <div class="col-12 col-md-3">
-          <div class="etiqueta">
-            Status de proyectos
-          </div>
-        </div>
+			<?php
+				$proyectos_totales = 0;
+				$proyectos_completos = 0;
+				$proyectos_pendientes = 0;
 
-        <div class="col-12 col-md-8">
-          <div class="progreso">
-            <div class="progress">
-              <div class="progress-bar bg-s-atiempo" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-              <div class="progress-bar bg-s-revision" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-              <div class="progress-bar bg-s-retraso" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-            </div>
-          </div>
-        </div>
+				$tareas_totales = 0;
+				$tareas_completas = 0;
+				$tareas_pendientes = 0;
+				$tareas_atrasadas = 0;
 
-			</div>
-			<!--
-			<div class="estadistica_progreso row aling-item-center g-0">
+				$usuarios_totales = 0;
+				$usuarios_con_tareas_pendientes = 0;
+				$array_usuarios = array();
 
-        <div class="col-12 col-md-3">
-          <div class="etiqueta">
-            Proyectos terminados
-          </div>
-        </div>
+				foreach($proyectos as $proyecto){
+					$proyectos_totales ++;
+					if($proyecto->ESTADO=='terminado'){
+						$proyectos_completos ++;
+					}else{
+						$proyectos_pendientes ++;
+					}
+				}
 
-				<div class="col-12 col-md-8">
-          <div class="progreso">
-            <div class="progress">
-              <div class="progress-bar bg-p-baja" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
-              <div class="progress-bar bg-s-terminado" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">50 Activos</div>
-            </div>
-          </div>
-        </div>
+				foreach($usuarios as $usuario){
+					$usuarios_totales ++;
+					$array_usuarios[$usuario->ID_USUARIO] = array(
+						'NOMBRE'=> $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS,
+						'TAREAS_PENDIENTES'=> 0,
+						'TAREAS_ATRASADAS'=> 0
+					);
+				}
 
-			</div>
-			<div class="estadistica_progreso row aling-item-center g-0">
-        <div class="col-12 col-md-3">
-          <div class="etiqueta">
-            Prioridad de proyectos
-          </div>
-        </div>
+				foreach($tareas as $tarea){
+					$tareas_totales ++;
+					if($tarea->ESTADO=='completo'){
+						$tareas_completas ++;
+					}else{
+						$tareas_pendientes ++;
+						$lista_usuarios = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea->ID_TAREA],'','','');
+						foreach($lista_usuarios as $list_usuario){
+							$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS_PENDIENTES'] ++;
+							if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){
 
-        <div class="col-12 col-md-8">
-          <div class="progreso">
-            <div class="progress">
-              <div class="progress-bar bg-p-baja" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-              <div class="progress-bar bg-p-media" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-              <div class="progress-bar bg-p-alta" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-              <div class="progress-bar bg-p-urgente" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-          </div>
-        </div>
+							}
+						}
+					}
+				}
 
-			</div>
 
-	-->
+			?>
+			<table class="table">
+				<tr>
+					<td>Proyectos</td>
+					<td><?php echo $proyectos_totales; ?></td>
+				</tr>
+				<tr>
+					<td>Completos</td>
+					<td><?php echo $proyectos_completos; ?></td>
+				</tr>
+				<tr>
+					<td>Pendientes</td>
+					<td><?php echo $proyectos_pendientes; ?></td>
+				</tr>
+			</table>
+			<table class="table">
+				<tr>
+					<td>Tareas</td>
+					<td><?php echo $tareas_totales; ?></td>
+				</tr>
+				<tr>
+					<td>Completos</td>
+					<td><?php echo $tareas_completas; ?></td>
+				</tr>
+				<tr>
+					<td>Pendientes</td>
+					<td><?php echo $tareas_pendientes; ?></td>
+				</tr>
+			</table>
+			Usuarios
+			<table class="table">
+				<?php foreach($array_usuarios as $id => $array_usuario ){ ?>
+					<tr>
+						<td><?php echo $array_usuario['NOMBRE']; ?></td>
+						<td><?php echo $array_usuario['TAREAS_PENDIENTES']; ?></td>
+					</tr>
+				<?php } ?>
+			</table>
 	</div>
 		<div class="col-12 col-md-4 mt-3">
-			<p><i class="fas fa-circle bg-icon-s-revision"></i> Proyectos están en revisión</p>
-			<p><i class="fas fa-circle bg-icon-p-urgente"></i> Hay mas del 50% de proyectos urgentes</p>
-			<p><i class="fas fa-circle bg-icon-s-atiempo"></i> Proyectos terminan esta semana</p>
 		</div>
 	</div>
 </div>

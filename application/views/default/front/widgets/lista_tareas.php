@@ -24,7 +24,11 @@ Progreso
   <?php $fecha = ''; foreach($tareas as $tarea){ ?>
     <?php if($fecha != $tarea->FECHA_FINAL){ $fecha = $tarea->FECHA_FINAL; ?>
       <li class="list-group-item border-0 border-bottom">
-        <p class="h5"><i class="fas fa-calendar-alt"></i> <?php echo fechas_es($tarea->FECHA_FINAL); ?></p>
+        <p class="h5"><i class="fas fa-calendar-alt"></i> <?php echo fechas_es($tarea->FECHA_FINAL); ?>
+          <?php if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-danger text-white">Atrasado</span>'; } ?>
+          <?php if(date('Y-m-d')==date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-warning text-white">Entrega hoy</span>'; } ?>
+          <?php if(date('Y-m-d')<date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-success text-white">A tiempo</span>'; } ?>
+        </p>
       </li>
     <?php } ?>
   <li class="list-group-item">
@@ -61,7 +65,7 @@ Progreso
         <ul class="list-inline">
           <?php foreach($usuarios as $usuario){ ?>
             <li class="list-inline-item" title="<?php echo $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS; ?>">
-              <img src="<?php echo base_url('contenido/img/usuarios/'.$usuario->IMAGEN) ?>" width="20" class="rounded-circle" alt=""> <span class="badge bg-secondary"><?php echo $usuario->USUARIO_NOMBRE; ?></span> 
+              <img src="<?php echo base_url('contenido/img/usuarios/'.$usuario->IMAGEN) ?>" width="20" class="rounded-circle" alt=""> <span class="badge bg-secondary"><?php echo $usuario->USUARIO_NOMBRE; ?></span>
             </li>
           <?php }; ?>
         </ul>

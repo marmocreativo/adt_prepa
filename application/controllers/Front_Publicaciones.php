@@ -58,6 +58,10 @@ class Front_Publicaciones extends CI_Controller {
 		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
 		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 
+		$this->data['proyectos'] = $this->GeneralModel->lista('proyectos','','','','','');
+		$this->data['tareas'] = $this->GeneralModel->lista('tareas','','','','','');
+		$this->data['usuarios'] = $this->GeneralModel->lista('usuarios','','','','','');
+
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/resumen',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);

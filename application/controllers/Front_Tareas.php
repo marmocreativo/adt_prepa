@@ -47,12 +47,14 @@ class Front_Tareas extends CI_Controller {
 		$parametros_and = array();
 		$parametros_or = array();
 
+		/*
 		$parametros_and['tareas.FECHA_FINAL >='] = $this->data['consulta']['fecha_inicio'];
 		$parametros_and['tareas.FECHA_FINAL <='] = $this->data['consulta']['fecha_final'];
+		*/
+		$parametros_and['tareas.ESTADO !='] = 'completo';
 		$tablas_join = array();
 			$tablas_join['usuarios_tareas'] = 'usuarios_tareas.ID_TAREA = tareas.ID_TAREA';
 		$parametros_and['usuarios_tareas.ID_USUARIO'] = $_SESSION['usuario']['id'];
-		//var_dump($parametros_and);
 
 		// Consulta
 		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'FECHA_INICIO ASC','','',$agrupar);
@@ -206,6 +208,29 @@ class Front_Tareas extends CI_Controller {
 				}
 			}
 
+			// Reviso el estatus del proyecto
+			//$detalles_proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$this->input->post('IdProyecto')]);
+			$lista_tareas = $this->GeneralModel->lista('tareas','',['ID_PROYECTO'=>$this->input->post('IdProyecto')],'','','');
+			$todas_las_tareas = 0;
+			$tareas_completas = 0;
+			$tareas_pendientes = 0;
+			foreach($lista_tareas as $lista_tarea){
+				$todas_las_tareas ++;
+				if($lista_tarea->ESTADO=='completo'){
+					$tareas_completas ++;
+				}else{
+					$tareas_pendientes ++;
+				}
+			}
+
+			if($todas_las_tareas==$tareas_completas){
+				$this->GeneralModel->actualizar('proyectos',['ID_PROYECTO'=>$this->input->post('IdProyecto')],['ESTADO'=>'terminado']);
+			}else{
+				$this->GeneralModel->actualizar('proyectos',['ID_PROYECTO'=>$this->input->post('IdProyecto')],['ESTADO'=>'activo']);
+			}
+
+
+
 			// Mensaje Feedback
 			//  Redirecciono
 			redirect(base_url('tareas/detalles?id='.$this->input->post('Identificador')));
@@ -282,6 +307,31 @@ class Front_Tareas extends CI_Controller {
 						// Creo la relación de categorías
 			      $this->GeneralModel->crear('usuarios_tareas',$parametros);
 					}
+				}
+
+				$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$this->input->post('IdTarea')]);
+
+				$lista_tareas = $this->GeneralModel->lista('tareas','',['ID_PROYECTO'=>$detalles_tarea['ID_PROYECTO']],'','','');
+				$todas_las_tareas = 0;
+				$tareas_completas = 0;
+				$tareas_pendientes = 0;
+				foreach($lista_tareas as $lista_tarea){
+					$todas_las_tareas ++;
+					if($lista_tarea->ESTADO=='completo'){
+						$tareas_completas ++;
+					}else{
+						$tareas_pendientes ++;
+					}
+				}
+
+				echo 'Todas las tareas: '.$todas_las_tareas.'<br>';
+				echo 'Todas las tareas: '.$tareas_completas.'<br>';
+				echo 'Todas las tareas: '.$tareas_pendientes.'<br>';
+
+				if($todas_las_tareas==$tareas_completas){
+					$this->GeneralModel->actualizar('proyectos',['ID_PROYECTO'=>$detalles_tarea['ID_PROYECTO']],['ESTADO'=>'terminado']);
+				}else{
+					$this->GeneralModel->actualizar('proyectos',['ID_PROYECTO'=>$detalles_tarea['ID_PROYECTO']],['ESTADO'=>'activo']);
 				}
 
 				redirect(base_url('tareas/detalles?id='.$this->input->post('IdTarea')));
