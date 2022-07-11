@@ -43,8 +43,8 @@
 						$lista_usuarios = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea->ID_TAREA],'','','');
 						foreach($lista_usuarios as $list_usuario){
 							$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS_PENDIENTES'] ++;
-							if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){
-
+							if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))){
+								$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS_ATRASADAS'] ++;
 							}
 						}
 					}
@@ -52,9 +52,10 @@
 
 
 			?>
+			<h3>Proyectos</h3>
 			<table class="table">
 				<tr>
-					<td>Proyectos</td>
+					<td>Totales</td>
 					<td><?php echo $proyectos_totales; ?></td>
 				</tr>
 				<tr>
@@ -66,9 +67,10 @@
 					<td><?php echo $proyectos_pendientes; ?></td>
 				</tr>
 			</table>
+			<h3>Tareas</h3>
 			<table class="table">
 				<tr>
-					<td>Tareas</td>
+					<td>Totales</td>
 					<td><?php echo $tareas_totales; ?></td>
 				</tr>
 				<tr>
@@ -80,12 +82,18 @@
 					<td><?php echo $tareas_pendientes; ?></td>
 				</tr>
 			</table>
-			Usuarios
+			<h3>Usuarios</h3>
 			<table class="table">
+				<tr>
+					<th>Nombre</th>
+					<th>Pendientes</th>
+					<th>Atrasadas</th>
+				</tr>
 				<?php foreach($array_usuarios as $id => $array_usuario ){ ?>
 					<tr>
 						<td><?php echo $array_usuario['NOMBRE']; ?></td>
 						<td><?php echo $array_usuario['TAREAS_PENDIENTES']; ?></td>
+						<td><?php echo $array_usuario['TAREAS_ATRASADAS']; ?></td>
 					</tr>
 				<?php } ?>
 			</table>
