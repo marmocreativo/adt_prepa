@@ -34,13 +34,13 @@ body{
 Bootstrap Overwrite
 */
 .text-white{
-  color: #ffffff!important;
+  color: #7e828f!important;
 }
   .nav-link [aria-current] {
     color:#f8d092!important;
   }
 .text-white:active, .text-white:hover{
-  color:#ffffff!important;
+  color:#f8d092!important;
 }
 .active{
   color:#f8d092!important;
