@@ -40,6 +40,25 @@ class Front_Publicaciones extends CI_Controller {
 		// Vistas
 	}
 
+	public function notificaciones()
+	{
+		// Verifico el switch de mantenimiento
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+
+		// Open Tags
+		$this->data['titulo']  = 'Inicio';
+		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
+		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
+
+		$this->data['notificaciones'] = $this->GeneralModel->lista('notificaciones','',['ID_USUARIO'=>$_SESSION['usuario']['id']],'FECHA_CREACION DESC','',20);
+
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_lista_notificaciones',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+
+		// Vistas
+	}
+
 	public function resumen()
 	{
 

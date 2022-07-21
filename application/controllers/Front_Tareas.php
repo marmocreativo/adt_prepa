@@ -101,6 +101,17 @@ class Front_Tareas extends CI_Controller {
 			      );
 						// Creo la relación de categorías
 			      $this->GeneralModel->crear('usuarios_tareas',$parametros);
+
+						//Notificación
+						$parametros_notificación = array(
+							'ID_USUARIO'=>$usuario,
+							'ENLACE'=>base_url('tareas/detalles?id='.$tarea_id),
+							'GRUPO'=>'tareas',
+							'NOTIFICACION_CONTENIDO'=>'Se te ha asignado una tarea nueva: <b>'.$this->input->post('TareaTitulo').'</b>',
+							'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+							'ESTADO'=>'pendiente'
+						);
+						$this->GeneralModel->crear('notificaciones',$parametros_notificación);
 					}
 				}
 
@@ -206,6 +217,16 @@ class Front_Tareas extends CI_Controller {
 					// Creo la relación de categorías
 					$this->GeneralModel->crear('usuarios_tareas',$parametros);
 				}
+
+				$parametros_notificación = array(
+					'ID_USUARIO'=>$usuario,
+					'ENLACE'=>base_url('tareas/detalles?id='.$this->input->post('Identificador')),
+					'GRUPO'=>'tareas',
+					'NOTIFICACION_CONTENIDO'=>'Se te ha asignado una tarea actualizada: <b>'.$this->input->post('TareaTitulo').'</b>',
+					'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+					'ESTADO'=>'pendiente'
+				);
+				$this->GeneralModel->crear('notificaciones',$parametros_notificación);
 			}
 
 			// Reviso el estatus del proyecto
@@ -307,6 +328,17 @@ class Front_Tareas extends CI_Controller {
 						// Creo la relación de categorías
 			      $this->GeneralModel->crear('usuarios_tareas',$parametros);
 					}
+
+					$parametros_notificación = array(
+						'ID_USUARIO'=>$usuario,
+						'ENLACE'=>base_url('tareas/detalles?id='.$tarea_id),
+						'GRUPO'=>'tareas',
+						'NOTIFICACION_CONTENIDO'=>'Se agregó un mensaje a la tarea: <b>'.$this->input->post('TareaTitulo').'</b>',
+						'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+						'ESTADO'=>'pendiente'
+					);
+					$this->GeneralModel->crear('notificaciones',$parametros_notificación);
+
 				}
 
 				$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$this->input->post('IdTarea')]);

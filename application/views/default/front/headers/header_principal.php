@@ -21,7 +21,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 	<!-- Animation CSS -->
-	<link href="<?php echo base_url('assets/css/'); ?>animate.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
 	<!-- Lightbox CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" />
@@ -78,6 +78,22 @@
 					<li class="nav-item">
 		        <a href="<?php echo base_url('lista_usuarios'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Usuarios">
 		         	<i class="fas fa-user fa-lg"></i> <span class="etiqueta_menu">Usuarios</span>
+		        </a>
+		      </li>
+					<?php $verificar_notificaciones = $this->GeneralModel->conteo('notificaciones','','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'ESTADO'=>'pendiente'],''); ?>
+					<li class="nav-item">
+		        <a href="<?php echo base_url('notificaciones'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Notificaciones">
+		         	<?php if(empty($verificar_notificaciones)){ ?>
+								<i class="far fa-bell"></i>
+							<?php }else{ ?>
+								<i class="fas fa-bell animate__animated animate__swing animate__infinite"></i> <span class="badge bg-danger text-white"><?php echo $verificar_notificaciones; ?></span>
+							<?php } ?>
+							<span class="etiqueta_menu">Notificaciones</span>
+		        </a>
+		      </li>
+					<li class="nav-item">
+		        <a href="<?php echo base_url('login/cerrar_sesion'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Cerrar sesión">
+		         	<i class="fas fa-sign-out"></i> <span class="etiqueta_menu">Cerrar sesión</span>
 		        </a>
 		      </li>
 					<!--
