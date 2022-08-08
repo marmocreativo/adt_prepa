@@ -16,6 +16,10 @@ if($cantidad_tareas>0){
 $color = 'text-success';
 $icono = "far fa-clock";
 ?>
+Progreso
+<div class="progress mb-3">
+  <div class="progress-bar" role="progressbar" style="width: <?php echo $porcentaje_completo; ?>%" aria-valuenow="<?php echo $porcentaje_completo; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
 <ul class="list-group">
   <?php $fecha = ''; foreach($tareas as $tarea){ ?>
     <?php if($fecha != $tarea->FECHA_FINAL){ $fecha = $tarea->FECHA_FINAL; ?>
