@@ -68,6 +68,7 @@ class Admin_Inicio extends CI_Controller {
     }else{
 
 			// Reviso la vista especializada
+			$this->data['vista'] = 'default'.$this->data['dispositivo'].'/admin/lista_opciones';
 			$this->data['grupos_opciones'] = $this->GeneralModel->lista_agrupada('opciones','','','OPCION_TIPO DESC','OPCION_TIPO');
 
 			// Cargo Vistas
