@@ -45,6 +45,17 @@ class Admin_Categorias extends CI_Controller {
 
 		// Título General
 		$this->data['titulo']  = 'Categorías | Administrador | '.$this->data['op']['titulo_sitio'];
+
+		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		}else{
+			$modo_noche='no';
+		}
+		if ($modo_noche=='si') {
+			$this->data['modo'] = 'noche';
+		}else{
+			$this->data['modo'] = 'dia';
+		}
 	}
 
 	public function index()

@@ -34,6 +34,16 @@ class Admin_Base_De_Datos extends CI_Controller {
 		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));
 
 		// Cargo los modelos
+		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		}else{
+			$modo_noche='no';
+		}
+		if ($modo_noche=='si') {
+			$this->data['modo'] = 'noche';
+		}else{
+			$this->data['modo'] = 'dia';
+		}
 	}
 	public function index()
 	{

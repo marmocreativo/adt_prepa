@@ -50,14 +50,21 @@
 	<link href="<?php echo base_url('assets/css/'); ?>estilos.css?v=<?php echo date('i'); ?>" rel="stylesheet"/>
 
 </head>
-<body>
+<body class="<?php echo $modo; ?>">
 	<div class="load-screen"><div class="lds-dual-ring"></div></div>
-		<div class="envolvente envolvente_noche">
+		<div class="envolvente envolvente_<?php echo $modo; ?>">
 			<div class="sidebar">
 				<div class="logo_contenedor">
-					<a href="<?php echo base_url(); ?>" class="d-block p-3  text-decoration-none" title="">
-			      <h1 class="h3">POLARIS</h1>
-			    </a>
+					<div class="row">
+						<div class="col col-md-12">
+							<img src="<?php echo base_url('assets/img/polaris_'.$modo.'.svg'); ?>" class="img-fluid" style="max-width:150px" alt="Polaris">
+						</div>
+						<div class="col-3 d-flex d-md-none justify-content-end align-items">
+							<button type="button" name="button" class="mostrar_menu btn btn-light"><i class="fas fa-bars"></i></button>
+						</div>
+					</div>
+
+
 				</div>
 				<ul class="nav nav-pills nav-flush flex-column mb-auto">
 		      <li class="nav-item">
@@ -97,6 +104,11 @@
 		        </a>
 		      </li>
 					<li class="nav-item">
+		        <a href="<?php echo base_url('lista_usuarios/detalles?id='.$_SESSION['usuario']['id']); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Usuarios">
+		         	<i class="fas fa-address-card"></i> <span class="etiqueta_menu">Mi Perfil</span>
+		        </a>
+		      </li>
+					<li class="nav-item">
 		        <a href="<?php echo base_url('login/cerrar_sesion'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Cerrar sesión">
 		         	<i class="fas fa-sign-out"></i> <span class="etiqueta_menu">Cerrar sesión</span>
 		        </a>
@@ -112,9 +124,14 @@
 			</div>
 			<div class="contenedor_principal">
 				<div class="logo_contenedor">
-					<a href="<?php echo base_url(); ?>" class="d-block p-3 text-white text-decoration-none" title="">
-			      <h1 class="h3">POLARIS</h1>
-			    </a>
+					<div class="row">
+						<div class="col">
+					      <img src="<?php echo base_url('assets/img/polaris_'.$modo.'.svg'); ?>" class="img-fluid" style="max-width:150px" alt="Polaris">
+						</div>
+						<div class="col-3 d-flex justify-content-center align-items-center">
+							<button type="button" name="button" class="mostrar_menu btn btn-light"><i class="fas fa-bars"></i></button>
+						</div>
+					</div>
 				</div>
 				<div class="contenido_principal">
 					<div class="row encabezado_principal d-flex justify-content-between">

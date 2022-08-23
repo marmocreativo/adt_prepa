@@ -44,7 +44,14 @@ html, body{
 }
 
 /*-------- / PÁGINA DE CARGA -------*/
-
+body.dia{
+  background-color: #F8F7FC;
+  color: #79838F;
+}
+body.noche{
+  background-color: #292E3A;
+  color: #F2F2F2;
+}
 .envolvente{
   width:100%;
   min-height:100%;
@@ -64,7 +71,7 @@ html, body{
   color: #79838F;
 }
 .envolvente_dia .contenido_principal{
-  background-color: #FFFFFF;
+  background-color: #F8F7FC;
   color: #79838F;
   min-height: 100%;
 }
@@ -74,7 +81,7 @@ html, body{
   color: #79838F;
 }
 .envolvente_dia .contenido_principal .logo_contenedor{
-  background-color: #FFFFFF;
+  background-color: #F8F7FC;
   color: #79838F;
 }
 
@@ -96,12 +103,10 @@ html, body{
 }
 
 .envolvente_noche .sidebar .logo_contenedor{
-  background-color: #090909;
-  color: #F2F2F2;
+
 }
 .envolvente_noche .contenedor_principal .logo_contenedor{
-  background-color: #090909;
-  color: #F2F2F2;
+
 }
 
 .sidebar{
@@ -109,15 +114,37 @@ html, body{
   color: #fff;
   height: 100%;
   z-index: 100;
-  width:100%;
-  left: -100%;
+  width:80%;
+  right: -100%;
+  transition: right 300ms ease;
+}
+
+.sidebar_mostrar{
+  right: 0;
 }
 .contenedor_principal{
   width:100%;
 }
 .contenido_principal{
     padding:0 20px;
+    padding-top: 30px;
+    padding-bottom: 50px;
 }
+@media (min-width: 576px) {
+  .sidebar{
+    position:absolute;
+    color: #fff;
+    height: 100%;
+    z-index: 100;
+    width:100%;
+    left: -100%;
+  }
+
+  .contenedor_principal .logo_contenedor{
+    display: block;
+  }
+}
+
 @media (min-width: 768px) {
   .sidebar{
     position:fixed;
@@ -130,7 +157,7 @@ html, body{
     margin-left:20%;
   }
   .contenedor_principal .logo_contenedor{
-    display: block;
+    display: none;
   }
 
 }
@@ -187,3 +214,32 @@ html, body{
   padding:25px 30px;
   border-radius: 50px;
 }
+
+/* Lista de Tareas */
+.lista_tareas li{
+  background-color: #fff;
+  margin-bottom: 20px;
+  box-shadow: 2px 11px 43px -15px rgba(0,0,0,0.44);
+  -webkit-box-shadow: 2px 11px 20px -15px rgba(0,0,0,0.44);
+  -moz-box-shadow: 2px 11px 20px -15px rgba(0,0,0,0.44);
+  border-radius: 20px;
+}
+/* /Lista de Tareas */
+/* Lista de Proyectos */
+.proyecto{
+  padding:20px;
+  margin-bottom:20px;
+  border-radius: 30px;
+  box-shadow: 2px 11px 43px -15px rgba(0,0,0,0.44);
+-webkit-box-shadow: 2px 11px 43px -15px rgba(0,0,0,0.44);
+-moz-box-shadow: 2px 11px 43px -15px rgba(0,0,0,0.44);
+}
+.proyecto.dia{
+  background-color: #FFFFFF;
+  color: #79838F;
+}
+.proyecto.noche{
+  background-color: #18233D;
+  color: #F2F2F2;
+}
+/* /Lista de Proyectos */

@@ -180,6 +180,11 @@ if ( ! function_exists('verificar_sesion'))
 			'ultima_actividad'  => date('Y-m-d H:i:s'),
 		  )
 		);
+    $configuraciones_usuario = $CI->GeneralModel->lista('usuarios_preferencias','',['ID_USUARIO'=>$parametros['ID_USUARIO']],'','','');
+    $datos_del_usuario['configuraciones']= array();
+    foreach($configuraciones_usuario as $configuracion){
+      $datos_del_usuario['configuraciones'][$configuracion->CONFIGURACION]=$configuracion->VALOR;
+    }
 		$CI->session->set_userdata($datos_del_usuario);
 	  }
   }

@@ -36,6 +36,17 @@ class Admin_Inicio extends CI_Controller {
 		$this->data['titulo']  = 'Inicio Administradores';
 		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
 		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
+
+		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		}else{
+			$modo_noche='no';
+		}
+		if ($modo_noche=='si') {
+			$this->data['modo'] = 'noche';
+		}else{
+			$this->data['modo'] = 'dia';
+		}
 	}
 
 	public function index()

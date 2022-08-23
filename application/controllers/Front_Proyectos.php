@@ -30,6 +30,17 @@ class Front_Proyectos extends CI_Controller {
 
 		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -15 days')));
 		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));
+
+		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		}else{
+			$modo_noche='no';
+		}
+		if ($modo_noche=='si') {
+			$this->data['modo'] = 'noche';
+		}else{
+			$this->data['modo'] = 'dia';
+		}
 
 
 	}
@@ -57,8 +68,7 @@ class Front_Proyectos extends CI_Controller {
 		$this->data['consulta']['pagina'] = $pagina;
 		$agrupar = '';
 		$this->data['consulta']['agrupar'] = $agrupar;
-
-		$parametros_and = array();
+		$parametros_and = array();
 		$parametros_or = array();
 
 		$parametros_and['proyectos.ESTADO !='] = 'borrador';
@@ -207,23 +217,25 @@ class Front_Proyectos extends CI_Controller {
 			}else{
 				$imagen_fondo = $this->input->post('ImagenFondoActual');
 			}
-
-
-			$parametros = array(
-				'PROYECTO_NOMBRE' =>  $this->input->post('ProyectoNombre'),
-				'URL' =>  $this->input->post('Url'),
-				'PROYECTO_DESCRIPCION' =>  $this->input->post('ProyectoDescripcion'),
-				'PRIORIDAD' =>  $this->input->post('Prioridad'),
-				'DURACION' =>  $this->input->post('ProyectoDuracion'),
-				'IMAGEN' => $imagen,
-				'IMAGEN_FONDO' => $imagen_fondo,
-				'COLOR' =>  $this->input->post('ProyectoColor'),
-				'TIPO' =>  $this->input->post('Tipo'),
-				'FECHA_INICIO' =>  date('Y-m-d', strtotime($this->input->post('FechaInicio'))),
-				'FECHA_FINAL' =>    date('Y-m-d', strtotime($this->input->post('FechaFinal'))),
-				'ESTADO' =>  $this->input->post('Estado'),
-				'ORDEN' =>  $this->input->post('Orden'),
-			);
+
+			$parametros = array(
+				'PROYECTO_NOMBRE' =>  $this->input->post('ProyectoNombre'),
+				'URL' =>  $this->input->post('Url'),
+				'PROYECTO_DESCRIPCION' =>  $this->input->post('ProyectoDescripcion'),
+				'PRIORIDAD' =>  $this->input->post('Prioridad'),
+				'DURACION' =>  $this->input->post('ProyectoDuracion'),
+				'ENLACE_EDITABLE' =>  $this->input->post('EnlaceEditable'),
+				'ENLACE_ENTREGABLE' =>  $this->input->post('EnlaceEntregable'),
+				'IMAGEN' => $imagen,
+				'IMAGEN_FONDO' => $imagen_fondo,
+				'COLOR' =>  $this->input->post('ProyectoColor'),
+				'TIPO' =>  $this->input->post('Tipo'),
+				'FECHA_INICIO' =>  date('Y-m-d', strtotime($this->input->post('FechaInicio'))),
+				'FECHA_FINAL' =>    date('Y-m-d', strtotime($this->input->post('FechaFinal'))),
+				'ESTADO' =>  $this->input->post('Estado'),
+				'ORDEN' =>  $this->input->post('Orden'),
+			);
+
 
 			if(!null==$this->input->post('FechaEntrega')){
 				$parametros['FECHA_ENTREGA'] = date('Y-m-d',strtotime($this->input->post('FechaEntrega')));

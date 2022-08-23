@@ -26,6 +26,16 @@ class Usuarios_Inicio extends CI_Controller {
 		$this->data['titulo']  = 'Autenticación de usuarios';
 		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -15 days')));
 		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));
+		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		}else{
+			$modo_noche='no';
+		}
+		if ($modo_noche=='si') {
+			$this->data['modo'] = 'noche';
+		}else{
+			$this->data['modo'] = 'dia';
+		}
 
 	}
 

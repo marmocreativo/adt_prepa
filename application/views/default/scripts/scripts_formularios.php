@@ -165,10 +165,10 @@ activar_reordenar();
         relative_urls : false,
         remove_script_host : false,
         convert_urls : true,
-        plugins: 'advlist autolink bootstrap link image lists charmap print preview help table code responsivefilemanager ',
+        plugins: 'advlist autolink bootstrap link image lists charmap print preview help table code ',
          toolbar: [
          'undo redo | bootstrap',
-         'cut copy paste | styleselect | alignleft aligncenter alignright alignjustify | bold italic | link responsivefilemanager  | code'],
+         'cut copy paste | styleselect | alignleft aligncenter alignright alignjustify | bold italic | link  | code'],
          contextmenu: "link image imagetools table spellchecker | bootstrap",
          image_advtab: true ,
          bootstrapConfig: {
@@ -185,15 +185,11 @@ activar_reordenar();
                iconFont: 'fontawesome5',
                imagesPath: '../../contenido/img/upload/',
                key: llave_produccion
-           },
-        external_filemanager_path:"../../assets/plugins/filemanager/",
-         filemanager_title:"Responsive Filemanager" ,
-         external_plugins: { "responsivefilemanager" : "<?php echo base_url('assets/plugins/'); ?>responsivefilemanager/plugin.min.js"}
+           }
       });
     }
 
-    if ( $( ".TextEditorSmall" ).length ) {
-      console.log('crear editor');
+    if ( $( ".TextEditorSmall" ).length ) {
 
     tinymce.init({
         selector: '.TextEditorSmall',
@@ -201,10 +197,10 @@ activar_reordenar();
         relative_urls : false,
         remove_script_host : false,
         convert_urls : true,
-        plugins: 'advlist autolink link image lists charmap print preview help table code responsivefilemanager',
+        plugins: 'advlist autolink link image lists charmap print preview help table code',
         menubar: false,
          toolbar: [
-         'cut copy paste | styleselect | alignleft aligncenter alignright alignjustify | bold italic | link responsivefilemanager  | code'],
+         'cut copy paste | styleselect | alignleft aligncenter alignright alignjustify | bold italic | link  | code'],
          contextmenu: "",
       });
     }
