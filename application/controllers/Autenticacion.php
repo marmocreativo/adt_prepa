@@ -18,8 +18,8 @@ class Autenticacion extends CI_Controller {
 		$this->load->model('AutenticacionModel');
 		// Variables Globales
 		$this->data['titulo']  = 'Autenticación de usuarios';
-		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
-			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['configuraciones']['modo_noche'];
 		}else{
 			$modo_noche='no';
 		}

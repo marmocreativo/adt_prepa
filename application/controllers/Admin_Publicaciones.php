@@ -39,8 +39,8 @@ class Admin_Publicaciones extends CI_Controller {
 		// Título General
 		$this->data['titulo']  = 'Publicaciones | Administrador | '.$this->data['op']['titulo_sitio'];
 
-		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
-			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['configuraciones']['modo_noche'];
 		}else{
 			$modo_noche='no';
 		}

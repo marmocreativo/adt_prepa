@@ -37,8 +37,8 @@ class Admin_Inicio extends CI_Controller {
 		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
 		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 
-		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
-			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['configuraciones']['modo_noche'];
 		}else{
 			$modo_noche='no';
 		}

@@ -1,32 +1,29 @@
-<a href="<?php echo base_url('equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success btn-circulo-flotante"> <i class="fa fa-plus"></i></a>
-<div class="lista_equipos">
-
-	<div class="row mt-4">
-
-		<?php foreach($equipos as $equipo){ ?>
-		<div class="col-12 col-md-4">
-			<a href="<?php echo base_url('equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
-				<div class="equipo card card-body mb-3 p-0">
-					<div class="bg-image d-flex align-items-center m-0 p-0" style="background-image: url(<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN_FONDO); ?>)">
-						<img src="<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN); ?>" class="rounded-circle mx-1" width="50">
-						<h3 class="h5"> <?php echo $equipo->EQUIPO_NOMBRE; ?></h3>
-					</div>
-
-					<?php
-						$numero_proyectos = $this->GeneralModel->conteo('equipos_proyectos','','',['ID_EQUIPO'=>$equipo->ID_EQUIPO],'');
-						$numero_miembros = $this->GeneralModel->conteo('equipos_usuarios','','',['ID_EQUIPO'=>$equipo->ID_EQUIPO],'');
-					?>
-					<table class="table">
-						<tr>
-							<td class="text-center"><i class="fas fa-project-diagram"></i> Proyectos <b><?php echo $numero_proyectos; ?></b> </td>
-							<td class="text-center"><i class="fa fa-users"></i> Miembros <b><?php echo $numero_miembros; ?></b> </td>
-						</tr>
-					</table>
-				</div>
-			</a>
-		</div>
-		<?php } ?>
-	</div>
+<a href="<?php echo base_url('equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success btn-circulo-flotante"> <i class="fa fa-plus"></i></a>
+<div class="lista_equipos">
+	<div class="row mt-4">
+		<?php foreach($equipos as $equipo){ ?>
+		<div class="col-12 col-md-4">
+			<div class="proyecto p-0">
+				<a href="<?php echo base_url('equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
+					<div class="bg-image d-flex align-items-center m-0 p-4" style="background-image: url(<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN_FONDO); ?>); min-height:120px;">
+						<img src="<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN); ?>" class="rounded-circle mx-1" width="50">
+						<h3 class="h5"> <?php echo $equipo->EQUIPO_NOMBRE; ?></h3>
+					</div>
+					<?php
+						$numero_proyectos = $this->GeneralModel->conteo('equipos_proyectos','','',['ID_EQUIPO'=>$equipo->ID_EQUIPO],'');
+						$numero_miembros = $this->GeneralModel->conteo('equipos_usuarios','','',['ID_EQUIPO'=>$equipo->ID_EQUIPO],'');
+					?>
+					<table class="table">
+						<tr>
+							<td class="text-center"><i class="fas fa-project-diagram"></i> Proyectos <b><?php echo $numero_proyectos; ?></b> </td>
+							<td class="text-center"><i class="fa fa-users"></i> Miembros <b><?php echo $numero_miembros; ?></b> </td>
+						</tr>
+					</table>
+				</a>
+			</div>
+		</div>
+		<?php } ?>
+	</div>
 	<?php if($cantidad_paginas>1){ ?>
 	<div class="row justify-content-md-center">
 		<div class="col-2">

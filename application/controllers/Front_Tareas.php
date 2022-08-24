@@ -32,8 +32,8 @@ class Front_Tareas extends CI_Controller {
 
 		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));
 
-		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
-			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['configuraciones']['modo_noche'];
 		}else{
 			$modo_noche='no';
 		}

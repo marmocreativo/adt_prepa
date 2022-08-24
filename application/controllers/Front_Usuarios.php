@@ -28,8 +28,8 @@ class Front_Usuarios extends CI_Controller {
 		$this->data['tipo'] = verificar_variable('GET','tipo','');
 		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -15 days')));
 		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));
-		if(isset($_SESSION['usuario']['opciones']['modo_noche'])){
-			$modo_noche = $_SESSION['usuario']['opciones']['modo_noche'];
+		if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){
+			$modo_noche = $_SESSION['usuario']['configuraciones']['modo_noche'];
 		}else{
 			$modo_noche='no';
 		}
@@ -348,6 +348,65 @@ class Front_Usuarios extends CI_Controller {
 				$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 			}
 	}
+
+		public function preferencias()
+
+		{
+				$this->form_validation->set_rules('Identificador', 'Nombre', 'required', array('required' => 'Debes escribir tu %s.'));
+
+				if($this->form_validation->run())
+
+		    {
+					$this->GeneralModel->borrar('usuarios_preferencias',['ID_USUARIO'=>$this->input->post('Identificador')]);
+
+					if(!empty($_POST['Preferencias'])){
+						foreach($_POST['Preferencias'] as $nombre => $valor){
+							$parametros_meta = array(
+								'ID_USUARIO'=>$this->input->post('Identificador'),
+								'CONFIGURACION'=>$nombre,
+								'VALOR'=>$valor
+							);
+							// Creo las entradas a la galeria
+							$this->GeneralModel->crear('usuarios_preferencias',$parametros_meta);
+						}
+
+						$configuraciones_usuario = $this->GeneralModel->lista('usuarios_preferencias','',['ID_USUARIO'=>$this->input->post('Identificador')],'','','');
+				    $datos_del_usuario['configuraciones']= array();
+				    foreach($configuraciones_usuario as $configuracion){
+				      $datos_del_usuario['configuraciones'][$configuracion->CONFIGURACION]=$configuracion->VALOR;
+				    }
+						$CI->session->set_userdata($datos_del_usuario);
+					}
+					// Redirecciono
+
+		      redirect(base_url('lista_usuarios/detalles?id='.$this->input->post('Identificador')));
+
+		    }else{
+
+					$this->data['usuario'] = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_GET['id']]);
+
+					// Open Tags
+
+					$this->data['titulo']  = $this->data['usuario']['USUARIO_NOMBRE'].' '.$this->data['usuario']['USUARIO_APELLIDOS'];
+					$this->data['descripcion']  = 'Detalles del usuario';
+					$this->data['imagen']  = base_url('contenido/img/usuarios/'.$this->data['usuario']['IMAGEN']);
+					$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'usuario'],'','','');
+					$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+					$this->data['preferencias'] = $this->GeneralModel->lista('usuarios_preferencias','',['ID_USUARIO'=>$_GET['id']],'','','');
+					// Reviso la vista especializada
+
+					// Cargo Vistas
+
+					$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+
+					$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_form_actualizar_preferencias',$this->data);
+
+					$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+
+				}
+
+		}
+
 
 	public function detalles(){
 		// Variables de busqueda

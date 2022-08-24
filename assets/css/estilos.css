@@ -233,6 +233,7 @@ body.noche{
   box-shadow: 2px 11px 43px -15px rgba(0,0,0,0.44);
 -webkit-box-shadow: 2px 11px 43px -15px rgba(0,0,0,0.44);
 -moz-box-shadow: 2px 11px 43px -15px rgba(0,0,0,0.44);
+overflow: hidden;
 }
 .proyecto.dia{
   background-color: #FFFFFF;

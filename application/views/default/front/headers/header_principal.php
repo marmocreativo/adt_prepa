@@ -134,26 +134,8 @@
 					</div>
 				</div>
 				<div class="contenido_principal">
-					<div class="row encabezado_principal d-flex justify-content-between">
+					<div class="row encabezado_principal d-flex justify-content-between mb-4">
 						<div class="col-12 col-md-6 titulo">
 							<h1 class="h1"><?php echo $titulo; ?></h1>
-						</div>
-						<div class="col-12 col-md-3 controles d-none">
-							<form class="row aling-item-center date" action="<?php echo base_url(); ?>" method="get">
-								<div class="col-4 p-2">
-									<div class="form-group d-flex">
-										<input type="text" class="form-control form-control-sm datepicker" name="FechaInicio" value="<?php echo verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days'))); ?>">
-									</div>
-								</div>
-								<div class="col-4 p-2">
-									<div class="form-group d-flex">
-										<input type="text" class="form-control form-control-sm datepicker" name="FechaFInal" value="<?php echo verificar_variable('GET','fecha_final',date('d-m-Y')); ?>">
-									</div>
-								</div>
-								<div class="col-4 p-2">
-									<button type="submit" class="btn btn-secondary btn-sm w-100" name="button"> <i class="fas fa-search"></i> </button>
-								</div>
-							</form>
-
 						</div>
 					</div>
