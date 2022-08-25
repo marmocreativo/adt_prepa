@@ -1,6 +1,5 @@
-
 	<div class="row justify-content-center">
-		<div class="col-12 col-sm-6 col-md-4 col-lg-4 p-4">
+		<div class="col-10 col-sm-4 col-md-3 col-lg-3 p-4">
 			<form class="text-center" action="<?php echo base_url('login/iniciar_sesion');?>" method="post">
 				<input type="hidden" name="UrlRedirect" value="<?php echo verificar_variable('GET','url_redirect',''); ?>">
 				<img src="<?php echo base_url('assets/img/logo_menu.png'); ?>" alt="" class="img-fluid">

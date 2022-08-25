@@ -12,8 +12,8 @@
 			<div class="form-group">
 				<label for="Preferencias[modo_noche]">Modo noche</label>
 				<select class="form-control" name="Preferencias[modo_noche]">
-					<option value="no" <?php if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){ if($_SESSION['usuario']['opciones']['modo_noche']=='no'){ echo 'selected'; } } ?>>Apagado</option>
-					<option value="si" <?php if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){ if($_SESSION['usuario']['opciones']['modo_noche']=='si'){ echo 'selected'; } } ?>>Activo</option>
+					<option value="no" <?php if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){ if($_SESSION['usuario']['configuraciones']['modo_noche']=='no'){ echo 'selected'; } } ?>>Apagado</option>
+					<option value="si" <?php if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){ if($_SESSION['usuario']['configuraciones']['modo_noche']=='si'){ echo 'selected'; } } ?>>Activo</option>
 				</select>
 			</div>
 			<button type="submit" class="btn btn-success w-100"> <i class="fa fa-save"></i> Actualizar</button>

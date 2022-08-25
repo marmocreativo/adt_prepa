@@ -41,87 +41,125 @@ class Front_Usuarios extends CI_Controller {
 		}
 	}
 
-
-	public function index()
-	{
-		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
-
-		// Variables de busqueda
-		$this->data['consulta']=array();
-		$todo = verificar_variable('GET','todo','si');
-		$this->data['consulta']['todo'] = $todo;
-		$busqueda = verificar_variable('GET','busqueda','');
-		$this->data['consulta']['busqueda'] = $busqueda;
-		$fecha_inicio = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days')));
-		$this->data['consulta']['fecha_inicio'] = $fecha_inicio;
-		$fecha_final = verificar_variable('GET','fecha_final',date('d-m-Y'));
-		$this->data['consulta']['fecha_final'] = $fecha_final;
-		$orden = verificar_variable('GET','orden','');
-		$this->data['consulta']['orden'] = $orden;
-		$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',$this->data['op']['cantidad_publicaciones_por_pagina']);
-		$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
-		$pagina = verificar_variable('GET','pagina','1');
-		$this->data['consulta']['pagina'] = $pagina;
-		$agrupar = '';
-		$this->data['consulta']['agrupar'] = $agrupar;
-
-		$parametros_and = array();
-		$parametros_or = array();
-
-		$parametros_and['usuarios.ESTADO !='] = 'borrador';
-
-		if(!empty($busqueda)){
-			$parametros_or['usuarios.USUARIO_NOMBRE'] = $busqueda;
-			$parametros_or['usuarios.USUARIO_APELLIDOS'] = $busqueda;
-			$parametros_or['usuarios.USUARIO_CORREO'] = $busqueda;
-		}
-		$tablas_join = array();
-
-		// Paginador
-		$this->data['pub_totales'] = $this->GeneralModel->conteo('usuarios',$tablas_join,$parametros_or,$parametros_and,$agrupar);
-		$this->data['pub_por_pagina'] = $mostrar_por_pagina;
-		$this->data['cantidad_paginas'] = ceil($this->data['pub_totales']/$this->data['pub_por_pagina']);
-		$this->data['pagina'] = $pagina;
-
-		// Página siguiente
-		if($this->data['pagina']!=$this->data['cantidad_paginas']){
-			$this->data['pagina_siguiente']=$this->data['pagina'] +1;
-		}else{
-			$this->data['pagina_siguiente']=$this->data['pagina'];
-		}
-		// Página Anterior
-		if($this->data['pagina']!=1){
-			$this->data['pagina_anterior']=$this->data['pagina'] -1;
-		}else{
-			$this->data['pagina_anterior']=$this->data['pagina'];
-		}
-		// Offset
-		if($this->data['pagina']!=1){
-			$this->data['offset'] =$this->data['pub_por_pagina']*($this->data['pagina']-1);
-		}else{
-			$this->data['offset']='';
-		}
-		// Consultas rápidas
-		$this->data['consulta_actual'] = 'busqueda='.$busqueda.'&todo='.$todo.'fecha_inicio='.$fecha_inicio.'&fecha_final='.$fecha_final.'&orden='.$orden.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$pagina;
-		$this->data['consulta_siguiente'] = 'busqueda='.$busqueda.'&todo='.$todo.'fecha_inicio='.$fecha_inicio.'&fecha_final='.$fecha_final.'&orden='.$orden.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$this->data['pagina_siguiente'];
-		$this->data['consulta_anterior'] = 'busqueda='.$busqueda.'&todo='.$todo.'fecha_inicio='.$fecha_inicio.'&fecha_final='.$fecha_final.'&orden='.$orden.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$this->data['pagina_anterior'];
-
-		// Consulta
-		$this->data['usuarios'] = $this->GeneralModel->lista_join('usuarios',$tablas_join,$parametros_or,$parametros_and,$orden,$mostrar_por_pagina,$this->data['offset'],$agrupar);
-
-
-		// Open Tags
-		$this->data['titulo']  = 'Usuarios';
-		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
-		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
-
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_lista_usuarios',$this->data);
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
-
-		// Vistas
-	}
+
+		public function index()
+
+		{
+			// Verifico el switch de mantenimiento
+			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+
+			// Variables de busqueda
+			$this->data['consulta']=array();
+			$todo = verificar_variable('GET','todo','si');
+			$this->data['consulta']['todo'] = $todo;
+			$busqueda = verificar_variable('GET','busqueda','');
+			$this->data['consulta']['busqueda'] = $busqueda;
+			$fecha_inicio = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -30 days')));
+			$this->data['consulta']['fecha_inicio'] = $fecha_inicio;
+			$fecha_final = verificar_variable('GET','fecha_final',date('d-m-Y'));
+			$this->data['consulta']['fecha_final'] = $fecha_final;
+			$orden = verificar_variable('GET','orden','');
+			$this->data['consulta']['orden'] = $orden;
+			$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',$this->data['op']['cantidad_publicaciones_por_pagina']);
+			$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
+			$pagina = verificar_variable('GET','pagina','1');
+			$this->data['consulta']['pagina'] = $pagina;
+			$agrupar = '';
+			$this->data['consulta']['agrupar'] = $agrupar;
+
+			$parametros_and = array();
+			$parametros_or = array();
+			$parametros_and['usuarios.ESTADO !='] = 'borrador';
+
+			if(!empty($busqueda)){
+				$parametros_or['usuarios.USUARIO_NOMBRE'] = $busqueda;
+				$parametros_or['usuarios.USUARIO_APELLIDOS'] = $busqueda;
+				$parametros_or['usuarios.USUARIO_CORREO'] = $busqueda;
+			}
+
+			$tablas_join = array();
+			// Paginador
+			$this->data['pub_totales'] = $this->GeneralModel->conteo('usuarios',$tablas_join,$parametros_or,$parametros_and,$agrupar);
+			$this->data['pub_por_pagina'] = $mostrar_por_pagina;
+			$this->data['cantidad_paginas'] = ceil($this->data['pub_totales']/$this->data['pub_por_pagina']);
+			$this->data['pagina'] = $pagina;
+
+			// Página siguiente
+			if($this->data['pagina']!=$this->data['cantidad_paginas']){
+				$this->data['pagina_siguiente']=$this->data['pagina'] +1;
+			}else{
+				$this->data['pagina_siguiente']=$this->data['pagina'];
+			}
+			// Página Anterior
+			if($this->data['pagina']!=1){
+				$this->data['pagina_anterior']=$this->data['pagina'] -1;
+			}else{
+				$this->data['pagina_anterior']=$this->data['pagina'];
+			}
+
+			// Offset
+			if($this->data['pagina']!=1){
+				$this->data['offset'] =$this->data['pub_por_pagina']*($this->data['pagina']-1);
+			}else{
+				$this->data['offset']='';
+			}
+
+			// Consultas rápidas
+			$this->data['consulta_actual'] = 'busqueda='.$busqueda.'&todo='.$todo.'fecha_inicio='.$fecha_inicio.'&fecha_final='.$fecha_final.'&orden='.$orden.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$pagina;
+			$this->data['consulta_siguiente'] = 'busqueda='.$busqueda.'&todo='.$todo.'fecha_inicio='.$fecha_inicio.'&fecha_final='.$fecha_final.'&orden='.$orden.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$this->data['pagina_siguiente'];
+			$this->data['consulta_anterior'] = 'busqueda='.$busqueda.'&todo='.$todo.'fecha_inicio='.$fecha_inicio.'&fecha_final='.$fecha_final.'&orden='.$orden.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$this->data['pagina_anterior'];
+
+			// Consulta
+			$this->data['usuarios'] = $this->GeneralModel->lista_join('usuarios',$tablas_join,$parametros_or,$parametros_and,$orden,$mostrar_por_pagina,$this->data['offset'],$agrupar);
+
+
+			// Open Tags
+			$this->data['titulo']  = 'Usuarios';
+			$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
+			$this->data['imagen']  = base_url('assets/img/share_default.jpg');
+
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_lista_usuarios',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+
+		}
+
+
+	public function notificaciones()
+		{
+			// Verifico el switch de mantenimiento
+			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+
+			// Consulta
+			$this->data['notificaciones'] = $this->GeneralModel->lista('notificaciones','',['ID_USUARIO'=>$_SESSION['usuario']['id']],'FECHA_CREACION DESC','','');
+
+
+			// Open Tags
+			$this->data['titulo']  = 'Notificaciones';
+			$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
+			$this->data['imagen']  = base_url('assets/img/share_default.jpg');
+
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_lista_notificaciones',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+
+	}
+	public function leer_notificaciones()
+		{
+			// Verifico el switch de mantenimiento
+			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+
+			// Consulta
+			$detalles_notificacion = $this->GeneralModel->detalles('notificaciones',['ID'=>$_GET['id']]);
+			$this->GeneralModel->actualizar('notificaciones',['ID'=>$_GET['id']],['ESTADO'=>'leido']);
+
+			redirect($detalles_notificacion['ENLACE']);
+
+
+	}
+
+
+
 
 	public function crear()
 	{
@@ -373,13 +411,13 @@ class Front_Usuarios extends CI_Controller {
 						$configuraciones_usuario = $this->GeneralModel->lista('usuarios_preferencias','',['ID_USUARIO'=>$this->input->post('Identificador')],'','','');
 				    $datos_del_usuario['configuraciones']= array();
 				    foreach($configuraciones_usuario as $configuracion){
-				      $datos_del_usuario['configuraciones'][$configuracion->CONFIGURACION]=$configuracion->VALOR;
+				      $_SESSION['usuario']['configuraciones'][$configuracion->CONFIGURACION]=$configuracion->VALOR;
 				    }
-						$CI->session->set_userdata($datos_del_usuario);
+
 					}
 					// Redirecciono
 
-		      redirect(base_url('lista_usuarios/detalles?id='.$this->input->post('Identificador')));
+		      redirect(base_url('lista_usuarios/preferencias?id='.$this->input->post('Identificador')));
 
 		    }else{
 

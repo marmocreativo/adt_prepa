@@ -33,7 +33,7 @@
 	<link href="<?php echo base_url('assets/css/'); ?>estilos.css?v=<?php echo date('i'); ?>" rel="stylesheet"/>
 
 </head>
-<body>
+<body class="<?php echo $modo; ?>" >
 	<div class="load-screen bg-secondary"><div class="lds-dual-ring"></div></div>
 
     <div class="wrapper">

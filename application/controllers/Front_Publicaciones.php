@@ -65,7 +65,7 @@ class Front_Publicaciones extends CI_Controller {
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
 
 		// Open Tags
-		$this->data['titulo']  = 'Inicio';
+		$this->data['titulo']  = 'Resumen de Actividades';
 		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
 		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 

@@ -1,6 +1,6 @@
 <div class="row ">
 	<div class="col-12 col-md-4">
-		<div class="proyecto border-0 border-bottom border-end">
+		<div class="proyecto <?php echo $modo; ?> border-0 border-bottom border-end">
 			<?php echo $proyecto['PROYECTO_DESCRIPCION']; ?>
 			<hr>
 			<table class="table table-bordered">

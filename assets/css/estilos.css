@@ -52,6 +52,13 @@ body.noche{
   background-color: #292E3A;
   color: #F2F2F2;
 }
+
+body.dia td, body.dia th{
+  color: #79838F;
+}
+body.noche td, body.noche th{
+  color: #F2F2F2;
+}
 .envolvente{
   width:100%;
   min-height:100%;
@@ -100,6 +107,10 @@ body.noche{
   background-color: #292E3A;
   color: #F2F2F2;
   min-height: 100%;
+}
+
+.envolvente_noche .contenido_principal a{
+  color: #f05825;
 }
 
 .envolvente_noche .sidebar .logo_contenedor{
@@ -216,14 +227,38 @@ body.noche{
 }
 
 /* Lista de Tareas */
-.lista_tareas li{
+.lista_tareas.dia li{
   background-color: #fff;
   margin-bottom: 20px;
   box-shadow: 2px 11px 43px -15px rgba(0,0,0,0.44);
   -webkit-box-shadow: 2px 11px 20px -15px rgba(0,0,0,0.44);
   -moz-box-shadow: 2px 11px 20px -15px rgba(0,0,0,0.44);
   border-radius: 20px;
+  overflow: hidden;
 }
+
+.lista_tareas.noche li{
+  background-color: #18233D;
+  margin-bottom: 20px;
+  box-shadow: 2px 11px 43px -15px rgba(0,0,0,0.44);
+  -webkit-box-shadow: 2px 11px 20px -15px rgba(0,0,0,0.44);
+  -moz-box-shadow: 2px 11px 20px -15px rgba(0,0,0,0.44);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.lista_tareas.noche li a{
+  color: #fff;
+}
+
+.lista_tareas.dia .fondo-icono{
+  background-color: #eee;
+}
+
+.lista_tareas.noche .fondo-icono{
+  background-color: #000;
+}
+
 /* /Lista de Tareas */
 /* Lista de Proyectos */
 .proyecto{
@@ -239,8 +274,14 @@ overflow: hidden;
   background-color: #FFFFFF;
   color: #79838F;
 }
+.proyecto.dia a{
+  color: #79838F;
+}
 .proyecto.noche{
   background-color: #18233D;
+  color: #F2F2F2;
+}
+.proyecto.noche a{
   color: #F2F2F2;
 }
 /* /Lista de Proyectos */

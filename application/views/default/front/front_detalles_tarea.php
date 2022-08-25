@@ -4,7 +4,7 @@
 <div class="pt-3">
 <div class="row">
 	<div class="col-12 col-md-4">
-		<div class="proyecto">
+		<div class="proyecto <?php echo $modo; ?>">
 			<table class="table table-bordered table-sm">
 				<tbody>
 					<tr>

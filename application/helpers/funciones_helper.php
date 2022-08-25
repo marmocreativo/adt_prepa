@@ -115,7 +115,7 @@ if ( ! function_exists('verificar_sesion'))
   		  if(strtotime($_SESSION['usuario']['ultima_actividad']) <= strtotime('-'.$tiempo.' Minutes')){
   			// si ha pasado mucho tiempo:
   			// Madno un mensaje, destruyo la sesi�n y retorno falso
-  			$CI->session->set_flashdata('mensaje', 'Tu sesi�n se ha cerrado por falta de actividad');
+  			$CI->session->set_flashdata('mensaje', 'Tu sesión se ha cerrado por falta de actividad');
   			session_destroy();
   			return FALSE;
   		  }else{
@@ -183,7 +183,7 @@ if ( ! function_exists('verificar_sesion'))
     $configuraciones_usuario = $CI->GeneralModel->lista('usuarios_preferencias','',['ID_USUARIO'=>$parametros['ID_USUARIO']],'','','');
     $datos_del_usuario['configuraciones']= array();
     foreach($configuraciones_usuario as $configuracion){
-      $datos_del_usuario['configuraciones'][$configuracion->CONFIGURACION]=$configuracion->VALOR;
+      $datos_del_usuario['usuario']['configuraciones'][$configuracion->CONFIGURACION]=$configuracion->VALOR;
     }
 		$CI->session->set_userdata($datos_del_usuario);
 	  }

@@ -48,14 +48,17 @@ $route['admin/(:any)'] = 'Admin_Inicio/$1';
 | -------------------------------------------------------------------------
 |
 */
+$route['notificaciones'] = 'Front_Usuarios/notificaciones';
 $route['equipos'] = 'Front_Equipos';
 $route['equipos/(:any)'] = 'Front_Equipos/$1';
 $route['proyectos'] = 'Front_Proyectos';
 $route['proyectos/(:any)'] = 'Front_Proyectos/$1';
+
 $route['tareas'] = 'Front_Tareas';
 $route['tareas/(:any)'] = 'Front_Tareas/$1';
 $route['lista_usuarios'] = 'Front_Usuarios';
 $route['lista_usuarios/(:any)'] = 'Front_Usuarios/$1';
+
 /*
 | -------------------------------------------------------------------------
 | RUTAS USUARIOS
