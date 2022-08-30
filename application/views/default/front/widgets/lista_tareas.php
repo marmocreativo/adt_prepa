@@ -55,10 +55,10 @@ $icono = "far fa-clock";
           $parametros_and['usuarios_tareas.ID_TAREA'] = $tarea->ID_TAREA;
           $usuarios = $this->GeneralModel->lista_join('usuarios_tareas',$tablas_join,$parametros_or,$parametros_and,'','','','');
         ?>
-        <div class="col-1 col-md-1 fondo-icono d-flex justify-content-center align-items-center">
+        <div class="col-2 col-md-1 fondo-icono d-flex justify-content-center align-items-center">
           <i class="<?php echo $icono.' '.$color; ?>"></i>
         </div>
-        <div class="col-8 col-md-8 d-flex justify-content-start align-items-center pt-2">
+        <div class="col-7 col-md-8 d-flex justify-content-start align-items-center pt-2">
           <p title="<?php echo $tarea->ESTADO; ?>" style="word-break: break-word;"> <?php echo $tarea->TAREA_TITULO; ?></p>
         </div>
         <div class="col-3 col-md-3 d-flex justify-content-center align-items-center pt-2">
