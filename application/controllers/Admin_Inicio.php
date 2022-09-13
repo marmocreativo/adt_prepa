@@ -83,10 +83,11 @@ class Admin_Inicio extends CI_Controller {
 			$this->data['grupos_opciones'] = $this->GeneralModel->lista_agrupada('opciones','','','OPCION_TIPO DESC','OPCION_TIPO');
 
 			// Cargo Vistas
-			$this->load->view('default'.$this->data['dispositivo'].'/admin/header_principal',$this->data);
+			$this->load->view('default'.$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
 			$this->load->view('default'.$this->data['dispositivo'].'/admin/lista_opciones',$this->data);
-			$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
+			$this->load->view('default'.$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 		}
 	}
+
 
 }
