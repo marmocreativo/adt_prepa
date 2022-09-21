@@ -64,6 +64,7 @@ class Front_Usuarios extends CI_Controller {
 			$modo_noche='no';
 		}
 
+
 		if ($modo_noche=='si') {
 			$this->data['modo'] = 'noche';
 		}else{
@@ -749,4 +750,3 @@ class Front_Usuarios extends CI_Controller {
 	}
 
 }
-

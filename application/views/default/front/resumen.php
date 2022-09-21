@@ -1,4 +1,4 @@
-<div class="mb-3">
+<div class="mb-3">
 	<?php
 		$proyectos_totales = 0;
 		$proyectos_completos = 0;
@@ -61,7 +61,7 @@
 			$usuarios_astrasadas[]=$usuarios['TAREAS_ATRASADAS'];
 		}
 	?>
-	<div class="row justify-content-center">
+	<div class="row justify-content-center">
 		<div class="col-12 col-md-3">
 			<div class="proyecto <?php echo $modo; ?>">
 				<h3>Proyectos</h3>
@@ -194,6 +194,6 @@
 			</div>
 
 		</div>
-	</div>
-</div>
-
+	</div>
+</div>
+

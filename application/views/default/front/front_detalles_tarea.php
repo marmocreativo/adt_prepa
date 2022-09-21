@@ -57,7 +57,7 @@
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="<?php echo base_url('lista_usuarios/detalles?id='.$tarea['ID_TAREA']); ?>">Ver perfil</a></li>
 							<li><a class="dropdown-item" target="_blank"
-							href="https://web.whatsapp.com/send?phone=<?php echo $detalles_usuario['USUARIO_TELEFONO']; ?>&text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
+							href="https://wa.me/<?php echo $detalles_usuario['USUARIO_TELEFONO']; ?>?text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
 						</ul>
 					</div>
 					</li>
@@ -222,36 +222,38 @@
 
 										<hr>
 
-										<?php $lista_asignados = explode(', ',$mensaje->ASIGNACIONES); ?>
+										<?php if(!empty($mensaje->ASIGNACIONES)){ ?>
+											<?php $lista_asignados = explode(', ',$mensaje->ASIGNACIONES); ?>
 
-										<ul class="list-inline">
+											<ul class="list-inline">
 
-											<?php foreach ($lista_asignados as $asignacion) { ?>
+												<?php foreach ($lista_asignados as $asignacion) { ?>
 
-												<li class="list-inline-item">
-												<div class="dropdown">
-													<img
-														src="<?php echo base_url('contenido/img/usuarios/'.$array_usuarios[$asignacion]['IMAGEN']); ?>"
-														title="<?php echo $array_usuarios[$asignacion]['NOMBRE']; ?>"
-														width="25px"
-														class="rounded-circle border border-secondary"
-														alt=""
-														role="button"
-														data-bs-toggle="dropdown"
-														aria-expanded="false">
-													<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-														<li class="dropdown-item"><b><?php echo $array_usuarios[$asignacion]['NOMBRE']; ?></b></li>
-														<li><hr class="dropdown-divider"></li>
-														<li><a class="dropdown-item" href="<?php echo base_url('lista_usuarios/detalles?id='.$asignacion); ?>">Ver perfil</a></li>
-														<li><a class="dropdown-item" target="_blank"
-														href="https://web.whatsapp.com/send?phone=<?php echo $detalles_usuario['USUARIO_TELEFONO']; ?>&text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
-													</ul>
-												</div>
-												</li>
+													<li class="list-inline-item">
+													<div class="dropdown">
+														<img
+															src="<?php echo base_url('contenido/img/usuarios/'.$array_usuarios[$asignacion]['IMAGEN']); ?>"
+															title="<?php echo $array_usuarios[$asignacion]['NOMBRE']; ?>"
+															width="25px"
+															class="rounded-circle border border-secondary"
+															alt=""
+															role="button"
+															data-bs-toggle="dropdown"
+															aria-expanded="false">
+														<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+															<li class="dropdown-item"><b><?php echo $array_usuarios[$asignacion]['NOMBRE']; ?></b></li>
+															<li><hr class="dropdown-divider"></li>
+															<li><a class="dropdown-item" href="<?php echo base_url('lista_usuarios/detalles?id='.$asignacion); ?>">Ver perfil</a></li>
+															<li><a class="dropdown-item" target="_blank"
+															href="https://wa.me/<?php echo $detalles_usuario['USUARIO_TELEFONO']; ?>?text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
+														</ul>
+													</div>
+													</li>
 
-											<?php } ?>
+												<?php } ?>
 
-										</ul>
+											</ul>
+										<?php } ?>
 
 									<?php } ?>
 
