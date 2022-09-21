@@ -133,7 +133,7 @@ activar_reordenar();
     });
   });
   // Summer Note
-    /*
+    
     if ( $( ".TextEditor" ).length ) {
       $('.TextEditor').summernote({
         minHeight: 400,             // set minimum height of editor
@@ -150,10 +150,27 @@ activar_reordenar();
         ]
       });
     }
-    */
+
+    if ( $( ".TextEditorSmall" ).length ) {
+      $('.TextEditorSmall').summernote({
+        minHeight: 400,             // set minimum height of editor
+        maxHeight: null,             // set maximum height of editor
+        focus: true,                  // set focus to editable area after initializing summernote
+        followingToolbar: false,
+        toolbar: [
+          // [groupName, [list of button]]
+          ['style', ['bold', 'italic', 'underline', 'clear']],
+          ['fontsize', ['fontsize']],
+          ['para', ['style','ul', 'ol', 'paragraph']],
+          ['insert', ['link','picture']],
+          ['Code', ['codeview']]
+        ]
+      });
+    }
+    
 
     // TinyMCE
-
+    /*
     if ( $( ".TextEditor" ).length ) {
 
       var llave_local = 'tAj3ykawOTzO195azIrI35wD9VLKy+bpie4QC4WG2QqxvekaVmdYEhQJG7OKfJZ0kNIlakdDkRxxApR92ehDmfXgp3zc7GTI+pH6x9gk888=';
@@ -204,6 +221,7 @@ activar_reordenar();
          contextmenu: "",
       });
     }
+  */
 
   // Color Picker
   if ( $( ".ColorPicker" ).length ) {

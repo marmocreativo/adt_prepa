@@ -318,7 +318,7 @@ class Front_Proyectos extends CI_Controller {
 
 		// Consultas
 		$this->data['equipos'] = $this->GeneralModel->lista('equipos','',['ESTADO'=>'activo'],'','','');
-		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'FECHA_INICIO ASC','','','');
+		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','','');
 
 		// Cargo Vistas
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
