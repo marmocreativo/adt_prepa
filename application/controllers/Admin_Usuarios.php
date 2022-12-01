@@ -137,9 +137,8 @@ class Admin_Usuarios extends CI_Controller {
 	{
 		$this->form_validation->set_rules('UsuarioNombre', 'Nombre', 'required', array('required' => 'Debes escribir tu %s.'));
 		$this->form_validation->set_rules('UsuarioApellidos', 'Apellidos', 'required', array('required' => 'Debes escribir tus %s.'));
-		$this->form_validation->set_rules('UsuarioCorreo', 'Correo Electrónico', 'required|valid_email|is_unique[usuarios.USUARIO_CORREO]', array(
+		$this->form_validation->set_rules('UsuarioCorreo', 'Correo Electrónico', 'required|is_unique[usuarios.USUARIO_CORREO]', array(
 			'required' => 'Debes escribir tu %s.',
-			'valid_email' => 'Debes escribir una dirección de correo valida.',
 			'is_unique' => 'La dirección de correo ya está registrada'
 		));
 		$this->form_validation->set_rules('UsuarioPass', 'Contraseña', 'required', array('required' => 'Debes escribir tu %s.'));
@@ -223,9 +222,8 @@ class Admin_Usuarios extends CI_Controller {
 
 			$this->form_validation->set_rules('UsuarioNombre', 'Nombre', 'required', array('required' => 'Debes escribir tu %s.'));
 			$this->form_validation->set_rules('UsuarioApellidos', 'Apellidos', 'required', array('required' => 'Debes escribir tus %s.'));
-			$this->form_validation->set_rules('UsuarioCorreo', 'Correo Electrónico', 'required|valid_email', array(
-				'required' => 'Debes escribir tu %s.',
-				'valid_email' => 'Debes escribir una dirección de correo valida.'
+			$this->form_validation->set_rules('UsuarioCorreo', 'Correo Electrónico', 'required', array(
+				'required' => 'Debes escribir tu %s.'
 			));
 
 			$nuevo_pass = verificar_variable('POST','UsuarioPass','');

@@ -64,7 +64,7 @@ class Front_Tareas extends CI_Controller {
 		$parametros_and['usuarios_tareas.ID_USUARIO'] = $_SESSION['usuario']['id'];
 
 		// Consulta
-		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'FECHA_INICIO ASC','','',$agrupar);
+		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','',$agrupar);
 		// Open Tags
 
 		$this->data['titulo']  = 'Tareas';
