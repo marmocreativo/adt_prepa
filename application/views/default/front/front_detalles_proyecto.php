@@ -36,6 +36,7 @@
 			</div>
 			<hr>
 			<a href="<?php echo base_url('proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-link btn-block btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
+			<button data-enlace="<?php echo base_url('proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-danger btn-block btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>
 		</div>
 	</div>
 	<div class="col-12 col-md-8">
@@ -130,5 +131,3 @@
 		</div>
 	</div>
 </div>
-
-

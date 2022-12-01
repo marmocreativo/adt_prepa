@@ -334,17 +334,29 @@ class Front_Proyectos extends CI_Controller {
         {
 						// Borro la categoría
             $this->GeneralModel->borrar('proyectos',['ID_PROYECTO'=>$_GET['id']]);
-						$this->GeneralModel->borrar('equipos_proyectos',['ID_EQUIPO'=>$_GET['id']]);
+						//echo 'Borrar proyecto con el ID: '.$_GET['id'];
+						//echo '<br>';
+						$tareas = $this->GeneralModel->lista('tareas','',['ID_PROYECTO'=>$_GET['id']],'','','');
 
+						foreach($tareas as $tarea){
+							//$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
+							//echo 'Borrar asignación del usuario con el ID: '.$tarea->ID_TAREA;
+							//echo '<br>';
+							$this->GeneralModel->borrar('tareas_mensajes',['ID_TAREA'=>$tarea->ID_TAREA]);
+							//echo 'Borrar los mensajes de las tareas con ID: '.$tarea->ID_TAREA;
+							//echo '<br>';
+						}
 
 						$this->GeneralModel->borrar('tareas',['ID_PROYECTO'=>$_GET['id']]);
+						//echo 'Borrar tareas con el ID_PROYECTO: '.$_GET['id'];
+						//echo '<br>';
 						// Mensaje Feedback
 						//  Redirecciono
             redirect(base_url('proyectos'));
         } else {
 					// Mensaje Feedback
 					//  Redirecciono
-	         redirect(base_url('admin/proyectos'));
+	         redirect(base_url('proyectos'));
 				}
 	}
 
