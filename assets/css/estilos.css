@@ -59,6 +59,10 @@ body.dia td, body.dia th{
 body.noche td, body.noche th{
   color: #F2F2F2;
 }
+
+.list-group{
+  background-color: #fff;
+}
 .envolvente{
   width:100%;
   min-height:100%;

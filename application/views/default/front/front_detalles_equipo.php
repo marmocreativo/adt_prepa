@@ -4,7 +4,7 @@
 			<div class="proyecto p-0">
 				<div class="bg-image d-flex align-items-center" style="background-image: url(<?php echo base_url('contenido/img/equipos/'.$equipo['IMAGEN_FONDO']); ?>)">
 					<img src="<?php echo base_url('contenido/img/equipos/'.$equipo['IMAGEN']); ?>" class="rounded-circle m-3" width="100">
-					<h3><?php echo $equipo['EQUIPO_NOMBRE']; ?></h3>
+					<h3 class="text-primary"><?php echo $equipo['EQUIPO_NOMBRE']; ?></h3>
 				</div>
 				<div class="p-4 mt-3">
 					<?php echo $equipo['EQUIPO_DESCRIPCION']; ?>

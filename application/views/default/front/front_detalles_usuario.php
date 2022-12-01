@@ -23,7 +23,9 @@
 					</table>
 					<hr>
 					<a href="<?php echo base_url('lista_usuarios/actualizar?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-link"> <i class="fas fa-pencil"></i> Editar perfil</a>
+					<?php if($usuario['ID_USUARIO']==$_SESSION['usuario']['id']){ ?>
 					<a href="<?php echo base_url('lista_usuarios/preferencias?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-link"> <i class="fas fa-cogs"></i> Editar Preferencias</a>
+					<?php } ?>
 				</div>
 			</div>
 		</div>

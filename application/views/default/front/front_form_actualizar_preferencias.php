@@ -16,7 +16,12 @@
 
 	</div>
 	<pre>
-	<?php var_dump($preferencias); ?>
+	<?php
+	$arreglo_preferencias = array();
+	foreach($preferencias as $preferencia){
+		$arreglo_preferencias[$preferencia->CONFIGURACION] = $preferencia->VALOR;
+	}
+	?>
 	</pre>
 	<div class="row mb-4">
 
@@ -25,8 +30,8 @@
 			<div class="form-group">
 				<label for="Preferencias[modo_noche]">Modo noche</label>
 				<select class="form-control" name="Preferencias[modo_noche]">
-					<option value="no" <?php if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){ if($_SESSION['usuario']['configuraciones']['modo_noche']=='no'){ echo 'selected'; } } ?>>Apagado</option>
-					<option value="si" <?php if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){ if($_SESSION['usuario']['configuraciones']['modo_noche']=='si'){ echo 'selected'; } } ?>>Activo</option>
+					<option value="no" <?php if(isset($arreglo_preferencias['modo_noche'])){ if($arreglo_preferencias['modo_noche']=='no'){ echo 'selected'; } } ?>>Apagado</option>
+					<option value="si" <?php if(isset($arreglo_preferencias['modo_noche'])){ if($arreglo_preferencias['modo_noche']=='si'){ echo 'selected'; } } ?>>Activo</option>
 				</select>
 			</div>
 			<button type="submit" class="btn btn-success w-100"> <i class="fa fa-save"></i> Actualizar</button>
@@ -38,4 +43,3 @@
 </form>
 
 </div>
-

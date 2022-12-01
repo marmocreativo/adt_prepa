@@ -25,7 +25,7 @@ class Front_Tareas extends CI_Controller {
 		$this->data['tipo'] = verificar_variable('GET','tipo','');
 		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -15 days')));
 		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));
-		
+
 		if(isset($_SESSION['usuario']['configuraciones']['modo_noche'])){
 			$modo_noche = $_SESSION['usuario']['configuraciones']['modo_noche'];
 		}else{
@@ -98,23 +98,23 @@ class Front_Tareas extends CI_Controller {
 					'ESTADO' => $this->input->post('Estado')
 				);
 				$tarea_id = $this->GeneralModel->crear('tareas',$parametros);
-				
+
 				if(isset($_POST['Usuarios'])&&!empty($_POST['Usuarios'])){
-				
+
 				/*
 				| -------------------------------------------------------------------------
 				| PREPARO CORREO ELECTRÓNICO
 				| -------------------------------------------------------------------------
 				*/
 				// Parametros de correo
-				
+
 				$config['protocol']    = 'smtp';
 				$config['smtp_host']    = $this->data['op']['mailer_host'];
 				$config['smtp_port']    = $this->data['op']['mailer_port'];
 				$config['smtp_timeout'] = '7';
 				$config['smtp_user']    = $this->data['op']['mailer_user'];
 				$config['smtp_pass']    = $this->data['op']['mailer_pass'];
-				
+
 				$config['charset']    = 'utf-8';
 				$config['mailtype'] = 'html'; // or html
 				$config['validation'] = TRUE; // bool whether to validate email or not
@@ -123,8 +123,8 @@ class Front_Tareas extends CI_Controller {
 				| /PREPARO CORREO ELECTRÓNICO
 				| -------------------------------------------------------------------------
 				*/
-				
-				
+
+
 					foreach($_POST['Usuarios'] as $usuario){
 						$parametros = array(
 							'ID_USUARIO' => $usuario,
@@ -134,6 +134,17 @@ class Front_Tareas extends CI_Controller {
 			     		);
 						// Creo la relación de categorías
 			      		$this->GeneralModel->crear('usuarios_tareas',$parametros);
+
+						$parametros_notificacion = array(
+							'ID_USUARIO' => $usuario,
+							'ENLACE'=> base_url('tareas/detalles?id='.$tarea_id),
+							'GRUPO'=>'tareas',
+							'NOTIFICACION_CONTENIDO'=>'Se te ha asignado la tarea <b>'.$this->input->post('TareaTitulo').'</b>',
+							'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+							'ESTADO'=>'pendiente'
+						);
+
+						$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
 
 						  // Datos para enviar por correo
 						$datos_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario]);
@@ -148,7 +159,7 @@ class Front_Tareas extends CI_Controller {
 						$this->data['info']['Contacto'] = '';
 
 						$mensaje = $this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/emails/mensaje_general',$this->data,true);
-						
+
 						$this->email->initialize($config);
 						$this->email->clear();
 						$this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
@@ -157,8 +168,8 @@ class Front_Tareas extends CI_Controller {
 						$this->email->message($mensaje);
 						// envio el correo
 						$this->email->send();
-						
-						
+
+
 					}
 				}
 
@@ -247,10 +258,7 @@ class Front_Tareas extends CI_Controller {
 					// Creo las entradas a la galeria
 					$this->GeneralModel->crear('meta_datos',$parametros_meta);
 				}
-
 			}
-
-
 
 			$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$this->input->post('Identificador')]);
 			if(!empty($_POST['Usuarios'])){
@@ -260,14 +268,14 @@ class Front_Tareas extends CI_Controller {
 				| -------------------------------------------------------------------------
 				*/
 				// Parametros de correo
-				
+
 				$config['protocol']    = 'smtp';
 				$config['smtp_host']    = $this->data['op']['mailer_host'];
 				$config['smtp_port']    = $this->data['op']['mailer_port'];
 				$config['smtp_timeout'] = '7';
 				$config['smtp_user']    = $this->data['op']['mailer_user'];
 				$config['smtp_pass']    = $this->data['op']['mailer_pass'];
-				
+
 				$config['charset']    = 'utf-8';
 				$config['mailtype'] = 'html'; // or html
 				$config['validation'] = TRUE; // bool whether to validate email or not
@@ -284,14 +292,26 @@ class Front_Tareas extends CI_Controller {
 						'FECHA_ASIGNACION'=>date('Y-m-d H:i:s')
 					);
 
+
+
 					// Creo la relación de categorías
 					$this->GeneralModel->crear('usuarios_tareas',$parametros);
+
+					$parametros_notificacion = array(
+						'ID_USUARIO' => $usuario,
+						'ENLACE'=> base_url('tareas/detalles?id='.$this->input->post('Identificador')),
+						'GRUPO'=>'tareas',
+						'NOTIFICACION_CONTENIDO'=>'Se ha actualizado la tarea <b>'.$this->input->post('TareaTitulo').'</b> y fuiste asignado a ella',
+						'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+						'ESTADO'=>'pendiente'
+					);
+					$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
 					  // Datos para enviar por correo
 					  $datos_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario]);
 					  $this->data['info'] = array();
 					  $this->data['info']['Titulo'] = 'ASIGNACIÓN DE TAREA | POLARIS';
 					  $this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
-					  $this->data['info']['Mensaje'] = 'Se te ha asignado la tarea <b>'.$this->input->post('TareaTitulo').'</b>';
+					  $this->data['info']['Mensaje'] = 'Se ha actualizado la tarea <b>'.$this->input->post('TareaTitulo').'</b> y fuiste asignado a ella';
 					  $this->data['info']['TextoBoton'] = 'Ir a la tarea';
 					  $this->data['info']['EnlaceBoton'] = base_url('/tareas/detalles?id='.$this->input->post('Identificador'));
 					  $this->data['info']['MensajeSecundario'] = '';
@@ -299,7 +319,7 @@ class Front_Tareas extends CI_Controller {
 					  $this->data['info']['Contacto'] = '';
 
 					  $mensaje = $this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/emails/mensaje_general',$this->data,true);
-					  
+
 					  $this->email->initialize($config);
 					  $this->email->clear();
 					  $this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
@@ -360,7 +380,11 @@ class Front_Tareas extends CI_Controller {
 		if($this->form_validation->run())
     {
 			$usuarios_anteriores = $_POST['asignaciones_actuales'];
+			if(isset($_POST['Usuarios'])){
 			$usuarios_asignados = implode(', ', $_POST['Usuarios']);
+		}else{
+			$usuarios_asignados = '';
+		}
 			$mensaje = $this->input->post('Mensaje');
 			$tipo = 'mensaje';
 			if($_POST['EstadoActual']!=$_POST['EstadoTarea']){
@@ -395,14 +419,14 @@ class Front_Tareas extends CI_Controller {
 				| -------------------------------------------------------------------------
 				*/
 				// Parametros de correo
-				
+
 				$config['protocol']    = 'smtp';
 				$config['smtp_host']    = $this->data['op']['mailer_host'];
 				$config['smtp_port']    = $this->data['op']['mailer_port'];
 				$config['smtp_timeout'] = '7';
 				$config['smtp_user']    = $this->data['op']['mailer_user'];
 				$config['smtp_pass']    = $this->data['op']['mailer_pass'];
-				
+
 				$config['charset']    = 'utf-8';
 				$config['mailtype'] = 'html'; // or html
 				$config['validation'] = TRUE; // bool whether to validate email or not
@@ -411,37 +435,50 @@ class Front_Tareas extends CI_Controller {
 				| /PREPARO CORREO ELECTRÓNICO
 				| -------------------------------------------------------------------------
 				*/
-					foreach($_POST['Usuarios'] as $usuario){
-						$parametros = array(
-							'ID_USUARIO' => $usuario,
-							'ID_TAREA' => $this->input->post('IdTarea'),
-							'USUARIO_ASIGNACION'=> 'produccion',
-							'FECHA_ASIGNACION'=>date('Y-m-d H:i:s')
-			      	);
-						// Creo la relación de categorías
-			     	$this->GeneralModel->crear('usuarios_tareas',$parametros);
-					  // Datos para enviar por correo
-					  $datos_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario]);
-					  $this->data['info'] = array();
-					  $this->data['info']['Titulo'] = 'ASIGNACIÓN DE TAREA | POLARIS';
-					  $this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
-					  $this->data['info']['Mensaje'] = 'Se te ha asignado la tarea <b>'.$this->input->post('TareaTitulo').'</b>';
-					  $this->data['info']['TextoBoton'] = 'Ir a la tarea';
-					  $this->data['info']['EnlaceBoton'] = base_url('/tareas/detalles?id='.$this->input->post('IdTarea'));
-					  $this->data['info']['MensajeSecundario'] = '';
-					  $this->data['info']['Despedida'] = 'Saludos!';
-					  $this->data['info']['Contacto'] = '';
+					if(isset($_POST['Usuarios'])){
+						foreach($_POST['Usuarios'] as $usuario){
+							$parametros = array(
+								'ID_USUARIO' => $usuario,
+								'ID_TAREA' => $this->input->post('IdTarea'),
+								'USUARIO_ASIGNACION'=> 'produccion',
+								'FECHA_ASIGNACION'=>date('Y-m-d H:i:s')
+				      	);
+							// Creo la relación de categorías
+				     	$this->GeneralModel->crear('usuarios_tareas',$parametros);
 
-					  $mensaje = $this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/emails/mensaje_general',$this->data,true);
-					  
-					  $this->email->initialize($config);
-					  $this->email->clear();
-					  $this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
-					  $this->email->to($datos_usuario['USUARIO_CORREO']);
-					  $this->email->subject('Asignación de tarea | POLARIS');
-					  $this->email->message($mensaje);
-					  // envio el correo
-					  $this->email->send();
+							$parametros_notificacion = array(
+								'ID_USUARIO' => $usuario,
+								'ENLACE'=> base_url('tareas/detalles?id='.$this->input->post('IdTarea')),
+								'GRUPO'=>'tareas',
+								'NOTIFICACION_CONTENIDO'=>'Se agregó un mensaje a la tarea <b>'.$this->input->post('TareaTitulo').'</b> en la que estás aasignado',
+								'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+								'ESTADO'=>'pendiente'
+							);
+							$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+
+						  // Datos para enviar por correo
+						  $datos_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario]);
+						  $this->data['info'] = array();
+						  $this->data['info']['Titulo'] = 'ASIGNACIÓN DE TAREA | POLARIS';
+						  $this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
+						  $this->data['info']['Mensaje'] = 'Se agregó un mensaje a la tarea <b>'.$this->input->post('TareaTitulo').'</b> en la que estás asignado';
+						  $this->data['info']['TextoBoton'] = 'Ir a la tarea';
+						  $this->data['info']['EnlaceBoton'] = base_url('/tareas/detalles?id='.$this->input->post('IdTarea'));
+						  $this->data['info']['MensajeSecundario'] = '';
+						  $this->data['info']['Despedida'] = 'Saludos!';
+						  $this->data['info']['Contacto'] = '';
+
+						  $mensaje = $this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/emails/mensaje_general',$this->data,true);
+
+						  $this->email->initialize($config);
+						  $this->email->clear();
+						  $this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
+						  $this->email->to($datos_usuario['USUARIO_CORREO']);
+						  $this->email->subject('Asignación de tarea | POLARIS');
+						  $this->email->message($mensaje);
+						  // envio el correo
+						  $this->email->send();
+						}
 					}
 				}
 
@@ -458,9 +495,6 @@ class Front_Tareas extends CI_Controller {
 						$tareas_pendientes ++;
 					}
 				}
-				echo 'Todas las tareas: '.$todas_las_tareas.'<br>';
-				echo 'Todas las tareas: '.$tareas_completas.'<br>';
-				echo 'Todas las tareas: '.$tareas_pendientes.'<br>';
 				if($todas_las_tareas==$tareas_completas){
 					$this->GeneralModel->actualizar('proyectos',['ID_PROYECTO'=>$detalles_tarea['ID_PROYECTO']],['ESTADO'=>'terminado']);
 				}else{
@@ -473,4 +507,3 @@ class Front_Tareas extends CI_Controller {
 	}
 
 }
-
