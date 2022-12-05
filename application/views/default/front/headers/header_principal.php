@@ -114,6 +114,11 @@
 		        </a>
 		      </li>
 					<li class="nav-item">
+		        <a href="<?php echo base_url('areas'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Áreas">
+		         	<i class="fas fa-sitemap fa-lg"></i> <span class="etiqueta_menu">Áreas</span>
+		        </a>
+		      </li>
+					<li class="nav-item">
 		        <a href="<?php echo base_url('login/cerrar_sesion'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Cerrar sesión">
 		         	<i class="fas fa-sign-out"></i> <span class="etiqueta_menu">Cerrar sesión</span>
 		        </a>

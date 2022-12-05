@@ -49,6 +49,8 @@ $route['admin/(:any)'] = 'Admin_Inicio/$1';
 |
 */
 $route['notificaciones'] = 'Front_Usuarios/notificaciones';
+$route['areas'] = 'Front_Areas';
+$route['areas/(:any)'] = 'Front_Areas/$1';
 $route['equipos'] = 'Front_Equipos';
 $route['equipos/(:any)'] = 'Front_Equipos/$1';
 $route['proyectos'] = 'Front_Proyectos';

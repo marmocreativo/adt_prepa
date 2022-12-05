@@ -3,5 +3,6 @@
   <li><a href="<?php echo base_url('usuarios/detalles'); ?>"><i class="fa fa-id-card"></i> Mi perfil</a></li>
   <li><a href="<?php echo base_url('usuarios/tareas'); ?>"><i class="fas fa-tasks"></i> Mis tareas</a></li>
   <li><a href="<?php echo base_url('usuarios/proyectos'); ?>"><i class="fas fa-project-diagram"></i> Mis Proyectos</a></li>
+  <li><a href="<?php echo base_url('usuarios/areas'); ?>"><i class="fas fa-sitemap"></i> Áreas</a></li>
   <li><a href="<?php echo base_url('usuarios/proyectos'); ?>"><i class="fa fa-users"></i> Mis Equipos</a></li>
 </ul>
