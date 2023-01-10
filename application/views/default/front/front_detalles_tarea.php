@@ -228,7 +228,7 @@
 											<ul class="list-inline">
 
 												<?php foreach ($lista_asignados as $asignacion) { ?>
-
+													<?php if(!empty($asignacion)){ ?>
 													<li class="list-inline-item">
 													<div class="dropdown">
 														<img
@@ -245,11 +245,11 @@
 															<li><hr class="dropdown-divider"></li>
 															<li><a class="dropdown-item" href="<?php echo base_url('lista_usuarios/detalles?id='.$asignacion); ?>">Ver perfil</a></li>
 															<li><a class="dropdown-item" target="_blank"
-															href="https://wa.me/<?php echo $detalles_usuario['USUARIO_TELEFONO']; ?>?text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
+															href="https://wa.me/<?php echo $array_usuarios[$asignacion]['USUARIO_TELEFONO']; ?>?text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
 														</ul>
 													</div>
 													</li>
-
+													<?php } ?>
 												<?php } ?>
 
 											</ul>
