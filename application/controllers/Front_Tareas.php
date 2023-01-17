@@ -230,20 +230,10 @@ class Front_Tareas extends CI_Controller {
 			if($this->input->post('Estado')=='completo'){
 				$parametros['FECHA_ENTREGA'] = date('Y-m-d');
 			}
-
-
-
-      $this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$this->input->post('Identificador')],$parametros);
-			$mensaje = 'Se actualizó la información de la tarea';
-			$usuarios_asignados = implode(', ', $_POST['Usuarios']);
-			// Genero el mensaje
-			$parametros = array(
-				'ID_TAREA' => $this->input->post('Identificador'),
-				'ID_USUARIO' => $_SESSION['usuario']['id'],
-				'MENSAJE' => $mensaje,
-				'ASIGNACIONES' => $usuarios_asignados,
-			);
-			$this->GeneralModel->crear('tareas_mensajes',$parametros);
+			
+			$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$this->input->post('Identificador')],$parametros);
+			
+			
 			// Borro los metadatos existentes
 			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$this->input->post('Identificador'),'TIPO_OBJETO'=>'equipo']);
 			// Meta Datos
@@ -262,6 +252,17 @@ class Front_Tareas extends CI_Controller {
 
 			$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$this->input->post('Identificador')]);
 			if(!empty($_POST['Usuarios'])){
+				$mensaje = 'Se actualizó la información de la tarea';
+			
+				$usuarios_asignados = implode(', ', $_POST['Usuarios']);
+				// Genero el mensaje
+				$parametros = array(
+					'ID_TAREA' => $this->input->post('Identificador'),
+					'ID_USUARIO' => $_SESSION['usuario']['id'],
+					'MENSAJE' => $mensaje,
+					'ASIGNACIONES' => $usuarios_asignados,
+				);
+				$this->GeneralModel->crear('tareas_mensajes',$parametros);
 				/*
 				| -------------------------------------------------------------------------
 				| PREPARO CORREO ELECTRÓNICO
