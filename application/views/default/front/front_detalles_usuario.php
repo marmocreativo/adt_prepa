@@ -1,6 +1,9 @@
-<div class="contenido-principal">
-	<div class="row">
-		<div class="col-12 col-md-4">
+<div class="contenido-principal">
+
+	<div class="row">
+
+		<div class="col-12 col-md-4">
+
 			<div class="proyecto p-0">
 				<div class="text-center">
 					<div class="bg-image d-flex align-items-center" style="background-image: url(<?php echo base_url('contenido/img/usuarios/'.$usuario['IMAGEN_FONDO']); ?>); min-height:200px;"></div>
@@ -28,10 +31,17 @@
 					<?php } ?>
 				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-8">
-			<?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_tareas', $tareas); ?>
-		</div>
-	</div>
-
-</div>
+		</div>
+
+		<div class="col-12 col-md-8">
+
+			<?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_tareas', $tareas); ?>
+
+		</div>
+
+	</div>
+
+
+
+</div>
+
