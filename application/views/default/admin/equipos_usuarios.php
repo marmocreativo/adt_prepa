@@ -16,16 +16,16 @@
 		<div class="col">
 			<ul class="nav nav-tabs nav-fill">
 			  <li class="nav-item">
-			    <a class="nav-link" href="<?php echo base_url('admin/usuarios/detalles?id='.$usuario['ID_USUARIO']); ?>"> <i class="fa fa-id-card"></i> </a>
+			    <a class="nav-link" href="<?php echo base_url('index.php/admin/usuarios/detalles?id='.$usuario['ID_USUARIO']); ?>"> <i class="fa fa-id-card"></i> </a>
 			  </li>
 				<li class="nav-item">
-			    <a class="nav-link active" href="<?php echo base_url('admin/usuarios/equipos?id='.$usuario['ID_USUARIO']); ?>"> <i class="fa fa-users"></i> </a>
+			    <a class="nav-link active" href="<?php echo base_url('index.php/admin/usuarios/equipos?id='.$usuario['ID_USUARIO']); ?>"> <i class="fa fa-users"></i> </a>
 			  </li>
 			</ul>
 			<div class="bg-white p-2 py-4">
 				<?php foreach($equipos as $equipo){ ?>
 				<div class="col-12 col-sm-4 col-md-3 p-1" id="item-<?php echo $equipo->ID_EQUIPO; ?>" class="ui-sortable-handle">
-					<a href="<?php echo base_url('admin/equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
+					<a href="<?php echo base_url('index.php/admin/equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
 						<div class="card equipo">
 							<div class="card-body bg-<?php echo $equipo->COLOR; ?>">
 								<p class="h5 text-white"><img src="<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN); ?>" class="rounded-circle float-left mr-2" width="50"><?php echo $equipo->EQUIPO_NOMBRE; ?></p>

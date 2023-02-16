@@ -7,16 +7,16 @@
 				<?php echo $op['titulo_sitio'] ?> </h3>
 			<span class="kt-subheader__separator kt-hidden"></span>
 			<div class="kt-subheader__breadcrumbs">
-				<a href="<?php echo base_url('admin'); ?>" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+				<a href="<?php echo base_url('index.php/admin'); ?>" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
-				<a href="<?php echo base_url('admin'); ?>" class="kt-subheader__breadcrumbs-link">
+				<a href="<?php echo base_url('index.php/admin'); ?>" class="kt-subheader__breadcrumbs-link">
 					Administrador </a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
-				<a href="<?php echo base_url('admin/categorias?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
+				<a href="<?php echo base_url('index.php/admin/categorias?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
 					Publicaciones | <?php echo $tipo; ?> </a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
 				<?php $padre = verificar_variable('GET','padre',0); if(!empty($padre)){ ?>
-					<a href="<?php echo base_url('admin/publicaciones?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
+					<a href="<?php echo base_url('index.php/admin/publicaciones?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
 						<?php $categoria_padre = $this->GeneralModel->detalles('categorias',['ID_CATEGORIA'=>$padre]); ?>
 						<?php echo $categoria_padre['CATEGORIA_NOMBRE']; ?> </a>
 					<span class="kt-subheader__breadcrumbs-separator"></span>
@@ -52,7 +52,7 @@
 											<?php if($tipo=='imagen'){ ?> <div class="dropzone" id="Dropzone_multimedia" data-id='' data-tipo='<?php echo $tipo; ?>'></div> <?php } ?>
 											<?php if($tipo=='documento'){ ?> <div class="dropzone" id="Dropzone_multimedia" data-id='' data-tipo='<?php echo $tipo; ?>'></div> <?php } ?>
 											<?php if($tipo=='enlace'){ ?>
-												<form class="" action="<?php echo base_url('admin/multimedia/cargar_'.$tipo); ?>" method="post">
+												<form class="" action="<?php echo base_url('index.php/admin/multimedia/cargar_'.$tipo); ?>" method="post">
 													<input type="hidden" name="id" value="<?php echo verificar_variable('GET','id',''); ?>">
 													<label for="">Añadir un enlace</label>
 													<div class="form-group">
@@ -71,7 +71,7 @@
 												</form>
 											<?php } ?>
 											<?php if($tipo=='youtube'){ ?>
-												<form class="" action="<?php echo base_url('admin/multimedia/cargar_'.$tipo); ?>" method="post">
+												<form class="" action="<?php echo base_url('index.php/admin/multimedia/cargar_'.$tipo); ?>" method="post">
 													<input type="hidden" name="id" value="<?php echo verificar_variable('GET','id',''); ?>">
 													<label for="">Añadir un enlace</label>
 													<div class="form-group">

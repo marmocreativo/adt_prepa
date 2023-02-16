@@ -37,7 +37,7 @@ HEADER
 	<div class="row">
 		<div class="col">
 				<div class="p-2 d-flex justify-content-end">
-					<form class="form-inline" action="<?php echo base_url('categoria/'.$categoria['URL']); ?>" method="get" enctype="multipart/form-data">
+					<form class="form-inline" action="<?php echo base_url('index.php/categoria/'.$categoria['URL']); ?>" method="get" enctype="multipart/form-data">
 						<input type="hidden" name="tipo" value="<?php echo $categoria['TIPO']; ?>">
 						<div class="form-group mr-2">
 							<select class="form-control" name="orden">
@@ -77,7 +77,7 @@ HEADER
     			<?php foreach($categorias_hijas as $categoria_hij){ ?>
             <div class="col-12 col-sm-4">
     					<!-- Featured Card Blog -->
-    					<a href="<?php echo base_url('categoria/'.$categoria_hij->URL); ?>">
+    					<a href="<?php echo base_url('index.php/categoria/'.$categoria_hij->URL); ?>">
     						<div class="card flex-md-row mb-4 box-shadow">
     							<div class="card-img-right flex-auto w-25 d-none d-md-block">
     								<img class="img-fluid" src="<?php echo base_url('contenido/img/categorias/'.$categoria_hij->IMAGEN); ?>">
@@ -115,10 +115,10 @@ HEADER
 				<?php if($cantidad_paginas>1){ ?>
 				<div class="row justify-content-md-center">
 					<div class="col-2">
-						<a href="<?php echo base_url('categoria/'.$categoria['URL'].'?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
+						<a href="<?php echo base_url('index.php/categoria/'.$categoria['URL'].'?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
 					</div>
 					<div class="col-2">
-						<form class="enviar_enter" action="<?php echo base_url('categoria/'.$categoria['URL']); ?>" method="get">
+						<form class="enviar_enter" action="<?php echo base_url('index.php/categoria/'.$categoria['URL']); ?>" method="get">
 							<input type="hidden" name="tipo" value="<?php echo $consulta['tipo'] ?>">
 							<input type="hidden" name="orden" value="<?php echo $consulta['orden'] ?>">
 							<input type="hidden" name="mostrar_por_pagina" value="<?php echo $consulta['mostrar_por_pagina'] ?>">
@@ -133,7 +133,7 @@ HEADER
 						</form>
 					</div>
 					<div class="col-2">
-						<a href="<?php echo base_url('categoria/'.$categoria['URL'].'?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
+						<a href="<?php echo base_url('index.php/categoria/'.$categoria['URL'].'?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
 					</div>
 				</div>
 				<?php } ?>

@@ -1,5 +1,5 @@
 <div class="contenido-principal">
-	<form action="<?php echo base_url('areas/actualizar') ?>" method="post" enctype="multipart/form-data">
+	<form action="<?php echo base_url('index.php/areas/actualizar') ?>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Identificador" value="<?php echo $area['ID_AREA']; ?>">
 		<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
 		<input type="hidden" name="ImagenActual" value="<?php echo $area['IMAGEN'] ?>">

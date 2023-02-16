@@ -10,12 +10,12 @@ class Admin_Categorias extends CI_Controller {
 		// Verifico Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
 			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Verifico Permiso
 		if(!verificar_permiso(['administrador'])){
 			$this->session->set_flashdata('alerta', 'No tienes permiso de entrar en esa sección');
-			redirect(base_url('usuario'));
+			redirect(base_url('index.php/usuario'));
 		}
 
 
@@ -289,7 +289,7 @@ class Admin_Categorias extends CI_Controller {
 		$this->GeneralModel->crear('meta_datos',$parametros_meta);
 
 		$this->session->set_flashdata('exito', 'Borrador creado correctamente');
-		redirect(base_url('admin/categorias/actualizar?id='.$categoria_id.'&consulta='.$consulta));
+		redirect(base_url('index.php/admin/categorias/actualizar?id='.$categoria_id.'&consulta='.$consulta));
 	}
 	public function actualizar()
 	{
@@ -383,10 +383,10 @@ class Admin_Categorias extends CI_Controller {
 			//  Redirecciono
 			switch ($this->input->post('Guardar')) {
 				case 'Continuar':
-					redirect(base_url('admin/categorias/actualizar?id='.$this->input->post('Identificador').'&consulta='.$_GET['consulta']));
+					redirect(base_url('index.php/admin/categorias/actualizar?id='.$this->input->post('Identificador').'&consulta='.$_GET['consulta']));
 					break;
 				default:
-					redirect(base_url('admin/categorias?tipo_objeto='.$consulta->tipo_objeto.'&tipo='.$consulta->tipo.'&padre='.$consulta->padre.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
+					redirect(base_url('index.php/admin/categorias?tipo_objeto='.$consulta->tipo_objeto.'&tipo='.$consulta->tipo.'&padre='.$consulta->padre.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
 					break;
 			}
 
@@ -419,7 +419,7 @@ class Admin_Categorias extends CI_Controller {
 
 		// Mensaje Feedback
 		$this->session->set_flashdata('exito', 'Categoría actualizada correctamente');
-		redirect(base_url('admin/categorias?tipo_objeto='.$consulta->tipo_objeto.'&tipo='.$consulta->tipo.'&padre='.$consulta->padre.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
+		redirect(base_url('index.php/admin/categorias?tipo_objeto='.$consulta->tipo_objeto.'&tipo='.$consulta->tipo.'&padre='.$consulta->padre.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
 	}
 	public function borrar()
 	{
@@ -433,7 +433,7 @@ class Admin_Categorias extends CI_Controller {
 
 		// Mensaje Feedback
 		$this->session->set_flashdata('exito', 'Categoría enviada a la papelera');
-		redirect(base_url('admin/categorias?tipo_objeto='.$consulta->tipo_objeto.'&tipo='.$consulta->tipo.'&padre='.$consulta->padre.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
+		redirect(base_url('index.php/admin/categorias?tipo_objeto='.$consulta->tipo_objeto.'&tipo='.$consulta->tipo.'&padre='.$consulta->padre.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
 	}
 	public function borrar_permanente()
 	{
@@ -467,12 +467,12 @@ class Admin_Categorias extends CI_Controller {
 						// Mensaje Feedback
 						$this->session->set_flashdata('exito', 'Categorías borradas');
 						//  Redirecciono
-            redirect(base_url('admin/categorias?tipo='.$categoria['TIPO'].'&padre='.$categoria['CATEGORIA_PADRE']));
+            redirect(base_url('index.php/admin/categorias?tipo='.$categoria['TIPO'].'&padre='.$categoria['CATEGORIA_PADRE']));
         } else {
 					// Mensaje Feedback
 					$this->session->set_flashdata('alerta', 'La Entrada que intentaste borrar no existe');
 					//  Redirecciono
-	         redirect(base_url('admin/categorias'));
+	         redirect(base_url('index.php/admin/categorias'));
 				}
 	}
 }

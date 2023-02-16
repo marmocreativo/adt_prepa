@@ -1,6 +1,9 @@
-<div class="">
-	<div class="row ">
-		<div class="col-12 col-md-4">
+<div class="">
+
+	<div class="row ">
+
+		<div class="col-12 col-md-4">
+
 			<div class="proyecto p-0">
 				<div class="bg-image d-flex align-items-center" style="background-image: url(<?php echo base_url('contenido/img/equipos/'.$equipo['IMAGEN_FONDO']); ?>)">
 					<img src="<?php echo base_url('contenido/img/equipos/'.$equipo['IMAGEN']); ?>" class="rounded-circle m-3" width="100">
@@ -25,10 +28,17 @@
 					<a href="<?php echo base_url('equipos/actualizar?id='.$equipo['ID_EQUIPO']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
 				</div>
 			</div>
-		</div>
-		<div class="col-12 col-md-8">
-			<?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_proyectos', $proyectos); ?>
-		</div>
-	</div>
-	<a href="<?php echo base_url('proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success btn-round btn-circulo-flotante"> <i class="fa fa-plus"></i> </a>
-</div>
+		</div>
+
+		<div class="col-12 col-md-8">
+
+			<?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_proyectos', $proyectos); ?>
+
+		</div>
+
+	</div>
+
+	<a href="<?php echo base_url('proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success btn-round btn-circulo-flotante"> <i class="fa fa-plus"></i> </a>
+
+</div>
+

@@ -22,7 +22,7 @@ HEADER
             </div>
             <div class="card-body">
               <?php retro_alimentacion(); ?>
-              <form class="" action="<?php echo base_url('usuarios/actualizar_pass');?>" method="post">
+              <form class="" action="<?php echo base_url('index.php/usuarios/actualizar_pass');?>" method="post">
                 <div class="form-group">
                   <label for="UsuarioPassActual">Contraseña Actual</label>
                   <input type="password" class="form-control" id="UsuarioPassActual" name="UsuarioPassActual" placeholder="Contraseña Actual">

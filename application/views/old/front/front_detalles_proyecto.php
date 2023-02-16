@@ -6,7 +6,7 @@
 					<img src="<?php echo base_url('contenido/img/proyectos/'.$proyecto['IMAGEN']); ?>" class="rounded-circle m-3" width="100">
 					<h3><?php echo $proyecto['PROYECTO_NOMBRE']; ?></h3>
 				</div>
-				<a href="<?php echo base_url('proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
+				<a href="<?php echo base_url('index.php/proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
 				<hr>
 				<?php echo $proyecto['PROYECTO_DESCRIPCION']; ?>
 				<hr>
@@ -62,7 +62,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form class="" action="<?php echo base_url('tareas/crear'); ?>" method="post">
+					<form class="" action="<?php echo base_url('index.php/tareas/crear'); ?>" method="post">
 						<input type="hidden" name="IdProyecto" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
 						<input type="hidden" name="Tipo" value="general">
 					<div class="modal-body">

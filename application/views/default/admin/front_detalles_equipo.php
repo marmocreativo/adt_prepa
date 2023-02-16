@@ -12,24 +12,24 @@
 			<?php echo $equipo['EQUIPO_DESCRIPCION']; ?>
 		</div>
 		<div class="col-12 my-3">
-			<a href="<?php echo base_url('admin/equipos/actualizar/?id='.$equipo['ID_EQUIPO']); ?>" class="btn btn-outline-warning btn-block"> <i class="fa fa-pencil-alt"></i> Editar</a>
+			<a href="<?php echo base_url('index.php/admin/equipos/actualizar/?id='.$equipo['ID_EQUIPO']); ?>" class="btn btn-outline-warning btn-block"> <i class="fa fa-pencil-alt"></i> Editar</a>
 		</div>
 	</div>
 	<div class="row mb-4">
 		<div class="col">
 			<ul class="nav nav-tabs nav-fill">
 			  <li class="nav-item">
-			    <a class="nav-link" href="<?php echo base_url('admin/equipos/detalles?id='.$equipo['ID_EQUIPO']); ?>"> <i class="fa fa-users"></i> </a>
+			    <a class="nav-link" href="<?php echo base_url('index.php/admin/equipos/detalles?id='.$equipo['ID_EQUIPO']); ?>"> <i class="fa fa-users"></i> </a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="nav-link active" href="<?php echo base_url('admin/equipos/proyectos?id='.$equipo['ID_EQUIPO']); ?>"> <i class="fas fa-project-diagram"></i> </a>
+			    <a class="nav-link active" href="<?php echo base_url('index.php/admin/equipos/proyectos?id='.$equipo['ID_EQUIPO']); ?>"> <i class="fas fa-project-diagram"></i> </a>
 			  </li>
 			</ul>
 			<div class="bg-white p-2 py-4">
 				<div class="row mb-3 ui-sortable">
 					<?php foreach($proyectos as $proyecto){ ?>
 					<div class="col-12 col-sm-6 col-md-4">
-						<a href="<?php echo base_url('admin/proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
+						<a href="<?php echo base_url('index.php/admin/proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
 							<div class="card">
 								<div class="card-body">
 									<h2 class="h6 text-<?php echo $proyecto->COLOR; ?>"><?php echo $proyecto->PROYECTO_NOMBRE; ?></h2>

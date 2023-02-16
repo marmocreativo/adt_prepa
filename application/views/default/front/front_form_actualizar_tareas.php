@@ -1,5 +1,5 @@
 <div class="contenido_principal">
-<form action="<?php echo base_url('admin/tareas/actualizar') ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('index.php/admin/tareas/actualizar') ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Identificador" value="<?php echo $opcion['ID']; ?>">
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
 	<input type="hidden" name="ImagenActual" value="<?php echo $tarea['IMAGEN'] ?>">

@@ -11,7 +11,7 @@
     <!-- Sitemap -->
     <?php foreach($categorias as $categoria) { ?>
     <url>
-        <loc><?php echo base_url('categoria/'.$categoria->URL); ?></loc>
+        <loc><?php echo base_url('index.php/categoria/'.$categoria->URL); ?></loc>
         <priority>0.5</priority>
         <changefreq>daily</changefreq>
     </url>

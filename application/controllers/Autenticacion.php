@@ -37,7 +37,7 @@ class Autenticacion extends CI_Controller {
 		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 
 		if(verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('usuarios'));
+			redirect(base_url('index.php/usuarios'));
 		}else{
 			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_login',$this->data);
 			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/usuario_form_login',$this->data);
@@ -65,7 +65,7 @@ class Autenticacion extends CI_Controller {
 				if($parametros['ESTADO']!='activo'){
 						// Mensaje de feedback
 						// redirección
-						redirect(base_url('login'));
+						redirect(base_url('index.php/login'));
 				}else{
 					// Función de Iniciar Sesión
 					iniciar_sesion($parametros);
@@ -75,14 +75,14 @@ class Autenticacion extends CI_Controller {
 						redirect($this->input->post('UrlRedirect'));
 					}else{
 						// Redirecciono al panel del usuario
-						redirect(base_url(''));
+						redirect(base_url('index.php/tareas'));
 					}
 				}
 			}else{
 				// Mensaje de feedback
 				// redirección
 					// Si no coinciden vuelvo a cargar el formulario
-					redirect(base_url('login'));
+					redirect(base_url('index.php/login'));
 			}
 		}else{
 			// Si el formulario no se verifica cargo de nuevo el Login
@@ -138,7 +138,7 @@ class Autenticacion extends CI_Controller {
 				$this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
 				$this->data['info']['Mensaje'] = 'Se ha solicitado la restauración de tu contraseña, puedes restaurarla dando click en el siguiente enlace.';
 				$this->data['info']['TextoBoton'] = 'Restaurar Contraseña';
-				$this->data['info']['EnlaceBoton'] = base_url('login/restaurar_pass?id='.$datos_usuario['ID_USUARIO'].'&clave='.$this->AutenticacionModel->crear_pin($datos_usuario['ID_USUARIO']));
+				$this->data['info']['EnlaceBoton'] = base_url('index.php/login/restaurar_pass?id='.$datos_usuario['ID_USUARIO'].'&clave='.$this->AutenticacionModel->crear_pin($datos_usuario['ID_USUARIO']));
 				$this->data['info']['MensajeSecundario'] = 'Si no has solicitado esta restauración ignora este mensaje si tienes dudas por favor contacta con nosotros';
 				$this->data['info']['Despedida'] = 'Saludos!';
 				$this->data['info']['Contacto'] = 'Puedes encontrarnos en '.$this->data['op']['correo_sitio'];
@@ -160,13 +160,13 @@ class Autenticacion extends CI_Controller {
 					// Genero la retroalimentacion
 				}
 				// redirecciono
-				redirect(base_url('login'));
+				redirect(base_url('index.php/login'));
 
 			}else{
 					// Si no coinciden vuelvo a cargar el formulario
 					// Mensaje de feedback
 					// redirección
-					redirect(base_url('login/recuperar_pass'));
+					redirect(base_url('index.php/login/recuperar_pass'));
 			}
 		}else{
 			// Si el formulario no se verifica cargo de nuevo el Login
@@ -204,7 +204,7 @@ class Autenticacion extends CI_Controller {
 				$this->AutenticacionModel->restaurar_pass($id,$parametros);
 				$this->AutenticacionModel->desactivar_pin($id,$clave);
 				// Mensaje de feedback
-				redirect(base_url('login'));
+				redirect(base_url('index.php/login'));
 			}else{
 				if($this->AutenticacionModel->verificar_pin($id,$clave)){
 						// Si el formulario no se verifica cargo de nuevo el Login
@@ -214,19 +214,19 @@ class Autenticacion extends CI_Controller {
 				}else{
 					// Mensaje de feedback
 					// SI el PIN no es valido regreso y mando error
-					redirect(base_url('login'));
+					redirect(base_url('index.php/login'));
 				}
 			}
 
 		}else{
 			// Si no tengo las variables definidas redirecciono directo al Login
-			redirect(base_url('login'));
+			redirect(base_url('index.php/login'));
 		}
 	}
 	public function cerrar_sesion()
 	{
 		// Login Form
 		session_destroy();
-		redirect(base_url('login'));
+		redirect(base_url('index.php/login'));
 	}
 }

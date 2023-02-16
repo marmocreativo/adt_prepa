@@ -76,10 +76,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'polaris',
-	'password' => 'polaris',
-	'database' => 'polaris',
+	'hostname' => '10.3.27.213',
+	'username' => 'user.tec.produccion',
+	'password' => '$4Lb8u2T7InhvB%Y',
+	'database' => 'test',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

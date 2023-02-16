@@ -73,13 +73,13 @@
 				</div>
 				<ul class="nav nav-pills nav-flush flex-column mb-auto">
 		      <li class="nav-item">
-		        <a href="<?php echo base_url('resumen'); ?>" class="nav-link   py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Resumen">
+		        <a href="<?php echo base_url('index.php/resumen'); ?>" class="nav-link   py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Resumen">
 		         	<i class="fas fa-columns fa-lg"></i> <span class="etiqueta_menu">Resumen</span>
 		        </a>
 		      </li>
 					<?php $verificar_notificaciones = $this->GeneralModel->conteo('notificaciones','','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'ESTADO'=>'pendiente'],''); ?>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('lista_usuarios/notificaciones'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Notificaciones">
+		        <a href="<?php echo base_url('index.php/lista_usuarios/notificaciones'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Notificaciones">
 		         	<?php if(empty($verificar_notificaciones)){ ?>
 								<i class="far fa-bell"></i>
 							<?php }else{ ?>
@@ -94,38 +94,38 @@
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('proyectos'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Proyectos">
+		        <a href="<?php echo base_url('index.php/proyectos'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Proyectos">
 		         	<i class="fas fa-project-diagram fa-lg"></i> <span class="etiqueta_menu">Proyectos</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('equipos'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Equipos">
+		        <a href="<?php echo base_url('index.php/equipos'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Equipos">
 		         	<i class="fas fa-users fa-lg"></i> <span class="etiqueta_menu">Equipos</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('lista_usuarios'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Usuarios">
+		        <a href="<?php echo base_url('index.php/lista_usuarios'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Usuarios">
 		         	<i class="fas fa-user fa-lg"></i> <span class="etiqueta_menu">Usuarios</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('lista_usuarios/detalles?id='.$_SESSION['usuario']['id']); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Usuarios">
+		        <a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$_SESSION['usuario']['id']); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Usuarios">
 		         	<i class="fas fa-address-card"></i> <span class="etiqueta_menu">Mi Perfil</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('areas'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Áreas">
+		        <a href="<?php echo base_url('index.php/areas'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Áreas">
 		         	<i class="fas fa-sitemap fa-lg"></i> <span class="etiqueta_menu">Áreas</span>
 		        </a>
 		      </li>
 					<li class="nav-item">
-		        <a href="<?php echo base_url('login/cerrar_sesion'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Cerrar sesión">
+		        <a href="<?php echo base_url('index.php/login/cerrar_sesion'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Cerrar sesión">
 		         	<i class="fas fa-sign-out"></i> <span class="etiqueta_menu">Cerrar sesión</span>
 		        </a>
 		      </li>
 					<!--
 					<li class="nav-item">
-		        <a href="<?php echo base_url('opciones'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+		        <a href="<?php echo base_url('index.php/opciones'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
 		         	<i class="fas fa-cogs fa-lg"></i> <span class="etiqueta_menu">Opciones</span>
 		        </a>
 		      </li>

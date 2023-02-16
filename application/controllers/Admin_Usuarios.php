@@ -14,12 +14,12 @@ class Admin_Usuarios extends CI_Controller {
 		// Verifico Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
 			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Verifico Permiso
 		if(!verificar_permiso(['administrador'])){
 			$this->session->set_flashdata('alerta', 'No tienes permiso de entrar en esa sección');
-			redirect(base_url('usuario'));
+			redirect(base_url('index.php/usuario'));
 		}
 
 
@@ -204,7 +204,7 @@ class Admin_Usuarios extends CI_Controller {
 
 			// Redirecciono
 			$this->session->set_flashdata('exito', 'Usuario creado correctamente');
-      redirect(base_url('admin/usuarios?tipo='.$this->input->post('Tipo')));
+      redirect(base_url('index.php/admin/usuarios?tipo='.$this->input->post('Tipo')));
 
     }else{
 
@@ -337,7 +337,7 @@ class Admin_Usuarios extends CI_Controller {
 
 				// Redirecciono
 				$this->session->set_flashdata('exito', 'Usuario actualizado correctamente');
-	      redirect(base_url('admin/usuarios/detalles?id='.$this->input->post('Identificador')));
+	      redirect(base_url('index.php/admin/usuarios/detalles?id='.$this->input->post('Identificador')));
 
 	    }else{
 				$this->data['usuario'] = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_GET['id']]);
@@ -427,7 +427,7 @@ class Admin_Usuarios extends CI_Controller {
 
 		// Mensaje Feedback
 		$this->session->set_flashdata('exito', 'Usuario actualizado correctamente');
-		redirect(base_url('admin/usuarios?tipo='.$usuario['TIPO']));
+		redirect(base_url('index.php/admin/usuarios?tipo='.$usuario['TIPO']));
 	}
 	public function borrar()
 	{
@@ -441,12 +441,12 @@ class Admin_Usuarios extends CI_Controller {
 					// Mensaje Feedback
 					$this->session->set_flashdata('exito', 'Usuario borrado');
 					//  Redirecciono
-          redirect(base_url('admin/usuarios?tipo='.$usuario['TIPO']));
+          redirect(base_url('index.php/admin/usuarios?tipo='.$usuario['TIPO']));
       } else {
 				// Mensaje Feedback
 				$this->session->set_flashdata('alerta', 'La Entrada que intentaste borrar no existe');
 				//  Redirecciono
-         redirect(base_url('admin/usuarios'));
+         redirect(base_url('index.php/admin/usuarios'));
 			}
 	}
 

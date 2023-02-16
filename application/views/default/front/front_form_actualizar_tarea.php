@@ -1,6 +1,6 @@
 <div class="row">
 <div class="col-12 col-md-6">
-	<form class="" action="<?php echo base_url('tareas/actualizar'); ?>" method="post">
+	<form class="" action="<?php echo base_url('index.php/tareas/actualizar'); ?>" method="post">
 		<input type="hidden" name="Identificador" value="<?php echo $tarea['ID_TAREA']; ?>">
 		<input type="hidden" name="IdProyecto" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
 		<input type="hidden" name="Tipo" value="general">

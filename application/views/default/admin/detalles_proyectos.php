@@ -29,7 +29,7 @@
 						</table>
 					</div>
 					<div class="col-12 py-3">
-						<a href="<?php echo base_url('admin/proyectos/actualizar/?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-warning btn-block"> <i class="fa fa-pencil-alt"></i> Editar</a>
+						<a href="<?php echo base_url('index.php/admin/proyectos/actualizar/?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-warning btn-block"> <i class="fa fa-pencil-alt"></i> Editar</a>
 					</div>
 					<div class="col-12">
 						<?php echo $proyecto['PROYECTO_DESCRIPCION']; ?>
@@ -41,10 +41,10 @@
 				<?php retro_alimentacion(); ?>
 				<ul class="nav nav-tabs nav-fill">
 				  <li class="nav-item">
-				    <a class="nav-link active" href="<?php echo base_url('admin/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>"><i class="fas fa-tasks"></i></a>
+				    <a class="nav-link active" href="<?php echo base_url('index.php/admin/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>"><i class="fas fa-tasks"></i></a>
 				  </li>
 					<li class="nav-item">
-				    <a class="nav-link" href="<?php echo base_url('admin/proyectos/equipos?id='.$proyecto['ID_PROYECTO']); ?>"> <i class="fa fa-users"></i> </a>
+				    <a class="nav-link" href="<?php echo base_url('index.php/admin/proyectos/equipos?id='.$proyecto['ID_PROYECTO']); ?>"> <i class="fa fa-users"></i> </a>
 				  </li>
 				</ul>
 				<div class="bg-white p-0 py-4">
@@ -58,7 +58,7 @@
 							<div class="modal fade" id="formulario_tarea" tabindex="-1" role="dialog" aria-labelledby="formulario_tarea" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
-									<form class="" action="<?php echo base_url('admin/tareas/crear'); ?>" method="post">
+									<form class="" action="<?php echo base_url('index.php/admin/tareas/crear'); ?>" method="post">
 										<input type="hidden" name="IdProyecto" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
 										<input type="hidden" name="Tipo" value="general">
 									<div class="modal-header bg-primary">
@@ -142,7 +142,7 @@
 								<ul class="list-group lista-tareas">
 									<?php foreach($tareas as $tarea){ ?>
 								  <li class="list-group-item d-flex justify-content-between align-items-center">
-										<a href="<?php echo base_url('admin/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
+										<a href="<?php echo base_url('index.php/admin/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
 											<?php echo $tarea->TAREA_TITULO; ?>
 										</a>
 								    <span class="badge badge-secondary badge-pill"><i class="far fa-check-square"></i></span>

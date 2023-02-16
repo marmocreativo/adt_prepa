@@ -1,10 +1,10 @@
-<a href="<?php echo base_url('lista_usuarios/crear?tipo=usuario'); ?>" class="btn btn-success btn-circulo-flotante"> <i class="fa fa-plus"></i></a>
+<a href="<?php echo base_url('index.php/lista_usuarios/crear?tipo=usuario'); ?>" class="btn btn-success btn-circulo-flotante"> <i class="fa fa-plus"></i></a>
 <div class="lista_equipos">
 	<div class="row mt-3">
 		<?php foreach($usuarios as $usuario){ ?>
 		<div class="col-6 col-sm-4 col-md-3">
 			<div class="proyecto p-0">
-				<a href="<?php echo base_url('lista_usuarios/detalles?id='.$usuario->ID_USUARIO); ?>">
+				<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$usuario->ID_USUARIO); ?>">
 					<div class="">
 						<div class="bg-image d-flex justify-content-center align-items-center" style="background-image: url(<?php echo base_url('contenido/img/usuarios/'.$usuario->IMAGEN_FONDO); ?>); min-height:100px; padding-top: 30px; padding-bottom:30px;">
 							<img src="<?php echo base_url('contenido/img/usuarios/'.$usuario->IMAGEN); ?>" class="rounded-circle imagen_perfil" style="width:80%; max-width: 200px;">
@@ -22,10 +22,10 @@
 	<?php if($cantidad_paginas>1){ ?>
 	<div class="row justify-content-md-center">
 		<div class="col-2">
-			<a href="<?php echo base_url('lista_usuarios?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
+			<a href="<?php echo base_url('index.php/lista_usuarios?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
 		</div>
 		<div class="col-2">
-			<form class="enviar_enter" action="<?php echo base_url('lista_usuarios'); ?>" method="get">
+			<form class="enviar_enter" action="<?php echo base_url('index.php/lista_usuarios'); ?>" method="get">
 				<input type="hidden" name="orden" value="<?php echo $consulta['orden'] ?>">
 				<input type="hidden" name="mostrar_por_pagina" value="<?php echo $consulta['mostrar_por_pagina'] ?>">
 				<div class="form-group">
@@ -39,7 +39,7 @@
 			</form>
 		</div>
 		<div class="col-2">
-			<a href="<?php echo base_url('lista_usuarios?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
+			<a href="<?php echo base_url('index.php/lista_usuarios?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
 		</div>
 	</div>
 	<?php } ?>
@@ -53,7 +53,7 @@
 		<h3>Usuarios</h3>
 	</div>
 	<div class="formulario">
-		<form class="row" action="<?php echo base_url('lista_usuarios'); ?>" method="get" enctype="multipart/form-data">
+		<form class="row" action="<?php echo base_url('index.php/lista_usuarios'); ?>" method="get" enctype="multipart/form-data">
 			<div class="col">
 				<div class="form-group mr-2">
 					<input type="text" class="form-control" name="busqueda" value="<?php echo verificar_variable('GET','busqueda',''); ?>" placeholder="Buscar">
@@ -91,8 +91,8 @@
 	</div>
 	<div class="controles">
 		<div class="btn-group btn-group" role="group" aria-label="Barra de tareas">
-			<a href="<?php echo base_url('admin/usuarios/descargar_excel?tipo='.$tipo.'&consulta='.base64_encode(json_encode($consulta))); ?>" class="btn btn-info"> <i class="fa fa-download"></i> Descargar</a>
-				<a href="<?php echo base_url('admin/usuarios/crear?tipo='.$tipo.'&consulta='.base64_encode(json_encode($consulta))); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
+			<a href="<?php echo base_url('index.php/admin/usuarios/descargar_excel?tipo='.$tipo.'&consulta='.base64_encode(json_encode($consulta))); ?>" class="btn btn-info"> <i class="fa fa-download"></i> Descargar</a>
+				<a href="<?php echo base_url('index.php/admin/usuarios/crear?tipo='.$tipo.'&consulta='.base64_encode(json_encode($consulta))); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
 		</div>
 	</div>
 </div>
@@ -118,15 +118,15 @@
 						<td><?php echo date('d/m/Y',strtotime($usuario->FECHA_REGISTRO)); ?></td>
 						<td>
 							<?php if($usuario->ESTADO=='activo'){ ?>
-							<a href="<?php echo base_url('admin/usuarios/activar')."?id=".$usuario->ID_USUARIO."&estado=".$usuario->ESTADO."&tipo=".$usuario->TIPO; ?>" class="btn btn-sm btn-outline-success"> <span class="fa fa-check-circle"></span> </a>
+							<a href="<?php echo base_url('index.php/admin/usuarios/activar')."?id=".$usuario->ID_USUARIO."&estado=".$usuario->ESTADO."&tipo=".$usuario->TIPO; ?>" class="btn btn-sm btn-outline-success"> <span class="fa fa-check-circle"></span> </a>
 						<?php }else{ ?>
-							<a href="<?php echo base_url('admin/usuarios/activar')."?id=".$usuario->ID_USUARIO."&estado=".$usuario->ESTADO."&tipo=".$usuario->TIPO; ?>" class="btn btn-sm btn-outline-danger"> <span class="fa fa-times-circle"></span> </a>
+							<a href="<?php echo base_url('index.php/admin/usuarios/activar')."?id=".$usuario->ID_USUARIO."&estado=".$usuario->ESTADO."&tipo=".$usuario->TIPO; ?>" class="btn btn-sm btn-outline-danger"> <span class="fa fa-times-circle"></span> </a>
 						<?php } ?>
 						</td>
 						<td>
 							<div class="btn-group float-right" role="group">
-							<a href="<?php echo base_url('admin/usuarios/actualizar?id='.$usuario->ID_USUARIO); ?>" class="btn btn-sm btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
-							<button data-enlace='<?php echo base_url('admin/usuarios/borrar?id='.$usuario->ID_USUARIO); ?>' class="btn btn-sm btn-danger borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
+							<a href="<?php echo base_url('index.php/admin/usuarios/actualizar?id='.$usuario->ID_USUARIO); ?>" class="btn btn-sm btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
+							<button data-enlace='<?php echo base_url('index.php/admin/usuarios/borrar?id='.$usuario->ID_USUARIO); ?>' class="btn btn-sm btn-danger borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
 						</div>
 						</td>
 					</tr>
@@ -136,10 +136,10 @@
 		<?php if($cantidad_paginas>1){ ?>
 		<div class="row justify-content-md-center">
 			<div class="col-2">
-				<a href="<?php echo base_url('admin/usuarios/?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
+				<a href="<?php echo base_url('index.php/admin/usuarios/?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
 			</div>
 			<div class="col-2">
-				<form class="enviar_enter" action="<?php echo base_url('admin/usuarios'); ?>" method="get">
+				<form class="enviar_enter" action="<?php echo base_url('index.php/admin/usuarios'); ?>" method="get">
 					<input type="hidden" name="categoria" value="<?php echo $consulta['categoria'] ?>">
 					<input type="hidden" name="tipo" value="<?php echo $consulta['tipo'] ?>">
 					<input type="hidden" name="orden" value="<?php echo $consulta['orden'] ?>">
@@ -156,7 +156,7 @@
 				</form>
 			</div>
 			<div class="col-2">
-				<a href="<?php echo base_url('admin/usuarios/?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
+				<a href="<?php echo base_url('index.php/admin/usuarios/?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
 			</div>
 		</div>
 		<?php } ?>

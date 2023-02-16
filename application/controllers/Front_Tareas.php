@@ -6,14 +6,14 @@ class Front_Tareas extends CI_Controller {
   parent::__construct();
 		// Cargo las Opciones
 		if (!$this->db->table_exists('opciones') ){
-			redirect(base_url('reparar_EN_CMS'));
+			redirect(base_url('index.php/reparar_EN_CMS'));
 		}
 		$this->data['op'] = opciones_default();
 
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// reviso el dispositivo
 		if($this->agent->is_mobile()){
@@ -43,7 +43,7 @@ class Front_Tareas extends CI_Controller {
 	public function index()
 	{
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 		// Variables de busqueda
 		$this->data['consulta']=array();
 		$fecha_inicio = verificar_variable('GET','fecha_inicio',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' -15 days')));
@@ -137,7 +137,7 @@ class Front_Tareas extends CI_Controller {
 
 						$parametros_notificacion = array(
 							'ID_USUARIO' => $usuario,
-							'ENLACE'=> base_url('tareas/detalles?id='.$tarea_id),
+							'ENLACE'=> base_url('index.php/tareas/detalles?id='.$tarea_id),
 							'GRUPO'=>'tareas',
 							'NOTIFICACION_CONTENIDO'=>'Se te ha asignado la tarea <b>'.$this->input->post('TareaTitulo').'</b>',
 							'FECHA_CREACION'=>date('Y-m-d H:i:s'),
@@ -153,7 +153,7 @@ class Front_Tareas extends CI_Controller {
 						$this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
 						$this->data['info']['Mensaje'] = 'Se te ha asignado la tarea <b>'.$this->input->post('TareaTitulo').'</b>';
 						$this->data['info']['TextoBoton'] = 'Ir a la tarea';
-						$this->data['info']['EnlaceBoton'] = base_url('/tareas/detalles?id='.$tarea_id);
+						$this->data['info']['EnlaceBoton'] = base_url('index.php//tareas/detalles?id='.$tarea_id);
 						$this->data['info']['MensajeSecundario'] = '';
 						$this->data['info']['Despedida'] = 'Saludos!';
 						$this->data['info']['Contacto'] = '';
@@ -174,9 +174,9 @@ class Front_Tareas extends CI_Controller {
 				}
 
 				if(empty($this->input->post('IdProyecto'))){
-					redirect(base_url('tareas'));
+					redirect(base_url('index.php/tareas'));
 				}else{
-					redirect(base_url('proyectos/detalles?id='.$this->input->post('IdProyecto')));
+					redirect(base_url('index.php/proyectos/detalles?id='.$this->input->post('IdProyecto')));
 				}
 		}
 	}
@@ -300,7 +300,7 @@ class Front_Tareas extends CI_Controller {
 
 					$parametros_notificacion = array(
 						'ID_USUARIO' => $usuario,
-						'ENLACE'=> base_url('tareas/detalles?id='.$this->input->post('Identificador')),
+						'ENLACE'=> base_url('index.php/tareas/detalles?id='.$this->input->post('Identificador')),
 						'GRUPO'=>'tareas',
 						'NOTIFICACION_CONTENIDO'=>'Se ha actualizado la tarea <b>'.$this->input->post('TareaTitulo').'</b> y fuiste asignado a ella',
 						'FECHA_CREACION'=>date('Y-m-d H:i:s'),
@@ -314,7 +314,7 @@ class Front_Tareas extends CI_Controller {
 					  $this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
 					  $this->data['info']['Mensaje'] = 'Se ha actualizado la tarea <b>'.$this->input->post('TareaTitulo').'</b> y fuiste asignado a ella';
 					  $this->data['info']['TextoBoton'] = 'Ir a la tarea';
-					  $this->data['info']['EnlaceBoton'] = base_url('/tareas/detalles?id='.$this->input->post('Identificador'));
+					  $this->data['info']['EnlaceBoton'] = base_url('index.php//tareas/detalles?id='.$this->input->post('Identificador'));
 					  $this->data['info']['MensajeSecundario'] = '';
 					  $this->data['info']['Despedida'] = 'Saludos!';
 					  $this->data['info']['Contacto'] = '';
@@ -356,7 +356,7 @@ class Front_Tareas extends CI_Controller {
 
 			// Mensaje Feedback
 			//  Redirecciono
-			redirect(base_url('tareas/detalles?id='.$this->input->post('Identificador')));
+			redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('Identificador')));
 
     }else{
 
@@ -449,7 +449,7 @@ class Front_Tareas extends CI_Controller {
 
 							$parametros_notificacion = array(
 								'ID_USUARIO' => $usuario,
-								'ENLACE'=> base_url('tareas/detalles?id='.$this->input->post('IdTarea')),
+								'ENLACE'=> base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')),
 								'GRUPO'=>'tareas',
 								'NOTIFICACION_CONTENIDO'=>'Se agregó un mensaje a la tarea <b>'.$this->input->post('TareaTitulo').'</b> en la que estás aasignado',
 								'FECHA_CREACION'=>date('Y-m-d H:i:s'),
@@ -464,7 +464,7 @@ class Front_Tareas extends CI_Controller {
 						  $this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
 						  $this->data['info']['Mensaje'] = 'Se agregó un mensaje a la tarea <b>'.$this->input->post('TareaTitulo').'</b> en la que estás asignado';
 						  $this->data['info']['TextoBoton'] = 'Ir a la tarea';
-						  $this->data['info']['EnlaceBoton'] = base_url('/tareas/detalles?id='.$this->input->post('IdTarea'));
+						  $this->data['info']['EnlaceBoton'] = base_url('index.php//tareas/detalles?id='.$this->input->post('IdTarea'));
 						  $this->data['info']['MensajeSecundario'] = '';
 						  $this->data['info']['Despedida'] = 'Saludos!';
 						  $this->data['info']['Contacto'] = '';
@@ -501,7 +501,7 @@ class Front_Tareas extends CI_Controller {
 				}else{
 					$this->GeneralModel->actualizar('proyectos',['ID_PROYECTO'=>$detalles_tarea['ID_PROYECTO']],['ESTADO'=>'activo']);
 				}
-				redirect(base_url('tareas/detalles?id='.$this->input->post('IdTarea')));
+				redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')));
 
 		}
 

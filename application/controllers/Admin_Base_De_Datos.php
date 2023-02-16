@@ -12,11 +12,11 @@ class Admin_Base_De_Datos extends CI_Controller {
 
 		// Verifico Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Verifico Permiso
 		if(!verificar_permiso(['administrador'])){
-			redirect(base_url('usuario'));
+			redirect(base_url('index.php/usuario'));
 		}
 
 
@@ -59,7 +59,7 @@ class Admin_Base_De_Datos extends CI_Controller {
 
 		$fechas = $this->GeneralModel->borrar('vistas',array('FECHA <=' => $fecha_minima));
 
-		redirect(base_url('admin'));
+		redirect(base_url('index.php/admin'));
 
 	}
 	public function respaldar()
@@ -126,11 +126,11 @@ class Admin_Base_De_Datos extends CI_Controller {
 				             $temp_line = '';
 				         }
 				     }
-						 redirect(base_url('admin/base_de_datos'));
+						 redirect(base_url('index.php/admin/base_de_datos'));
 				 }
 			 }
 	 }else{
-		 redirect(base_url('admin/base_de_datos'));
+		 redirect(base_url('index.php/admin/base_de_datos'));
 	 }
 
 	}

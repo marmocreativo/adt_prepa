@@ -9,11 +9,11 @@ class Admin_Inicio extends CI_Controller {
 
 		// Verifico Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Verifico Permiso
 		if(!verificar_permiso(['administrador'])){
-			redirect(base_url('usuario'));
+			redirect(base_url('index.php/usuario'));
 		}
 
 
@@ -74,7 +74,7 @@ class Admin_Inicio extends CI_Controller {
 
 			// Redirecciono
 			$this->session->set_flashdata('exito', 'Publicación creada correctamente');
-      redirect(base_url('admin/opciones'));
+      redirect(base_url('index.php/admin/opciones'));
 
     }else{
 

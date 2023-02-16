@@ -10,12 +10,12 @@ class Admin_Multimedia extends CI_Controller {
 		// Verifico Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
 			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Verifico Permiso
 		if(!verificar_permiso(['administrador'])){
 			$this->session->set_flashdata('alerta', 'No tienes permiso de entrar en esa sección');
-			redirect(base_url('usuario'));
+			redirect(base_url('index.php/usuario'));
 		}
 
 
@@ -170,9 +170,9 @@ class Admin_Multimedia extends CI_Controller {
 				'ORDEN' => 0
 			);
 			$id_galerias = $this->GeneralModel->crear('galerias',$parametros_galeria);
-			redirect(base_url('admin/publicaciones/multimedia?id='.$_POST['id'].'&tipo=enlace'));
+			redirect(base_url('index.php/admin/publicaciones/multimedia?id='.$_POST['id'].'&tipo=enlace'));
 		}else{
-			redirect(base_url('admin/multimedia?tipo=enlace'));
+			redirect(base_url('index.php/admin/multimedia?tipo=enlace'));
 		}
 
 
@@ -207,9 +207,9 @@ class Admin_Multimedia extends CI_Controller {
 				'ORDEN' => 0
 			);
 			$id_galerias = $this->GeneralModel->crear('galerias',$parametros_galeria);
-			redirect(base_url('admin/publicaciones/multimedia?id='.$_POST['id'].'&tipo=youtube'));
+			redirect(base_url('index.php/admin/publicaciones/multimedia?id='.$_POST['id'].'&tipo=youtube'));
 		}else{
-			redirect(base_url('admin/multimedia?tipo=youtube'));
+			redirect(base_url('index.php/admin/multimedia?tipo=youtube'));
 		}
 	}
 	public function borrar()

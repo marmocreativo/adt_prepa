@@ -2,7 +2,7 @@
 
 <?php foreach($proyectos as $proyecto){ ?>
 <div class="col-12">
-  <a class="card card-body p-0 mb-2" style="border-radius: 50px; overflow:hidden;" href="<?php echo base_url('proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
+  <a class="card card-body p-0 mb-2" style="border-radius: 50px; overflow:hidden;" href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
     <div class="row">
       <div class="col proyecto_nombre d-flex align-items-center bg-image p-0" style="min-height: 30px; background-image: url(<?php echo base_url('contenido/img/proyectos/'.$proyecto->IMAGEN_FONDO); ?>)">
         <img src="<?php echo base_url('contenido/img/proyectos/'.$proyecto->IMAGEN); ?>" class="rounded-circle mx-3" width="50">

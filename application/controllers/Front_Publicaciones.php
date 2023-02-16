@@ -6,7 +6,7 @@ class Front_Publicaciones extends CI_Controller {
   parent::__construct();
 		// Cargo las Opciones
 		if (!$this->db->table_exists('opciones') ){
-			redirect(base_url('reparar_EN_CMS'));
+			redirect(base_url('index.php/reparar_EN_CMS'));
 		}
 		$this->data['op'] = opciones_default();
 
@@ -37,7 +37,7 @@ class Front_Publicaciones extends CI_Controller {
 	public function index()
 	{
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 		// Open Tags
 		$this->data['titulo']  = 'Inicio';
@@ -57,12 +57,12 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 		// Open Tags
 		$this->data['titulo']  = 'Resumen de Actividades';
@@ -86,11 +86,11 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 		// Datos Generales
 		$this->data['tipo'] = $this->uri->segment(2, 0);
 		$this->data['categoria']  = $this->GeneralModel->detalles('tipos',['TIPO_NOMBRE'=>$this->data['tipo'],'TIPO_OBJETO'=>'publicaciones']);
@@ -118,11 +118,11 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 		// Datos Generales
 		$this->data['categoria']  = $this->GeneralModel->detalles('categorias',['URL'=>$this->uri->segment(2, 0)]);
@@ -218,11 +218,11 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 		// Datos Generales
 		$this->data['tipo'] = verificar_variable('GET','tipo','pagina');
@@ -310,12 +310,12 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 		// Datos Generales
 		$this->data['publicacion']  = $this->GeneralModel->detalles('publicaciones',['URL'=>$this->uri->segment(1, 0)]);
@@ -365,12 +365,12 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 		$id_objeto = $_GET['id_objeto'];
@@ -411,12 +411,12 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 		// Datos Generales
 		$this->data['tipo'] = 'tela';
@@ -437,12 +437,12 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 		// Datos para enviar por correo
   				$config['protocol']    = 'smtp';

@@ -4,8 +4,8 @@
 				<h2>Perfil del usuario</h2>
 		</div>
 		<div class="formulario">
-			<a href="<?php echo base_url('lista_usuarios/actualizar?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-warning"> <i class="fas fa-pencil"></i></a>
-			<a href="<?php echo base_url('lista_usuarios/borrar?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-outline-danger"> <i class="fa fa-trash"></i></a>
+			<a href="<?php echo base_url('index.php/lista_usuarios/actualizar?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-warning"> <i class="fas fa-pencil"></i></a>
+			<a href="<?php echo base_url('index.php/lista_usuarios/borrar?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-outline-danger"> <i class="fa fa-trash"></i></a>
 		</div>
 	</div>
   <hr>

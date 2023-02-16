@@ -7,16 +7,16 @@
 				<?php echo $op['titulo_sitio'] ?> </h3>
 			<span class="kt-subheader__separator kt-hidden"></span>
 			<div class="kt-subheader__breadcrumbs">
-				<a href="<?php echo base_url('admin'); ?>" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+				<a href="<?php echo base_url('index.php/admin'); ?>" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
-				<a href="<?php echo base_url('admin'); ?>" class="kt-subheader__breadcrumbs-link">
+				<a href="<?php echo base_url('index.php/admin'); ?>" class="kt-subheader__breadcrumbs-link">
 					Administrador </a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
-				<a href="<?php echo base_url('admin/categorias?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
+				<a href="<?php echo base_url('index.php/admin/categorias?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
 					Publicaciones | <?php echo $tipo; ?> </a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
 				<?php $padre = verificar_variable('GET','padre',0); if(!empty($padre)){ ?>
-					<a href="<?php echo base_url('admin/publicaciones?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
+					<a href="<?php echo base_url('index.php/admin/publicaciones?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
 						<?php $categoria_padre = $this->GeneralModel->detalles('categorias',['ID_CATEGORIA'=>$padre]); ?>
 						<?php echo $categoria_padre['CATEGORIA_NOMBRE']; ?> </a>
 					<span class="kt-subheader__breadcrumbs-separator"></span>
@@ -53,9 +53,9 @@
 
 								<?php $tipos_multimedia= $this->GeneralModel->lista('tipos','',['TIPO_OBJETO'=>'multimedia'],'','',''); ?>
 								<?php $i = 0; foreach($tipos_multimedia as $tipo_multimedia){ if($i%2){ $color_boton = 'btn-outline-dark';}else{ $color_boton = 'btn-outline-secondary'; } if($tipo_multimedia->TIPO_NOMBRE==$_GET['tipo']){ $color_boton = 'btn-warning';} ?>
-								<a href="<?php echo base_url('admin/publicaciones/multimedia?tipo='.$tipo_multimedia->TIPO_NOMBRE.'&id='.$publicacion['ID_PUBLICACION']); ?>" class="btn <?php echo $color_boton; ?>"> <i class="fas fa-photo-video"></i> <?php echo $tipo_multimedia->TIPO_NOMBRE_PLURAL; ?></a>
+								<a href="<?php echo base_url('index.php/admin/publicaciones/multimedia?tipo='.$tipo_multimedia->TIPO_NOMBRE.'&id='.$publicacion['ID_PUBLICACION']); ?>" class="btn <?php echo $color_boton; ?>"> <i class="fas fa-photo-video"></i> <?php echo $tipo_multimedia->TIPO_NOMBRE_PLURAL; ?></a>
 								<?php $i++; } ?>
-								<a href="<?php echo base_url('admin/publicaciones/actualizar?id='.$publicacion['ID_PUBLICACION']); ?>" class="btn btn-primary"> Volver a la publicación <i class="fa fa-chevron-right"></i> </a>
+								<a href="<?php echo base_url('index.php/admin/publicaciones/actualizar?id='.$publicacion['ID_PUBLICACION']); ?>" class="btn btn-primary"> Volver a la publicación <i class="fa fa-chevron-right"></i> </a>
 						</div>
 					</div>
 					</div>
@@ -71,7 +71,7 @@
 										<div class="media-body">
 											<h5 class="mt-0"><?php echo $publicacion['PUBLICACION_TITULO']; ?></h5>
 											<?php echo $publicacion['PUBLICACION_RESUMEN']; ?><br>
-											<a href="<?php echo base_url('admin/publicaciones/actualizar?id='.$publicacion['ID_PUBLICACION']); ?>"> Volver a la publicación</a>
+											<a href="<?php echo base_url('index.php/admin/publicaciones/actualizar?id='.$publicacion['ID_PUBLICACION']); ?>"> Volver a la publicación</a>
 										</div>
 									</div>
 									<div class="card border-info">
@@ -89,7 +89,7 @@
 													data-tipo-objeto='<?php echo $publicacion['TIPO']; ?>'
 													></div> <?php } ?>
 											<?php if($tipo=='enlace'){ ?>
-												<form class="" action="<?php echo base_url('admin/multimedia/cargar_'.$tipo); ?>" method="post">
+												<form class="" action="<?php echo base_url('index.php/admin/multimedia/cargar_'.$tipo); ?>" method="post">
 													<input type="hidden" name="id" value="<?php echo verificar_variable('GET','id',''); ?>">
 													<input type="hidden" name="tipo_objeto" value="<?php if(isset($publicacion['TIPO'])){ echo $publicacion['TIPO']; } ?>">
 													<label for="">Añadir un enlace</label>
@@ -109,7 +109,7 @@
 												</form>
 											<?php } ?>
 											<?php if($tipo=='youtube'){ ?>
-												<form class="" action="<?php echo base_url('admin/multimedia/cargar_'.$tipo); ?>" method="post">
+												<form class="" action="<?php echo base_url('index.php/admin/multimedia/cargar_'.$tipo); ?>" method="post">
 													<input type="hidden" name="id" value="<?php echo verificar_variable('GET','id',''); ?>">
 													<input type="hidden" name="tipo_objeto" value="<?php if(isset($publicacion['TIPO'])){ echo $publicacion['TIPO']; } ?>">
 													<label for="">Añadir un enlace</label>

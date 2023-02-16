@@ -28,7 +28,7 @@ HEADER
 			<?php foreach($categorias_hijas as $categoria_hij){ ?>
         <div class="col-12 col-sm-6">
 					<!-- Featured Card Blog -->
-					<a href="<?php echo base_url('categoria/'.$categoria_hij->URL); ?>">
+					<a href="<?php echo base_url('index.php/categoria/'.$categoria_hij->URL); ?>">
 						<div class="card flex-md-row mb-4 box-shadow">
 							<div class="card-img-right flex-auto w-25 d-none d-md-block">
 								<img class="img-fluid" src="<?php echo base_url('contenido/img/categorias/'.$categoria_hij->IMAGEN); ?>">

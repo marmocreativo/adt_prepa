@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/adt_prepa';
-//$config['base_url'] = 'http://quarkservers.com/adt_prepa';
+//$config['base_url'] = 'http://localhost/adt_prepa';
+$config['base_url'] = 'http://148.207.218.173/';
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ $config['base_url'] = 'http://localhost/adt_prepa';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------

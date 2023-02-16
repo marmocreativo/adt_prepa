@@ -1,6 +1,6 @@
 <div class="contenido_principal">
 
-<form action="<?php echo base_url('admin/opciones') ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('index.php/admin/opciones') ?>" method="post" enctype="multipart/form-data">
 
 <div class="row  mb-4">
 
@@ -14,7 +14,7 @@
 
 		<div class="btn-group btn-group float-right" role="group" aria-label="Barra de tareas">
 
-			<a class="btn btn-outline-info" href="<?php echo base_url('admin/crear_opcion'); ?>"> <i class="fa fa-cogs"></i> Crear nueva opción variable</a>
+			<a class="btn btn-outline-info" href="<?php echo base_url('index.php/admin/crear_opcion'); ?>"> <i class="fa fa-cogs"></i> Crear nueva opción variable</a>
 
 			<button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Guardar Todas</button>
 
@@ -90,9 +90,9 @@
 
 							<div class="btn-group float-right mt-2">
 
-								<a href="<?php echo base_url('admin/actualizar_opcion?id='.$opcion->ID); ?>" class="btn btn-sm btn-outline-warning"><i class="fa fa-pencil-alt"></i></a>
+								<a href="<?php echo base_url('index.php/admin/actualizar_opcion?id='.$opcion->ID); ?>" class="btn btn-sm btn-outline-warning"><i class="fa fa-pencil-alt"></i></a>
 
-								<button type="button" data-enlace='<?php echo base_url('admin/borrar_opcion?id='.$opcion->ID); ?>' class="btn btn-sm btn-outline-danger borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
+								<button type="button" data-enlace='<?php echo base_url('index.php/admin/borrar_opcion?id='.$opcion->ID); ?>' class="btn btn-sm btn-outline-danger borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
 
 							</div>
 

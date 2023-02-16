@@ -1,4 +1,4 @@
-<form action="<?php echo base_url('usuarios/actualizar') ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('index.php/usuarios/actualizar') ?>" method="post" enctype="multipart/form-data">
 
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
 

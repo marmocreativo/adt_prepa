@@ -112,7 +112,7 @@
     </div>
 		<div class="col-12 col-md-7">
       <div class="formulario">
-        <form class="row" action="<?php echo base_url('proyectos/busqueda'); ?>" method="get">
+        <form class="row" action="<?php echo base_url('index.php/proyectos/busqueda'); ?>" method="get">
           <div class="col">
             <input type="text" class="form-control" name="Busqueda" value="<?php echo verificar_variable('GET','Busqueda','Buscar'); ?>">
           </div>

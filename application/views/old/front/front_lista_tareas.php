@@ -19,7 +19,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form class="" action="<?php echo base_url('tareas/crear'); ?>" method="post">
+				<form class="" action="<?php echo base_url('index.php/tareas/crear'); ?>" method="post">
 					<input type="hidden" name="IdProyecto" value="">
 					<input type="hidden" name="Tipo" value="general">
 				<div class="modal-body">

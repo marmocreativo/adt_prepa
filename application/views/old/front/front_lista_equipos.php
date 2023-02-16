@@ -1,11 +1,11 @@
-<a href="<?php echo base_url('equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success btn-circulo-flotante"> <i class="fa fa-plus"></i></a>
+<a href="<?php echo base_url('index.php/equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success btn-circulo-flotante"> <i class="fa fa-plus"></i></a>
 <div class="lista_equipos">
 
 	<div class="row mt-4">
 
 		<?php foreach($equipos as $equipo){ ?>
 		<div class="col-12 col-md-4">
-			<a href="<?php echo base_url('equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
+			<a href="<?php echo base_url('index.php/equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
 				<div class="equipo card card-body mb-3 p-0">
 					<div class="bg-image d-flex align-items-center m-0 p-0" style="background-image: url(<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN_FONDO); ?>)">
 						<img src="<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN); ?>" class="rounded-circle mx-1" width="50">
@@ -30,10 +30,10 @@
 	<?php if($cantidad_paginas>1){ ?>
 	<div class="row justify-content-md-center">
 		<div class="col-2">
-			<a href="<?php echo base_url('equipos?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
+			<a href="<?php echo base_url('index.php/equipos?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
 		</div>
 		<div class="col-2">
-			<form class="enviar_enter" action="<?php echo base_url('equipos'); ?>" method="get">
+			<form class="enviar_enter" action="<?php echo base_url('index.php/equipos'); ?>" method="get">
 				<input type="hidden" name="orden" value="<?php echo $consulta['orden'] ?>">
 				<input type="hidden" name="mostrar_por_pagina" value="<?php echo $consulta['mostrar_por_pagina'] ?>">
 				<div class="form-group">
@@ -47,7 +47,7 @@
 			</form>
 		</div>
 		<div class="col-2">
-			<a href="<?php echo base_url('equipos?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
+			<a href="<?php echo base_url('index.php/equipos?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
 		</div>
 	</div>
 	<?php } ?>
@@ -61,8 +61,8 @@
 	</div>
 	<div class="col-12 col-md-4">
 		<div class="btn-group btn-group float-right" role="group" aria-label="Barra de tareas">
-				<a href="<?php echo base_url('admin/equipos/papelera'); ?>" class="btn btn-outline-danger"> <i class="fa fa-trash"></i> ver papelera</a>
-				<a href="<?php echo base_url('admin/equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
+				<a href="<?php echo base_url('index.php/admin/equipos/papelera'); ?>" class="btn btn-outline-danger"> <i class="fa fa-trash"></i> ver papelera</a>
+				<a href="<?php echo base_url('index.php/admin/equipos/crear?tipo='.$tipo."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-success"> <i class="fa fa-plus"></i> Nuevo</a>
 		</div>
 	</div>
 </div>
@@ -70,7 +70,7 @@
 	<div class="col">
 		<?php retro_alimentacion(); ?>
 		<div class="collapse" id="formulario_orden">
-			<form class="" action="<?php echo base_url('admin/equipos'); ?>" method="get" enctype="multipart/form-data">
+			<form class="" action="<?php echo base_url('index.php/admin/equipos'); ?>" method="get" enctype="multipart/form-data">
 				<input type="hidden" name="tipo" value="<?php echo $tipo; ?>">
 				<div class="form-group mr-2">
 					<select class="form-control" name="orden">
@@ -103,7 +103,7 @@
 		<div class="row mb-3 ui-sortable">
 			<?php foreach($equipos as $equipo){ ?>
 			<div class="col-12 col-sm-4 col-md-3 p-1" id="item-<?php echo $equipo->ID_EQUIPO; ?>" class="ui-sortable-handle">
-				<a href="<?php echo base_url('admin/equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
+				<a href="<?php echo base_url('index.php/admin/equipos/detalles?id='.$equipo->ID_EQUIPO); ?>">
 					<div class="card equipo">
 						<div class="card-body bg-<?php echo $equipo->COLOR; ?>">
 							<p class="h5 text-white"><img src="<?php echo base_url('contenido/img/equipos/'.$equipo->IMAGEN); ?>" class="rounded-circle float-left mr-2" width="50"><?php echo $equipo->EQUIPO_NOMBRE; ?></p>
@@ -113,20 +113,20 @@
 							<div class="row">
 								<div class="col-4 p-2">
 									<?php if($equipo->ESTADO=='activo'){ ?>
-									<a href="<?php echo base_url('admin/equipos/activar')."?id=".$equipo->ID_EQUIPO."&estado=".$equipo->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-success"> <span class="fa fa-check-circle"></span> </a>
+									<a href="<?php echo base_url('index.php/admin/equipos/activar')."?id=".$equipo->ID_EQUIPO."&estado=".$equipo->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-success"> <span class="fa fa-check-circle"></span> </a>
 								<?php } ?>
 								<?php if($equipo->ESTADO=='inactivo'){ ?>
-									<a href="<?php echo base_url('admin/equipos/activar')."?id=".$equipo->ID_EQUIPO."&estado=".$equipo->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> <span class="fa fa-times-circle"></span> </a>
+									<a href="<?php echo base_url('index.php/admin/equipos/activar')."?id=".$equipo->ID_EQUIPO."&estado=".$equipo->ESTADO."&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> <span class="fa fa-times-circle"></span> </a>
 								<?php } ?>
 								<?php if($equipo->ESTADO=='papelera'){ ?>
-									<a href="<?php echo base_url('admin/equipos/activar')."?id=".$equipo->ID_EQUIPO."&estado=inactivo&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> Restaurar </a>
+									<a href="<?php echo base_url('index.php/admin/equipos/activar')."?id=".$equipo->ID_EQUIPO."&estado=inactivo&consulta=".base64_encode(json_encode($consulta)); ?>" class="btn btn-sm btn-block btn-outline-danger"> Restaurar </a>
 								<?php } ?>
 								</div>
 								<div class="col-4 p-2">
-									<a href="<?php echo base_url('admin/equipos/actualizar?id='.$equipo->ID_EQUIPO."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-sm btn-block btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
+									<a href="<?php echo base_url('index.php/admin/equipos/actualizar?id='.$equipo->ID_EQUIPO."&consulta=".base64_encode(json_encode($consulta))); ?>" class="btn btn-sm btn-block btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
 								</div>
 								<div class="col-4 p-2">
-									<button data-enlace='<?php echo base_url('admin/equipos/borrar?id='.$equipo->ID_EQUIPO."&consulta=".base64_encode(json_encode($consulta))); ?>' class="btn btn-sm btn-danger btn-block borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
+									<button data-enlace='<?php echo base_url('index.php/admin/equipos/borrar?id='.$equipo->ID_EQUIPO."&consulta=".base64_encode(json_encode($consulta))); ?>' class="btn btn-sm btn-danger btn-block borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
 								</div>
 							</div>
 						</div>
@@ -139,10 +139,10 @@
 		<?php if($cantidad_paginas>1){ ?>
 		<div class="row justify-content-md-center">
 			<div class="col-2">
-				<a href="<?php echo base_url('admin/categorias/?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
+				<a href="<?php echo base_url('index.php/admin/categorias/?'.$consulta_anterior); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == 1){ echo 'disabled'; } ?>"> <i class="fa fa-chevron-left"></i> Anterior</a>
 			</div>
 			<div class="col-2">
-				<form class="enviar_enter" action="<?php echo base_url('admin/categorias'); ?>" method="get">
+				<form class="enviar_enter" action="<?php echo base_url('index.php/admin/categorias'); ?>" method="get">
 					<input type="hidden" name="tipo_objeto" value="<?php echo $consulta['tipo_objeto'] ?>">
 					<input type="hidden" name="tipo" value="<?php echo $consulta['tipo'] ?>">
 					<input type="hidden" name="padre" value="<?php echo $consulta['padre'] ?>">
@@ -160,7 +160,7 @@
 				</form>
 			</div>
 			<div class="col-2">
-				<a href="<?php echo base_url('admin/categorias/?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
+				<a href="<?php echo base_url('index.php/admin/categorias/?'.$consulta_siguiente); ?>" class="btn btn-outline-primary btn-block <?php if($pagina == $cantidad_paginas){ echo 'disabled'; } ?>"> Siguiente <i class="fa fa-chevron-right"></i> </a>
 			</div>
 		</div>
 		<?php } ?>

@@ -90,10 +90,10 @@ HEADER
 					<?php
 						if(isset($_SESSION['usuario'])){
 							$mi_reaccion = $this->GeneralModel->detalles('reacciones',['ID_OBJETO'=>$publicacion['ID_PUBLICACION'],'TIPO_OBJETO'=>'publicacion','ID_USUARIO'=>$_SESSION['usuario']['id']]);
-							$enlace_reaccion = base_url('reaccionar?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING']).'&id_objeto='.$publicacion['ID_PUBLICACION'].'&tipo_objeto=publicacion');
+							$enlace_reaccion = base_url('index.php/reaccionar?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING']).'&id_objeto='.$publicacion['ID_PUBLICACION'].'&tipo_objeto=publicacion');
 						}else{
 							$mi_reaccion = null;
-							$enlace_reaccion = base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING']));
+							$enlace_reaccion = base_url('index.php/login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING']));
 						};
 						if(!empty($mi_reaccion)){
 							if($mi_reaccion['REACCION']=='me_gusta'){

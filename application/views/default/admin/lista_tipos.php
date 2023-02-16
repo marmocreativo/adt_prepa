@@ -4,7 +4,7 @@
 		<h3>Tipos | <?php echo $tipo; ?></h3>
 	</div>
 	<div class="col-2">
-		<form class="form-inline" action="<?php echo base_url('admin/tipos'); ?>" method="get" enctype="multipart/form-data">
+		<form class="form-inline" action="<?php echo base_url('index.php/admin/tipos'); ?>" method="get" enctype="multipart/form-data">
 			<input type="hidden" name="tipo" value="<?php echo $tipo; ?>">
 			<div class="form-group mr-1">
 				<input type="text" class="form-control" name="busqueda" value="<?php echo verificar_variable('GET','busqueda',''); ?>" placeholder="Buscar">
@@ -14,7 +14,7 @@
 		</form>
 	</div>
 	<div class="col-2">
-		<a href="<?php echo base_url('admin/tipos/crear?tipo='.$tipo); ?>" class="btn btn-success btn-block"> <i class="fa fa-plus"></i> Nuevo</a>
+		<a href="<?php echo base_url('index.php/admin/tipos/crear?tipo='.$tipo); ?>" class="btn btn-success btn-block"> <i class="fa fa-plus"></i> Nuevo</a>
 	</div>
 </div>
 <div class="row mb-4">
@@ -24,7 +24,7 @@
 		<ul class="nav nav-pills nav-fill mb-0">
 		<?php foreach($grupos_tipos as $grupos){ ?>
 			<li class="nav-item border">
-				<a class="nav-link <?php if($tipo==$grupos->TIPO_OBJETO){ echo 'active'; } ?>" href="<?php echo base_url('/admin/tipos?tipo='.$grupos->TIPO_OBJETO); ?>"><?php echo $grupos->TIPO_OBJETO; ?></a>
+				<a class="nav-link <?php if($tipo==$grupos->TIPO_OBJETO){ echo 'active'; } ?>" href="<?php echo base_url('index.php//admin/tipos?tipo='.$grupos->TIPO_OBJETO); ?>"><?php echo $grupos->TIPO_OBJETO; ?></a>
 			</li>
 		<?php } ?>
 		</ul>
@@ -49,8 +49,8 @@
 						<td><?php echo $tipo->TIPO_NOMBRE_PLURAL; ?></td>
 						<td>
 							<div class="btn-group float-right" role="group">
-							<a href="<?php echo base_url('admin/tipos/actualizar?id='.$tipo->ID); ?>" class="btn btn-sm btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
-							<button data-enlace='<?php echo base_url('admin/tipos/borrar?id='.$tipo->ID); ?>' class="btn btn-sm btn-danger borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
+							<a href="<?php echo base_url('index.php/admin/tipos/actualizar?id='.$tipo->ID); ?>" class="btn btn-sm btn-warning" title="Editar"> <span class="fa fa-pencil-alt"></span> </a>
+							<button data-enlace='<?php echo base_url('index.php/admin/tipos/borrar?id='.$tipo->ID); ?>' class="btn btn-sm btn-danger borrar_entrada" title="Eliminar"> <span class="fa fa-trash"></span> </button>
 						</div>
 						</td>
 					</tr>

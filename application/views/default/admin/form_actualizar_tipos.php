@@ -7,16 +7,16 @@
 				<?php echo $op['titulo_sitio'] ?> </h3>
 			<span class="kt-subheader__separator kt-hidden"></span>
 			<div class="kt-subheader__breadcrumbs">
-				<a href="<?php echo base_url('admin'); ?>" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+				<a href="<?php echo base_url('index.php/admin'); ?>" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
-				<a href="<?php echo base_url('admin'); ?>" class="kt-subheader__breadcrumbs-link">
+				<a href="<?php echo base_url('index.php/admin'); ?>" class="kt-subheader__breadcrumbs-link">
 					Administrador </a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
-				<a href="<?php echo base_url('admin/categorias?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
+				<a href="<?php echo base_url('index.php/admin/categorias?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
 					Tipos | <?php echo $tipo; ?> </a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
 				<?php $padre = verificar_variable('GET','padre',0); if(!empty($padre)){ ?>
-					<a href="<?php echo base_url('admin/tipos?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
+					<a href="<?php echo base_url('index.php/admin/tipos?tipo='.$tipo); ?>" class="kt-subheader__breadcrumbs-link">
 						<?php $categoria_padre = $this->GeneralModel->detalles('categorias',['ID_CATEGORIA'=>$padre]); ?>
 						<?php echo $categoria_padre['CATEGORIA_NOMBRE']; ?> </a>
 					<span class="kt-subheader__breadcrumbs-separator"></span>
@@ -40,7 +40,7 @@
 	<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
 		<?php retro_alimentacion(); ?>
 		<!--begin::Portlet-->
-		<form action="<?php echo base_url('admin/tipos/actualizar') ?>" method="post" enctype="multipart/form-data">
+		<form action="<?php echo base_url('index.php/admin/tipos/actualizar') ?>" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Identificador" value="<?php echo $tipos['ID']; ?>">
 			<div class="kt-portlet">
 				<div class="kt-portlet__head">

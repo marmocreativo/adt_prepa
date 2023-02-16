@@ -1,6 +1,6 @@
 <?php if(!empty($tarea['ID_PROYECTO'])){ ?>
 
-<a href="<?php echo base_url('proyectos/detalles?id='.$tarea['ID_PROYECTO']); ?>" class="btn btn-outline-primary"><i class="fas fa-chevron-circle-left"></i> Volver al proyecto</a>
+<a href="<?php echo base_url('index.php/proyectos/detalles?id='.$tarea['ID_PROYECTO']); ?>" class="btn btn-outline-primary"><i class="fas fa-chevron-circle-left"></i> Volver al proyecto</a>
 <?php } ?>
 
 <div class="pt-3">
@@ -15,7 +15,7 @@
 					<tr>
 						<td title="Fecha de inicio"><i class="fas fa-calendar-plus"></i> <?php echo fechas_es($tarea['FECHA_INICIO']); ?></td>
 						<td title="Dead line"><i class="fas fa-stopwatch"></i> <?php echo fechas_es($tarea['FECHA_FINAL']); ?></td>
-						<td class="text-end"> <a href="<?php echo base_url('tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="fa fa-pencil"></i> Editar tarea </a> </td>
+						<td class="text-end"> <a href="<?php echo base_url('index.php/tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="fa fa-pencil"></i> Editar tarea </a> </td>
 					</tr>
 				</tbody>
 			</table>
@@ -55,9 +55,9 @@
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li class="dropdown-item"><b><?php echo $detalles_usuario['USUARIO_NOMBRE']; ?></b></li>
 							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="<?php echo base_url('lista_usuarios/detalles?id='.$detalles_usuario['ID_USUARIO']); ?>">Ver perfil</a></li>
+							<li><a class="dropdown-item" href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$detalles_usuario['ID_USUARIO']); ?>">Ver perfil</a></li>
 							<li><a class="dropdown-item" target="_blank"
-							href="https://wa.me/<?php echo $detalles_usuario['USUARIO_TELEFONO']; ?>?text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
+							href="https://wa.me/<?php echo $detalles_usuario['USUARIO_TELEFONO']; ?>?text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('index.php/tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
 						</ul>
 					</div>
 					</li>
@@ -76,7 +76,7 @@
 					+ Agregar un comentario
 				</a>
 				<div class="collapse p-4 bg-light" id='formulario_mensaje'>
-						<form class="" action="<?php echo base_url('tareas/agregar_mensaje'); ?>" method="post">
+						<form class="" action="<?php echo base_url('index.php/tareas/agregar_mensaje'); ?>" method="post">
 							<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
 							<input type="hidden" name="IdUsuario" value="<?php echo $_SESSION['usuario']['id']; ?>">
 							<input type="hidden" name="EstadoActual" value="<?php echo $tarea['ESTADO']; ?>">
@@ -140,7 +140,7 @@
 					<div class="col-12 mb-3">
 						<div class="row">
 							<div class="col-1 pr-0">
-								<a href="<?php echo base_url('lista_usuarios/detalles?id='.$mensaje->ID_USUARIO); ?>" style="display:block; margin-top: -20px">
+								<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$mensaje->ID_USUARIO); ?>" style="display:block; margin-top: -20px">
 									<img src="<?php echo base_url('contenido/img/usuarios/'.$array_usuarios[$mensaje->ID_USUARIO]['IMAGEN']); ?>" title="<?php echo $array_usuarios[$mensaje->ID_USUARIO]['NOMBRE']; ?>" width="100%" class="rounded-circle border border-secondary" alt="">
 								</a>
 							</div>
@@ -168,9 +168,9 @@
 														<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 															<li class="dropdown-item"><b><?php echo $array_usuarios[$asignacion]['NOMBRE']; ?></b></li>
 															<li><hr class="dropdown-divider"></li>
-															<li><a class="dropdown-item" href="<?php echo base_url('lista_usuarios/detalles?id='.$asignacion); ?>">Ver perfil</a></li>
+															<li><a class="dropdown-item" href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$asignacion); ?>">Ver perfil</a></li>
 															<li><a class="dropdown-item" target="_blank"
-															href="https://wa.me/<?php echo $array_usuarios[$asignacion]['USUARIO_TELEFONO']; ?>?text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
+															href="https://wa.me/<?php echo $array_usuarios[$asignacion]['USUARIO_TELEFONO']; ?>?text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('index.php/tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
 														</ul>
 													</div>
 													</li>
@@ -186,7 +186,7 @@
 											Editar
 										</a>
 										<div class="collapse p-4 bg-light" id='formulario_mensaje_<?php echo $mensaje->ID; ?>'>
-												<form class="" action="<?php echo base_url('tareas/actualizar_mensaje'); ?>" method="post">
+												<form class="" action="<?php echo base_url('index.php/tareas/actualizar_mensaje'); ?>" method="post">
 													<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
 													<input type="hidden" name="IdUsuario" value="<?php echo $_SESSION['usuario']['id']; ?>">
 													<input type="hidden" name="EstadoActual" value="<?php echo $tarea['ESTADO']; ?>">

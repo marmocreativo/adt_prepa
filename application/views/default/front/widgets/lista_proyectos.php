@@ -2,7 +2,7 @@
 
 <?php foreach($proyectos as $proyecto){ ?>
 <div class="proyecto <?php echo $modo; ?>">
-  <a href="<?php echo base_url('proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
+  <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
     <div class="row">
       <div class="col-12 col-md-8">
         <div class="row">

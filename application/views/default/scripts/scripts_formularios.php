@@ -10,7 +10,7 @@ function  escribir_url(origen){
 
   jQuery.ajax({
     method: "GET",
-    url: "<?php echo base_url('ajax/url_amigable'); ?>",
+    url: "<?php echo base_url('index.php/ajax/url_amigable'); ?>",
     data: {
       tabla : tabla,
       url : url,
@@ -57,7 +57,7 @@ function activar_reordenar(){
               columna : columna
             },
             type: 'GET',
-            url: '<?php echo base_url('ajax/reordenar'); ?>',
+            url: '<?php echo base_url('index.php/ajax/reordenar'); ?>',
             dataType: "html",
             success : function(respuesta)
              {
@@ -253,7 +253,7 @@ $( ".direccion-estados").change(function(){
 function cargar_paises(){
   jQuery.ajax({
     method: "GET",
-    url: "<?php echo base_url('ajax/lista_paises'); ?>",
+    url: "<?php echo base_url('index.php/ajax/lista_paises'); ?>",
     dataType: "html",
     success : function(respuesta)
      {
@@ -276,7 +276,7 @@ function cargar_estados(){
   var id_pais = $( ".direccion-paises option:selected" ).attr('data-id-pais');
   jQuery.ajax({
     method: "GET",
-    url: "<?php echo base_url('ajax/lista_estados'); ?>",
+    url: "<?php echo base_url('index.php/ajax/lista_estados'); ?>",
     data: {
       id_pais : id_pais
     },
@@ -301,7 +301,7 @@ function cargar_municipios(){
   var id_estado = $( ".direccion-estados option:selected" ).attr('data-id-estado');
   jQuery.ajax({
     method: "GET",
-    url: "<?php echo base_url('ajax/lista_municipios'); ?>",
+    url: "<?php echo base_url('index.php/ajax/lista_municipios'); ?>",
     data: {
       id_estado : id_estado
     },
@@ -331,7 +331,7 @@ function cargar_municipios(){
       var tipo = $('#Dropzone_multimedia').attr('data-tipo');
       var tipo_objeto = $('#Dropzone_multimedia').attr('data-tipo-objeto');
 
-      var url = '<?php echo base_url('admin/multimedia/cargar_'); ?>'+tipo;
+      var url = '<?php echo base_url('index.php/admin/multimedia/cargar_'); ?>'+tipo;
 
       var DropZoneMultimedia = new Dropzone("#Dropzone_multimedia", {
         dictDefaultMessage: 'Click o arrastra y suelta para subir archivos',

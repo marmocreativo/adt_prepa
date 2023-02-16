@@ -14,7 +14,7 @@ class Front_Usuarios extends CI_Controller {
 
 		if (!$this->db->table_exists('opciones') ){
 
-			redirect(base_url('reparar_EN_CMS'));
+			redirect(base_url('index.php/reparar_EN_CMS'));
 
 		}
 
@@ -28,7 +28,7 @@ class Front_Usuarios extends CI_Controller {
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
 
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 
 		}
 
@@ -78,7 +78,7 @@ class Front_Usuarios extends CI_Controller {
 
 		{
 			// Verifico el switch de mantenimiento
-			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 			// Variables de busqueda
 			$this->data['consulta']=array();
@@ -160,7 +160,7 @@ class Front_Usuarios extends CI_Controller {
 	public function notificaciones()
 		{
 			// Verifico el switch de mantenimiento
-			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 			// Consulta
 			$this->data['notificaciones'] = $this->GeneralModel->lista('notificaciones','',['ID_USUARIO'=>$_SESSION['usuario']['id']],'FECHA_CREACION DESC','','');
@@ -179,7 +179,7 @@ class Front_Usuarios extends CI_Controller {
 	public function leer_notificaciones()
 		{
 			// Verifico el switch de mantenimiento
-			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 			// Consulta
 			$detalles_notificacion = $this->GeneralModel->detalles('notificaciones',['ID'=>$_GET['id']]);
@@ -254,7 +254,7 @@ class Front_Usuarios extends CI_Controller {
 
 			// Redirecciono
 
-      redirect(base_url('lista_usuarios/detalles?id='.$id_usuario));
+      redirect(base_url('index.php/lista_usuarios/detalles?id='.$id_usuario));
 
 
 
@@ -390,7 +390,7 @@ class Front_Usuarios extends CI_Controller {
 					}
 				}
 				// Redirecciono
-	      redirect(base_url('lista_usuarios/detalles?id='.$this->input->post('Identificador')));
+	      redirect(base_url('index.php/lista_usuarios/detalles?id='.$this->input->post('Identificador')));
 
 	    }else{
 
@@ -436,7 +436,7 @@ class Front_Usuarios extends CI_Controller {
 				}
 			}
 			// Redirecciono
-			redirect(base_url('lista_usuarios/preferencias?id='.$this->input->post('Identificador')));
+			redirect(base_url('index.php/lista_usuarios/preferencias?id='.$this->input->post('Identificador')));
 
 		}else{
 				$this->data['usuario'] = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_GET['id']]);
@@ -508,11 +508,11 @@ class Front_Usuarios extends CI_Controller {
 			$this->GeneralModel->borrar('equipos_usuarios',['ID_USUARIO'=>$_GET['id']]);
 			// Mensaje Feedback
 			//  Redirecciono
-            redirect(base_url('usuarios'));
+            redirect(base_url('index.php/usuarios'));
         } else {
 			// Mensaje Feedback
 			//  Redirecciono
-	         redirect(base_url('usuarios'));
+	         redirect(base_url('index.php/usuarios'));
 		}
 
 	}

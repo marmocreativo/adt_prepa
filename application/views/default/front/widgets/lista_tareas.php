@@ -28,7 +28,7 @@ $icono = "far fa-clock";
       </li>
     <?php } ?>
   <li>
-    <a href="<?php echo base_url('tareas/detalles?id='.$tarea->ID_TAREA); ?>">
+    <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
       <div class="row">
         <?php
           // variables de estado

@@ -10,7 +10,7 @@ function  escribir_url(origen){
 
   jQuery.ajax({
     method: "GET",
-    url: "<?php echo base_url('ajax/url_amigable'); ?>",
+    url: "<?php echo base_url('index.php/ajax/url_amigable'); ?>",
     data: {
       tabla : tabla,
       url : url,
@@ -57,7 +57,7 @@ function activar_reordenar(){
               columna : columna
             },
             type: 'GET',
-            url: '<?php echo base_url('ajax/reordenar'); ?>',
+            url: '<?php echo base_url('index.php/ajax/reordenar'); ?>',
             dataType: "html",
             success : function(respuesta)
              {
@@ -81,7 +81,7 @@ function  cargar_multimedia(){
   var tipo = $('.multimedia_ajax').attr('data-tipo');
   jQuery.ajax({
     method: "GET",
-    url: "<?php echo base_url('ajax/multimedia_ajax'); ?>",
+    url: "<?php echo base_url('index.php/ajax/multimedia_ajax'); ?>",
     data: {
       tipo : tipo
     },
@@ -105,7 +105,7 @@ function  cargar_galeria(){
   var tipo_objeto = $('.galeria_ajax').attr('data-tipo-objeto');
   jQuery.ajax({
     method: "GET",
-    url: "<?php echo base_url('ajax/galeria_ajax'); ?>",
+    url: "<?php echo base_url('index.php/ajax/galeria_ajax'); ?>",
     data: {
       id : id,
       tipo : tipo,
@@ -141,7 +141,7 @@ function borrar_multimedia(){
       var vista = $(this).attr('data-vista');
       jQuery.ajax({
         method: "GET",
-        url: "<?php echo base_url('ajax/borrar_multimedia'); ?>",
+        url: "<?php echo base_url('index.php/ajax/borrar_multimedia'); ?>",
         data: {
           id_multimedia : id_multimedia
         },
@@ -197,7 +197,7 @@ function mostrar_formularios_multimedia(){
   // Actualización de datos
   jQuery.ajax({
     method: "POST",
-    url: "<?php echo base_url('ajax/actualizar_multimedia'); ?>",
+    url: "<?php echo base_url('index.php/ajax/actualizar_multimedia'); ?>",
     data: {
       id : id,
       titulo : titulo,
@@ -249,7 +249,7 @@ if ( $( ".menu-sortable" ).length ) {
               objetos : serialized
             },
             type: 'GET',
-            url: '<?php echo base_url('ajax/reordenar_menu'); ?>',
+            url: '<?php echo base_url('index.php/ajax/reordenar_menu'); ?>',
             dataType: "html",
             success : function(respuesta)
              {
@@ -291,7 +291,7 @@ if ( $( ".menu-sortable" ).length ) {
   $(function() {
     if ( $( "#placeholder" ).length ) {
     $.ajax({
-        url: "<?php echo base_url('ajax/vistas_por_dia'); ?>",
+        url: "<?php echo base_url('index.php/ajax/vistas_por_dia'); ?>",
         type: "GET",
         dataType: "json",
         success: onDataReceived

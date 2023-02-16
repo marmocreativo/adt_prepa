@@ -1,6 +1,6 @@
 <div class="estadisticas_generales mb-3">
 	<?php if(!empty($tarea['ID_PROYECTO'])){ ?>
-	<p> <a href="<?php echo base_url('proyectos/detalles?id='.$tarea['ID_PROYECTO']); ?>">Volver al proyecto</a> </p>
+	<p> <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$tarea['ID_PROYECTO']); ?>">Volver al proyecto</a> </p>
 <?php } ?>
 	<div class="p-2">
 	<div class="row">
@@ -10,7 +10,7 @@
 					<tr>
 						<td title="Fecha de inicio"><i class="fas fa-calendar-plus"></i> <?php echo fechas_es($tarea['FECHA_INICIO']); ?></td>
 						<td title="Dead line"><i class="fas fa-stopwatch"></i> <?php echo fechas_es($tarea['FECHA_FINAL']); ?></td>
-						<td class="text-end"> <a href="<?php echo base_url('tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="fa fa-pencil"></i> Editar tarea </a> </td>
+						<td class="text-end"> <a href="<?php echo base_url('index.php/tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="fa fa-pencil"></i> Editar tarea </a> </td>
 					</tr>
 				</tbody>
 			</table>
@@ -37,7 +37,7 @@
 				<?php foreach ($usuarios as $usuario) { ?>
 					<?php $detalles_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]); ?>
 					<li class="list-inline-item">
-						<a href="<?php echo base_url('lista_usuarios/detalles?id='.$detalles_usuario['ID_USUARIO']); ?>">
+						<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$detalles_usuario['ID_USUARIO']); ?>">
 						<img src="<?php echo base_url('contenido/img/usuarios/'.$detalles_usuario['IMAGEN']); ?>" title="<?php echo $detalles_usuario['USUARIO_NOMBRE'].' '.$detalles_usuario['USUARIO_APELLIDOS']; ?>" width="50px" class="rounded-circle border border-secondary" alt="">
 						</a>
 					</li>
@@ -52,7 +52,7 @@
 				  </a>
 					<div class="collapse p-4 bg-light" id='formulario_mensaje'>
 
-							<form class="" action="<?php echo base_url('tareas/agregar_mensaje'); ?>" method="post">
+							<form class="" action="<?php echo base_url('index.php/tareas/agregar_mensaje'); ?>" method="post">
 								<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
 								<input type="hidden" name="IdUsuario" value="<?php echo $_SESSION['usuario']['id']; ?>">
 								<input type="hidden" name="EstadoActual" value="<?php echo $tarea['ESTADO']; ?>">
@@ -113,7 +113,7 @@
 						<div class="col-12 mb-3">
 							<div class="row">
 								<div class="col-1">
-									<a href="<?php echo base_url('lista_usuarios/detalles?id='.$mensaje->ID_USUARIO); ?>" style="display:block; margin-top: -20px">
+									<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$mensaje->ID_USUARIO); ?>" style="display:block; margin-top: -20px">
 										<img src="<?php echo base_url('contenido/img/usuarios/'.$array_usuarios[$mensaje->ID_USUARIO]['IMAGEN']); ?>" title="<?php echo $array_usuarios[$mensaje->ID_USUARIO]['NOMBRE']; ?>" width="50px" class="rounded-circle border border-secondary" alt="">
 									</a>
 								</div>
@@ -126,7 +126,7 @@
 											<ul class="list-inline">
 												<?php foreach ($lista_asignados as $asignacion) { ?>
 													<li class="list-inline-item">
-														<a href="<?php echo base_url('lista_usuarios/detalles?id='.$asignacion); ?>">
+														<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$asignacion); ?>">
 														<img src="<?php echo base_url('contenido/img/usuarios/'.$array_usuarios[$asignacion]['IMAGEN']); ?>" title="<?php echo $array_usuarios[$asignacion]['NOMBRE']; ?>" width="25px" class="rounded-circle border border-secondary" alt="">
 														</a>
 													</li>

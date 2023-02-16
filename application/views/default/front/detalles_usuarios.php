@@ -16,10 +16,10 @@
 		<div class="col">
 			<ul class="nav nav-tabs nav-fill">
 			  <li class="nav-item">
-			    <a class="nav-link active" href="<?php echo base_url('usuarios/detalles?id='.$usuario['ID_USUARIO']); ?>"> <i class="fa fa-id-card"></i> </a>
+			    <a class="nav-link active" href="<?php echo base_url('index.php/usuarios/detalles?id='.$usuario['ID_USUARIO']); ?>"> <i class="fa fa-id-card"></i> </a>
 			  </li>
 				<li class="nav-item">
-			    <a class="nav-link" href="<?php echo base_url('usuarios/equipos?id='.$usuario['ID_USUARIO']); ?>"> <i class="fa fa-users"></i> </a>
+			    <a class="nav-link" href="<?php echo base_url('index.php/usuarios/equipos?id='.$usuario['ID_USUARIO']); ?>"> <i class="fa fa-users"></i> </a>
 			  </li>
 			</ul>
 			<div class="bg-white p-2 py-4 text-center">
@@ -42,12 +42,12 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<a href="<?php echo base_url('usuarios/actualizar/?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-outline-warning btn-block"> <i class="fa fa-pencil-alt"></i> Editar</a>
+							<a href="<?php echo base_url('index.php/usuarios/actualizar/?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-outline-warning btn-block"> <i class="fa fa-pencil-alt"></i> Editar</a>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<a class="btn btn-block btn-link" href="<?php echo base_url('usuarios/actualizar_pass'); ?>"> <i class="fa fa-lock"></i> Cambiar Contraseña</a>
+							<a class="btn btn-block btn-link" href="<?php echo base_url('index.php/usuarios/actualizar_pass'); ?>"> <i class="fa fa-lock"></i> Cambiar Contraseña</a>
 						</td>
 					</tr>
 				</table>

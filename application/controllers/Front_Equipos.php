@@ -6,14 +6,14 @@ class Front_Equipos extends CI_Controller {
   parent::__construct();
 		// Cargo las Opciones
 		if (!$this->db->table_exists('opciones') ){
-			redirect(base_url('reparar_EN_CMS'));
+			redirect(base_url('index.php/reparar_EN_CMS'));
 		}
 		$this->data['op'] = opciones_default();
 
 		// Verifico Sesión
 
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 
 
@@ -43,7 +43,7 @@ class Front_Equipos extends CI_Controller {
 	public function index()
 	{
 		// Verifico el switch de mantenimiento
-		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('mantenimiento')); }
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
 		// Variables de busqueda
 		$this->data['consulta']=array();
@@ -166,7 +166,7 @@ class Front_Equipos extends CI_Controller {
 		$consulta = base64_encode(json_encode($consulta));
 
 
-		redirect(base_url('equipos/actualizar?id='.$equipo_id.'&consulta='.$consulta));
+		redirect(base_url('index.php/equipos/actualizar?id='.$equipo_id.'&consulta='.$consulta));
 	}
 
 	public function actualizar()
@@ -265,7 +265,7 @@ class Front_Equipos extends CI_Controller {
 
 			// Mensaje Feedback
 			//  Redirecciono
-			redirect(base_url('equipos/detalles?id='.$this->input->post('Identificador')));
+			redirect(base_url('index.php/equipos/detalles?id='.$this->input->post('Identificador')));
 
 
     }else{
@@ -343,11 +343,11 @@ class Front_Equipos extends CI_Controller {
 
 						// Mensaje Feedback
 						//  Redirecciono
-            redirect(base_url('equipos'));
+            redirect(base_url('index.php/equipos'));
         } else {
 					// Mensaje Feedback
 					//  Redirecciono
-	         redirect(base_url('admin/proyectos'));
+	         redirect(base_url('index.php/admin/proyectos'));
 				}
 	}
 }

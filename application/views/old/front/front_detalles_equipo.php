@@ -6,7 +6,7 @@
 					<img src="<?php echo base_url('contenido/img/equipos/'.$equipo['IMAGEN']); ?>" class="rounded-circle m-3" width="100">
 					<h3><?php echo $equipo['EQUIPO_NOMBRE']; ?></h3>
 				</div>
-				<a href="<?php echo base_url('equipos/actualizar?id='.$equipo['ID_EQUIPO']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
+				<a href="<?php echo base_url('index.php/equipos/actualizar?id='.$equipo['ID_EQUIPO']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
 				<hr>
 				<?php echo $equipo['EQUIPO_DESCRIPCION']; ?>
 				<hr>
@@ -16,7 +16,7 @@
 					<?php foreach ($usuarios as $usuario) { ?>
 						<?php $detalles_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]); ?>
 						<li class="list-inline-item">
-							<a href="<?php echo base_url('lista_usuarios/detalles?id='.$detalles_usuario['ID_USUARIO']); ?>">
+							<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$detalles_usuario['ID_USUARIO']); ?>">
 							<img src="<?php echo base_url('contenido/img/usuarios/'.$detalles_usuario['IMAGEN']); ?>" title="<?php echo $detalles_usuario['USUARIO_NOMBRE'].' '.$detalles_usuario['USUARIO_APELLIDOS']; ?>" width="50px" class="rounded-circle border border-secondary" alt="">
 							</a>
 						</li>
@@ -29,5 +29,5 @@
 			<?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_proyectos', $proyectos); ?>
 		</div>
 	</div>
-	<a href="<?php echo base_url('proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success btn-round btn-circulo-flotante"> <i class="fa fa-plus"></i> </a>
+	<a href="<?php echo base_url('index.php/proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success btn-round btn-circulo-flotante"> <i class="fa fa-plus"></i> </a>
 </div>

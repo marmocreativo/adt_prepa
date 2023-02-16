@@ -10,12 +10,12 @@ class Admin_Publicaciones extends CI_Controller {
 		// Verifico Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
 			$this->session->set_flashdata('alerta', 'Debes iniciar sesión para continuar');
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Verifico Permiso
 		if(!verificar_permiso(['administrador'])){
 			$this->session->set_flashdata('alerta', 'No tienes permiso de entrar en esa sección');
-			redirect(base_url('usuario'));
+			redirect(base_url('index.php/usuario'));
 		}
 
 
@@ -262,7 +262,7 @@ class Admin_Publicaciones extends CI_Controller {
 		$consulta = base64_encode(json_encode($consulta));
 
 		$this->session->set_flashdata('exito', 'Borrador creado correctamente');
-		redirect(base_url('admin/publicaciones/actualizar?id='.$publicacion_id.'&consulta='.$consulta));
+		redirect(base_url('index.php/admin/publicaciones/actualizar?id='.$publicacion_id.'&consulta='.$consulta));
 	}
 
 	public function actualizar()
@@ -398,16 +398,16 @@ class Admin_Publicaciones extends CI_Controller {
 			$this->session->set_flashdata('exito', 'Publicación actualizada correctamente');
 			switch ($this->input->post('Guardar')) {
 				case 'continuar':
-					redirect(base_url('admin/publicaciones/actualizar?id='.$this->input->post('Identificador').'&consulta='.base64_encode(json_decode($consulta))));
+					redirect(base_url('index.php/admin/publicaciones/actualizar?id='.$this->input->post('Identificador').'&consulta='.base64_encode(json_decode($consulta))));
 					break;
 				case 'salir':
-					redirect(base_url('admin/publicaciones?tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
+					redirect(base_url('index.php/admin/publicaciones?tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
 					break;
 				case 'relaciones':
-					redirect(base_url('admin/publicaciones/relaciones?id='.$this->input->post('Identificador').$consulta->busqueda));
+					redirect(base_url('index.php/admin/publicaciones/relaciones?id='.$this->input->post('Identificador').$consulta->busqueda));
 					break;
 				default:
-					redirect(base_url('admin/publicaciones/multimedia?tipo='.$this->input->post('Guardar').'&id='.$this->input->post('Identificador').'&consulta='.base64_encode(json_decode($consulta))));
+					redirect(base_url('index.php/admin/publicaciones/multimedia?tipo='.$this->input->post('Guardar').'&id='.$this->input->post('Identificador').'&consulta='.base64_encode(json_decode($consulta))));
 					break;
 			}
 
@@ -501,7 +501,7 @@ class Admin_Publicaciones extends CI_Controller {
 
 		// Mensaje Feedback
 		$this->session->set_flashdata('exito', 'Publicación actualizada correctamente');
-		redirect(base_url('admin/publicaciones?categoria='.$consulta->categoria.'&tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
+		redirect(base_url('index.php/admin/publicaciones?categoria='.$consulta->categoria.'&tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
 	}
 
 	public function borrar()
@@ -516,7 +516,7 @@ class Admin_Publicaciones extends CI_Controller {
 
 		// Mensaje Feedback
 		$this->session->set_flashdata('exito', 'Publicación enviada a la papelería');
-		redirect(base_url('admin/publicaciones?categoria='.$consulta->categoria.'&tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
+		redirect(base_url('index.php/admin/publicaciones?categoria='.$consulta->categoria.'&tipo='.$consulta->tipo.'&orden='.$consulta->orden.'&mostrar_por_pagina='.$consulta->mostrar_por_pagina.'&pagina='.$consulta->pagina.'&busqueda='.$consulta->busqueda));
 	}
 
 
@@ -537,12 +537,12 @@ class Admin_Publicaciones extends CI_Controller {
 					// Mensaje Feedback
 					$this->session->set_flashdata('exito', 'Publicación borrada');
 					//  Redirecciono
-          redirect(base_url('admin/publicaciones?tipo='.$publicacion['TIPO']));
+          redirect(base_url('index.php/admin/publicaciones?tipo='.$publicacion['TIPO']));
       } else {
 				// Mensaje Feedback
 				$this->session->set_flashdata('alerta', 'La Entrada que intentaste borrar no existe');
 				//  Redirecciono
-         redirect(base_url('admin/publicaciones'));
+         redirect(base_url('index.php/admin/publicaciones'));
 			}
 	}
 }

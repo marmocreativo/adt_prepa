@@ -1,5 +1,5 @@
 <div class="lista_equipos">
-<form action="<?php echo base_url('lista_usuarios/actualizar') ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('index.php/lista_usuarios/actualizar') ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="consulta" value="<?php echo verificar_variable('GET','consulta',''); ?>">
 	<input type="hidden" name="Identificador" value="<?php echo $usuario['ID_USUARIO']; ?>">
 	<input type="hidden" name="Tipo" value="<?php echo $usuario['TIPO']; ?>">

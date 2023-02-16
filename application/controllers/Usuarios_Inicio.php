@@ -48,7 +48,7 @@ class Usuarios_Inicio extends CI_Controller {
 
 		// Inicio Sesión
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Datos Generales
 		$this->data['titulo']  = 'Panel de Usuario';
@@ -137,7 +137,7 @@ class Usuarios_Inicio extends CI_Controller {
 			$this->data['info']['Usuario'] = $this->input->post('UsuarioNombre').' '.$this->input->post('UsuarioApellidos');
 			$this->data['info']['Mensaje'] = 'Tu registro con nosotros está completo, podrás disfrutar de los beneficios de nuestro sitio.';
 			$this->data['info']['TextoBoton'] = 'Iniciar sesión';
-			$this->data['info']['EnlaceBoton'] = base_url('login');
+			$this->data['info']['EnlaceBoton'] = base_url('index.php/login');
 			$this->data['info']['MensajeSecundario'] = 'Es un placer servirle, puedes encontrarnos en nuestro sitio web';
 			$this->data['info']['Despedida'] = 'Suerte!';
 			$this->data['info']['Contacto'] = 'Puedes encontrarnos en '.$this->data['op']['correo_sitio'];
@@ -158,7 +158,7 @@ class Usuarios_Inicio extends CI_Controller {
 			}
 
 			// redirecciono
-			redirect(base_url('login'));
+			redirect(base_url('index.php/login'));
 		}else{
 			// Si no hay formulario cargo vistas básicas
 			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_login',$this->data);
@@ -300,7 +300,7 @@ class Usuarios_Inicio extends CI_Controller {
 			}
 
 			// Redirecciono
-			redirect(base_url('usuarios/detalles?id='.$this->input->post('Identificador')));
+			redirect(base_url('index.php/usuarios/detalles?id='.$this->input->post('Identificador')));
 
 		}else{
 			$this->data['usuario'] = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_SESSION['usuario']['id']]);
@@ -315,7 +315,7 @@ class Usuarios_Inicio extends CI_Controller {
 	public function actualizar_pass()
 	{
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
-			redirect(base_url('login?url_redirect='.base_url(uri_string().'?'.$_SERVER['QUERY_STRING'])));
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
 		// Open Tags
 		$this->data['titulo']  = 'Usuarios | '.$this->data['op']['titulo_sitio'];
@@ -341,10 +341,10 @@ class Usuarios_Inicio extends CI_Controller {
 				);
 				// Actualizo la contraseña
 				$this->AutenticacionModel->restaurar_pass($id,$parametros);
-				redirect(base_url('usuarios/actualizar'));
+				redirect(base_url('index.php/usuarios/actualizar'));
 			}else{
 				// Repido proceso
-				redirect(base_url('usuarios/actualizar_pass'));
+				redirect(base_url('index.php/usuarios/actualizar_pass'));
 			}
 			//$usuario_id = $this->UsuariosModel->actualizar($_SESSION['usuario']['id'],$parametros);
 			//

@@ -1,5 +1,5 @@
 <div class="contenido_principal">
-<form action="<?php echo base_url('admin/actualizar_opcion') ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url('index.php/admin/actualizar_opcion') ?>" method="post" enctype="multipart/form-data">
 <input type="hidden" name="Identificador" value="<?php echo $opcion['ID']; ?>">
 <div class="row mb-4">
 	<div class="col-8">

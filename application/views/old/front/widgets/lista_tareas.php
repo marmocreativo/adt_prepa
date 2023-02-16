@@ -32,7 +32,7 @@ Progreso
       </li>
     <?php } ?>
   <li class="list-group-item">
-    <a href="<?php echo base_url('tareas/detalles?id='.$tarea->ID_TAREA); ?>" class="d-flex row">
+    <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>" class="d-flex row">
       <?php
         // variables de estado
         switch ($tarea->ESTADO) {
