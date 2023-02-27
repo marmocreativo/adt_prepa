@@ -77,6 +77,16 @@ class Front_Tareas extends CI_Controller {
 
 		// Vistas
 	}
+
+	public function mensajes()
+	{
+		$mensajes = $this->GeneralModel->lista('tareas_mensajes','','','','','');
+		foreach($mensajes as $mensaje){
+			echo $mensaje->MENSAJE.' ----> '.$mensaje->TIPO.'<br>';
+		}
+
+	}
+
 	public function crear()
 	{
 		$this->form_validation->set_rules('TareaTitulo', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));

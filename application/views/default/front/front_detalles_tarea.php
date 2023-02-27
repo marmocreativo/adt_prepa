@@ -10,6 +10,30 @@
 	<div class="col-12 col-md-4">
 
 		<div class="proyecto <?php echo $modo; ?>" style="overflow: visible;">
+		<?php
+			switch ($tarea['ESTADO']) {
+				case 'en desarrollo':
+					$color_estado = 'warning';
+					$texto_estado = 'text-white';
+					break;
+				
+				case 'completo':
+					$color_estado = 'success';
+					$texto_estado = 'text-white';
+					break;
+				
+				case 'pendiente':
+					$color_estado = 'light';
+					$texto_estado = '';
+					break;
+				
+				default:
+					$color_estado = 'light';
+					$texto_estado = '';
+					break;
+			}
+		?>
+			<div class="alert bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $tarea['ESTADO'] ?></div>
 			<table class="table table-bordered table-sm">
 				<tbody>
 					<tr>
@@ -152,6 +176,7 @@
 										<?php if(!empty($mensaje->ASIGNACIONES)){ ?>
 											<?php $lista_asignados = explode(', ',$mensaje->ASIGNACIONES); ?>
 											<ul class="list-inline">
+												<li class="list-inline-item">Reasignado a:</li>
 												<?php foreach ($lista_asignados as $asignacion) { ?>
 													<?php if(!empty($asignacion)){ ?>
 													<li class="list-inline-item">
@@ -181,10 +206,12 @@
 									<?php } ?>
 									<div class="text-end" style="font-size:12px;">
 										<?php echo fechas_es($mensaje->FECHA_REGISTRO).' '.date('g:i a', strtotime($mensaje->FECHA_REGISTRO)); ?>
+										<!--
 										<hr>
 										<a class="btn btn-outline-warning" data-bs-toggle="collapse" href="#formulario_mensaje_<?php echo $mensaje->ID; ?>" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
 											Editar
 										</a>
+													-->
 										<div class="collapse p-4 bg-light" id='formulario_mensaje_<?php echo $mensaje->ID; ?>'>
 												<form class="" action="<?php echo base_url('index.php/tareas/actualizar_mensaje'); ?>" method="post">
 													<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
