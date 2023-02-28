@@ -8,8 +8,9 @@
 <div class="row">
 
 	<div class="col-12 col-md-4">
-
+		
 		<div class="proyecto <?php echo $modo; ?>" style="overflow: visible;">
+		<h1 class="h4"><?php echo $tarea['TAREA_TITULO'] ?></h1>
 		<?php
 			switch ($tarea['ESTADO']) {
 				case 'en desarrollo':
