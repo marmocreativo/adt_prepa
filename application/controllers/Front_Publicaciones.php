@@ -33,7 +33,7 @@ class Front_Publicaciones extends CI_Controller {
 			$this->data['modo'] = 'dia';
 		}
 	}
-
+	
 	public function index()
 	{
 		// Verifico el switch de mantenimiento

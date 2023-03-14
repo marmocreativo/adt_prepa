@@ -11,7 +11,6 @@
           </div>
           <div class="col-10">
             <h3 class="h5"><?php echo $proyecto->PROYECTO_NOMBRE; ?></h3>
-            <?php echo character_limiter($proyecto->PROYECTO_DESCRIPCION, 100); ?>
           </div>
         </div>
 
@@ -53,7 +52,7 @@
                 $color = 'bg-success';
               }
             ?>
-            <div class="progress bg-dark mt-3">
+            <div class="progress <?php if($modo!='noche'){ echo 'bg-dark'; } ?> mt-3">
               <div class="progress-bar <?php echo $color; ?>" role="progressbar" style="width: <?php echo $porcentaje_tareas; ?>%" aria-valuenow="<?php echo $porcentaje_tareas; ?>" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>

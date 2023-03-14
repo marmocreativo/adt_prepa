@@ -2,7 +2,6 @@
 <div class="col-12 col-md-6">
 	<form class="" action="<?php echo base_url('index.php/tareas/actualizar'); ?>" method="post">
 		<input type="hidden" name="Identificador" value="<?php echo $tarea['ID_TAREA']; ?>">
-		<input type="hidden" name="IdProyecto" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
 		<input type="hidden" name="Tipo" value="general">
 	<div class="modal-body">
 		<div class="form-group">
@@ -41,6 +40,16 @@
 				</div>
 			</div>
 			<div class="col-12 col-md-6">
+			<div class="form-group">
+					<label for="IdProyecto">Proyecto</label>
+					<?php $proyectos = $this->GeneralModel->lista('proyectos','',['ESTADO !='=>'borrado'],'','',''); ?>
+					<select class="form-control" name="IdProyecto">
+						<option value="" <?php if($tarea['ESTADO']=='pendiente'){ echo 'selected'; } ?>>Ningúno</option>
+						<?php foreach($proyectos as $proyecto){ ?>
+							<option value="<?php echo $proyecto->ID_PROYECTO; ?>" <?php if($tarea['ID_PROYECTO']==$proyecto->ID_PROYECTO){ echo 'selected'; } ?>><?php echo $proyecto->PROYECTO_NOMBRE; ?></option>
+						<?php } ?>
+					</select>
+				</div>
 				<input type="hidden" name="Prioridad" value="<?php echo $tarea['PRIORIDAD']; ?>">
 				<div class="form-group">
 					<label for="Estado">Estado</label>

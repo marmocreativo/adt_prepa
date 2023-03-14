@@ -174,7 +174,7 @@ class Front_Proyectos extends CI_Controller {
 		$this->form_validation->set_rules('ProyectoNombre', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
 
 		if($this->form_validation->run())
-    {
+    	{
 
 			/*
 			PROCESO DE LA IMAGEN
@@ -278,7 +278,7 @@ class Front_Proyectos extends CI_Controller {
 
 			redirect(base_url('index.php/proyectos/detalles?id='.$this->input->post('Identificador')));
 
-    }else{
+    	}else{
 
 			$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
 			$this->data['tipo'] = $this->data['proyecto']['TIPO'];
@@ -296,6 +296,7 @@ class Front_Proyectos extends CI_Controller {
 		}
 
 	}
+
 	public function detalles(){
 		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
 		$this->data['tipo'] = $this->data['proyecto']['TIPO'];
@@ -321,7 +322,7 @@ class Front_Proyectos extends CI_Controller {
 		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','','');
 
 		// Cargo Vistas
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_proyectos',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_detalles_proyecto',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}

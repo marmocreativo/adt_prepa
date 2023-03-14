@@ -14,7 +14,7 @@
 	<input type="hidden" name="ProyectoDuracion" value="temporal">
 	<div class="row mb-4">
 		<div class="col">
-			<h5>Actualizar Proyecto</h5>
+			<h5>Borrador de proyecto</h5>
 		</div>
 	</div>
 	<div class="row mb-4">

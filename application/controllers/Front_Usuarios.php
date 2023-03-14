@@ -158,13 +158,70 @@ class Front_Usuarios extends CI_Controller {
 
 
 	public function notificaciones()
-		{
+	{
 			// Verifico el switch de mantenimiento
 			if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 
-			// Consulta
-			$this->data['notificaciones'] = $this->GeneralModel->lista('notificaciones','',['ID_USUARIO'=>$_SESSION['usuario']['id']],'FECHA_CREACION DESC','','');
 
+			$this->data['consulta']=array();
+			$mostrar = verificar_variable('GET','mostrar','todo');
+			$this->data['consulta']['mostrar'] = $mostrar;
+			$busqueda = verificar_variable('GET','busqueda','');
+			$this->data['consulta']['busqueda'] = $busqueda;
+			$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',$this->data['op']['cantidad_publicaciones_por_pagina']);
+			$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
+			$pagina = verificar_variable('GET','pagina','1');
+			$this->data['consulta']['pagina'] = $pagina;
+			$agrupar = '';
+			$this->data['consulta']['agrupar'] = $agrupar;
+			$parametros_and = array();
+			$parametros_or = array();
+			
+			if($mostrar!='todo'){
+				$parametros_and['ESTADO'] = 'pendiente';
+			}
+
+			$parametros_and['ID_USUARIO'] = $_SESSION['usuario']['id'];
+
+			if(!empty($busqueda)){
+				$parametros_or['NOTIFICACION_CONTENIDO'] = $busqueda;
+			}
+			$tablas_join = array();
+
+			// Paginador
+			$this->data['pub_totales'] = $this->GeneralModel->conteo('notificaciones',$tablas_join,$parametros_or,$parametros_and,$agrupar);
+			$this->data['pub_por_pagina'] = $mostrar_por_pagina;
+			$this->data['cantidad_paginas'] = ceil($this->data['pub_totales']/$this->data['pub_por_pagina']);
+			$this->data['pagina'] = $pagina;
+
+			// Página siguiente
+			if($this->data['pagina']!=$this->data['cantidad_paginas']){
+				$this->data['pagina_siguiente']=$this->data['pagina'] +1;
+			}else{
+				$this->data['pagina_siguiente']=$this->data['pagina'];
+			}
+			// Página Anterior
+			if($this->data['pagina']!=1){
+				$this->data['pagina_anterior']=$this->data['pagina'] -1;
+			}else{
+				$this->data['pagina_anterior']=$this->data['pagina'];
+			}
+			// Offset
+			if($this->data['pagina']!=1){
+				$this->data['offset'] =$this->data['pub_por_pagina']*($this->data['pagina']-1);
+			}else{
+				$this->data['offset']='';
+			}
+			// Consultas rápidas
+			$this->data['consulta_actual'] = 'busqueda='.$busqueda.'&mostrar='.$mostrar.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$pagina;
+			$this->data['consulta_siguiente'] = 'busqueda='.$busqueda.'&mostrar='.$mostrar.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$this->data['pagina_siguiente'];
+			$this->data['consulta_anterior'] = 'busqueda='.$busqueda.'&mostrar='.$mostrar.'&mostrar_por_pagina='.$mostrar_por_pagina.'&pagina='.$this->data['pagina_anterior'];
+
+			// Consulta
+			$this->data['notificaciones'] = $this->GeneralModel->lista_join('notificaciones',$tablas_join,$parametros_or,$parametros_and,'FECHA_CREACION DESC',$mostrar_por_pagina,$this->data['offset'],$agrupar);
+			//elimino el numero de leido
+
+			$this->GeneralModel->actualizar('notificaciones',['ID_USUARIO'=>$_SESSION['usuario']['id']],['LEIDO'=>'si']);
 
 			// Open Tags
 			$this->data['titulo']  = 'Notificaciones';
@@ -176,6 +233,17 @@ class Front_Usuarios extends CI_Controller {
 			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 
 	}
+
+	public function leer_todas_las_notificaciones(){
+		$this->GeneralModel->actualizar('notificaciones',['ID_USUARIO'=>$_SESSION['usuario']['id']],['ESTADO'=>'leido']);
+		redirect(base_url('index.php/lista_usuarios/notificaciones'));
+	}
+
+	public function borrar_todas_las_notificaciones(){
+		$this->GeneralModel->borrar('notificaciones',['ID_USUARIO'=>$_SESSION['usuario']['id']]);
+		redirect(base_url('index.php/lista_usuarios/notificaciones'));
+	}
+
 	public function leer_notificaciones()
 		{
 			// Verifico el switch de mantenimiento

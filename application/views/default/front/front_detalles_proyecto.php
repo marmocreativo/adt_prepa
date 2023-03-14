@@ -1,6 +1,31 @@
 <div class="row ">
 	<div class="col-12 col-md-4">
 		<div class="proyecto <?php echo $modo; ?> border-0 border-bottom border-end">
+			<h1 class="h4"><?php echo $proyecto['PROYECTO_NOMBRE'] ?></h1>
+			<?php
+				switch ($proyecto['ESTADO']) {
+					case 'en desarrollo':
+						$color_estado = 'warning';
+						$texto_estado = 'text-white';
+						break;
+					
+					case 'completo':
+						$color_estado = 'success';
+						$texto_estado = 'text-white';
+						break;
+					
+					case 'pendiente':
+						$color_estado = 'light';
+						$texto_estado = '';
+						break;
+					
+					default:
+						$color_estado = 'light';
+						$texto_estado = '';
+						break;
+				}
+			?>
+			<div class="alert bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></div>
 			<?php echo $proyecto['PROYECTO_DESCRIPCION']; ?>
 			<hr>
 			<table class="table table-bordered">
@@ -40,6 +65,13 @@
 		</div>
 	</div>
 	<div class="col-12 col-md-8">
+		<div class="mb-3">
+		<?php if($proyecto['ESTADO']!='terminado'){ ?>
+			<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#NuevaTarea" title="Nueva tarea">
+				<i class="fa fa-plus"></i> Nueva tarea
+			</button>
+		<?php } ?>
+		</div>
 		<?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_tareas', $tareas); ?>
 	</div>
 </div>

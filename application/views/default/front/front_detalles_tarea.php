@@ -171,6 +171,7 @@
 							</div>
 							<div class="col-11 pl-0">
 								<div class="proyecto" style="border-radius: 0 20px 20px 20px;">
+									<h5><?php echo $array_usuarios[$mensaje->ID_USUARIO]['NOMBRE']; ?>:</h5>
 									<?php echo $mensaje->MENSAJE; ?>
 									<?php if($mensaje->TIPO=='reasignacion'){ ?>
 										<hr>
@@ -207,14 +208,16 @@
 									<?php } ?>
 									<div class="text-end" style="font-size:12px;">
 										<?php echo fechas_es($mensaje->FECHA_REGISTRO).' '.date('g:i a', strtotime($mensaje->FECHA_REGISTRO)); ?>
-										<!--
+										<?php if($mensaje->ID_USUARIO==$_SESSION['usuario']['id']){ ?>
 										<hr>
-										<a class="btn btn-outline-warning" data-bs-toggle="collapse" href="#formulario_mensaje_<?php echo $mensaje->ID; ?>" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
+										<a class="btn btn-sm btn-outline-warning" data-bs-toggle="collapse" href="#formulario_mensaje_<?php echo $mensaje->ID; ?>" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
 											Editar
 										</a>
-													-->
+										<?php } ?>
+													
 										<div class="collapse p-4 bg-light" id='formulario_mensaje_<?php echo $mensaje->ID; ?>'>
 												<form class="" action="<?php echo base_url('index.php/tareas/actualizar_mensaje'); ?>" method="post">
+													<input type="hidden" name="Identificador" value="<?php echo $mensaje->ID; ?>">
 													<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
 													<input type="hidden" name="IdUsuario" value="<?php echo $_SESSION['usuario']['id']; ?>">
 													<input type="hidden" name="EstadoActual" value="<?php echo $tarea['ESTADO']; ?>">
@@ -223,7 +226,7 @@
 														<div class="col-6">
 															<div class="form-group">
 																<label for="Mensaje">Comentario</label>
-																<textarea name="Mensaje" class="TextEditorSmall"></textarea>
+																<textarea name="Mensaje" class="TextEditorSmall"><?php echo $mensaje->MENSAJE; ?></textarea>
 															</div>
 														</div>
 														<div class="col-3">

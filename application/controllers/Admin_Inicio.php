@@ -50,13 +50,21 @@ class Admin_Inicio extends CI_Controller {
 	}
 
 	public function index()
-	{
+	{	
+		$this->load->dbforge(); // carga la clase Database Forge
+		
+		$fields = array(
+			'LEIDO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => '256', // el tamaño máximo de la columna
+					'default' => 'no'
+			),
+		);
+		
+		
+		$resultado = $this->dbforge->add_column('notificaciones', $fields);
 
-
-		// Cargo Vistas
-		$this->load->view('default'.$this->data['dispositivo'].'/admin/header_principal',$this->data);
-		$this->load->view('default'.$this->data['dispositivo'].'/admin/pagina_inicio',$this->data);
-		$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
+		var_dump($resultado);
 	}
 
 	public function opciones()
