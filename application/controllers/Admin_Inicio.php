@@ -54,7 +54,7 @@ class Admin_Inicio extends CI_Controller {
 		
 		// Carga la librería de base de datos
 			$this->load->dbforge();
-		/*	
+		
 			// Define los campos de la tabla
 			$fields = array(
 				'ID_LISTA' => array(
@@ -393,9 +393,7 @@ class Admin_Inicio extends CI_Controller {
 
 			// Agrega la columna a la tabla
 			$this->dbforge->add_column('areas', $field);
-			*/
-			// Carga la librería de base de datos
-			$this->load->dbforge();
+
 
 			// Borra la tabla
 			$this->dbforge->drop_table('areas_usuarios');
@@ -419,8 +417,6 @@ class Admin_Inicio extends CI_Controller {
 				),
 			);
 
-			// Carga la librería de base de datos
-			$this->load->dbforge();
 
 			// Agrega las columnas a la tabla
 			$this->dbforge->add_field($fields);

@@ -20,7 +20,7 @@
 			<hr>
 			<ul class="list-group">
 			<?php foreach($listas as $lista){ ?>
-				<li class="list-group-item d-flex justify-content-between"><?php echo $lista->TITULO; ?> <a href="<?php echo base_url('index.php/listas/dimensiones?id='.$lista->ID_LISTA); ?>" class="btn btn-sm btn-outline-primary"> Ver dimensiones</a></li>
+				<li class="list-group-item d-flex justify-content-between"><?php echo $lista->TITULO; ?> <div class="btn-group"> <a href="<?php echo base_url('index.php/listas/dimensiones?id='.$lista->ID_LISTA); ?>" class="btn btn-sm btn-outline-primary"> Ver dimensiones</a> <button data-enlace="<?php echo base_url('index.php/listas/borrar_lista?id='.$lista->ID_LISTA); ?>" class="btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</button></div></li>
 			<?php } ?>
 			</ul>
 		</div>

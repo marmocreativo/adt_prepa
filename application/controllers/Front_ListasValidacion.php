@@ -102,7 +102,87 @@ class Front_ListasValidacion extends CI_Controller {
 		}
 
 		redirect(base_url('index.php/listas/dimensiones?id='.$_POST['IdLista']));
-	} 
+	}
+	
+	public function crear_parametro(){
+		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
+			$parametros = array(
+				'ID_DIMENSION' => $_POST['IdDimension'],
+				'TITULO' => $_POST['Titulo'],
+				'DESCRIPCION' => '',
+				'ESTADO' => 'activo'
+			);
+
+			$id_parametro = $this->GeneralModel->crear('validacion_parametros',$parametros);
+
+			// Meta Datos
+			if(!empty($_POST['Meta'])){
+				foreach($_POST['Meta'] as $nombre => $valor){
+					$parametros_meta = array(
+						'ID_OBJETO'=>$id_parametro,
+						'DATO_NOMBRE'=>$nombre,
+						'DATO_VALOR'=>$valor,
+						'TIPO_OBJETO'=>'parametro',
+					);
+
+					// Creo las entradas a la galeria
+					$this->GeneralModel->crear('meta_datos',$parametros_meta);
+				}
+			}
+		}
+
+		redirect(base_url('index.php/listas/dimensiones?id='.$_POST['IdLista'].'&dimension='.$_POST['IdDimension']));
+	}
+
+	public function borrar_lista(){
+		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_GET['id']]);
+		
+
+        // check if the institucione exists before trying to delete it
+        if(isset($lista['ID_LISTA']))
+        {
+			$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$lista['ID_LISTA']],'','','');
+			foreach($dimensiones as $dimension){
+				$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
+				foreach($parametros as $parametro){
+					//borro los metadatos
+					$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$parametro->ID_PARAMETRO,'TIPO_OBJETO'=>'parametro']);
+				}
+				// borro los parametros
+				$this->GeneralModel->borrar('validacion_parametros',['ID_DIMENSION'=>$dimension->ID_DIMENSION]);
+			}
+			//borro las dimensiones
+			$this->GeneralModel->borrar('validacion_dimension',['ID_LISTA'=>$lista['ID_LISTA']]);
+
+			//borro la lista
+			$this->GeneralModel->borrar('validacion_lista',['ID_LISTA'=>$_GET['id']]);
+
+            redirect(base_url('index.php/listas'));
+        } else {
+					// Mensaje Feedback
+					//  Redirecciono
+		redirect(base_url('index.php/listas'));
+		}
+	}
+
+	public function borrar_parametro(){
+		$parametro = $this->GeneralModel->detalles('validacion_parametros',['ID_PARAMETRO'=>$_GET['id']]);
+		$dimension = $this->GeneralModel->detalles('validacion_dimension',['ID_DIMENSION'=>$parametro['ID_DIMENSION']]);
+
+        // check if the institucione exists before trying to delete it
+        if(isset($parametro['ID_PARAMETRO']))
+        {
+						// Borro la categoría
+            $this->GeneralModel->borrar('validacion_parametros',['ID_PARAMETRO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'parametro']);
+
+            redirect(base_url('index.php/listas/dimensiones?id='.$dimension['ID_LISTA']));
+        } else {
+					// Mensaje Feedback
+					//  Redirecciono
+		redirect(base_url('index.php/listas'));
+		}
+	}
 
 
 }
