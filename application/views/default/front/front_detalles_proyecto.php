@@ -31,11 +31,11 @@
 			<table class="table table-bordered">
 				<tr>
 					<td><i class="fas fa-calendar-plus"></i> Inicio</td>
-					<td><?php echo fechas_es($proyecto['FECHA_INICIO']); ?></td>
+					<td><?php if($proyecto['FECHA_INICIO'] != null ){ echo fechas_es($proyecto['FECHA_INICIO']); }else{ echo 'N/A'; } ?></td>
 				</tr>
 				<tr>
 					<td><i class="fas fa-stopwatch"></i>Final</td>
-					<td><?php echo fechas_es($proyecto['FECHA_FINAL']); ?></td>
+					<td><?php if($proyecto['FECHA_FINAL'] != null ){ echo fechas_es($proyecto['FECHA_FINAL']); }else{ echo 'N/A'; } ?></td>
 				</tr>
 				<tr>
 					<td>Estado</td>

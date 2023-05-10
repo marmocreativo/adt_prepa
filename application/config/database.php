@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-
+/*
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '10.3.27.213',
@@ -95,14 +95,14 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+*/
 
-/*
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'quarkser_naumann',
-	'password' => '135nauman',
-	'database' => 'quarkser_naumann',
+	'username' => 'polaris',
+	'password' => 'polaris',
+	'database' => 'polaris',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -118,4 +118,4 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-*/
+

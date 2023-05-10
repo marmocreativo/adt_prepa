@@ -68,6 +68,7 @@ class Front_Areas extends CI_Controller {
 		$parametros_or = array();
 
 		$parametros_and['areas.ESTADO'] = 'activo';
+		$parametros_and['areas.ID_PADRE'] = '0';
 
 		if(!empty($busqueda)){
 			$parametros_or['areas.AREA_NOMBRE'] = $busqueda;
@@ -219,17 +220,20 @@ class Front_Areas extends CI_Controller {
 				$imagen_fondo = $this->input->post('ImagenFondoActual');
 			}
 
+			$id_padre = 0;
+			if(null !== $this->input->post('IdPadre')){ $id_padre = $this->input->post('IdPadre'); }
 
 			$parametros = array(
-				'AREA_NOMBRE' =>  $this->input->post('EquipoNombre'),
+				'AREA_NOMBRE' =>  $this->input->post('AreaNombre'),
 				'URL' =>  $this->input->post('Url'),
-				'AREA_DESCRIPCION' =>  $this->input->post('EquipoDescripcion'),
+				'AREA_DESCRIPCION' =>  $this->input->post('AreaDescripcion'),
 				'IMAGEN' => $imagen,
 				'IMAGEN_FONDO' => $imagen_fondo,
-				'COLOR' =>  $this->input->post('EquipoColor'),
+				'COLOR' =>  $this->input->post('AreaColor'),
 				'TIPO' =>  $this->input->post('Tipo'),
 				'ESTADO' =>  $this->input->post('Estado'),
 				'ORDEN' =>  $this->input->post('Orden'),
+				'ID_PADRE' => $id_padre
 			);
 
       $this->GeneralModel->actualizar('areas',['ID_AREA'=>$this->input->post('Identificador')],$parametros);
@@ -247,21 +251,6 @@ class Front_Areas extends CI_Controller {
 					);
 					// Creo las entradas a la galeria
 					$this->GeneralModel->crear('meta_datos',$parametros_meta);
-				}
-			}
-
-			// USUARIOS
-			// Borro las categorías existentes
-			$this->GeneralModel->borrar('areas_usuarios',['ID_AREA'=>$this->input->post('Identificador')]);
-
-			if(isset($_POST['AreasUsuarios'])&&!empty($_POST['EquiposUsuarios'])){
-				foreach($_POST['AreasUsuarios'] as $usuario){
-					$parametros = array(
-						'ID_AREA' => $this->input->post('Identificador'),
-						'ID_USUARIO' => $usuario
-		      );
-					// Creo la relación de categorías
-		      $this->GeneralModel->crear('areas_usuarios',$parametros);
 				}
 			}
 
@@ -325,31 +314,29 @@ class Front_Areas extends CI_Controller {
 	}
 
 	public function borrar(){
-		$equipo = $this->GeneralModel->detalles('equipos',['ID_EQUIPO'=>$_GET['id']]);
+		$area = $this->GeneralModel->detalles('areas',['ID_AREA'=>$_GET['id']]);
 
         // check if the institucione exists before trying to delete it
-        if(isset($equipo['ID_EQUIPO']))
+        if(isset($area['ID_AREA']))
         {
 						// Borro la categoría
-            $this->GeneralModel->borrar('equipos',['ID_EQUIPO'=>$_GET['id']]);
+            $this->GeneralModel->borrar('areas',['ID_AREA'=>$_GET['id']]);
 
-						$proyectos = $this->GeneralModel->lista('equipos_proyectos','',['ID_EQUIPO'=>$_GET['id']],'','','');
-						foreach($proyectos as $proyecto){
-							$this->GeneralModel->borrar('proyectos',['ID_PROYECTO'=>$proyecto->ID_PROYECTO]);
-							$this->GeneralModel->borrar('tareas',['ID_PROYECTO'=>$proyecto->ID_PROYECTO]);
-						}
-						$this->GeneralModel->borrar('equipos_proyectos',['ID_EQUIPO'=>$_GET['id']]);
-						$this->GeneralModel->borrar('equipos_usuarios',['ID_EQUIPO'=>$_GET['id']]);
+			$usuarios = $this->GeneralModel->borrar('areas_usuarios',['ID_AREA'=>$_GET['id']]);
+			$areas = $this->GeneralModel->actualizar('areas',['ID_PADRE'=>$_GET['id']],['ID_PADRE'=>0]);
+			$proyectos = $this->GeneralModel->actualizar('proyectos',['ID_AREA'=>$_GET['id']],['ID_AREA'=>0]);
+			$equipos = $this->GeneralModel->actualizar('proyectos',['ID_AREA'=>$_GET['id']],['ID_AREA'=>0]);
 
-
-
-						// Mensaje Feedback
-						//  Redirecciono
-            redirect(base_url('index.php/equipos'));
+            redirect(base_url('index.php/areas'));
         } else {
 					// Mensaje Feedback
 					//  Redirecciono
-	         redirect(base_url('index.php/admin/proyectos'));
-				}
+		redirect(base_url('index.php/areas'));
+		}
+	}
+
+	public function cambiar_area(){
+		$_SESSION['usuario']['area'] = $_GET['id'];
+		redirect(base_url('index.php/tareas'));
 	}
 }

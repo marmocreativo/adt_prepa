@@ -72,6 +72,7 @@ class Front_Proyectos extends CI_Controller {
 		$parametros_or = array();
 
 		$parametros_and['proyectos.ESTADO !='] = 'borrador';
+		$parametros_and['proyectos.ID_AREA'] = $_SESSION['usuario']['area'];
 
 		if(!empty($busqueda)){
 			$parametros_or['proyectos.PROYECTO_NOMBRE'] = $busqueda;
@@ -136,6 +137,7 @@ class Front_Proyectos extends CI_Controller {
 		$parametros = array(
 			'PROYECTO_NOMBRE' => 'Proyecto '.$id_borrador,
 			'URL' => 'Proyecto-'.$id_borrador,
+			'ID_AREA' => $_SESSION['usuario']['area'],
 			'PROYECTO_DESCRIPCION' => '',
 			'IMAGEN' => $imagen,
 			'IMAGEN_FONDO' => $imagen_fondo,
@@ -222,6 +224,7 @@ class Front_Proyectos extends CI_Controller {
 				'PROYECTO_NOMBRE' =>  $this->input->post('ProyectoNombre'),
 				'URL' =>  $this->input->post('Url'),
 				'PROYECTO_DESCRIPCION' =>  $this->input->post('ProyectoDescripcion'),
+				'ID_AREA' => $_SESSION['usuario']['area'],
 				'PRIORIDAD' =>  $this->input->post('Prioridad'),
 				'DURACION' =>  $this->input->post('ProyectoDuracion'),
 				'ENLACE_EDITABLE' =>  $this->input->post('EnlaceEditable'),
@@ -234,6 +237,8 @@ class Front_Proyectos extends CI_Controller {
 				'FECHA_FINAL' =>    date('Y-m-d', strtotime($this->input->post('FechaFinal'))),
 				'ESTADO' =>  $this->input->post('Estado'),
 				'ORDEN' =>  $this->input->post('Orden'),
+				'VALIDACION' =>  $this->input->post('Validacion'),
+				'ID_LISTA' =>  $this->input->post('Lista'),
 			);
 
 

@@ -51,20 +51,399 @@ class Admin_Inicio extends CI_Controller {
 
 	public function index()
 	{	
-		$this->load->dbforge(); // carga la clase Database Forge
 		
-		$fields = array(
-			'LEIDO' => array(
+		// Carga la librería de base de datos
+			$this->load->dbforge();
+		/*	
+			// Define los campos de la tabla
+			$fields = array(
+				'ID_LISTA' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE,
+					'auto_increment' => TRUE
+				),
+				'ID_AREA' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'TITULO' => array(
 					'type' => 'VARCHAR',
-					'constraint' => '256', // el tamaño máximo de la columna
-					'default' => 'no'
-			),
-		);
-		
-		
-		$resultado = $this->dbforge->add_column('notificaciones', $fields);
+					'constraint' => 255
+				),
+				'DESCRIPCION' => array(
+					'type' => 'TEXT'
+				),
+				'ESTADO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255,
+					'default' => 'activo'
+				)
+			);
 
-		var_dump($resultado);
+			// Define la clave primaria de la tabla
+			$this->dbforge->add_key('ID_LISTA', TRUE);
+
+			// Crea la tabla
+			$this->dbforge->add_field($fields);
+			$this->dbforge->create_table('validacion_lista');
+			
+
+
+
+			// Define los campos de la tabla
+			$fields = array(
+				'ID_DIMENSION' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE,
+					'auto_increment' => TRUE
+				),
+				'ID_LISTA' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'TITULO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255
+				),
+				'DESCRIPCION' => array(
+					'type' => 'TEXT'
+				),
+				'ORDEN' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'default' => 0
+				),
+				'ESTADO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255,
+					'default' => 'activo'
+				)
+			);
+
+			// Define la clave primaria de la tabla
+			$this->dbforge->add_key('ID_DIMENSION', TRUE);
+
+			// Crea la tabla
+			$this->dbforge->add_field($fields);
+			$this->dbforge->create_table('validacion_dimension');
+			
+
+
+			// Define los campos de la tabla
+			$fields = array(
+				'ID_PARAMETRO' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE,
+					'auto_increment' => TRUE
+				),
+				'ID_DIMENSION' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'TITULO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255
+				),
+				'DESCRIPCION' => array(
+					'type' => 'TEXT'
+				),
+				'OBLIGATORIO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255,
+					'default' => 'no'
+				),
+				'ORDEN' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'default' => 0
+				),
+				'ESTADO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255,
+					'default' => 'activo'
+				)
+			);
+
+			// Define la clave primaria de la tabla
+			$this->dbforge->add_key('ID_PARAMETRO', TRUE);
+
+			// Crea la tabla
+			$this->dbforge->add_field($fields);
+			$this->dbforge->create_table('validacion_parametros');
+			
+
+
+			// Define los campos de la tabla
+			$fields = array(
+				'ID_REVISION' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE,
+					'auto_increment' => TRUE
+				),
+				'ID_PROYECTO' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'ID_TAREA' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'ID_ENLACE' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'ID_LISTA' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'FECHA' => array(
+					'type' => 'TIMESTAMP'
+				),
+				'ID_RESPONSABLE' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255
+				),
+				'TOTAL_PARAMETROS' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'default' => 0
+				),
+				'TOTAL_VERIFICADOS' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'default' => 0
+				),
+				'ESTADO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255,
+					'default' => 'activo'
+				)
+			);
+
+			// Define la clave primaria de la tabla
+			$this->dbforge->add_key('ID_REVISION', TRUE);
+
+			// Crea la tabla
+			$this->dbforge->add_field($fields);
+			$this->dbforge->create_table('validacion_revisiones');
+			
+
+				// Define los campos de la tabla
+				$fields = array(
+					'ID_RESPUESTA' => array(
+						'type' => 'INT',
+						'constraint' => 11,
+						'unsigned' => TRUE,
+						'auto_increment' => TRUE
+					),
+					'ID_REVISION' => array(
+						'type' => 'INT',
+						'constraint' => 11,
+						'unsigned' => TRUE
+					),
+					'ID_TAREA' => array(
+						'type' => 'INT',
+						'constraint' => 11,
+						'unsigned' => TRUE
+					),
+					'ID_ENLACE' => array(
+						'type' => 'INT',
+						'constraint' => 11,
+						'unsigned' => TRUE
+					),
+					'ID_PARAMETRO' => array(
+						'type' => 'INT',
+						'constraint' => 11,
+						'unsigned' => TRUE
+					),
+					'ID_RESPONSABLE' => array(
+						'type' => 'VARCHAR',
+						'constraint' => 255
+					),
+					'VALOR' => array(
+						'type' => 'VARCHAR',
+						'constraint' => 255
+					),
+					'FECHA' => array(
+						'type' => 'TIMESTAMP'
+					)
+				);
+
+				// Define la clave primaria de la tabla
+				$this->dbforge->add_key('ID_RESPUESTA', TRUE);
+
+				// Crea la tabla
+				$this->dbforge->add_field($fields);
+				$this->dbforge->create_table('validacion_respuesta');
+			
+
+
+			// Define los campos de la tabla
+			$fields = array(
+				'ID_ENLACE' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE,
+					'auto_increment' => TRUE
+				),
+				'ID_PROYECTO' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'ID_TAREA' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'ETIQUETA' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255
+				),
+				'ENLACE' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255
+				),
+				'TIPO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255
+				)
+			);
+
+			// Define la clave primaria de la tabla
+			$this->dbforge->add_key('ID_ENLACE', TRUE);
+
+			// Crea la tabla
+			$this->dbforge->add_field($fields);
+			$this->dbforge->create_table('enlaces');
+			
+
+
+
+			// Define los campos de la tabla
+			$fields = array(
+				'ID_ROL' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE,
+					'auto_increment' => TRUE
+				),
+				'ID_TAREA' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'ID_USUARIO' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => TRUE
+				),
+				'ETIQUETA' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255
+				)
+			);
+
+			// Define la clave primaria de la tabla
+			$this->dbforge->add_key('ID_ROL', TRUE);
+
+			// Crea la tabla
+			$this->dbforge->add_field($fields);
+			$this->dbforge->create_table('roles');
+			
+
+			// Define las columnas a agregar
+			$fields = array(
+				'VALIDACION' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255,
+					'default' => 'si'
+				),
+				'ID_LISTA' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'default' => 0
+				)
+			);
+
+			// Agrega las columnas a la tabla
+			$this->dbforge->add_column('proyectos', $fields);
+			
+
+
+			// Define la columna a agregar
+			$field = array(
+				'ID_PADRE' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'default' => 0
+				)
+			);
+
+			// Agrega la columna a la tabla
+			$this->dbforge->add_column('areas', $field);
+			*/
+			// Carga la librería de base de datos
+			$this->load->dbforge();
+
+			// Borra la tabla
+			$this->dbforge->drop_table('areas_usuarios');
+
+			// Define las columnas de la tabla
+			$fields = array(
+				'ID' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => true,
+					'auto_increment' => true
+				),
+				'ID_USUARIO' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255,
+				),
+				'ID_AREA' => array(
+					'type' => 'INT',
+					'constraint' => 11,
+					'unsigned' => true,
+				),
+			);
+
+			// Carga la librería de base de datos
+			$this->load->dbforge();
+
+			// Agrega las columnas a la tabla
+			$this->dbforge->add_field($fields);
+
+			// Define la clave primaria
+			$this->dbforge->add_key('ID', true);
+
+			// Crea la tabla
+			$this->dbforge->create_table('areas_usuarios');
+
+	}
+	
+	public function ajuste_areas()
+	{
+		$usuarios = $this->GeneralModel->lista('usuarios','','','','','');
+		foreach($usuarios as $usuario){
+			$parametros = array(
+				'ID_USUARIO' => $usuario->ID_USUARIO,
+				'ID_AREA' => 1
+			);
+
+			$this->GeneralModel->crear('areas_usuarios',$parametros);
+		}
 	}
 
 	public function opciones()

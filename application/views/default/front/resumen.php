@@ -21,8 +21,9 @@
 		}
 		foreach($usuarios as $usuario){
 			$usuarios_totales ++;
+			$detalles_usuarios = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]);
 			$array_usuarios[$usuario->ID_USUARIO] = array(
-				'NOMBRE'=> $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS,
+				'NOMBRE'=> $detalles_usuarios['USUARIO_NOMBRE'].' '.$detalles_usuarios['USUARIO_APELLIDOS'],
 				'TAREAS'=> 0,
 				'TAREAS_PENDIENTES'=> 0,
 				'TAREAS_ATRASADAS'=> 0
@@ -42,8 +43,9 @@
 				$lista_usuarios = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea->ID_TAREA],'','','');
 				foreach($lista_usuarios as $list_usuario){
 					$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS'] ++;
-
-					if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))){
+					$fecha_final = '';
+					if($tarea->FECHA_FINAL != null ){ $fecha_final = $tarea->FECHA_FINAL; } 
+					if(date('Y-m-d')>date('Y-m-d', strtotime($fecha_final))){
 						$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS_ATRASADAS'] ++;
 					}else{
 						$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS_PENDIENTES'] ++;

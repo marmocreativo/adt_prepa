@@ -59,6 +59,7 @@ class Front_Tareas extends CI_Controller {
 		$parametros_and['tareas.FECHA_FINAL <='] = $this->data['consulta']['fecha_final'];
 		*/
 		$parametros_and['tareas.ESTADO !='] = 'completo';
+		$parametros_and['tareas.ID_AREA'] = $_SESSION['usuario']['area'];
 		$tablas_join = array();
 			$tablas_join['usuarios_tareas'] = 'usuarios_tareas.ID_TAREA = tareas.ID_TAREA';
 		$parametros_and['usuarios_tareas.ID_USUARIO'] = $_SESSION['usuario']['id'];

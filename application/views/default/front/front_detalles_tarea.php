@@ -38,8 +38,8 @@
 			<table class="table table-bordered table-sm">
 				<tbody>
 					<tr>
-						<td title="Fecha de inicio"><i class="fas fa-calendar-plus"></i> <?php echo fechas_es($tarea['FECHA_INICIO']); ?></td>
-						<td title="Dead line"><i class="fas fa-stopwatch"></i> <?php echo fechas_es($tarea['FECHA_FINAL']); ?></td>
+						<td title="Fecha de inicio"><i class="fas fa-calendar-plus"></i> <?php if($tarea['FECHA_INICIO'] != null ){ echo fechas_es($tarea['FECHA_INICIO']); }else{ echo 'N/A'; } ?></td>
+						<td title="Dead line"><i class="fas fa-stopwatch"></i> <?php if($tarea['FECHA_FINAL'] != null ){ echo fechas_es($tarea['FECHA_FINAL']); }else{ echo 'N/A'; } ?></td>
 						<td class="text-end"> <a href="<?php echo base_url('index.php/tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="fa fa-pencil"></i> Editar tarea </a> </td>
 					</tr>
 				</tbody>

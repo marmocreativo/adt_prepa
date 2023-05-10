@@ -8,7 +8,7 @@ class Front_Usuarios extends CI_Controller {
 
 	public function __construct(){
 
-  parent::__construct();
+  	parent::__construct();
 
 		// Cargo las Opciones
 
@@ -278,7 +278,7 @@ class Front_Usuarios extends CI_Controller {
 		));
 
 		if($this->form_validation->run())
-    {
+    	{
 
 			// Creo el identificador Único
 			$id_usuario = uniqid('', true);
@@ -446,15 +446,15 @@ class Front_Usuarios extends CI_Controller {
 
 				// USUARIOS
 				// Borro las categorías existentes
-				$this->GeneralModel->borrar('equipos_usuarios',['ID_USUARIO'=>$this->input->post('Identificador')]);
-				if(isset($_POST['EquiposUsuarios'])&&!empty($_POST['EquiposUsuarios'])){
-					foreach($_POST['EquiposUsuarios'] as $equipo){
+				$this->GeneralModel->borrar('areas_usuarios',['ID_USUARIO'=>$this->input->post('Identificador')]);
+				if(isset($_POST['AreasUsuarios'])&&!empty($_POST['AreasUsuarios'])){
+					foreach($_POST['AreasUsuarios'] as $area){
 						$parametros = array(
 							'ID_USUARIO' => $this->input->post('Identificador'),
-							'ID_EQUIPO' => $equipo
+							'ID_AREA' => $area
 			      );
 						// Creo la relación de categorías
-			      $this->GeneralModel->crear('equipos_usuarios',$parametros);
+			      $this->GeneralModel->crear('areas_usuarios',$parametros);
 					}
 				}
 				// Redirecciono

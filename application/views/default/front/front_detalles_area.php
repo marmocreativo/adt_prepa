@@ -25,14 +25,13 @@
 						<?php } ?>
 					</ul>
 					<hr>
-					<a href="<?php echo base_url('areas/actualizar?id='.$area['ID_AREA']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
+					<a href="<?php echo base_url('index.php/areas/actualizar?id='.$area['ID_AREA']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
+					<button data-enlace="<?php echo base_url('index.php/areas/borrar?id='.$area['ID_AREA']); ?>" class="btn btn-danger btn-block btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>
 				</div>
 			</div>
 		</div>
 
 		<div class="col-12 col-md-8">
-
-			<?php var_dump($proyectos); ?>
 			<?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_proyectos', $proyectos); ?>
 
 		</div>

@@ -3,13 +3,41 @@
 	<div class="row mt-4">
 		<?php foreach($areas as $area){ ?>
 		<div class="col-12 col-md-4">
-			<div class="proyecto p-0">
-				<a href="<?php echo base_url('index.php/areas/detalles?id='.$area->ID_AREA); ?>">
-					<div class="bg-image d-flex align-items-center m-0 p-4" style="background-image: url(<?php echo base_url('contenido/img/areas/'.$area->IMAGEN_FONDO); ?>); min-height:120px;">
-						<img src="<?php echo base_url('contenido/img/areas/'.$area->IMAGEN); ?>" class="rounded-circle mx-1" width="50">
-						<h3 class="h5"> <?php echo $area->AREA_NOMBRE; ?></h3>
+			<div class="area_contenedor pl-3">
+				<div class="proyecto p-0">
+					<a href="<?php echo base_url('index.php/areas/detalles?id='.$area->ID_AREA); ?>">
+						<div class="bg-image d-flex align-items-center m-0 p-4" style="background-image: url(<?php echo base_url('contenido/img/areas/'.$area->IMAGEN_FONDO); ?>); min-height:120px;">
+							<img src="<?php echo base_url('contenido/img/areas/'.$area->IMAGEN); ?>" class="rounded-circle mx-1" width="50">
+							<h3 class="h5"> <?php echo $area->AREA_NOMBRE; ?></h3>
+						</div>
+					</a>
+				</div>
+				<?php $areas_hijas = $this->GeneralModel->lista('areas','',['ID_PADRE'=>$area->ID_AREA,'ESTADO'=>'activo'],'','',''); ?>
+				<?php foreach($areas_hijas as $area_hija){ ?>
+					<div class="area_contenedor py-3 border-left border-bottom border-primary pl-3" style="transform: translateX(10%);">
+						<div class="proyecto p-0">
+							<a href="<?php echo base_url('index.php/areas/detalles?id='.$area_hija->ID_AREA); ?>">
+								<div class="bg-image d-flex align-items-center m-0 p-4" style="background-image: url(<?php echo base_url('contenido/img/areas/'.$area_hija->IMAGEN_FONDO); ?>); min-height:120px;">
+									<img src="<?php echo base_url('contenido/img/areas/'.$area_hija->IMAGEN); ?>" class="rounded-circle mx-1" width="50">
+									<h3 class="h5"> <?php echo $area_hija->AREA_NOMBRE; ?></h3>
+								</div>
+							</a>
+						</div>
+						<?php $areas_hijas_2 = $this->GeneralModel->lista('areas','',['ID_PADRE'=>$area_hija->ID_AREA,'ESTADO'=>'activo'],'','',''); ?>
+						<?php foreach($areas_hijas_2 as $area_hija_2){ ?>
+							<div class="area_contenedor pt-3 border-left border-bottom border-primary pl-3" style="transform: translateX(10%);">
+								<div class="proyecto p-0">
+									<a href="<?php echo base_url('index.php/areas/detalles?id='.$area_hija_2->ID_AREA); ?>">
+										<div class="bg-image d-flex align-items-center m-0 p-4" style="background-image: url(<?php echo base_url('contenido/img/areas/'.$area_hija_2->IMAGEN_FONDO); ?>); min-height:120px;">
+											<img src="<?php echo base_url('contenido/img/areas/'.$area_hija_2->IMAGEN); ?>" class="rounded-circle mx-1" width="50">
+											<h3 class="h5"> <?php echo $area_hija_2->AREA_NOMBRE; ?></h3>
+										</div>
+									</a>
+								</div>
+							</div>
+						<?php } ?>
 					</div>
-				</a>
+				<?php } ?>
 			</div>
 		</div>
 		<?php } ?>

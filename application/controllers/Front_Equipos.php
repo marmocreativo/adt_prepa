@@ -68,6 +68,7 @@ class Front_Equipos extends CI_Controller {
 		$parametros_or = array();
 
 		$parametros_and['equipos.ESTADO'] = 'activo';
+		$parametros_and['equipos.ID_AREA'] = $_SESSION['usuario']['area'];
 
 		if(!empty($busqueda)){
 			$parametros_or['equipos.EQUIPO_NOMBRE'] = $busqueda;
@@ -148,6 +149,7 @@ class Front_Equipos extends CI_Controller {
 			'IMAGEN_FONDO' => $imagen_fondo,
 			'TIPO' => 'general',
 			'ESTADO' => 'activo',
+			'ID_AREA' => $_SESSION['usuario']['area'],
 			'ORDEN' => 0,
 		);
 		$equipo_id = $this->GeneralModel->crear('equipos',$parametros);
@@ -227,6 +229,7 @@ class Front_Equipos extends CI_Controller {
 				'COLOR' =>  $this->input->post('EquipoColor'),
 				'TIPO' =>  $this->input->post('Tipo'),
 				'ESTADO' =>  $this->input->post('Estado'),
+				'ID_AREA' => $_SESSION['usuario']['area'],
 				'ORDEN' =>  $this->input->post('Orden'),
 			);
 

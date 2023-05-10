@@ -170,6 +170,7 @@ if ( ! function_exists('verificar_sesion'))
 	  */
 	  function iniciar_sesion($parametros){
 		 $CI =& get_instance();
+     $area = $CI->GeneralModel->detalles('areas_usuarios',['ID_USUARIO'=>$parametros['ID_USUARIO']]);
 		$datos_del_usuario = array(
 		  'usuario'=> array(
 			'id'  => $parametros['ID_USUARIO'],
@@ -177,6 +178,7 @@ if ( ! function_exists('verificar_sesion'))
 			'apellidos'  => $parametros['USUARIO_APELLIDOS'],
 			'correo'  => $parametros['USUARIO_CORREO'],
 			'tipo_usuario'  => $parametros['TIPO'],
+      'area'  => $area['ID_AREA'],
 			'ultima_actividad'  => date('Y-m-d H:i:s'),
 		  )
 		);
@@ -425,6 +427,42 @@ if ( ! function_exists('subir_imagen'))
     return $imagen;
   }
 }
+/*
+| -------------------------------------------------------------------------
+| Areas - multinivel
+| -------------------------------------------------------------------------
+|
+*/
+if ( ! function_exists('areamultinivel'))
+{
+  function areamultinivel($actual, $array_seleccionadas,$nivel = 0) {
+    $CI =& get_instance();
+    $areas = $CI->GeneralModel->lista('areas','',['ID_PADRE'=>$nivel],'AREA_NOMBRE ASC','','');
+    $clase_lista = "";
+    //Creo la lista del menú
+    echo "<ul class='".$clase_lista."'>";
+    //Por cada resultado reviso si tienen elementos hijos
+    foreach($areas as $nivel){
+      $areas_hijas = $CI->GeneralModel->lista('areas','',['ID_PADRE'=>$nivel->ID_AREA],'AREA_NOMBRE ASC','','');
+        echo "<li>";
+        echo '<label class="form-radio-label" >';
+        echo '<input type="radio" class="form-check-input" name="IdPadre" value="'.$nivel->ID_AREA.'"';
+        if(!empty($array_seleccionadas)){
+          if(in_array($nivel->ID_AREA,$array_seleccionadas)){ echo "checked"; }
+        }
+        echo '>';
+        echo $nivel->AREA_NOMBRE;
+        echo "</label>";
+
+        if(!empty($areas_hijas)) {
+          areamultinivel($actual,$array_seleccionadas,$nivel->ID_AREA);
+        }
+      echo "</li>";
+    }
+    echo "</ul>";
+  }
+}
+
 /*
 | -------------------------------------------------------------------------
 | Checkbox - radio multinivel
