@@ -157,4 +157,25 @@ class Ajax extends CI_Controller {
 		$respuesta = json_encode($vistas_x_fecha);
 		echo $respuesta;
 	}
+
+	public function registrar_respuesta()
+	{
+		var_dump($_GET);
+		if(isset($_GET)){
+			if($_GET['marcada']=='si'){
+				$this->GeneralModel->actualizar('validacion_respuesta',['ID_RESPUESTA'=>$_GET['respuesta']],['VALOR'=>'validada']);
+			}
+			if($_GET['marcada']=='no'){
+				$this->GeneralModel->actualizar('validacion_respuesta',['ID_RESPUESTA'=>$_GET['respuesta']],['VALOR'=>'']);
+			}
+		}
+	}
+
+	public function registrar_comentario()
+	{
+		var_dump($_GET);
+		if(isset($_GET)){
+				$this->GeneralModel->actualizar('validacion_respuesta',['ID_RESPUESTA'=>$_GET['respuesta']],['COMENTARIOS'=>$_GET['comentario']]);
+		}
+	}
 }

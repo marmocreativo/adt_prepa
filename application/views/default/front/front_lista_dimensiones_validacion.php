@@ -97,30 +97,31 @@
                                         </form>
                                     </div>
                                     <table class="table table-bordered">
-                                    <tr>
-                                        <th>TITULO</th>
-                                        <th>OBLIGATORIO</th>
-                                        <th>NIVEL ACCESIBILIDAD</th>
-                                        <th>CRITERIO DE PRODUCCION</th>
-                                        <th>NIVEL</th>
-                                        <th>CONTROLES</th>
-                                    </tr>
-                                    <?php $lista_parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','',''); ?>
-                                    <?php foreach($lista_parametros as $parametro){ ?>
-                                        <?php
-                                            $meta_parametros = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$parametro->ID_PARAMETRO,'TIPO_OBJETO'=>'parametro'],'','','');
-                                            $meta_datos_parametros = array(); foreach($meta_parametros as $m){ $meta_datos_parametros[$m->DATO_NOMBRE]= $m->DATO_VALOR; }    
-                                        ?>
-                                    <tr>
-                                        <td><?php echo $parametro->TITULO; ?></td>
-                                        <td><?php echo $parametro->OBLIGATORIO; ?></td>
-                                        <td><?php if(isset($meta_datos_parametros['nivel_accesibilidad'])){ echo $meta_datos_parametros['nivel_accesibilidad']; } ?></td>
-                                        <td><?php if(isset($meta_datos_parametros['criterio_produccion'])){ echo $meta_datos_parametros['criterio_produccion']; } ?></td>
-                                        <td><?php if(isset($meta_datos_parametros['nivel'])){ echo $meta_datos_parametros['nivel']; } ?></td>
-                                        <td><button data-enlace="<?php echo base_url('index.php/listas/borrar_parametro?id='.$parametro->ID_PARAMETRO); ?>" class="btn btn-danger btn-block btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</button></td>
-                                    </tr>
-                                    <?php } ?>
-                                </table>
+                                        <tr>
+                                            <th>TITULO</th>
+                                            <th>OBLIGATORIO</th>
+                                            <th>NIVEL ACCESIBILIDAD</th>
+                                            <th>CRITERIO DE PRODUCCION</th>
+                                            <th>NIVEL</th>
+                                            <th>CONTROLES</th>
+                                        </tr>
+                                            <?php $lista_parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','',''); ?>
+                                            <?php foreach($lista_parametros as $parametro){ ?>
+                                            <?php
+                                                $meta_parametros = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$parametro->ID_PARAMETRO,'TIPO_OBJETO'=>'parametro'],'','','');
+                                                $meta_datos_parametros = array(); foreach($meta_parametros as $m){ $meta_datos_parametros[$m->DATO_NOMBRE]= $m->DATO_VALOR; }    
+                                            ?>
+                                        <tr>
+                                            <td><?php echo $parametro->TITULO; ?></td>
+                                            <td><?php echo $parametro->OBLIGATORIO; ?></td>
+                                            <td><?php if(isset($meta_datos_parametros['nivel_accesibilidad'])){ echo $meta_datos_parametros['nivel_accesibilidad']; } ?></td>
+                                            <td><?php if(isset($meta_datos_parametros['criterio_produccion'])){ echo $meta_datos_parametros['criterio_produccion']; } ?></td>
+                                            <td><?php if(isset($meta_datos_parametros['nivel'])){ echo $meta_datos_parametros['nivel']; } ?></td>
+                                            <td><button data-enlace="<?php echo base_url('index.php/listas/borrar_parametro?id='.$parametro->ID_PARAMETRO); ?>" class="btn btn-danger btn-block btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</button></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </table>
+                                    <button data-enlace="<?php echo base_url('index.php/listas/borrar_dimension?id='.$dimension->ID_DIMENSION); ?>" class="btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Borrar dimensión <?php echo $dimension->TITULO; ?></button>
                                 </div>
                                 
                     <?php $i++; } ?>

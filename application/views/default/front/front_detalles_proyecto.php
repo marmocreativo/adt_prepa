@@ -1,3 +1,6 @@
+<?php
+	$usuarios = $this->GeneralModel->lista_join('usuarios',['equipos_usuarios'=>'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO'],'',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','usuarios.ID_USUARIO');
+?>
 <div class="row ">
 	<div class="col-12 col-md-4">
 		<div class="proyecto <?php echo $modo; ?> border-0 border-bottom border-end">
@@ -57,6 +60,74 @@
 						<a href="<?php echo $proyecto['ENLACE_ENTREGABLE']; ?>"><i class="fa fa-folder"></i> Entregables</a>
 					</div>
 				</div>
+				<?php } ?>
+			</div>
+			<hr>
+			<div class="py-3 border-top border-bottom border-success">
+				<h4>Validación</h4>
+				<?php if($proyecto['VALIDACION']=='no'){ ?>
+				<p>Este proyecto no requiere validación</p>
+				<?php }else{ ?>
+					<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
+					<?php if(!empty($detalles_lista)){ ?>
+					<p>Se usará la lista: <b><?php echo $detalles_lista['TITULO']; ?></b> para validar todas las tareas</p>
+					<?php $revisiones_agrupadas = $this->GeneralModel->lista_agrupada('validacion_revisiones','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'','FECHA'); ?>
+					<?php if(!empty($revisiones_agrupadas)){ ?>
+					<table class="table table-stripped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Fecha</th>
+								<th>Resultados</th>
+								<th>Controles</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach($revisiones_agrupadas as $revision){ ?>
+								<tr>
+									<td><?php echo $revision->ID_REVISION; ?></td>
+									<td><?php echo $revision->FECHA; ?></td>
+									<td>
+										<div class="btn-group">
+											<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>">ver reporte</a>
+										</div>
+									</td>
+									<td>
+										<div class="btn-group">
+											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>">ver formulario</a>
+										</div>
+									</td>
+								</tr>
+							<?php }//bucle revisiones ?>
+						</tbody>
+					</table>
+					<?php } ?>
+					<div>
+						<form action="<?php echo base_url('index.php/proyectos/crear_validacion'); ?>" method='post'>
+							<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
+							<div class="row">
+								<div class="col">
+								<label for="IdResponsable">Responsable</label>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<select name="IdResponsable" class="form-control">
+											<?php foreach($usuarios as $usuario){ ?>
+											<option value="<?php echo $usuario->ID_USUARIO; ?>"><?php echo $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS; ?></option>
+											<?php }  ?>
+										</select>
+									</div>
+								</div>
+								<div class="col">
+									<button type="submit"class="btn btn-outline-success w-100"> Crear revisión</button>
+								</div>
+							</div>
+							
+							
+						</form>
+						
+					</div>
+					<?php }// verifico que la lista exista ?>
 				<?php } ?>
 			</div>
 			<hr>
@@ -139,9 +210,7 @@
 						</div>
 					</div>
 					<div class="">
-						<?php
-								$usuarios = $this->GeneralModel->lista_join('usuarios',['equipos_usuarios'=>'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO'],'',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','usuarios.ID_USUARIO');
-						?>
+						
 						<h4>Asignar a:</h4>
 						<ul class="list-group">
 							<?php foreach($usuarios as $usuario){ ?>

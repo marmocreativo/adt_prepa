@@ -32,15 +32,7 @@
 				<label for="ProyectoDescripcion">Notas</label>
 				<textarea name="ProyectoDescripcion" class="form-control TextEditor"><?php echo $proyecto['PROYECTO_DESCRIPCION'] ?></textarea>
 			</div>
-			<hr>
-			<div class="form-group">
-				<label for="EnlaceEditable">Enlace Archivos Editables</label>
-				<input type="text" class="form-control" name="EnlaceEditable" value="<?php echo $proyecto['ENLACE_EDITABLE'] ?>">
-			</div>
-			<div class="form-group">
-				<label for="EnlaceEntregable">Enlace Archivos Entregables</label>
-				<input type="text" class="form-control" name="EnlaceEntregable" value="<?php echo $proyecto['ENLACE_ENTREGABLE'] ?>">
-			</div>
+			
 			<hr>
 			<h6>Asignar equipos</h6>
 			<?php
@@ -66,38 +58,53 @@
 			</ul>
 		</div>
 		<div class="col-12 col-md-4">
-			<div class="row my-2 py-2 border-bottom">
-				<div class="col-12 col-md-6">
-					<div class="form-group">
-						<label for="FechaInicio">Fecha Inicio </label>
-						<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php if(empty($proyecto['FECHA_INICIO'])){ echo date('d-m-Y'); }else{ echo date('d-m-Y', strtotime($proyecto['FECHA_INICIO'])); }?>">
-						<div class="form-text">(Inicio del proyecto, puede ser una fecha antigua)</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-6">
-					<div class="form-group">
-						<label for="FechaFinal">Fecha Final</label>
-						<input type="text" class="form-control datepicker" name="FechaFinal" value="<?php if(empty($proyecto['FECHA_FINAL'])){ echo date('d-m-Y',strtotime('+1 month')); }else{ echo date('d-m-Y', strtotime($proyecto['FECHA_FINAL'])); }?>">
-						<div class="form-text">(Dead line) si la tarea se entrega después de esta fecha se considera atrasada</div>
-					</div>
-				</div>
+			<div class="form-group">
+				<label for="FechaFinal">Fecha Final</label>
+				<input type="text" class="form-control datepicker" name="FechaFinal" value="<?php if(empty($proyecto['FECHA_FINAL'])){ echo date('d-m-Y',strtotime('+1 month')); }else{ echo date('d-m-Y', strtotime($proyecto['FECHA_FINAL'])); }?>">
+				<div class="form-text">(Dead line) si la tarea se entrega después de esta fecha se considera atrasada</div>
+			</div>
+			<div class="form-group">
+				<label for="FechaInicio">Fecha Inicio </label>
+				<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php if(empty($proyecto['FECHA_INICIO'])){ echo date('d-m-Y'); }else{ echo date('d-m-Y', strtotime($proyecto['FECHA_INICIO'])); }?>">
+				<div class="form-text">(Inicio del proyecto, puede ser una fecha antigua)</div>
+			</div>
+			<hr>
+			<div class="form-group">
+				<label for="EnlaceEditable">Enlace Archivos Editables</label>
+				<input type="text" class="form-control" name="EnlaceEditable" value="<?php echo $proyecto['ENLACE_EDITABLE'] ?>">
+			</div>
+			<div class="form-group">
+				<label for="EnlaceEntregable">Enlace Archivos Entregables</label>
+				<input type="text" class="form-control" name="EnlaceEntregable" value="<?php echo $proyecto['ENLACE_ENTREGABLE'] ?>">
+			</div>
+			<div class="form-group">
+				<label for="Validacion">Requiere validación</label>
+				<select class="form-control" name="Validacion">
+					<option value="no" <?php if($proyecto['VALIDACION']=='no'){ echo 'selected'; } ?>>No</option>
+					<option value="si" <?php if($proyecto['VALIDACION']=='si'){ echo 'selected'; } ?>>Si</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="IdLista">Lista de validación</label>
+				<?php $listas_de_validacion = $this->GeneralModel->lista('validacion_lista','',['ESTADO'=>'activo','ID_AREA'=>$_SESSION['usuario']['area']],'','',''); ?>
+				<select class="form-control" name="IdLista">
+					<option value="0" <?php if($proyecto['ID_LISTA']==0){ echo 'selected'; } ?>>Ningúna</option>
+					<?php foreach($listas_de_validacion as $lista_validacion){ ?>
+					<option value="<?php echo  $lista_validacion->ID_LISTA; ?>" <?php if($proyecto['ID_LISTA']==$lista_validacion->ID_LISTA){ echo 'selected'; } ?>><?php echo  $lista_validacion->TITULO; ?></option>
+					<?php } ?>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="Estado">Estado</label>
+				<select class="form-control" name="Estado">
+					<option value="activo" <?php if($proyecto['ESTADO']=='activo'){ echo 'selected'; } ?>>Activo</option>
+					<option value="revision" <?php if($proyecto['ESTADO']=='revision'){ echo 'selected'; } ?>>Revisión</option>
+					<option value="terminado" <?php if($proyecto['ESTADO']=='terminado'){ echo 'selected'; } ?>>Terminado</option>
+				</select>
 			</div>
 			<input type="hidden" name="Prioridad" value="normal">
-			<div class="row">
-				<div class="col-12 col-md-6">
-					<div class="form-group">
-						<label for="Estado">Estado</label>
-						<select class="form-control" name="Estado">
-							<option value="activo" <?php if($proyecto['ESTADO']=='activo'){ echo 'selected'; } ?>>Activo</option>
-							<option value="revision" <?php if($proyecto['ESTADO']=='revision'){ echo 'selected'; } ?>>Revisión</option>
-							<option value="terminado" <?php if($proyecto['ESTADO']=='terminado'){ echo 'selected'; } ?>>Terminado</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-12 col-md-6">
-					<button type="submit" class="btn btn-success w-100"> <i class="fa fa-save"></i> Guardar</button>
-				</div>
-			</div>
+			<hr>
+			<button type="submit" class="btn btn-success w-100"> <i class="fa fa-save"></i> Guardar</button>
 		</div>
 		<div class="col-12 col-md-2">
 			<input type="hidden" name="Imagen" value="">

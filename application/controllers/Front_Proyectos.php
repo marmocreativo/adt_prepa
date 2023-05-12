@@ -238,7 +238,7 @@ class Front_Proyectos extends CI_Controller {
 				'ESTADO' =>  $this->input->post('Estado'),
 				'ORDEN' =>  $this->input->post('Orden'),
 				'VALIDACION' =>  $this->input->post('Validacion'),
-				'ID_LISTA' =>  $this->input->post('Lista'),
+				'ID_LISTA' =>  $this->input->post('IdLista'),
 			);
 
 
@@ -364,6 +364,117 @@ class Front_Proyectos extends CI_Controller {
 					//  Redirecciono
 	         redirect(base_url('index.php/proyectos'));
 				}
+	}
+
+	public function crear_validacion(){
+		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_POST['IdProyecto']]);
+		$tareas = $this->GeneralModel->lista('tareas','',['ID_PROYECTO'=>$_POST['IdProyecto']],'','','');
+		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]);
+		$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$proyecto['ID_LISTA']],'','','');
+		$array_parametros = array();
+		foreach($dimensiones as $dimension){
+			$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
+			foreach($parametros as $parametro){
+				$array_parametros[] = $parametro->ID_PARAMETRO;
+			}
+		}
+		$total_parametros = count($array_parametros);
+
+		$fecha = date('Y-m-d H:i:s');
+
+		foreach($tareas as $tarea){
+			$revision = array(
+				'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
+				'ID_TAREA'=>$tarea->ID_TAREA,
+				'ID_ENLACE'=>$tarea->TAREA_ENLACE_ENTREGABLE,
+				'ID_LISTA'=>$proyecto['ID_LISTA'],
+				'FECHA'=>$fecha,
+				'ID_RESPONSABLE'=>$_POST['IdResponsable'],
+				'TOTAL_PARAMETROS'=>$total_parametros,
+				'TOTAL_VERIFICADOS' => 0,
+				'ESTADO'=>'activo'
+			);
+
+			$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
+
+			foreach($array_parametros as $arry_param){
+				$respuesta = array(
+					'ID_REVISION'=>$id_revision,
+					'ID_TAREA'=>$tarea->ID_TAREA,
+					'ID_ENLACE'=>$tarea->TAREA_ENLACE_ENTREGABLE,
+					'ID_PARAMETRO'=>$arry_param,
+					'ID_RESPONSABLE'=>$_POST['IdResponsable'],
+					'VALOR'=>'',
+					'FECHA'=> $fecha
+				);
+				$this->GeneralModel->crear('validacion_respuesta',$respuesta);
+
+			}
+		}
+
+		redirect(base_url('index.php/proyectos/detalles?id='.$proyecto['ID_PROYECTO']));
+	}
+
+	public function validacion()
+	{
+		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
+		$this->data['tipo'] = $this->data['proyecto']['TIPO'];
+		// Open Tags
+		$this->data['titulo']  = $this->data['proyecto']['PROYECTO_NOMBRE'];
+		$this->data['descripcion']  = $this->data['proyecto']['PROYECTO_DESCRIPCION'];
+		$this->data['imagen']  = base_url('contenido/img/proyectos/'.$this->data['proyecto']['IMAGEN']);
+
+		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'proyecto'],'','','');
+		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+
+		// Variables de busqueda
+		$parametros_and = array();
+		$parametros_or = array();
+
+		$parametros_and['tareas.ID_PROYECTO'] = $_GET['id'];
+
+		$tablas_join = array();
+
+
+		// Consultas
+		$this->data['equipos'] = $this->GeneralModel->lista('equipos','',['ESTADO'=>'activo'],'','','');
+		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','','');
+		$this->data['revisiones'] = $this->GeneralModel->lista('validacion_revisiones','',['ID_PROYECTO'=>$_GET['id'],'FECHA'=>$_GET['fecha_revision']],'','','');
+		// Cargo Vistas
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_proyectos',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_validacion_proyecto',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+	}
+
+	public function validacion_reporte()
+	{
+		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
+		$this->data['tipo'] = $this->data['proyecto']['TIPO'];
+		// Open Tags
+		$this->data['titulo']  = $this->data['proyecto']['PROYECTO_NOMBRE'];
+		$this->data['descripcion']  = $this->data['proyecto']['PROYECTO_DESCRIPCION'];
+		$this->data['imagen']  = base_url('contenido/img/proyectos/'.$this->data['proyecto']['IMAGEN']);
+
+		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'proyecto'],'','','');
+		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+
+		// Variables de busqueda
+		$parametros_and = array();
+		$parametros_or = array();
+
+		$parametros_and['tareas.ID_PROYECTO'] = $_GET['id'];
+
+		$tablas_join = array();
+
+
+		// Consultas
+		$this->data['equipos'] = $this->GeneralModel->lista('equipos','',['ESTADO'=>'activo'],'','','');
+		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','','');
+		$this->data['revisiones'] = $this->GeneralModel->lista('validacion_revisiones','',['ID_PROYECTO'=>$_GET['id'],'FECHA'=>$_GET['fecha_revision']],'','','');
+		// Cargo Vistas
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_proyectos',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_validacion_reporte',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 
 }

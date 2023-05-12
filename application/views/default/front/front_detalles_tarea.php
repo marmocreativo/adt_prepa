@@ -88,6 +88,71 @@
 					</li>
 				<?php } ?>
 			</ul>
+			<?php $proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$tarea['ID_PROYECTO']]); ?>
+			<div class="py-3 border-top border-bottom border-success">
+				<h4>Validación</h4>
+				<?php if($proyecto['VALIDACION']=='no'){ ?>
+				<p>Este proyecto no requiere validación</p>
+				<?php }else{ ?>
+					<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
+					<?php if(!empty($detalles_lista)){ ?>
+					<p>Se usará la lista: <b><?php echo $detalles_lista['TITULO']; ?></b> para validar todas las tareas</p>
+					<?php $revisiones_agrupadas = $this->GeneralModel->lista('validacion_revisiones','',['ID_TAREA'=>$tarea['ID_TAREA']],'','',''); ?>
+					<?php if(!empty($revisiones_agrupadas)){ ?>
+					<table class="table table-stripped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Fecha</th>
+								<th>Resultados</th>
+								<th>Controles</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach($revisiones_agrupadas as $revision){ ?>
+								<tr>
+									<td><?php echo $revision->ID_REVISION; ?></td>
+									<td><?php echo $revision->FECHA; ?></td>
+									<td>-</td>
+									<td>
+										<div class="btn-group">
+											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-outline-primary btn-sm">Ver formulario</a>
+										</div>
+									</td>
+								</tr>
+							<?php }//bucle revisiones ?>
+						</tbody>
+					</table>
+					<?php } ?>
+					<div>
+						<form action="<?php echo base_url('index.php/tarea/crear_validacion'); ?>" method='post'>
+							<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
+							<div class="row">
+								<div class="col">
+								<label for="IdResponsable">Responsable</label>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<select name="IdResponsable" class="form-control">
+											<?php foreach($usuarios as $usuario){ ?>
+												<?php $detalles_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]); ?>
+											<option value="<?php echo $detalles_usuario['ID_USUARIO']; ?>"><?php echo $detalles_usuario['USUARIO_NOMBRE'].' '.$detalles_usuario['USUARIO_APELLIDOS']; ?></option>
+											<?php }  ?>
+										</select>
+									</div>
+								</div>
+								<div class="col">
+									<button type="submit"class="btn btn-outline-success w-100"> Crear revisión</button>
+								</div>
+							</div>
+							
+							
+						</form>
+						
+					</div>
+					<?php }// verifico que la lista exista ?>
+				<?php } ?>
+			</div>
 		</div>
 	</div>
 
