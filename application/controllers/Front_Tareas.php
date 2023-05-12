@@ -597,4 +597,30 @@ class Front_Tareas extends CI_Controller {
 		}
 	}
 
+	public function validacion_reporte(){
+		$this->data['tarea'] = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['tarea']]);
+		$this->data['tipo'] = $this->data['tarea']['TIPO'];
+		// Open Tags
+		$this->data['titulo']  = $this->data['tarea']['TAREA_TITULO'];
+		$this->data['descripcion']  = $this->data['tarea']['TAREA_DESCRIPCION'];
+		$this->data['imagen']  = base_url('contenido/img/proyectos/default.jpg');
+		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'tarea'],'','','');
+		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+		$this->data['todos_usuarios'] = $this->GeneralModel->lista('usuarios','','','','','');
+		$this->data['array_usuarios'] = array();
+		foreach($this->data['todos_usuarios'] as $user_data){
+			$this->data['array_usuarios'][$user_data->ID_USUARIO]= array(
+				'NOMBRE' => $user_data->USUARIO_NOMBRE.' '.$user_data->USUARIO_APELLIDOS,
+				'CORREO' => $user_data->USUARIO_CORREO,
+				'IMAGEN' => $user_data->IMAGEN,
+				'USUARIO_TELEFONO' => $user_data->USUARIO_TELEFONO,
+			);
+		}
+
+		// Cargo Vistas
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_tareas',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_validacion_reporte_tarea',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+	}
+
 }

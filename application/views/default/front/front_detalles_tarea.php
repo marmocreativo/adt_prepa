@@ -113,7 +113,9 @@
 								<tr>
 									<td><?php echo $revision->ID_REVISION; ?></td>
 									<td><?php echo $revision->FECHA; ?></td>
-									<td>-</td>
+									<td>
+									<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-outline-success btn-sm">Ver resultados</a>
+									</td>
 									<td>
 										<div class="btn-group">
 											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-outline-primary btn-sm">Ver formulario</a>
