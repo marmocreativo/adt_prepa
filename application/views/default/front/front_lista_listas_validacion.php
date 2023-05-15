@@ -20,7 +20,36 @@
 			<hr>
 			<ul class="list-group">
 			<?php foreach($listas as $lista){ ?>
-				<li class="list-group-item d-flex justify-content-between"><?php echo $lista->TITULO; ?> <div class="btn-group"> <a href="<?php echo base_url('index.php/listas/dimensiones?id='.$lista->ID_LISTA); ?>" class="btn btn-sm btn-outline-primary"> Ver dimensiones</a> <button data-enlace="<?php echo base_url('index.php/listas/borrar_lista?id='.$lista->ID_LISTA); ?>" class="btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</button></div></li>
+				<li class="list-group-item d-flex justify-content-between">
+					<?php echo $lista->TITULO; ?>
+					<div class="btn-group">
+						<a href="<?php echo base_url('index.php/listas/dimensiones?id='.$lista->ID_LISTA); ?>" class="btn btn-sm btn-outline-primary"> Ver dimensiones</a>
+						<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editar_lista_<?php echo $lista->ID_LISTA; ?>">
+						Editar
+						</button>
+						<button data-enlace="<?php echo base_url('index.php/listas/borrar_lista?id='.$lista->ID_LISTA); ?>" class="btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</button>
+					</div>
+					<div class="modal fade" id="editar_lista_<?php echo $lista->ID_LISTA; ?>" tabindex="-1" aria-labelledby="editar_lista_<?php echo $lista->ID_LISTA; ?>" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-body">
+									<form action="<?php echo base_url('index.php/listas/actualizar'); ?>" method='post'>
+										<input type="hidden" name="Identificador" value="<?php echo $lista->ID_LISTA; ?>">
+										<div class="form-group">
+											<label for="Titulo">Titulo</label>
+											<input type="text" class="form-control" name="Titulo" value="<?php echo $lista->TITULO; ?>">
+										</div>
+										<div class="form-group">
+											<label for="Descripcion">Descripción</label>
+											<textarea name="Descripcion" class="form-control" rows="5"><?php echo $lista->DESCRIPCION; ?></textarea>
+										</div>
+										<button type="submit" class="btn btn-primary">Actualizar</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
 			<?php } ?>
 			</ul>
 		</div>

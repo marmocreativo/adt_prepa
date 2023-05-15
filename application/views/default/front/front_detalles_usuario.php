@@ -29,6 +29,7 @@
 					<?php if($usuario['ID_USUARIO']==$_SESSION['usuario']['id']){ ?>
 					<a href="<?php echo base_url('index.php/lista_usuarios/preferencias?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-link"> <i class="fas fa-cogs"></i> Editar Preferencias</a>
 					<?php } ?>
+					<button data-enlace="<?php echo base_url('index.php/lista_usuarios/borrar?id='.$usuario['ID_USUARIO']); ?>" class="btn btn-danger btn-block btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar Usuario</a>
 				</div>
 			</div>
 		</div>

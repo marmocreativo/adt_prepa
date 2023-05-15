@@ -92,7 +92,7 @@ class Front_Usuarios extends CI_Controller {
 			$this->data['consulta']['fecha_final'] = $fecha_final;
 			$orden = verificar_variable('GET','orden','');
 			$this->data['consulta']['orden'] = $orden;
-			$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',$this->data['op']['cantidad_publicaciones_por_pagina']);
+			$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',24);
 			$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
 			$pagina = verificar_variable('GET','pagina','1');
 			$this->data['consulta']['pagina'] = $pagina;
@@ -572,8 +572,16 @@ class Front_Usuarios extends CI_Controller {
         if(isset($usuario['ID_USUARIO']))
         {
 
-			$this->GeneralModel->borrar('tareas',['ID_USUARIO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('usuarios_tareas',['ID_USUARIO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('reacciones',['ID_USUARIO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('tareas_mensajes',['ID_USUARIO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('usuarios_seguridad',['ID_USUARIO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('usuarios_preferencias',['ID_USUARIO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('usuarios_proyectos',['ID_USUARIO'=>$_GET['id']]);
 			$this->GeneralModel->borrar('equipos_usuarios',['ID_USUARIO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('areas_usuarios',['ID_USUARIO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('roles',['ID_USUARIO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('usuarios',['ID_USUARIO'=>$_GET['id']]);
 			// Mensaje Feedback
 			//  Redirecciono
             redirect(base_url('index.php/usuarios'));

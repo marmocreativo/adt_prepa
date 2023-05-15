@@ -1,8 +1,30 @@
 <a href="<?php echo base_url('index.php/lista_usuarios/crear?tipo=usuario'); ?>" class="btn btn-success btn-circulo-flotante"> <i class="fa fa-plus"></i></a>
 <div class="lista_equipos">
+<div>
+		<form class="row justify-content-end" action="<?php echo base_url('index.php/lista_usuarios'); ?>" method="get">
+			<!--
+			<div class="col-12 col-md-3">
+				<select name="todo" class="form-control">
+					<option value="si">Todos los proyectos</option>
+					<option value="no">Solo mis proyectos</option>
+				</select>
+			</div>
+			-->
+			<div class="col-12 col-md-3">
+				<input type="text" name="busqueda" class="form-control" placeholder="Búsqueda" aria-label="">
+			</div>
+			<div class="col-12 col-md-2">
+				<button type="submit" class="btn btn-primary w-100"> <i class="fa fa-search"></i> Buscar</button>
+			</div>
+			<div class="col-12 col-md-3 border-left">
+			<a href="<?php echo base_url('index.php/lista_usuarios/crear?tipo=usuario'); ?>" class="btn btn-success w-100"> <i class="fa fa-plus"></i> Registrar Usuario </a>
+			</div>
+		</form>
+	</div>
+	<hr>
 	<div class="row mt-3">
 		<?php foreach($usuarios as $usuario){ ?>
-		<div class="col-6 col-sm-4 col-md-3">
+		<div class="col-6 col-sm-4 col-md-2">
 			<div class="proyecto p-0">
 				<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$usuario->ID_USUARIO); ?>">
 					<div class="">

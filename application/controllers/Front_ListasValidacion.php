@@ -68,6 +68,21 @@ class Front_ListasValidacion extends CI_Controller {
 		redirect(base_url('index.php/listas'));
 	}
 
+	public function actualizar()
+	{
+		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
+			$parametros = array(
+				'ID_AREA' => $_SESSION['usuario']['area'],
+				'TITULO' => $_POST['Titulo'],
+				'DESCRIPCION' => $_POST['Descripcion']
+			);
+
+			$this->GeneralModel->actualizar('validacion_lista',['ID_LISTA'=>$_POST['Identificador']],$parametros);
+		}
+
+		redirect(base_url('index.php/listas'));
+	}
+
 	
 	public function dimensiones()
 	{
@@ -103,6 +118,21 @@ class Front_ListasValidacion extends CI_Controller {
 
 		redirect(base_url('index.php/listas/dimensiones?id='.$_POST['IdLista']));
 	}
+
+	public function actualizar_dimension(){
+		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
+			$parametros = array(
+				'TITULO' => $_POST['Titulo'],
+				'DESCRIPCION' => $_POST['Descripcion']
+			);
+
+			$this->GeneralModel->actualizar('validacion_dimension',['ID_DIMENSION'=>$_POST['Identificador']],$parametros);
+		}
+
+		redirect(base_url('index.php/listas/dimensiones?id='.$_POST['IdLista']));
+	}
+
+	
 	
 	public function crear_parametro(){
 		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
@@ -110,6 +140,7 @@ class Front_ListasValidacion extends CI_Controller {
 				'ID_DIMENSION' => $_POST['IdDimension'],
 				'TITULO' => $_POST['Titulo'],
 				'DESCRIPCION' => '',
+				'OBLIGATORIO' => $_POST['Obligatorio'],
 				'ESTADO' => 'activo'
 			);
 
@@ -120,6 +151,38 @@ class Front_ListasValidacion extends CI_Controller {
 				foreach($_POST['Meta'] as $nombre => $valor){
 					$parametros_meta = array(
 						'ID_OBJETO'=>$id_parametro,
+						'DATO_NOMBRE'=>$nombre,
+						'DATO_VALOR'=>$valor,
+						'TIPO_OBJETO'=>'parametro',
+					);
+
+					// Creo las entradas a la galeria
+					$this->GeneralModel->crear('meta_datos',$parametros_meta);
+				}
+			}
+		}
+
+		redirect(base_url('index.php/listas/dimensiones?id='.$_POST['IdLista'].'&dimension='.$_POST['IdDimension']));
+	}
+
+	public function actualizar_parametro(){
+		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
+			$parametros = array(
+				'ID_DIMENSION' => $_POST['IdDimension'],
+				'TITULO' => $_POST['Titulo'],
+				'DESCRIPCION' => '',
+				'OBLIGATORIO' => $_POST['Obligatorio']
+			);
+
+			$id_parametro = $this->GeneralModel->actualizar('validacion_parametros',['ID_PARAMETRO'=>$this->input->post('Identificador')],$parametros);
+
+			// Borro los metadatos existentes
+			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$this->input->post('Identificador'),'TIPO_OBJETO'=>'parametro']);
+			// Meta Datos
+			if(!empty($_POST['Meta'])){
+				foreach($_POST['Meta'] as $nombre => $valor){
+					$parametros_meta = array(
+						'ID_OBJETO'=>$this->input->post('Identificador'),
 						'DATO_NOMBRE'=>$nombre,
 						'DATO_VALOR'=>$valor,
 						'TIPO_OBJETO'=>'parametro',
