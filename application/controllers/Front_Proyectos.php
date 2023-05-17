@@ -369,8 +369,8 @@ class Front_Proyectos extends CI_Controller {
 	public function crear_validacion(){
 		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_POST['IdProyecto']]);
 		$tareas = $this->GeneralModel->lista('tareas','',['ID_PROYECTO'=>$_POST['IdProyecto']],'','','');
-		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]);
-		$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$proyecto['ID_LISTA']],'','','');
+		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_POST['IdLista']]);
+		$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['IdLista']],'','','');
 		$array_parametros = array();
 		foreach($dimensiones as $dimension){
 			$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
@@ -387,7 +387,7 @@ class Front_Proyectos extends CI_Controller {
 				'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
 				'ID_TAREA'=>$tarea->ID_TAREA,
 				'ID_ENLACE'=>$tarea->TAREA_ENLACE_ENTREGABLE,
-				'ID_LISTA'=>$proyecto['ID_LISTA'],
+				'ID_LISTA'=>$_POST['IdLista'],
 				'FECHA'=>$fecha,
 				'ID_RESPONSABLE'=>$_POST['IdResponsable'],
 				'TOTAL_PARAMETROS'=>$total_parametros,

@@ -70,31 +70,29 @@
 				<?php }else{ ?>
 					<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
 					<?php if(!empty($detalles_lista)){ ?>
-					<p>Se usará la lista: <b><?php echo $detalles_lista['TITULO']; ?></b> para validar todas las tareas</p>
+					<p>Se usará la lista: <b><?php echo $detalles_lista['TITULO']; ?></b> como default para validar todas las tareas</p>
 					<?php $revisiones_agrupadas = $this->GeneralModel->lista_agrupada('validacion_revisiones','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'','FECHA'); ?>
 					<?php if(!empty($revisiones_agrupadas)){ ?>
 					<table class="table table-stripped">
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>Fecha</th>
-								<th>Resultados</th>
+								<th>Lista</th>
 								<th>Controles</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php foreach($revisiones_agrupadas as $revision){ ?>
+								<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision->ID_LISTA]); ?>
 								<tr>
-									<td><?php echo $revision->ID_REVISION; ?></td>
-									<td><?php echo $revision->FECHA; ?></td>
+									<td><?php echo date('Y-m-d', strtotime($revision->FECHA)); ?></td>
+									<td><?php echo $detalles_lista['TITULO']; ?></td>
+
 									<td>
-										<div class="btn-group">
-											<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>">ver reporte</a>
-										</div>
-									</td>
-									<td>
-										<div class="btn-group">
-											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>">ver formulario</a>
+										<div class="btn-group justify-end">
+											
+											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> </a>
+											<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i></a>
 										</div>
 									</td>
 								</tr>
@@ -102,15 +100,24 @@
 						</tbody>
 					</table>
 					<?php } ?>
-					<div>
+					<div class="border-dotted">
 						<form action="<?php echo base_url('index.php/proyectos/crear_validacion'); ?>" method='post'>
 							<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
 							<div class="row">
 								<div class="col">
-								<label for="IdResponsable">Responsable</label>
+									<div class="form-group">
+										<label for="IdLista">Lista</label>
+										<select name="IdLista" class="form-control">ç
+											<?php $listas_validacion = $this->GeneralModel->lista('validacion_lista','',['ESTADO'=>'activo','ID_AREA'=>$_SESSION['usuario']['area']],'','',''); ?>
+											<?php foreach($listas_validacion as $lista){ ?>
+											<option value="<?php echo $lista->ID_LISTA; ?>" <?php if($lista->ID_LISTA==$proyecto['ID_LISTA']){ echo 'selected'; } ?>><?php echo $lista->TITULO; ?></option>
+											<?php }  ?>
+										</select>
+									</div>
 								</div>
 								<div class="col">
 									<div class="form-group">
+										<label for="IdResponsable">Responsable</label>
 										<select name="IdResponsable" class="form-control">
 											<?php foreach($usuarios as $usuario){ ?>
 											<option value="<?php echo $usuario->ID_USUARIO; ?>"><?php echo $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS; ?></option>
@@ -118,8 +125,8 @@
 										</select>
 									</div>
 								</div>
-								<div class="col">
-									<button type="submit"class="btn btn-outline-success w-100"> Crear revisión</button>
+								<div class="col pt-4">
+									<button type="submit"class="btn btn-outline-success w-100 mt-2"> Crear revisión</button>
 								</div>
 							</div>
 							

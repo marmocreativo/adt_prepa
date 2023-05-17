@@ -127,14 +127,25 @@
 					</table>
 					<?php } ?>
 					<div>
-						<form action="<?php echo base_url('index.php/tarea/crear_validacion'); ?>" method='post'>
+						<form action="<?php echo base_url('index.php/tareas/crear_validacion'); ?>" method='post'>
+						
 							<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
+							<input type="hidden" name='IdTarea' value="<?php echo $tarea['ID_TAREA']; ?>">
 							<div class="row">
 								<div class="col">
-								<label for="IdResponsable">Responsable</label>
+									<div class="form-group">
+										<label for="IdLista">Lista</label>
+										<select name="IdLista" class="form-control">ç
+											<?php $listas_validacion = $this->GeneralModel->lista('validacion_lista','',['ESTADO'=>'activo','ID_AREA'=>$_SESSION['usuario']['area']],'','',''); ?>
+											<?php foreach($listas_validacion as $lista){ ?>
+											<option value="<?php echo $lista->ID_LISTA; ?>" <?php if($lista->ID_LISTA==$proyecto['ID_LISTA']){ echo 'selected'; } ?>><?php echo $lista->TITULO; ?></option>
+											<?php }  ?>
+										</select>
+									</div>
 								</div>
 								<div class="col">
 									<div class="form-group">
+									<label for="IdResponsable">Responsable</label>
 										<select name="IdResponsable" class="form-control">
 											<?php foreach($usuarios as $usuario){ ?>
 												<?php $detalles_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]); ?>
@@ -143,8 +154,8 @@
 										</select>
 									</div>
 								</div>
-								<div class="col">
-									<button type="submit"class="btn btn-outline-success w-100"> Crear revisión</button>
+								<div class="col pt-4">
+									<button type="submit"class="btn btn-outline-success w-100 mt-2"> Crear revisión</button>
 								</div>
 							</div>
 							
