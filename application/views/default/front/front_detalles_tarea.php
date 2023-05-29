@@ -110,15 +110,20 @@
 						</thead>
 						<tbody>
 							<?php foreach($revisiones_agrupadas as $revision){ ?>
+								<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision->ID_LISTA]); ?>
+								<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$revision->ID_RESPONSABLE]); ?>
 								<tr>
-									<td><?php echo $revision->ID_REVISION; ?></td>
-									<td><?php echo $revision->FECHA; ?></td>
+									<td><?php echo date('Y-m-d', strtotime($revision->FECHA)); ?></td>
 									<td>
-									<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-outline-success btn-sm">Ver resultados</a>
+										<?php echo $detalles_lista['TITULO']; ?><br>
+										<b><?php echo $detalles_responsable['USUARIO_NOMBRE'].' '.$detalles_responsable['USUARIO_APELLIDOS']; ?></b>
 									</td>
+
 									<td>
-										<div class="btn-group">
-											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-outline-primary btn-sm">Ver formulario</a>
+										<div class="btn-group justify-end">
+
+											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> </a>
+											<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i></a>
 										</div>
 									</td>
 								</tr>
