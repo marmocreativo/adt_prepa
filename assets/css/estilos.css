@@ -233,14 +233,12 @@ body.noche td, body.noche th{
 /* Lista de Tareas */
 .lista_tareas.dia li{
   background-color: #fff;
-  margin-bottom: 8px;
   overflow: hidden;
-  border-bottom: 1px solid #c5c6c7;
+  border-bottom: 1px solid #e5eeee;
 }
 
 .lista_tareas.noche li{
   background-color: #18233D;
-  margin-bottom: 8px;
   border-bottom: 1px solid #c5c6c7;
   overflow: hidden;
 }
@@ -273,15 +271,11 @@ body.noche td, body.noche th{
 
 /* /Lista de Tareas */
 /* Lista de Proyectos */
-.proyecto{
+.proyecto {
 	padding: 16px;
-	margin-bottom: 16px;
 	border-radius: 8px;
-	box-shadow: 2px 2px 8px -7px rgba(0,0,0,0.60);
-	-webkit-box-shadow: 2px 2px 8px -7px rgba(0,0,0,0.60);
-	-moz-box-shadow: 22px 2px 8px -7px rgba(0,0,0,0.60);
 	overflow: hidden;
-	border: solid 1px #dbdfe1;
+	border: solid 1px #e4ebec;
 }
 .proyecto.dia{
   background-color: #FFFFFF;

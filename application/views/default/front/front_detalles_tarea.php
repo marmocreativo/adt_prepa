@@ -7,8 +7,8 @@
 
 <div class="row">
 
-	<div class="col-12 col-md-4">
-		
+	<div class="col-12">
+
 		<div class="proyecto <?php echo $modo; ?>" style="overflow: visible;">
 		<h1 class="h4"><?php echo $tarea['TAREA_TITULO'] ?></h1>
 		<?php
@@ -17,17 +17,17 @@
 					$color_estado = 'warning';
 					$texto_estado = 'text-white';
 					break;
-				
+
 				case 'completo':
 					$color_estado = 'success';
 					$texto_estado = 'text-white';
 					break;
-				
+
 				case 'pendiente':
 					$color_estado = 'light';
 					$texto_estado = '';
 					break;
-				
+
 				default:
 					$color_estado = 'light';
 					$texto_estado = '';
@@ -128,7 +128,7 @@
 					<?php } ?>
 					<div>
 						<form action="<?php echo base_url('index.php/tareas/crear_validacion'); ?>" method='post'>
-						
+
 							<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
 							<input type="hidden" name='IdTarea' value="<?php echo $tarea['ID_TAREA']; ?>">
 							<div class="row">
@@ -158,10 +158,10 @@
 									<button type="submit"class="btn btn-outline-success w-100 mt-2"> Crear revisión</button>
 								</div>
 							</div>
-							
-							
+
+
 						</form>
-						
+
 					</div>
 					<?php }// verifico que la lista exista ?>
 				<?php } ?>
@@ -292,7 +292,7 @@
 											Editar
 										</a>
 										<?php } ?>
-													
+
 										<div class="collapse p-4 bg-light" id='formulario_mensaje_<?php echo $mensaje->ID; ?>'>
 												<form class="" action="<?php echo base_url('index.php/tareas/actualizar_mensaje'); ?>" method="post">
 													<input type="hidden" name="Identificador" value="<?php echo $mensaje->ID; ?>">

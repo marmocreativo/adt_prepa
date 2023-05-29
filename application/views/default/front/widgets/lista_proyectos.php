@@ -1,7 +1,7 @@
 <!-- Lista de proyectos -->
-
+<div class="row">
 <?php foreach($proyectos as $proyecto){ ?>
-<div class="col-sm-6 col-sm-12 col-lg-3 proyecto <?php echo $modo; ?>">
+<div class="m-2 col-sm-6 col-sm-12 col-lg-3 proyecto <?php echo $modo; ?>">
   <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
     <div class="row">
       <div class="col-12">
@@ -69,4 +69,5 @@
 </div>
 
 <?php } ?>
+</div>
 <!-- /lista de proyectos -->

@@ -2,8 +2,8 @@
 	$usuarios = $this->GeneralModel->lista_join('usuarios',['equipos_usuarios'=>'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO'],'',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','usuarios.ID_USUARIO');
 ?>
 <div class="row ">
-	<div class="col-12 col-md-4">
-		<div class="proyecto <?php echo $modo; ?> border-0 border-bottom border-end">
+	<div class="col-12">
+		<div class="proyecto <?php echo $modo; ?> border-bottom border-end">
 			<h1 class="h4"><?php echo $proyecto['PROYECTO_NOMBRE'] ?></h1>
 			<?php
 				switch ($proyecto['ESTADO']) {
@@ -11,40 +11,35 @@
 						$color_estado = 'warning';
 						$texto_estado = 'text-white';
 						break;
-					
+
 					case 'completo':
 						$color_estado = 'success';
 						$texto_estado = 'text-white';
 						break;
-					
+
 					case 'pendiente':
 						$color_estado = 'light';
 						$texto_estado = '';
 						break;
-					
+
 					default:
 						$color_estado = 'light';
 						$texto_estado = '';
 						break;
 				}
 			?>
-			<div class="alert bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></div>
+			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></span>
 			<?php echo $proyecto['PROYECTO_DESCRIPCION']; ?>
 			<hr>
-			<table class="table table-bordered">
-				<tr>
-					<td><i class="fas fa-calendar-plus"></i> Inicio</td>
-					<td><?php if($proyecto['FECHA_INICIO'] != null ){ echo fechas_es($proyecto['FECHA_INICIO']); }else{ echo 'N/A'; } ?></td>
-				</tr>
-				<tr>
-					<td><i class="fas fa-stopwatch"></i>Final</td>
-					<td><?php if($proyecto['FECHA_FINAL'] != null ){ echo fechas_es($proyecto['FECHA_FINAL']); }else{ echo 'N/A'; } ?></td>
-				</tr>
-				<tr>
-					<td>Estado</td>
-					<td><?php echo $proyecto['ESTADO']; ?></td>
-				</tr>
-			</table>
+				<p><i class="fas fa-calendar-plus"></i> Inicio
+					<span><?php if($proyecto['FECHA_INICIO'] != null ){ echo fechas_es($proyecto['FECHA_INICIO']); }else{ echo 'N/A'; } ?></span>
+				</p>
+				<p><i class="fas fa-stopwatch"></i>Final
+					<span><?php if($proyecto['FECHA_FINAL'] != null ){ echo fechas_es($proyecto['FECHA_FINAL']); }else{ echo 'N/A'; } ?></span>
+				</p>
+				<p>Estado
+					<span><?php echo $proyecto['ESTADO']; ?></span>
+				</p>
 			<hr>
 			<div class="row">
 				<?php if(!empty($proyecto['ENLACE_EDITABLE'])){ ?>
@@ -94,7 +89,7 @@
 
 									<td>
 										<div class="btn-group justify-end">
-											
+
 											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> </a>
 											<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i></a>
 										</div>
@@ -139,10 +134,10 @@
 									<button type="submit"class="btn btn-outline-success w-100 mt-2"> Crear revisión</button>
 								</div>
 							</div>
-							
-							
+
+
 						</form>
-						
+
 					</div>
 					<?php }// verifico que la lista exista ?>
 				<?php } ?>
@@ -152,7 +147,7 @@
 			<button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-danger btn-block btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>
 		</div>
 	</div>
-	<div class="col-12 col-md-8">
+	<div class="col-12">
 		<div class="mb-3">
 		<?php if($proyecto['ESTADO']!='terminado'){ ?>
 			<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#NuevaTarea" title="Nueva tarea">
@@ -227,7 +222,7 @@
 						</div>
 					</div>
 					<div class="">
-						
+
 						<h4>Asignar a:</h4>
 						<ul class="list-group">
 							<?php foreach($usuarios as $usuario){ ?>
