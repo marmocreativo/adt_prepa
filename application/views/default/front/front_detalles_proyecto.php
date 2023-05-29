@@ -30,14 +30,14 @@
 			?>
 			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></span></h4>
 			<?php echo $proyecto['PROYECTO_DESCRIPCION']; ?>
-				<p><i class="fas fa-calendar-plus"></i> Duración
+				<p><i class="fas fa-calendar-plus"></i> <b>Duración</b>
 					<span><?php if($proyecto['FECHA_INICIO'] != null ){ echo fechas_es($proyecto['FECHA_INICIO']); }else{ echo 'N/A'; } ?></span> -
 					<span><?php if($proyecto['FECHA_FINAL'] != null ){ echo fechas_es($proyecto['FECHA_FINAL']); }else{ echo 'N/A'; } ?></span>
 					<span><?php echo $proyecto['ESTADO']; ?></span>
 				</p>
 
 				<a href="<?php echo base_url('index.php/proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
-				<button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>
+				<button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a></button>
 
 			<div class="row">
 				<?php if(!empty($proyecto['ENLACE_EDITABLE'])){ ?>
