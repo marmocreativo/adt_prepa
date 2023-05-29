@@ -174,7 +174,9 @@
                 <?php } ?>
                 <?php if($dimension_siguiente<=$conteo_dimension){ ?>
                 <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_siguiente]); ?>" class="btn btn-secondary btn-lg">Siguiente</a>
+                
                 <?php } ?>
+                <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-success btn-lg">Finalizar</a>
             </div>
             </div>
         </div>

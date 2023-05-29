@@ -84,9 +84,13 @@
 						<tbody>
 							<?php foreach($revisiones_agrupadas as $revision){ ?>
 								<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision->ID_LISTA]); ?>
+								<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$revision->ID_RESPONSABLE]); ?>
 								<tr>
 									<td><?php echo date('Y-m-d', strtotime($revision->FECHA)); ?></td>
-									<td><?php echo $detalles_lista['TITULO']; ?></td>
+									<td>
+										<?php echo $detalles_lista['TITULO']; ?><br>
+										<b><?php echo $detalles_responsable['USUARIO_NOMBRE'].' '.$detalles_responsable['USUARIO_APELLIDOS']; ?></b>
+									</td>
 
 									<td>
 										<div class="btn-group justify-end">
@@ -123,6 +127,12 @@
 											<option value="<?php echo $usuario->ID_USUARIO; ?>"><?php echo $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS; ?></option>
 											<?php }  ?>
 										</select>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="IdResponsable">Fecha limite validacion</label>
+										<input type="date" class="form-control">
 									</div>
 								</div>
 								<div class="col pt-4">
