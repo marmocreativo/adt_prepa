@@ -4,7 +4,7 @@
 <div class="row ">
 	<div class="col-12">
 		<div class="proyecto <?php echo $modo; ?> border-bottom border-end">
-			<h1 class="h4"><?php echo $proyecto['PROYECTO_NOMBRE'] ?></h1>
+			<h4><?php echo $proyecto['PROYECTO_NOMBRE'] ?>
 			<?php
 				switch ($proyecto['ESTADO']) {
 					case 'en desarrollo':
@@ -28,19 +28,17 @@
 						break;
 				}
 			?>
-			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></span>
+			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></span></h4>
 			<?php echo $proyecto['PROYECTO_DESCRIPCION']; ?>
-			<hr>
-				<p><i class="fas fa-calendar-plus"></i> Inicio
-					<span><?php if($proyecto['FECHA_INICIO'] != null ){ echo fechas_es($proyecto['FECHA_INICIO']); }else{ echo 'N/A'; } ?></span>
-				</p>
-				<p><i class="fas fa-stopwatch"></i>Final
+				<p><i class="fas fa-calendar-plus"></i> Duración
+					<span><?php if($proyecto['FECHA_INICIO'] != null ){ echo fechas_es($proyecto['FECHA_INICIO']); }else{ echo 'N/A'; } ?></span> -
 					<span><?php if($proyecto['FECHA_FINAL'] != null ){ echo fechas_es($proyecto['FECHA_FINAL']); }else{ echo 'N/A'; } ?></span>
-				</p>
-				<p>Estado
 					<span><?php echo $proyecto['ESTADO']; ?></span>
 				</p>
-			<hr>
+
+				<a href="<?php echo base_url('index.php/proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
+				<button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>
+
 			<div class="row">
 				<?php if(!empty($proyecto['ENLACE_EDITABLE'])){ ?>
 				<div class="col-12 col-md-6">
@@ -142,12 +140,10 @@
 					<?php }// verifico que la lista exista ?>
 				<?php } ?>
 			</div>
-			<hr>
-			<a href="<?php echo base_url('index.php/proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-link btn-block btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
-			<button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-danger btn-block btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>
 		</div>
 	</div>
 	<div class="col-12">
+		<h4>Tareas</h4>
 		<div class="mb-3">
 		<?php if($proyecto['ESTADO']!='terminado'){ ?>
 			<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#NuevaTarea" title="Nueva tarea">
