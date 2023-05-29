@@ -1,10 +1,10 @@
 <!-- Lista de proyectos -->
 
 <?php foreach($proyectos as $proyecto){ ?>
-<div class="proyecto <?php echo $modo; ?>">
+<div class="col-sm-6 col-sm-12 col-lg-3 proyecto <?php echo $modo; ?>">
   <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
     <div class="row">
-      <div class="col-12 col-md-8">
+      <div class="col-12">
         <div class="row">
           <div class="col-2 text-center">
             <img src="<?php echo base_url('assets/img/folder.png'); ?>" class="img-fluid" alt="Proyecto">
