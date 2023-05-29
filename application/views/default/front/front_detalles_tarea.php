@@ -122,13 +122,13 @@
 									<td>
 										<div class="btn-group justify-end">
 
-											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> </a>
-											<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i></a>
+											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> </a>
+											<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i></a>
 										</div>
 									</td>
 								</tr>
 							<?php }//bucle revisiones ?>
-						</tbody>
+						</tbody><
 					</table>
 					<?php } ?>
 					<div>
