@@ -10,7 +10,7 @@
 	<div class="col-12">
 
 		<div class="proyecto <?php echo $modo; ?>" style="overflow: visible;">
-		<h1 class="h4"><?php echo $tarea['TAREA_TITULO'] ?></h1>
+		<h1 class="h4"><?php echo $tarea['TAREA_TITULO'] ?>
 		<?php
 			switch ($tarea['ESTADO']) {
 				case 'en desarrollo':
@@ -24,26 +24,23 @@
 					break;
 
 				case 'pendiente':
-					$color_estado = 'light';
-					$texto_estado = '';
+					$color_estado = 'warning';
+					$texto_estado = 'text-white';
 					break;
 
 				default:
-					$color_estado = 'light';
-					$texto_estado = '';
+					$color_estado = 'primary';
+					$texto_estado = 'text-white';
 					break;
 			}
 		?>
-			<div class="alert bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $tarea['ESTADO'] ?></div>
-			<table class="table table-bordered table-sm">
-				<tbody>
-					<tr>
-						<td title="Fecha de inicio"><i class="fas fa-calendar-plus"></i> <?php if($tarea['FECHA_INICIO'] != null ){ echo fechas_es($tarea['FECHA_INICIO']); }else{ echo 'N/A'; } ?></td>
-						<td title="Dead line"><i class="fas fa-stopwatch"></i> <?php if($tarea['FECHA_FINAL'] != null ){ echo fechas_es($tarea['FECHA_FINAL']); }else{ echo 'N/A'; } ?></td>
-						<td class="text-end"> <a href="<?php echo base_url('index.php/tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="fa fa-pencil"></i> Editar tarea </a> </td>
-					</tr>
-				</tbody>
-			</table>
+			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $tarea['ESTADO'] ?></span>
+			</h1>
+					<p>
+						<i class="fas fa-calendar" title="Duración de la tarea"></i> <?php if($tarea['FECHA_INICIO'] != null ){ echo fechas_es($tarea['FECHA_INICIO']); }else{ echo 'N/A'; } ?> -
+						 <?php if($tarea['FECHA_FINAL'] != null ){ echo fechas_es($tarea['FECHA_FINAL']); }else{ echo 'N/A'; } ?>
+						<a href="<?php echo base_url('index.php/tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="ml-5 fa fa-pencil"></i> Editar tarea </a>
+					</p>
 			<p><?php echo $tarea['TAREA_DESCRIPCION']; ?></p>
 			<div class="row my-3">
 				<?php if(!empty($tarea['TAREA_ENLACE_EDITABLES'])){ ?>
@@ -61,7 +58,7 @@
 				</div>
 				<?php } ?>
 			</div>
-			<h4>Usuarios</h4>
+
 			<?php $usuarios= $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','',''); ?>
 			<ul class="list-inline">
 				<?php foreach ($usuarios as $usuario) { ?>
@@ -89,92 +86,11 @@
 				<?php } ?>
 			</ul>
 			<?php $proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$tarea['ID_PROYECTO']]); ?>
-			<div class="py-3 border-top border-bottom border-success">
-				<h4>Validación</h4>
-				<?php if($proyecto['VALIDACION']=='no'){ ?>
-				<p>Este proyecto no requiere validación</p>
-				<?php }else{ ?>
-					<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
-					<?php if(!empty($detalles_lista)){ ?>
-					<p>Se usará la lista: <b><?php echo $detalles_lista['TITULO']; ?></b> para validar todas las tareas</p>
-					<?php $revisiones_agrupadas = $this->GeneralModel->lista('validacion_revisiones','',['ID_TAREA'=>$tarea['ID_TAREA']],'','',''); ?>
-					<?php if(!empty($revisiones_agrupadas)){ ?>
-					<table class="table table-stripped">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Fecha</th>
-								<th>Resultados</th>
-								<th>Controles</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach($revisiones_agrupadas as $revision){ ?>
-								<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision->ID_LISTA]); ?>
-								<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$revision->ID_RESPONSABLE]); ?>
-								<tr>
-									<td><?php echo date('Y-m-d', strtotime($revision->FECHA)); ?></td>
-									<td>
-										<?php echo $detalles_lista['TITULO']; ?><br>
-										<b><?php echo $detalles_responsable['USUARIO_NOMBRE'].' '.$detalles_responsable['USUARIO_APELLIDOS']; ?></b>
-									</td>
-
-									<td>
-										<div class="btn-group justify-end">
-
-											<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> </a>
-											<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i></a>
-										</div>
-									</td>
-								</tr>
-							<?php }//bucle revisiones ?>
-						</tbody><
-					</table>
-					<?php } ?>
-					<div>
-						<form action="<?php echo base_url('index.php/tareas/crear_validacion'); ?>" method='post'>
-
-							<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
-							<input type="hidden" name='IdTarea' value="<?php echo $tarea['ID_TAREA']; ?>">
-							<div class="row">
-								<div class="col">
-									<div class="form-group">
-										<label for="IdLista">Lista</label>
-										<select name="IdLista" class="form-control">ç
-											<?php $listas_validacion = $this->GeneralModel->lista('validacion_lista','',['ESTADO'=>'activo','ID_AREA'=>$_SESSION['usuario']['area']],'','',''); ?>
-											<?php foreach($listas_validacion as $lista){ ?>
-											<option value="<?php echo $lista->ID_LISTA; ?>" <?php if($lista->ID_LISTA==$proyecto['ID_LISTA']){ echo 'selected'; } ?>><?php echo $lista->TITULO; ?></option>
-											<?php }  ?>
-										</select>
-									</div>
-								</div>
-								<div class="col">
-									<div class="form-group">
-									<label for="IdResponsable">Responsable</label>
-										<select name="IdResponsable" class="form-control">
-											<?php foreach($usuarios as $usuario){ ?>
-												<?php $detalles_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]); ?>
-											<option value="<?php echo $detalles_usuario['ID_USUARIO']; ?>"><?php echo $detalles_usuario['USUARIO_NOMBRE'].' '.$detalles_usuario['USUARIO_APELLIDOS']; ?></option>
-											<?php }  ?>
-										</select>
-									</div>
-								</div>
-								<div class="col pt-4">
-									<button type="submit"class="btn btn-outline-success w-100 mt-2"> Crear revisión</button>
-								</div>
-							</div>
-
-
-						</form>
-
-					</div>
-					<?php }// verifico que la lista exista ?>
-				<?php } ?>
-			</div>
+			<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"> Validaciones de la tarea</button>
 		</div>
 	</div>
 
-	<div class="col-12 col-md-8 border-top">
+	<div class="col-12 col-md-8">
 
 		<div class="detalles_tarea p-3 mt-3">
 
@@ -363,4 +279,101 @@
 		</div>
 	</div>
 </div>
+</div>
+
+<!-- Modal Validaciones-->
+<div class="modal fade" id="ValidacionesCont" tabindex="-1" aria-labelledby="ValidacionesLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="NuevaTareaLabel">Validaciones</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div>
+					<?php if($proyecto['VALIDACION']=='no'){ ?>
+					<p>Este proyecto no requiere validación</p>
+					<?php }else{ ?>
+						<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
+						<?php if(!empty($detalles_lista)){ ?>
+						<p>Se usará la lista: <b><?php echo $detalles_lista['TITULO']; ?></b> para validar todas las tareas</p>
+						<?php $revisiones_agrupadas = $this->GeneralModel->lista('validacion_revisiones','',['ID_TAREA'=>$tarea['ID_TAREA']],'','',''); ?>
+						<?php if(!empty($revisiones_agrupadas)){ ?>
+
+							<div>
+								<form action="<?php echo base_url('index.php/tareas/crear_validacion'); ?>" method='post'>
+
+									<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
+									<input type="hidden" name='IdTarea' value="<?php echo $tarea['ID_TAREA']; ?>">
+									<div class="row">
+										<div class="col">
+											<div class="form-group">
+												<label for="IdLista">Lista</label>
+												<select name="IdLista" class="form-control">ç
+													<?php $listas_validacion = $this->GeneralModel->lista('validacion_lista','',['ESTADO'=>'activo','ID_AREA'=>$_SESSION['usuario']['area']],'','',''); ?>
+													<?php foreach($listas_validacion as $lista){ ?>
+													<option value="<?php echo $lista->ID_LISTA; ?>" <?php if($lista->ID_LISTA==$proyecto['ID_LISTA']){ echo 'selected'; } ?>><?php echo $lista->TITULO; ?></option>
+													<?php }  ?>
+												</select>
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-group">
+											<label for="IdResponsable">Responsable</label>
+												<select name="IdResponsable" class="form-control">
+													<?php foreach($usuarios as $usuario){ ?>
+														<?php $detalles_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]); ?>
+													<option value="<?php echo $detalles_usuario['ID_USUARIO']; ?>"><?php echo $detalles_usuario['USUARIO_NOMBRE'].' '.$detalles_usuario['USUARIO_APELLIDOS']; ?></option>
+													<?php }  ?>
+												</select>
+											</div>
+										</div>
+										<div class="col pt-4">
+											<button type="submit"class="btn btn-outline-success w-100 mt-2"> Crear revisión</button>
+										</div>
+									</div>
+
+
+								</form>
+
+							</div>
+
+							<table class="table table-stripped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Fecha</th>
+									<th>Resultados</th>
+									<th>Controles</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($revisiones_agrupadas as $revision){ ?>
+									<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision->ID_LISTA]); ?>
+									<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$revision->ID_RESPONSABLE]); ?>
+									<tr>
+										<td><?php echo date('Y-m-d', strtotime($revision->FECHA)); ?></td>
+										<td>
+											<?php echo $detalles_lista['TITULO']; ?><br>
+											<b><?php echo $detalles_responsable['USUARIO_NOMBRE'].' '.$detalles_responsable['USUARIO_APELLIDOS']; ?></b>
+										</td>
+
+										<td>
+											<div class="btn-group justify-end">
+
+												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> </a>
+												<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i></a>
+											</div>
+										</td>
+									</tr>
+								<?php }//bucle revisiones ?>
+							</tbody><
+						</table>
+						<?php } ?>
+						<?php }// verifico que la lista exista ?>
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
