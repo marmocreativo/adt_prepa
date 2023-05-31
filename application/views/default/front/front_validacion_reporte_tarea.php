@@ -17,14 +17,15 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
                                 <input type="hidden" name="fecha_revision" value="<?php echo $revision['FECHA']; ?>">
                                 <input type="hidden" name="tarea" value="<?php echo $tarea['ID_TAREA']; ?>">
                             <div class="input-group">
-                                <label for="">Mostrar parametros</label>
-                                <select name="mostrar" class="form-control" id="">
+                              <span class="input-group-text">Mostrar parámetros:</span>
+
+                                <select name="mostrar" class="form-select" id="">
                                     <option value="todos">Todos</option>
                                     <option value="validados">Validados</option>
                                     <option value="no_validados">No Validados</option>
                                 </select>
+                                <button type="submit" class="btn btn-primary rounded-end-circle">Filtrar</button>
                             </div>
-                            <button type="submit" class="btn btn-primary">Filtrar</button>
                     </form></th>
                     </tr>
                 </thead>
@@ -47,7 +48,7 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
                                 <tr>
                                     <th><?php echo $dimension->TITULO; ?></th>
                                 </tr>
-                                <?php  $parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','',''); ?> 
+                                <?php  $parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','',''); ?>
                                 <?php foreach($parametros as $parametro){ ?>
                                     <?php $respuesta = $this->GeneralModel->detalles('validacion_respuesta',['ID_REVISION'=>$revision['ID_REVISION'],'ID_TAREA'=>$tarea['ID_TAREA'],'ID_PARAMETRO'=>$parametro->ID_PARAMETRO]); ?>
                                     <?php
@@ -56,23 +57,23 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
                                             case 'todos':
                                                 $clase_parametro = '';
                                                 break;
-                                            
+
                                             case 'validados':
                                                 if($respuesta['VALOR']!='validada'){
                                                     $clase_parametro = 'd-none';
                                                 }
-                                                
+
                                                 break;
                                             case 'no_validados':
                                                 if($respuesta['VALOR']=='validada'){
                                                     $clase_parametro = 'd-none';
                                                 }
-                                                
+
                                                 break;
                                         }
                                     ?>
                                      <tr class="<?php echo $clase_parametro; ?>">
-                                    
+
                                     <td><?php echo $parametro->TITULO; ?> <?php if($respuesta['VALOR']=='validada'){ echo '<i class="fa fa-check text-success"></i>';}else{ echo '<i class="fa fa-times text-danger"></i>'; } ?></td>
 
                                     </tr>
@@ -80,7 +81,7 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
                             </table>
                         <?php } ?>
                     </tr>
-                </tbody>            
+                </tbody>
             </table>
         </div>
     </div>

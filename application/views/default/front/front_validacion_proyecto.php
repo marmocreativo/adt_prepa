@@ -20,7 +20,7 @@
                 <div id="qrcodeb"></div>
             </div>
         </div>
-			
+
             <ul class="list-group">
                 <?php foreach($tareas as $tarea){ ?>
                     <li class="list-group-item d-flex justify-content-between"><p><a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>"><?php echo $tarea->TAREA_TITULO; ?></a></p>
@@ -61,12 +61,12 @@
                 $i++;
             }
             $conteo_dimension = count($dimensiones);
-            
+
         ?>
         <div class="card proyecto mb-3">
             <div class="card-header border-bottom border-primary d-flex" style="background-color: transparent;">
-            <h4 class="text-secondary display-6 fw-bold"><?php echo $dimension_activa['TITULO']; ?></h4>
-            <p class="text-secondary display-6 text-primary ms-3"><span class="ml-2"><?php echo $lugar_dimension; ?> de <?php echo $conteo_dimension; ?></span></p>
+            <p class="ml-2"><?php echo $lugar_dimension; ?> de <?php echo $conteo_dimension; ?> | </p><h4 class="ml-2 text-primary display-6 fw-bold">  <?php echo $dimension_activa['TITULO']; ?></h4>
+            <p class="text-secondary display-6 text-primary ms-3"></p>
             </div>
 
             <!-- Filtros -->
@@ -105,20 +105,20 @@
             </div>
 
             <!-- Cuerpo de listado -->
-            <div class="card-body text-secondary">
+            <div class="card-body">
             <div class="list-group shadow-sm">
                 <?php $parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension_activa['ID_DIMENSION']],'','',''); ?>
                 <?php foreach($parametros as $parametro){ ?>
                     <?php
                     $mostrar = '';
-                    $respuesta = $this->GeneralModel->detalles('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION'],'ID_PARAMETRO'=>$parametro->ID_PARAMETRO]);    
+                    $respuesta = $this->GeneralModel->detalles('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION'],'ID_PARAMETRO'=>$parametro->ID_PARAMETRO]);
                     if(empty($respuesta)){
                         $mostrar = 'd-none';
                     }
                     ?>
                     <?php
                         $meta_parametros = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$parametro->ID_PARAMETRO,'TIPO_OBJETO'=>'parametro'],'','','');
-                        $meta_datos_parametros = array(); foreach($meta_parametros as $m){ $meta_datos_parametros[$m->DATO_NOMBRE]= $m->DATO_VALOR; }    
+                        $meta_datos_parametros = array(); foreach($meta_parametros as $m){ $meta_datos_parametros[$m->DATO_NOMBRE]= $m->DATO_VALOR; }
                     ?>
                     <li class="list-group-item <?php echo $mostrar; ?>">
                         <div class="row">
@@ -130,7 +130,7 @@
                                         id="Check-<?php echo $parametro->ID_PARAMETRO; ?>"
                                         <?php if($respuesta['VALOR']=='validada'){ echo 'checked'; } ?>
                                         >
-                                    <label class="z-2 form-check-label" for="Check-<?php echo $parametro->ID_PARAMETRO; ?>"><h5><?php echo $parametro->TITULO; ?></h5></label>
+                                    <label class="z-2 form-check-label" for="Check-<?php echo $parametro->ID_PARAMETRO; ?>"><p><?php echo $parametro->TITULO; ?></p></label>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                                 <span class="badge bg-info rounded-pill mx-1 text-white"><?php echo $meta_datos_parametros['nivel_accesibilidad'] ?></span>
                             </div>
                             <div class="col-2 text-right">
-                                <span class="badge bg-warning rounded-pill mx-1"><?php echo $meta_datos_parametros['nivel'] ?></span>
+                                <span class="badge bg-warning rounded-pill mx-1 text-white"><?php echo $meta_datos_parametros['nivel'] ?></span>
                             </div>
                             <div class="col-1 text-right">
                                 <button class="btn btn-primary rounded-circle px-2" type="button" data-bs-toggle="collapse" data-bs-target="#comment-<?php echo $parametro->ID_PARAMETRO; ?>" aria-expanded="false" aria-controls="comment-<?php echo $parametro->ID_PARAMETRO; ?>">
@@ -164,19 +164,23 @@
             </div>
 
             <div class="card-footer text-bg-secondary bg-opacity-25 text-end">
-            <div class="btn-group" role="group" aria-label="Navegación de dimensiones">
+            <div class="btn-toolbar" role="toolbar" aria-label="Navegación de dimensiones">
+              <div class="btn-group mr-2" role="group" aria-label="Navegacion adelante y atrás">
                 <?php
                     $dimension_anterior = $lugar_dimension-1;
                     $dimension_siguiente = $lugar_dimension+1;
                 ?>
                 <?php if($dimension_anterior>0){ ?>
-                <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_anterior]); ?>" class="btn btn-outline-secondary btn-lg">Anterior</a>
+                <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_anterior]); ?>" class="btn btn-outline-primary btn-lg"><i class="fa-solid fa-chevron-left"></i> Anterior</a>
                 <?php } ?>
                 <?php if($dimension_siguiente<=$conteo_dimension){ ?>
-                <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_siguiente]); ?>" class="btn btn-secondary btn-lg">Siguiente</a>
-                
+                <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_siguiente]); ?>" class="btn btn-primary btn-lg">Siguiente <i class="fa-solid fa-chevron-right"></i></a>
+
                 <?php } ?>
-                <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-success btn-lg">Finalizar</a>
+              </div>
+              <div class="btn-group" role="group" aria-label="Boton de terminar">
+                <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>" class="btn-secondary btn-lg">Finalizar</a>
+              </div>
             </div>
             </div>
         </div>
@@ -217,7 +221,7 @@
                     }
                     };
 
-                   
+
                     xhr.send();
             });
         });
@@ -245,7 +249,7 @@
                     }
                     };
 
-                   
+
                     xhr.send();
                 }else{
                     const valor = this.dataset.respuesta;
@@ -268,12 +272,10 @@
                     }
                     };
 
-                   
+
                     xhr.send();
                 }
             });
         });
 
 </script>
-
-
