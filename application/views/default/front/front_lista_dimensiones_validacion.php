@@ -31,7 +31,7 @@
                             }else{
                                  if($i==0){ echo 'active'; }
                                 } ?>"
-                                
+
                             id="tab-<?php echo $dimension->ID_DIMENSION; ?>" data-bs-toggle="tab" data-bs-target="#tab-<?php echo $dimension->ID_DIMENSION; ?>-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><?php echo $dimension->TITULO; ?></button>
                 </li>
                 <?php $i++; } ?>
@@ -109,7 +109,7 @@
                                             <?php foreach($lista_parametros as $parametro){ ?>
                                             <?php
                                                 $meta_parametros = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$parametro->ID_PARAMETRO,'TIPO_OBJETO'=>'parametro'],'','','');
-                                                $meta_datos_parametros = array(); foreach($meta_parametros as $m){ $meta_datos_parametros[$m->DATO_NOMBRE]= $m->DATO_VALOR; }    
+                                                $meta_datos_parametros = array(); foreach($meta_parametros as $m){ $meta_datos_parametros[$m->DATO_NOMBRE]= $m->DATO_VALOR; }
                                             ?>
                                         <tr>
                                             <td><?php echo $parametro->TITULO; ?></td>
@@ -120,11 +120,11 @@
                                             <td>
                                             <div class="btn-group">
                                                 <button data-enlace="<?php echo base_url('index.php/listas/borrar_parametro?id='.$parametro->ID_PARAMETRO); ?>" class="btn btn-danger btn-block btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</button>
-                                                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editar_parametro_<?php echo $parametro->ID_PARAMETRO; ?>">Editar</button>    
+                                                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editar_parametro_<?php echo $parametro->ID_PARAMETRO; ?>">Editar</button>
                                             </div>
                                                 <div class="modal fade" id="editar_parametro_<?php echo $parametro->ID_PARAMETRO; ?>" tabindex="-1" aria-labelledby="editar_parametro_<?php echo $parametro->ID_PARAMETRO; ?>" aria-hidden="true">
                                                     <div class="modal-dialog">
-                                                        <div class="modal-content">
+                                                        <div class="modal-content  <?php echo $modo; ?>">
                                                             <div class="modal-body">
                                                                 <form action="<?php echo base_url('index.php/listas/actualizar_parametro'); ?>" method='post'>
                                                                     <input type="hidden" name="Identificador" value="<?php echo $parametro->ID_PARAMETRO; ?>">
@@ -167,16 +167,16 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                                
+
                                         </tr>
                                         <?php } ?>
                                     </table>
                                     <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editar_dimension_<?php echo $dimension->ID_DIMENSION; ?>">Editar</button>
                                     <button data-enlace="<?php echo base_url('index.php/listas/borrar_dimension?id='.$dimension->ID_DIMENSION); ?>" class="btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Borrar dimensión <?php echo $dimension->TITULO; ?></button>
-                                    
+
                                     <div class="modal fade" id="editar_dimension_<?php echo $dimension->ID_DIMENSION; ?>" tabindex="-1" aria-labelledby="editar_dimension_<?php echo $dimension->ID_DIMENSION; ?>" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
+                                            <div class="modal-content  <?php echo $modo; ?>">
                                                 <div class="modal-body">
                                                     <form action="<?php echo base_url('index.php/listas/actualizar_dimension'); ?>" method='post'>
                                                         <input type="hidden" name="Identificador" value="<?php echo $dimension->ID_DIMENSION; ?>">
@@ -193,11 +193,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                     <?php $i++; } ?>
                 </div>
                 <div>
-                    
+
                 </div>
 		</div>
 	</div>

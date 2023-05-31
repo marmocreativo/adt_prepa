@@ -81,7 +81,7 @@
 <!-- Modal Validaciones-->
 <div class="modal fade" id="ValidacionesCont" tabindex="-1" aria-labelledby="ValidacionesLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
+		<div class="modal-content <?php echo $modo; ?>">
 			<div class="modal-header">
 				<h5 class="modal-title" id="NuevaTareaLabel">Validaciones</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -175,7 +175,7 @@
 <!-- Modal -->
 <div class="modal fade" id="NuevaTarea" tabindex="-1" aria-labelledby="NuevaTareaLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
+		<div class="modal-content <?php echo $modo; ?>">
 			<div class="modal-header">
 				<h5 class="modal-title" id="NuevaTareaLabel">Nueva Tarea</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

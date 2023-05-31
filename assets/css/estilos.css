@@ -124,6 +124,12 @@ body.noche td, body.noche th{
 
 }
 
+.envolvente_noche .form-control {
+  color: #959ba2;
+background-color: #3f444f;
+border: none;
+}
+
 .sidebar{
   position:absolute;
   color: #fff;
@@ -239,7 +245,7 @@ body.noche td, body.noche th{
 
 .lista_tareas.noche li{
   background-color: #18233D;
-  border-bottom: 1px solid #c5c6c7;
+  border-bottom: 1px solid #3a4257;
   overflow: hidden;
 }
 
@@ -292,3 +298,20 @@ body.noche td, body.noche th{
   color: #F2F2F2;
 }
 /* /Lista de Proyectos */
+
+/* Validaciones */
+.modal-content.dia {
+  background-color: #FFF;
+}
+
+.modal-content.noche {
+  background-color: #18233D;
+}
+
+.noche .table td,.noche .table th {
+	border-top: 1px solid #3e4955;
+}
+
+.envolvente_noche .list-group {
+  background-color: #18233D;
+}
