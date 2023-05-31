@@ -24,8 +24,8 @@
                 <?php $i=0; foreach($dimensiones as $dimension){ ?>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link <?php
-                            if(isset($_GET['id_dimension'])&&!empty($_GET['id_dimension'])){
-                                 if($_GET['id_dimension']==$dimension->ID_DIMENSION){
+                            if(isset($_GET['dimension'])&&!empty($_GET['dimension'])){
+                                 if($_GET['dimension']==$dimension->ID_DIMENSION){
                                      echo 'active';
                                 }
                             }else{
@@ -39,9 +39,9 @@
                 <div class="tab-content" id="myTabContent">
                     <?php $i=0; foreach($dimensiones as $dimension){ ?>
                     <div class="tab-pane fade <?php
-                            if(isset($_GET['id_dimension'])&&!empty($_GET['id_dimension'])){
-                                 if($_GET['id_dimension']==$dimension->ID_DIMENSION){
-                                     echo 'active';
+                            if(isset($_GET['dimension'])&&!empty($_GET['dimension'])){
+                                 if($_GET['dimension']==$dimension->ID_DIMENSION){
+                                     echo 'show active';
                                 }
                             }else{
                                  if($i==0){ echo 'show active'; }

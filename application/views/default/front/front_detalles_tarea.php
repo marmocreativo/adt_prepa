@@ -344,7 +344,6 @@
 									<th>ID</th>
 									<th>Fecha</th>
 									<th>Resultados</th>
-									<th>Controles</th>
 								</tr>
 							</thead>
 							<tbody>
