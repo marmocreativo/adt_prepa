@@ -1,6 +1,6 @@
 <div class="row mb-4">
 	<div class="col-8">
-		<h3>Tipos | <?php echo $tipo; ?></h3>
+		<h3>Base de datos</h3>
 	</div>
 	<div class="col-2">
 	</div>
