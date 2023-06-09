@@ -52,14 +52,96 @@ class Admin_Inicio extends CI_Controller {
 	public function index()
 	{	
 		$this->load->dbforge();
-    
+		/*
 		$fields = array(
-			'COMENTARIOS' => array(
-				'type' => 'text'
-			)
+			'ID_LISTA' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'ID_DIMENSION' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'TITULO' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
 		);
-
+		
 		$this->dbforge->add_column('validacion_respuesta', $fields);
+		*/
+		/*
+		$fields = array(
+			'CRITERIO_1' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'OPCIONES_1' => array(
+				'type' => 'TEXT',
+				'null' => true,
+			),
+			'CRITERIO_2' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'OPCIONES_2' => array(
+				'type' => 'TEXT',
+				'null' => true,
+			),
+			'CRITERIO_3' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'OPCIONES_3' => array(
+				'type' => 'TEXT',
+				'null' => true,
+			),
+			'CRITERIO_4' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'OPCIONES_4' => array(
+				'type' => 'TEXT',
+				'null' => true,
+			),
+			'CRITERIO_5' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'OPCIONES_5' => array(
+				'type' => 'TEXT',
+				'null' => true,
+			),
+		);
+		
+		$this->dbforge->add_column('validacion_dimension', $fields);
+		*/
+		/*
+		$fields = array(
+			'CRITERIO_VALOR_1' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'CRITERIO_VALOR_2' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'CRITERIO_VALOR_3' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'CRITERIO_VALOR_4' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+			'CRITERIO_VALOR_5' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+			),
+		);
+		
+		$this->dbforge->add_column('validacion_parametros', $fields);
+		*/
 	}
 	
 	public function ajuste_areas()

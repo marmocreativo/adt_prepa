@@ -1,6 +1,7 @@
 <div class="estadisticas_generales mb-3">
 	<div class="row">
 		<div class="col-12">
+            <?php if(isset($_GET['notif'])){notiget($_GET['notif']);} ?>
             <h3><?php echo $lista['TITULO']; ?></h3>
             <p><?php echo $lista['DESCRIPCION']; ?></p>
 			<div class="p-4 border border-primary">
@@ -8,12 +9,52 @@
                 <input type="hidden" name="IdLista" value="<?php echo $lista['ID_LISTA'] ?>">
 				<input type="hidden" name="Descripcion" value="">
 					<div class="row">
-						<div class="col-9">
+						<div class="col">
 							<div class="form-group">
 								<input type="text" name="Titulo" class="form-control" placeholder='Título de la dimensión'>
 							</div>
 						</div>
-						<div class="col-3">
+                        <div class="col">
+							<div class="form-group">
+								<input type="text" name="Criterio1" class="form-control" placeholder='Criterio 1'>
+							</div>
+                            <div class="form-group">
+								<textarea name="OpcionesCriterio1" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
+							</div>
+						</div>
+                        <div class="col">
+							<div class="form-group">
+								<input type="text" name="Criterio2" class="form-control" placeholder='Criterio 2'>
+							</div>
+                            <div class="form-group">
+								<textarea name="OpcionesCriterio2" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
+							</div>
+						</div>
+                        <div class="col">
+							<div class="form-group">
+								<input type="text" name="Criterio3" class="form-control" placeholder='Criterio 3'>
+							</div>
+                            <div class="form-group">
+								<textarea name="OpcionesCriterio3" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
+							</div>
+						</div>
+                        <div class="col">
+							<div class="form-group">
+								<input type="text" name="Criterio4" class="form-control" placeholder='Criterio 4'>
+							</div>
+                            <div class="form-group">
+								<textarea name="OpcionesCriterio4" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
+							</div>
+						</div>
+                        <div class="col">
+							<div class="form-group">
+								<input type="text" name="Criterio5" class="form-control" placeholder='Criterio 5'>
+							</div>
+                            <div class="form-group">
+								<textarea name="OpcionesCriterio5" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
+							</div>
+						</div>
+						<div class="col">
 							<button type="submit" class="btn btn-success w-100">Crear dimensión</button>
 						</div>
 					</div>
@@ -53,45 +94,96 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
+                                                        <label for="Titulo">Título del parámetro</label>
                                                         <input type="text" class="form-control" name='Titulo' placeholder="Titulo">
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
+                                                        <label for="Obligatorio">Es un parámetro obligatorio?</label>
                                                         <select name="Obligatorio" class="form-control">
                                                             <option value="si">Obligatorio</option>
                                                             <option value="no">Opcional</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <select name="Meta[nivel_accesibilidad]" class="form-control">
-                                                            <option value="Accesibilidad A">Accesibilidad A</option>
-                                                            <option value="Accesibilidad AA">Accesibilidad AA</option>
-                                                            <option value="Accesibilidad AAA">Accesibilidad AAA</option>
-                                                        </select>
+                                                <?php if(!empty($dimension->CRITERIO_1)){ ?>
+                                                    <?php $opciones_1 = explode(", ", $dimension->OPCIONES_1); ?>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="CriterioValor1"><?php echo $dimension->CRITERIO_1; ?></label>
+                                                            <select name="CriterioValor1" class="form-control">
+                                                                <?php foreach($opciones_1 as $opcion){ ?>
+                                                                <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <select name="Meta[criterio_produccion]" class="form-control">
-                                                            <option value="si_criterio_produccion">Es criterio de producción</option>
-                                                            <option value="no_criterio_produccion">No es criterio de producción</option>
-                                                        </select>
+                                                <?php }else{ ?>
+                                                    <input type="hidden" name="CriterioValor1" value="">
+                                                <?php } ?>
+                                                <?php if(!empty($dimension->CRITERIO_2)){ ?>
+                                                    <?php $opciones_2 = explode(", ", $dimension->OPCIONES_2); ?>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="CriterioValor2"><?php echo $dimension->CRITERIO_2; ?></label>
+                                                            <select name="CriterioValor2" class="form-control">
+                                                                <?php foreach($opciones_2 as $opcion){ ?>
+                                                                <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <select name="Meta[nivel]" class="form-control">
-                                                            <option value="nivel 1">Nivel 1</option>
-                                                            <option value="nivel 2">Nivel 2</option>
-                                                            <option value="nivel 3">Nivel 3</option>
-                                                        </select>
+                                                <?php }else{ ?>
+                                                    <input type="hidden" name="CriterioValor2" value="">
+                                                <?php } ?>
+                                                <?php if(!empty($dimension->CRITERIO_3)){ ?>
+                                                    <?php $opciones_3 = explode(", ", $dimension->OPCIONES_3); ?>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="CriterioValor3"><?php echo $dimension->CRITERIO_3; ?></label>
+                                                            <select name="CriterioValor3" class="form-control">
+                                                                <?php foreach($opciones_3 as $opcion){ ?>
+                                                                <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col">
-                                                    <button type='submit' class="btn btn-primary">Crear parámetro</button>
+                                                <?php }else{ ?>
+                                                    <input type="hidden" name="CriterioValor3" value="">
+                                                <?php } ?>
+                                                <?php if(!empty($dimension->CRITERIO_4)){ ?>
+                                                    <?php $opciones_4 = explode(", ", $dimension->OPCIONES_4); ?>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="CriterioValor4"><?php echo $dimension->CRITERIO_4; ?></label>
+                                                            <select name="CriterioValor4" class="form-control">
+                                                                <?php foreach($opciones_4 as $opcion){ ?>
+                                                                <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                <?php }else{ ?>
+                                                    <input type="hidden" name="CriterioValor4" value="">
+                                                <?php } ?>
+                                                <?php if(!empty($dimension->CRITERIO_5)){ ?>
+                                                    <?php $opciones_5 = explode(", ", $dimension->OPCIONES_5); ?>
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="CriterioValor5"><?php echo $dimension->CRITERIO_5; ?></label>
+                                                            <select name="CriterioValor5" class="form-control">
+                                                                <?php foreach($opciones_5 as $opcion){ ?>
+                                                                <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                <?php }else{ ?>
+                                                    <input type="hidden" name="CriterioValor5" value="">
+                                                <?php } ?>
+                                                <div class="col pt-1">
+                                                    <button type='submit' class="btn btn-primary mt-4">Crear parámetro</button>
                                                 </div>
                                             </div>
                                         </form>

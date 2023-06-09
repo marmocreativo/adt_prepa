@@ -62,10 +62,10 @@ class Front_ListasValidacion extends CI_Controller {
 				'ESTADO' => 'activo'
 			);
 
-			$this->GeneralModel->crear('validacion_lista',$parametros);
+			$id_lista = $this->GeneralModel->crear('validacion_lista',$parametros);
 		}
 
-		redirect(base_url('index.php/listas'));
+		redirect(base_url('index.php/listas/dimensiones?id='.$id_lista.'&notif=creado'));
 	}
 
 	public function actualizar()
@@ -80,7 +80,7 @@ class Front_ListasValidacion extends CI_Controller {
 			$this->GeneralModel->actualizar('validacion_lista',['ID_LISTA'=>$_POST['Identificador']],$parametros);
 		}
 
-		redirect(base_url('index.php/listas'));
+		redirect(base_url('index.php/listas/dimensiones?id='.$_POST['Identificador'].'&notif=actualizado'));
 	}
 
 	
@@ -109,6 +109,17 @@ class Front_ListasValidacion extends CI_Controller {
 			$parametros = array(
 				'ID_LISTA' => $_POST['IdLista'],
 				'TITULO' => $_POST['Titulo'],
+				'DESCRIPCION' => $_POST['Descripcion'],
+				'CRITERIO_1' => $_POST['Criterio1'],
+				'OPCIONES_1' => $_POST['OpcionesCriterio1'],
+				'CRITERIO_2' => $_POST['Criterio2'],
+				'OPCIONES_2' => $_POST['OpcionesCriterio2'],
+				'CRITERIO_3' => $_POST['Criterio3'],
+				'OPCIONES_3' => $_POST['OpcionesCriterio3'],
+				'CRITERIO_4' => $_POST['Criterio4'],
+				'OPCIONES_4' => $_POST['OpcionesCriterio4'],
+				'CRITERIO_5' => $_POST['Criterio5'],
+				'OPCIONES_5' => $_POST['OpcionesCriterio5'],
 				'DESCRIPCION' => $_POST['Descripcion'],
 				'ESTADO' => 'activo'
 			);
@@ -141,25 +152,15 @@ class Front_ListasValidacion extends CI_Controller {
 				'TITULO' => $_POST['Titulo'],
 				'DESCRIPCION' => '',
 				'OBLIGATORIO' => $_POST['Obligatorio'],
+				'CRITERIO_VALOR_1' => $_POST['CriterioValor1'],
+				'CRITERIO_VALOR_2' => $_POST['CriterioValor2'],
+				'CRITERIO_VALOR_3' => $_POST['CriterioValor3'],
+				'CRITERIO_VALOR_4' => $_POST['CriterioValor4'],
+				'CRITERIO_VALOR_5' => $_POST['CriterioValor5'],
 				'ESTADO' => 'activo'
 			);
 
 			$id_parametro = $this->GeneralModel->crear('validacion_parametros',$parametros);
-
-			// Meta Datos
-			if(!empty($_POST['Meta'])){
-				foreach($_POST['Meta'] as $nombre => $valor){
-					$parametros_meta = array(
-						'ID_OBJETO'=>$id_parametro,
-						'DATO_NOMBRE'=>$nombre,
-						'DATO_VALOR'=>$valor,
-						'TIPO_OBJETO'=>'parametro',
-					);
-
-					// Creo las entradas a la galeria
-					$this->GeneralModel->crear('meta_datos',$parametros_meta);
-				}
-			}
 		}
 
 		redirect(base_url('index.php/listas/dimensiones?id='.$_POST['IdLista'].'&dimension='.$_POST['IdDimension']));
