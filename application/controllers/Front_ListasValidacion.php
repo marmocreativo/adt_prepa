@@ -172,27 +172,16 @@ class Front_ListasValidacion extends CI_Controller {
 				'ID_DIMENSION' => $_POST['IdDimension'],
 				'TITULO' => $_POST['Titulo'],
 				'DESCRIPCION' => '',
-				'OBLIGATORIO' => $_POST['Obligatorio']
+				'OBLIGATORIO' => $_POST['Obligatorio'],
+				'CRITERIO_VALOR_1' => $_POST['CriterioValor1'],
+				'CRITERIO_VALOR_2' => $_POST['CriterioValor2'],
+				'CRITERIO_VALOR_3' => $_POST['CriterioValor3'],
+				'CRITERIO_VALOR_4' => $_POST['CriterioValor4'],
+				'CRITERIO_VALOR_5' => $_POST['CriterioValor5']
 			);
 
 			$id_parametro = $this->GeneralModel->actualizar('validacion_parametros',['ID_PARAMETRO'=>$this->input->post('Identificador')],$parametros);
 
-			// Borro los metadatos existentes
-			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$this->input->post('Identificador'),'TIPO_OBJETO'=>'parametro']);
-			// Meta Datos
-			if(!empty($_POST['Meta'])){
-				foreach($_POST['Meta'] as $nombre => $valor){
-					$parametros_meta = array(
-						'ID_OBJETO'=>$this->input->post('Identificador'),
-						'DATO_NOMBRE'=>$nombre,
-						'DATO_VALOR'=>$valor,
-						'TIPO_OBJETO'=>'parametro',
-					);
-
-					// Creo las entradas a la galeria
-					$this->GeneralModel->crear('meta_datos',$parametros_meta);
-				}
-			}
 		}
 
 		redirect(base_url('index.php/listas/dimensiones?id='.$_POST['IdLista'].'&dimension='.$_POST['IdDimension']));
