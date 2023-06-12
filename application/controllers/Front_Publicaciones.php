@@ -17,7 +17,10 @@ class Front_Publicaciones extends CI_Controller {
 		}else{
 			$this->data['dispositivo']  = "";
 		}
-
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+		
 		$this->data['tipo'] = verificar_variable('GET','tipo','');
 		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -15 days')));
 		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));

@@ -94,7 +94,7 @@
 						<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
 						<?php if(!empty($detalles_lista)){ ?>
 						<p>Se usará la lista: <b><?php echo $detalles_lista['TITULO']; ?></b> como default para validar todas las tareas</p>
-						<?php $revisiones_agrupadas = $this->GeneralModel->lista_agrupada('validacion_revisiones','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'','FECHA'); ?>
+						<?php $revisiones_agrupadas = $this->GeneralModel->lista_agrupada('validacion_revisiones','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'FECHA DESC'); ?>
 						<?php if(!empty($revisiones_agrupadas)){ ?>
 						<table class="table table-stripped">
 							<thead>
@@ -154,8 +154,8 @@
 									</div>
 									<div class="col">
 										<div class="form-group">
-											<label for="IdResponsable">Fecha limite validacion</label>
-											<input type="date" class="form-control">
+											<label for="FechaLimite">Fecha limite validacion</label>
+											<input type="date" name="FechaLimite" class="form-control">
 										</div>
 									</div>
 									<div class="col pt-4">

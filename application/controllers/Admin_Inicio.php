@@ -142,6 +142,92 @@ class Admin_Inicio extends CI_Controller {
 		
 		$this->dbforge->add_column('validacion_parametros', $fields);
 		*/
+
+		/*
+		// Borrar la tabla actual si existe
+        $this->dbforge->drop_table('roles', TRUE);
+
+        // Crear la nueva tabla
+        $fields = array(
+            'ID' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'auto_increment' => TRUE,
+                'unsigned' => TRUE
+            ),
+            'ID_TAREA' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => TRUE
+            ),
+            'ID_USUARIO' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ),
+            'ETIQUETA' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ),
+            'TIPO_PROCESO' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'default' => 'produccion'
+            )
+        );
+
+        $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('ID', TRUE);
+        $this->dbforge->create_table('roles');
+		*/
+		/*
+		// Crear la nueva tabla
+        $fields = array(
+            'ID' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'auto_increment' => TRUE,
+                'unsigned' => TRUE
+            ),
+            'ID_ROL' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => TRUE
+            ),
+            'ID_TAREA' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => TRUE
+            ),
+            'ID_USUARIO' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ),
+            'ETIQUETA' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ),
+            'PROCESO' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ),
+            'FECHA' => array(
+                'type' => 'DATETIME'
+            )
+        );
+
+        $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('ID', TRUE);
+        $this->dbforge->create_table('roles_historial');
+		*/
+		$fields = array(
+            'FECHA_LIMITE' => array(
+                'type' => 'DATETIME',
+                'null' => TRUE
+            )
+        );
+
+        $this->dbforge->add_column('validacion_revisiones', $fields);
+
 	}
 	
 	public function ajuste_areas()

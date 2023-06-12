@@ -612,6 +612,10 @@ class Front_Tareas extends CI_Controller {
 		$total_parametros = count($array_parametros);
 
 		$fecha = date('Y-m-d H:i:s');
+		$fecha_limite = null;
+		if(isset($_POST['FechaLimite'])){
+			$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['FechaLimite']));
+		}
 
 			$revision = array(
 				'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
@@ -622,7 +626,8 @@ class Front_Tareas extends CI_Controller {
 				'ID_RESPONSABLE'=>$_POST['IdResponsable'],
 				'TOTAL_PARAMETROS'=>$total_parametros,
 				'TOTAL_VERIFICADOS' => 0,
-				'ESTADO'=>'activo'
+				'ESTADO'=>'activo',
+				'FECHA'=>$fecha_limite,
 			);
 
 			$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);

@@ -70,38 +70,84 @@
             </div>
 
             <!-- Filtros -->
-            <div class="d-none">
-                <div class="btn-group d-flex" role="group" aria-label="Filtros">
-                <div class="btn-group flex-fill dropdown-center" role="group">
-                <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
-                    Criterio
-                </button>
-                <ul class="dropdown-menu">
-                    <?php ?>
-                    <li><a class="dropdown-item" href="#">Calidad</a></li>
-                </ul>
+            <div class="row px-4 py-2">
+                <div class="col-3"><p>Checklist</p></div>
+                <?php if(!empty($dimension_activa['CRITERIO_1'])){ ?>
+                <div class="col border-left text-center">
+                    <div class="btn-group dropdown-center" role="group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $dimension_activa['CRITERIO_1']; ?>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <?php $opciones_1 = explode(',', $dimension_activa['OPCIONES_1']);?>
+                            <?php foreach($opciones_1 as $opcion){ ?>
+                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
                 </div>
-                <div class="btn-group flex-fill dropdown-center" role="group">
-                <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
-                    Nivel
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">1</a></li>
-                    <li><a class="dropdown-item" href="#">2</a></li>
-                    <li><a class="dropdown-item" href="#">3</a></li>
-                </ul>
+                <?php } ?>
+                <?php if(!empty($dimension_activa['CRITERIO_2'])){ ?>
+                <div class="col border-left text-center">
+                    <div class="btn-group dropdown-center" role="group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $dimension_activa['CRITERIO_2']; ?>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <?php $opciones_2 = explode(',', $dimension_activa['OPCIONES_2']);?>
+                            <?php foreach($opciones_2 as $opcion){ ?>
+                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
                 </div>
-                <div class="btn-group flex-fill dropdown-center" role="group">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
-                    Accesibilidad
-                    </button>
-                    <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">A</a></li>
-                    <li><a class="dropdown-item" href="#">AA</a></li>
-                    <li><a class="dropdown-item" href="#">AAA</a></li>
-                    </ul>
+                <?php } ?>
+                <?php if(!empty($dimension_activa['CRITERIO_3'])){ ?>
+                <div class="col border-left text-center">
+                    <div class="btn-group dropdown-center" role="group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $dimension_activa['CRITERIO_3']; ?>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <?php $opciones_3 = explode(',', $dimension_activa['OPCIONES_3']);?>
+                            <?php foreach($opciones_3 as $opcion){ ?>
+                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
                 </div>
+                <?php } ?>
+                <?php if(!empty($dimension_activa['CRITERIO_4'])){ ?>
+                <div class="col border-left text-center">
+                    <div class="btn-group dropdown-center" role="group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $dimension_activa['CRITERIO_4']; ?>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <?php $opciones_4 = explode(',', $dimension_activa['OPCIONES_4']);?>
+                            <?php foreach($opciones_4 as $opcion){ ?>
+                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
                 </div>
+                <?php } ?>
+                <?php if(!empty($dimension_activa['CRITERIO_5'])){ ?>
+                <div class="col border-left text-center">
+                    <div class="btn-group dropdown-center" role="group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $dimension_activa['CRITERIO_5']; ?>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <?php $opciones_5 = explode(',', $dimension_activa['OPCIONES_5']);?>
+                            <?php foreach($opciones_5 as $opcion){ ?>
+                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+                <?php } ?>
+                <div class="col"><p>Comentarios</p></div>
             </div>
 
             <!-- Cuerpo de listado -->
@@ -122,7 +168,7 @@
                     ?>
                     <li class="list-group-item <?php echo $mostrar; ?>">
                         <div class="row">
-                            <div class="col-7">
+                            <div class="col-3">
                                 <div class="me-auto">
                                     <div class="form-check">
                                     <input class="form-check-input check-respuesta" type="checkbox" value=""
@@ -134,13 +180,32 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-2 text-right">
-                                <span class="badge bg-info rounded-pill mx-1 text-white"><?php echo $meta_datos_parametros['nivel_accesibilidad'] ?></span>
-                            </div>
-                            <div class="col-2 text-right">
-                                <span class="badge bg-warning rounded-pill mx-1 text-white"><?php echo $meta_datos_parametros['nivel'] ?></span>
-                            </div>
-                            <div class="col-1 text-right">
+                            <?php if(!empty($dimension_activa['CRITERIO_1'])){ ?>
+                                <div class="col text-center border-left border-right">
+                                    <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_1; ?></span>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($dimension_activa['CRITERIO_2'])){ ?>
+                                <div class="col text-center border-left border-right">
+                                    <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_2; ?></span>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($dimension_activa['CRITERIO_3'])){ ?>
+                                <div class="col text-center border-left border-right">
+                                    <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_3; ?></span>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($dimension_activa['CRITERIO_4'])){ ?>
+                                <div class="col text-center border-left border-right">
+                                    <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_4; ?></span>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($dimension_activa['CRITERIO_5'])){ ?>
+                                <div class="col text-center border-left border-right">
+                                    <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_5; ?></span>
+                                </div>
+                            <?php } ?>
+                            <div class="col text-center">
                                 <button class="btn btn-primary rounded-circle px-2" type="button" data-bs-toggle="collapse" data-bs-target="#comment-<?php echo $parametro->ID_PARAMETRO; ?>" aria-expanded="false" aria-controls="comment-<?php echo $parametro->ID_PARAMETRO; ?>">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-chat mb-1" viewBox="0 0 16 16">
                                         <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
@@ -176,11 +241,13 @@
                 <?php if($dimension_siguiente<=$conteo_dimension){ ?>
                 <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_siguiente]); ?>" class="btn btn-primary btn-lg">Siguiente <i class="fa-solid fa-chevron-right"></i></a>
 
+                <?php }else{ ?>
+                    <div class="btn-group" role="group" aria-label="Boton de terminar">
+                        <a href="<?php echo base_url('index.php/proyectos/validacion_finalizar?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea']); ?>" class="btn-secondary btn-lg">Finalizar</a>
+                    </div>
                 <?php } ?>
               </div>
-              <div class="btn-group" role="group" aria-label="Boton de terminar">
-                <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>" class="btn-secondary btn-lg">Finalizar</a>
-              </div>
+              
             </div>
             </div>
         </div>

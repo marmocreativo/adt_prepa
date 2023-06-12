@@ -296,11 +296,8 @@
 					<?php }else{ ?>
 						<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
 						<?php if(!empty($detalles_lista)){ ?>
-						<p>Se usará la lista: <b><?php echo $detalles_lista['TITULO']; ?></b> para validar todas las tareas</p>
-						<?php $revisiones_agrupadas = $this->GeneralModel->lista('validacion_revisiones','',['ID_TAREA'=>$tarea['ID_TAREA']],'','',''); ?>
-						<?php if(!empty($revisiones_agrupadas)){ ?>
-
-							<div>
+						<?php $revisiones_agrupadas = $this->GeneralModel->lista('validacion_revisiones','',['ID_TAREA'=>$tarea['ID_TAREA']],'FECHA DESC','',''); ?>
+						<div>
 								<form action="<?php echo base_url('index.php/tareas/crear_validacion'); ?>" method='post'>
 
 									<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
@@ -328,16 +325,20 @@
 												</select>
 											</div>
 										</div>
+										<div class="col">
+										<div class="form-group">
+											<label for="FechaLimite">Fecha limite validacion</label>
+											<input type="date" name="FechaLimite" class="form-control">
+										</div>
+									</div>
 										<div class="col pt-4">
 											<button type="submit"class="btn btn-outline-success w-100 mt-2"> Crear revisión</button>
 										</div>
 									</div>
-
-
 								</form>
-
 							</div>
-
+						<?php if(!empty($revisiones_agrupadas)){ ?>
+							
 							<table class="table table-stripped">
 							<thead>
 								<tr>
@@ -366,7 +367,7 @@
 										</td>
 									</tr>
 								<?php }//bucle revisiones ?>
-							</tbody><
+							</tbody>
 						</table>
 						<?php } ?>
 						<?php }// verifico que la lista exista ?>

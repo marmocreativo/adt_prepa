@@ -11,11 +11,11 @@ class Front_Proyectos extends CI_Controller {
 		$this->data['op'] = opciones_default();
 
 		// Verifico Sesión
-		/*
+		
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
 			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
-		*/
+		
 
 		// reviso el dispositivo
 		if($this->agent->is_mobile()){
@@ -381,6 +381,11 @@ class Front_Proyectos extends CI_Controller {
 		$total_parametros = count($array_parametros);
 
 		$fecha = date('Y-m-d H:i:s');
+		$fecha_limite = null;
+		if(isset($_POST['FechaLimite'])){
+			$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['FechaLimite']));
+		}
+		
 
 		foreach($tareas as $tarea){
 			$revision = array(
@@ -392,6 +397,7 @@ class Front_Proyectos extends CI_Controller {
 				'ID_RESPONSABLE'=>$_POST['IdResponsable'],
 				'TOTAL_PARAMETROS'=>$total_parametros,
 				'TOTAL_VERIFICADOS' => 0,
+				'FECHA_LIMITE'=>$fecha_limite,
 				'ESTADO'=>'activo'
 			);
 

@@ -18,6 +18,10 @@ class Front_ListasValidacion extends CI_Controller {
 			$this->data['dispositivo']  = "";
 		}
 
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+
 		$this->data['tipo'] = verificar_variable('GET','tipo','');
 		$this->data['fecha_inicio'] = verificar_variable('GET','fecha_inicio',date('d-m-Y', strtotime(date('d-m-Y').' -15 days')));
 		$this->data['fecha_fin'] = verificar_variable('GET','fecha_fin',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));
@@ -134,7 +138,18 @@ class Front_ListasValidacion extends CI_Controller {
 		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
 			$parametros = array(
 				'TITULO' => $_POST['Titulo'],
-				'DESCRIPCION' => $_POST['Descripcion']
+				'DESCRIPCION' => $_POST['Descripcion'],
+				'CRITERIO_1' => $_POST['Criterio1'],
+				'OPCIONES_1' => $_POST['OpcionesCriterio1'],
+				'CRITERIO_2' => $_POST['Criterio2'],
+				'OPCIONES_2' => $_POST['OpcionesCriterio2'],
+				'CRITERIO_3' => $_POST['Criterio3'],
+				'OPCIONES_3' => $_POST['OpcionesCriterio3'],
+				'CRITERIO_4' => $_POST['Criterio4'],
+				'OPCIONES_4' => $_POST['OpcionesCriterio4'],
+				'CRITERIO_5' => $_POST['Criterio5'],
+				'OPCIONES_5' => $_POST['OpcionesCriterio5'],
+				'DESCRIPCION' => $_POST['Descripcion'],
 			);
 
 			$this->GeneralModel->actualizar('validacion_dimension',['ID_DIMENSION'=>$_POST['Identificador']],$parametros);
@@ -146,17 +161,29 @@ class Front_ListasValidacion extends CI_Controller {
 	
 	
 	public function crear_parametro(){
+		$criterioValor1 = '';
+		$criterioValor2 = '';
+		$criterioValor3 = '';
+		$criterioValor4 = '';
+		$criterioValor5 = '';
+
+		if(isset($_POST['CriterioValor1'])){ $criterioValor1 = $_POST['CriterioValor1']; }
+		if(isset($_POST['CriterioValor2'])){ $criterioValor2 = $_POST['CriterioValor2']; }
+		if(isset($_POST['CriterioValor3'])){ $criterioValor3 = $_POST['CriterioValor3']; }
+		if(isset($_POST['CriterioValor4'])){ $criterioValor4 = $_POST['CriterioValor4']; }
+		if(isset($_POST['CriterioValor5'])){ $criterioValor5 = $_POST['CriterioValor5']; }
+
 		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
 			$parametros = array(
 				'ID_DIMENSION' => $_POST['IdDimension'],
 				'TITULO' => $_POST['Titulo'],
 				'DESCRIPCION' => '',
 				'OBLIGATORIO' => $_POST['Obligatorio'],
-				'CRITERIO_VALOR_1' => $_POST['CriterioValor1'],
-				'CRITERIO_VALOR_2' => $_POST['CriterioValor2'],
-				'CRITERIO_VALOR_3' => $_POST['CriterioValor3'],
-				'CRITERIO_VALOR_4' => $_POST['CriterioValor4'],
-				'CRITERIO_VALOR_5' => $_POST['CriterioValor5'],
+				'CRITERIO_VALOR_1' => $criterioValor1,
+				'CRITERIO_VALOR_2' => $criterioValor2,
+				'CRITERIO_VALOR_3' => $criterioValor3,
+				'CRITERIO_VALOR_4' => $criterioValor4,
+				'CRITERIO_VALOR_5' => $criterioValor5,
 				'ESTADO' => 'activo'
 			);
 
@@ -167,17 +194,30 @@ class Front_ListasValidacion extends CI_Controller {
 	}
 
 	public function actualizar_parametro(){
+
+		$criterioValor1 = '';
+		$criterioValor2 = '';
+		$criterioValor3 = '';
+		$criterioValor4 = '';
+		$criterioValor5 = '';
+
+		if(isset($_POST['CriterioValor1'])){ $criterioValor1 = $_POST['CriterioValor1']; }
+		if(isset($_POST['CriterioValor2'])){ $criterioValor2 = $_POST['CriterioValor2']; }
+		if(isset($_POST['CriterioValor3'])){ $criterioValor3 = $_POST['CriterioValor3']; }
+		if(isset($_POST['CriterioValor4'])){ $criterioValor4 = $_POST['CriterioValor4']; }
+		if(isset($_POST['CriterioValor5'])){ $criterioValor5 = $_POST['CriterioValor5']; }
+
 		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
 			$parametros = array(
 				'ID_DIMENSION' => $_POST['IdDimension'],
 				'TITULO' => $_POST['Titulo'],
 				'DESCRIPCION' => '',
 				'OBLIGATORIO' => $_POST['Obligatorio'],
-				'CRITERIO_VALOR_1' => $_POST['CriterioValor1'],
-				'CRITERIO_VALOR_2' => $_POST['CriterioValor2'],
-				'CRITERIO_VALOR_3' => $_POST['CriterioValor3'],
-				'CRITERIO_VALOR_4' => $_POST['CriterioValor4'],
-				'CRITERIO_VALOR_5' => $_POST['CriterioValor5']
+				'CRITERIO_VALOR_1' => $criterioValor1,
+				'CRITERIO_VALOR_2' => $criterioValor2,
+				'CRITERIO_VALOR_3' => $criterioValor3,
+				'CRITERIO_VALOR_4' => $criterioValor4,
+				'CRITERIO_VALOR_5' => $criterioValor5
 			);
 
 			$id_parametro = $this->GeneralModel->actualizar('validacion_parametros',['ID_PARAMETRO'=>$this->input->post('Identificador')],$parametros);
