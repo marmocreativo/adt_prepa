@@ -105,7 +105,7 @@ class GeneralModel extends CI_Model {
   /*
     * Enlisto las entradas de forma agrupada por una columna
  */
- function lista_agrupada($tabla,$parametros_or,$parametros_and,$orden){
+ function lista_agrupada($tabla,$parametros_or,$parametros_and,$orden,$agrupar){
 
    if(!empty($parametros_or)){
      $this->db->group_start();
@@ -120,8 +120,8 @@ class GeneralModel extends CI_Model {
    if(!empty($orden)){
      $this->db->order_by($orden);
    }
-   if(!empty('')){
-     $this->db->group_by('');
+   if(!empty($agrupar)){
+     $this->db->group_by($agrupar);
    }
     $query = $this->db->get($tabla);
     return $query->result();

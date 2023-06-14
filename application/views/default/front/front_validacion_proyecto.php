@@ -6,20 +6,14 @@
 </style>
 <?php
 	$usuarios = $this->GeneralModel->lista_join('usuarios',['equipos_usuarios'=>'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO'],'',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','usuarios.ID_USUARIO');
-    $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_PROYECTO'=>$proyecto['ID_PROYECTO'],'FECHA'=>$_GET['fecha_revision']]);
+    $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
 ?>
 <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-primary mb-3"><i class="fas fa-chevron-circle-left"></i> Volver al proyecto</a>
 <div class="row ">
 	<div class="col-12 col-md-4">
 		<div class="proyecto <?php echo $modo; ?> border-0 border-bottom border-end">
-        <div class="row">
-            <div class="col-8">
-                <h1 class="h4"><?php echo $proyecto['PROYECTO_NOMBRE'] ?></h1>
-                <p>Tareas incluidas en esta revisión</p>
-            </div>
-            <div class="col-4">
-            </div>
-        </div>
+        <h1 class="h4"><small>Proyecto:</small><br><?php echo $proyecto['PROYECTO_NOMBRE'] ?></h1>
+        <p>Tareas incluidas en esta revisión</p>
 
             <ul class="list-group">
                 <?php foreach($tareas as $tarea){ ?>
@@ -27,7 +21,7 @@
                         
                             <li class="list-group-item d-flex justify-content-between ">
                                 <p class="mb-0">
-                                <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>"><?php echo $tarea->TAREA_TITULO; ?></a>
+                                <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>" title="<?php echo $tarea->TAREA_TITULO; ?>"><?php echo ellipsize($tarea->TAREA_TITULO, 20,1); ?></a>
                                 </p>
                                 <p class="mb-0">
                                     <?php
@@ -37,7 +31,7 @@
                                     validados: <b><?php echo $cantidad_validados; ?>/<?php echo $cantidad_parametros; ?></b>
                                 </p>
                                 <?php if(!isset($_GET['tarea'])||$_GET['tarea']!=$tarea->ID_TAREA){ ?>
-                                <a  href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$_GET['fecha_revision'].'&tarea='.$tarea->ID_TAREA); ?>"
+                                <a  href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$_GET['fecha_revision'].'&tarea='.$tarea->ID_TAREA); ?>"
                                     class="btn btn-success btn-xs">Cotejar</a>                                
                                 <?php } ?>
                                 <?php if(isset($_GET['tarea'])&&$_GET['tarea']==$tarea->ID_TAREA){ ?>
@@ -80,6 +74,12 @@
 
         ?>
         <?php if(!empty($verificar_respuestas)){ ?>
+            <div class="card card-body proyecto mb-3">
+                <?php
+                    $detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['tarea']]);
+                ?>
+                <h4><small>Tarea:</small><br><?php echo $detalles_tarea['TAREA_TITULO']; ?></h4>
+            </div>
             <div class="card proyecto mb-3">
             <div class="card-header border-bottom border-primary d-flex" style="background-color: transparent;">
             <p class="ml-2"><?php echo $lugar_dimension; ?> de <?php echo $conteo_dimension; ?> | </p><h4 class="ml-2 text-primary display-6 fw-bold">  <?php echo $dimension_activa['TITULO']; ?></h4>
@@ -88,6 +88,7 @@
             <?php
                 $enlace = array(
                     'id'=>$_GET['id'],
+                    'id_revision' => $detalles_revision['ID_REVISION'],
                     'fecha_revision'=>$_GET['fecha_revision'],
                     'tarea'=>verificar_variable('GET','tarea',''),
                     'dimension'=> verificar_variable('GET','dimension',''),
@@ -213,7 +214,7 @@
                 <?php foreach($parametros as $parametro){ ?>
                     <?php
                     $mostrar = '';
-                    $respuesta = $this->GeneralModel->detalles('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION'],'ID_PARAMETRO'=>$parametro->ID_PARAMETRO]);
+                    $respuesta = $this->GeneralModel->detalles('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION'],'ID_PARAMETRO'=>$parametro->ID_PARAMETRO,'ID_TAREA'=>$_GET['tarea']]);
                     if(empty($respuesta)){
                         $mostrar = 'd-none';
                     }
@@ -292,14 +293,14 @@
                     $dimension_siguiente = $lugar_dimension+1;
                 ?>
                 <?php if($dimension_anterior>0){ ?>
-                <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_anterior]); ?>" class="btn btn-outline-primary btn-lg"><i class="fa-solid fa-chevron-left"></i> Anterior</a>
+                <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_anterior]); ?>" class="btn btn-outline-primary btn-lg"><i class="fa-solid fa-chevron-left"></i> Anterior</a>
                 <?php } ?>
                 <?php if($dimension_siguiente<=$conteo_dimension){ ?>
-                <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_siguiente]); ?>" class="btn btn-primary btn-lg">Siguiente <i class="fa-solid fa-chevron-right"></i></a>
+                <a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea'].'&dimension='.$orden_dimensiones[$dimension_siguiente]); ?>" class="btn btn-primary btn-lg">Siguiente <i class="fa-solid fa-chevron-right"></i></a>
 
                 <?php }else{ ?>
                     <div class="btn-group" role="group" aria-label="Boton de terminar">
-                        <a href="<?php echo base_url('index.php/proyectos/validacion_finalizar?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea']); ?>" class="btn-secondary btn-lg">Finalizar</a>
+                        <a href="<?php echo base_url('index.php/proyectos/validacion_finalizar?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$_GET['tarea']); ?>" class="btn-secondary btn-lg">Finalizar</a>
                     </div>
                 <?php } ?>
               </div>
@@ -308,7 +309,12 @@
             </div>
         </div>
         </div>
-        <?php } ?>
+        <?php }else{ ?>
+            <div class="card card-body">
+                <p>Esta tarea no fue considerada para está revisión es posible que no existiera cuando se solicitó la validación del trabajo.</p>
+                <p>Si lo deseas puedes <a href="<?php echo base_url('index.php/tareas/validacion_faltante?id_revision='.$detalles_revision['ID_REVISION'].'&tarea='.$_GET['tarea']); ?>">Agregar esta tarea a la revisión</a></p>
+            </div>
+            <?php } ?>
     <?php }else{ ?>
         <p>Por favor selecciona una de las tareas de la izquierda para comenzar</p>
     <?php } ?>

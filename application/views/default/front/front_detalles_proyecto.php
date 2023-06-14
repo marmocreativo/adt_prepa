@@ -92,7 +92,6 @@
 					<p>Este proyecto no requiere validación</p>
 					<?php }else{ ?>
 						<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
-						<?php if(!empty($detalles_lista)){ ?>
 						<div class="border-dotted">
 							<form action="<?php echo base_url('index.php/proyectos/crear_validacion'); ?>" method='post'>
 								<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
@@ -130,7 +129,8 @@
 								</div>
 							</form>
 						</div>
-						<?php $revisiones_agrupadas = $this->GeneralModel->lista_agrupada('validacion_revisiones','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'FECHA DESC'); ?>
+						
+						<?php $revisiones_agrupadas = $this->GeneralModel->lista('validacion_revisiones','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'FECHA DESC','',''); ?>
 						<?php if(!empty($revisiones_agrupadas)){ ?>
 						<table class="table table-stripped">
 							<thead>
@@ -162,10 +162,10 @@
 										<td>
 											<div class="btn-group justify-end">
 												<?php if($revision->ESTADO=='activo'){ ?>
-												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> Formulario</a>
+												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$revision->ID_REVISION.'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> Formulario</a>
 												<?php } ?>
 												<?php if($revision->ESTADO=='finalizado'){ ?>
-												<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
+												<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$revision->ID_REVISION.'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
 												<?php } ?>
 											</div>
 										</td>
@@ -175,7 +175,6 @@
 						</table>
 						<?php } ?>
 						
-						<?php }// verifico que la lista exista ?>
 					<?php } ?>
 				</div>
 			</div>

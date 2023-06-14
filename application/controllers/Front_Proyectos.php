@@ -386,22 +386,23 @@ class Front_Proyectos extends CI_Controller {
 			$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['FechaLimite']));
 		}
 		
+		$revision = array(
+			'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
+			'ID_TAREA'=>'',
+			'ID_ENLACE'=>'',
+			'ID_LISTA'=>$_POST['IdLista'],
+			'FECHA'=>$fecha,
+			'ID_RESPONSABLE'=>$_POST['IdResponsable'],
+			'TOTAL_PARAMETROS'=>$total_parametros,
+			'TOTAL_VERIFICADOS' => 0,
+			'FECHA_LIMITE'=>$fecha_limite,
+			'ESTADO'=>'activo'
+		);
+
+		$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
 
 		foreach($tareas as $tarea){
-			$revision = array(
-				'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
-				'ID_TAREA'=>$tarea->ID_TAREA,
-				'ID_ENLACE'=>$tarea->TAREA_ENLACE_ENTREGABLE,
-				'ID_LISTA'=>$_POST['IdLista'],
-				'FECHA'=>$fecha,
-				'ID_RESPONSABLE'=>$_POST['IdResponsable'],
-				'TOTAL_PARAMETROS'=>$total_parametros,
-				'TOTAL_VERIFICADOS' => 0,
-				'FECHA_LIMITE'=>$fecha_limite,
-				'ESTADO'=>'activo'
-			);
-
-			$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
+			
 
 			foreach($array_parametros as $arry_param){
 				$respuesta = array(

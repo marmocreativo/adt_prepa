@@ -650,11 +650,11 @@ class Front_Tareas extends CI_Controller {
 	}
 
 	public function validacion_faltante(){
-		$revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_POST['IdRevision']]);
-		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_POST['IdProyecto']]);
-		$tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_POST['IdTarea']],'','','');
-		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_POST['IdLista']]);
-		$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['IdLista']],'','','');
+		$revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$revision['ID_PROYECTO']]);
+		$tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['tarea']],'','','');
+		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision['ID_LISTA']]);
+		$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$revision['ID_LISTA']],'','','');
 		$array_parametros = array();
 		foreach($dimensiones as $dimension){
 			$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
@@ -676,7 +676,7 @@ class Front_Tareas extends CI_Controller {
 					'ID_TAREA'=>$tarea['ID_TAREA'],
 					'ID_ENLACE'=>$tarea['TAREA_ENLACE_ENTREGABLE'],
 					'ID_PARAMETRO'=>$arry_param,
-					'ID_RESPONSABLE'=>$_POST['IdResponsable'],
+					'ID_RESPONSABLE'=>$revision['ID_RESPONSABLE'],
 					'VALOR'=>'',
 					'FECHA'=> $fecha
 				);
@@ -684,7 +684,7 @@ class Front_Tareas extends CI_Controller {
 
 			}
 
-		redirect(base_url('index.php/tareas/detalles?id='.$tarea['ID_TAREA']));
+		redirect(base_url('index.php/proyectos/validacion?id='.$revision['ID_PROYECTO'].'&fecha_revision='.$revision['FECHA'].'&tarea='.$tarea['ID_TAREA']));
 	}
 
 	public function validacion_reporte(){

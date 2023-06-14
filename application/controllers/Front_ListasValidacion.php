@@ -57,6 +57,64 @@ class Front_ListasValidacion extends CI_Controller {
 		// Vistas
 	}
 
+	public function copiar()
+	{
+		$detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_POST['Identificador']]);
+		$parametros_lista = array(
+			'ID_AREA'=>$detalles_lista['ID_AREA'],
+			'TITULO'=>$_POST['Titulo'],
+			'DESCRIPCION'=>$detalles_lista['DESCRIPCION'],
+			'ESTADO'=>$detalles_lista['ESTADO'],
+		);
+
+		$id_lista = $this->GeneralModel->crear('validacion_lista',$parametros_lista );
+
+		$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['Identificador']],'','','');
+		foreach($dimensiones as $dimension){
+			$parametros_dimension = array(
+				'ID_LISTA'=>$id_lista,
+				'TITULO'=>$dimension->TITULO,
+				'DESCRIPCION'=>$dimension->DESCRIPCION,
+				'ORDEN'=>$dimension->ORDEN,
+				'ESTADO'=>$dimension->ESTADO,
+				'CRITERIO_1'=>$dimension->CRITERIO_1,
+				'OPCIONES_1'=>$dimension->OPCIONES_1,
+				'CRITERIO_2'=>$dimension->CRITERIO_2,
+				'OPCIONES_2'=>$dimension->OPCIONES_2,
+				'CRITERIO_3'=>$dimension->CRITERIO_3,
+				'OPCIONES_3'=>$dimension->OPCIONES_3,
+				'CRITERIO_4'=>$dimension->CRITERIO_4,
+				'OPCIONES_4'=>$dimension->OPCIONES_4,
+				'CRITERIO_5'=>$dimension->CRITERIO_5,
+				'OPCIONES_5'=>$dimension->OPCIONES_5,
+			);
+
+			$id_dimension = $this->GeneralModel->crear('validacion_dimension',$parametros_dimension );
+
+			
+			$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
+			foreach($parametros as $param){
+				$parametros_parametros = array(
+					'ID_DIMENSION'=>$id_dimension,
+					'TITULO'=>$param->TITULO,
+					'DESCRIPCION'=>$param->DESCRIPCION,
+					'OBLIGATORIO'=>$param->OBLIGATORIO,
+					'ORDEN'=>$param->ORDEN,
+					'ESTADO'=>$param->ESTADO,
+					'CRITERIO_VALOR_1'=>$param->CRITERIO_VALOR_1,
+					'CRITERIO_VALOR_2'=>$param->CRITERIO_VALOR_2,
+					'CRITERIO_VALOR_3'=>$param->CRITERIO_VALOR_3,
+					'CRITERIO_VALOR_4'=>$param->CRITERIO_VALOR_4,
+					'CRITERIO_VALOR_5'=>$param->CRITERIO_VALOR_5
+				);
+
+				$id_dimension = $this->GeneralModel->crear('validacion_parametros',$parametros_parametros );
+			}
+		}
+
+		redirect(base_url('index.php/listas/dimensiones?id='.$id_lista));
+	}
+
 	public function crear(){
 		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
 			$parametros = array(

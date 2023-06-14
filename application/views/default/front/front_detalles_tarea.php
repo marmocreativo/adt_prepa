@@ -295,8 +295,6 @@
 					<p>Este proyecto no requiere validación</p>
 					<?php }else{ ?>
 						<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
-						<?php if(!empty($detalles_lista)){ ?>
-						<?php $revisiones_agrupadas = $this->GeneralModel->lista('validacion_revisiones','',['ID_TAREA'=>$tarea['ID_TAREA']],'FECHA DESC','',''); ?>
 						<div>
 								<form action="<?php echo base_url('index.php/tareas/crear_validacion'); ?>" method='post'>
 
@@ -337,7 +335,12 @@
 									</div>
 								</form>
 							</div>
-						<?php if(!empty($revisiones_agrupadas)){ ?>
+						<?php 
+							$respuestas_agrupadas = $this->GeneralModel->lista_agrupada('validacion_respuesta','',['ID_TAREA'=>$tarea['ID_TAREA']],'','ID_REVISION');
+							//var_dump($respuestas_agrupadas);
+						?>
+						
+						<?php if(!empty($respuestas_agrupadas)){ ?>
 							
 							<table class="table table-stripped">
 							<thead>
@@ -349,18 +352,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach($revisiones_agrupadas as $revision){ ?>
-									<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision->ID_LISTA]); ?>
-									<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$revision->ID_RESPONSABLE]); ?>
+								<?php foreach($respuestas_agrupadas as $respuesta_agru){ ?>
+									<?php $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$respuesta_agru->ID_REVISION]); ?>
+									<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$detalles_revision['ID_LISTA']]); ?>
+									<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$detalles_revision['ID_RESPONSABLE']]); ?>
 									<tr>
-										<td><?php echo date('Y-m-d', strtotime($revision->FECHA)); ?></td>
+										<td><?php echo date('Y-m-d', strtotime($detalles_revision['FECHA'])); ?></td>
 										<td>
 										<?php echo $detalles_lista['TITULO']; ?><br>
 											<b><?php echo $detalles_responsable['USUARIO_NOMBRE'].' '.$detalles_responsable['USUARIO_APELLIDOS']; ?></b>
 										</td>
 										<td>
 											<?php
-												$porcentaje_avance = round(($revision->TOTAL_VERIFICADOS*100)/$revision->TOTAL_PARAMETROS , 2);
+												$porcentaje_avance = round(($detalles_revision['TOTAL_VERIFICADOS']*100)/$detalles_revision['TOTAL_PARAMETROS'] , 2);
 											?>
 											<div class="progress" role="progressbar" aria-label="Progreso" aria-valuenow="<?php echo $porcentaje_avance; ?>" aria-valuemin="0" aria-valuemax="100">
 											<div class="progress-bar" style="width: <?php echo $porcentaje_avance; ?>%"></div>
@@ -368,11 +372,11 @@
 										</td>
 										<td>
 											<div class="btn-group justify-end">
-												<?php if($revision->ESTADO=='activo'){ ?>
-												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> Formulario</a>
+												<?php if($detalles_revision['ESTADO']=='activo'){ ?>
+												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> Formulario</a>
 												<?php } ?>
-												<?php if($revision->ESTADO=='finalizado'){ ?>
-												<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
+												<?php if($detalles_revision['ESTADO']=='finalizado'){ ?>
+												<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
 												<?php } ?>
 											</div>
 										</td>
@@ -381,7 +385,6 @@
 							</tbody>
 						</table>
 						<?php } ?>
-						<?php }// verifico que la lista exista ?>
 					<?php } ?>
 				</div>
 			</div>
