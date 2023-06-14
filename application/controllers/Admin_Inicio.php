@@ -52,7 +52,7 @@ class Admin_Inicio extends CI_Controller {
 	public function index()
 	{	
 		$this->load->dbforge();
-		/*
+		 /*
 		$fields = array(
 			'ID_LISTA' => array(
 				'type' => 'VARCHAR',
@@ -69,8 +69,8 @@ class Admin_Inicio extends CI_Controller {
 		);
 		
 		$this->dbforge->add_column('validacion_respuesta', $fields);
-		*/
-		/*
+		
+		 
 		$fields = array(
 			'CRITERIO_1' => array(
 				'type' => 'VARCHAR',
@@ -115,8 +115,8 @@ class Admin_Inicio extends CI_Controller {
 		);
 		
 		$this->dbforge->add_column('validacion_dimension', $fields);
-		*/
-		/*
+		 
+		 
 		$fields = array(
 			'CRITERIO_VALOR_1' => array(
 				'type' => 'VARCHAR',
@@ -141,9 +141,9 @@ class Admin_Inicio extends CI_Controller {
 		);
 		
 		$this->dbforge->add_column('validacion_parametros', $fields);
-		*/
+		 
 
-		/*
+		 
 		// Borrar la tabla actual si existe
         $this->dbforge->drop_table('roles', TRUE);
 
@@ -178,8 +178,8 @@ class Admin_Inicio extends CI_Controller {
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('ID', TRUE);
         $this->dbforge->create_table('roles');
-		*/
-		/*
+		 
+		 
 		// Crear la nueva tabla
         $fields = array(
             'ID' => array(
@@ -218,7 +218,7 @@ class Admin_Inicio extends CI_Controller {
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('ID', TRUE);
         $this->dbforge->create_table('roles_historial');
-		*/
+		 
 		$fields = array(
             'FECHA_LIMITE' => array(
                 'type' => 'DATETIME',
@@ -227,6 +227,21 @@ class Admin_Inicio extends CI_Controller {
         );
 
         $this->dbforge->add_column('validacion_revisiones', $fields);
+		
+		// Nombre de la tabla y columna
+			$table_name = 'validacion_revisiones';
+
+			$fields = array(
+				'FECHA' => array(
+					'type' => 'TIMESTAMP',
+					'null' => TRUE,
+					'default' => NULL,
+				),
+			);
+
+			// Modificar la columna
+			$this->dbforge->modify_column($table_name, $fields );
+		*/
 
 	}
 	

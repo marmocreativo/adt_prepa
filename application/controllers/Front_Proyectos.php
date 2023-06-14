@@ -452,6 +452,23 @@ class Front_Proyectos extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 
+	public function validacion_finalizar()
+	{
+		$detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_PROYECTO'=>$_GET['id'],'FECHA'=>$_GET['fecha_revision']]);
+		$cantidad_parametros = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION']]);
+		$cantidad_validados = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION'],'VALOR'=>'validada']);
+		
+		$parametros = array(
+			'TOTAL_PARAMETROS' => $cantidad_parametros,
+			'TOTAL_VERIFICADOS' => $cantidad_validados,
+			'ESTADO' => 'finalizado'
+		);
+
+		$this->GeneralModel->actualizar('validacion_revisiones',['ID_REVISION'=>$detalles_revision['ID_REVISION']], $parametros);
+
+		redirect(base_url('index.php/proyectos/detalles?id='.$_GET['id']));
+	}
+
 	public function validacion_reporte()
 	{
 		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);

@@ -93,40 +93,6 @@
 					<?php }else{ ?>
 						<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$proyecto['ID_LISTA']]); ?>
 						<?php if(!empty($detalles_lista)){ ?>
-						<p>Se usará la lista: <b><?php echo $detalles_lista['TITULO']; ?></b> como default para validar todas las tareas</p>
-						<?php $revisiones_agrupadas = $this->GeneralModel->lista_agrupada('validacion_revisiones','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'FECHA DESC'); ?>
-						<?php if(!empty($revisiones_agrupadas)){ ?>
-						<table class="table table-stripped">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Lista</th>
-									<th>Controles</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php foreach($revisiones_agrupadas as $revision){ ?>
-									<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision->ID_LISTA]); ?>
-									<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$revision->ID_RESPONSABLE]); ?>
-									<tr>
-										<td><?php echo date('Y-m-d', strtotime($revision->FECHA)); ?></td>
-										<td>
-											<?php echo $detalles_lista['TITULO']; ?><br>
-											<b><?php echo $detalles_responsable['USUARIO_NOMBRE'].' '.$detalles_responsable['USUARIO_APELLIDOS']; ?></b>
-										</td>
-
-										<td>
-											<div class="btn-group justify-end">
-
-												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> </a>
-												<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i></a>
-											</div>
-										</td>
-									</tr>
-								<?php }//bucle revisiones ?>
-							</tbody>
-						</table>
-						<?php } ?>
 						<div class="border-dotted">
 							<form action="<?php echo base_url('index.php/proyectos/crear_validacion'); ?>" method='post'>
 								<input type="hidden" name='IdProyecto' value="<?php echo $proyecto['ID_PROYECTO']; ?>">
@@ -164,6 +130,51 @@
 								</div>
 							</form>
 						</div>
+						<?php $revisiones_agrupadas = $this->GeneralModel->lista_agrupada('validacion_revisiones','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'FECHA DESC'); ?>
+						<?php if(!empty($revisiones_agrupadas)){ ?>
+						<table class="table table-stripped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Lista</th>
+									<th>Avance</th>
+									<th>Controles</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($revisiones_agrupadas as $revision){ ?>
+									<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision->ID_LISTA]); ?>
+									<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$revision->ID_RESPONSABLE]); ?>
+									<tr>
+										<td><?php echo date('Y-m-d', strtotime($revision->FECHA)); ?></td>
+										<td>
+											<?php echo $detalles_lista['TITULO']; ?><br>
+											<b><?php echo $detalles_responsable['USUARIO_NOMBRE'].' '.$detalles_responsable['USUARIO_APELLIDOS']; ?></b>
+										</td>
+										<td>
+											<?php
+												$porcentaje_avance = round(($revision->TOTAL_VERIFICADOS*100)/$revision->TOTAL_PARAMETROS , 2);
+											?>
+											<div class="progress" role="progressbar" aria-label="Progreso" aria-valuenow="<?php echo $porcentaje_avance; ?>" aria-valuemin="0" aria-valuemax="100">
+											<div class="progress-bar" style="width: <?php echo $porcentaje_avance; ?>%"></div>
+											</div>
+										</td>
+										<td>
+											<div class="btn-group justify-end">
+												<?php if($revision->ESTADO=='activo'){ ?>
+												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> Formulario</a>
+												<?php } ?>
+												<?php if($revision->ESTADO=='finalizado'){ ?>
+												<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
+												<?php } ?>
+											</div>
+										</td>
+									</tr>
+								<?php }//bucle revisiones ?>
+							</tbody>
+						</table>
+						<?php } ?>
+						
 						<?php }// verifico que la lista exista ?>
 					<?php } ?>
 				</div>

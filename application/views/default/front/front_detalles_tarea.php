@@ -343,8 +343,9 @@
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th>Fecha</th>
-									<th>Resultados</th>
+									<th>Lista</th>
+									<th>Avance</th>
+									<th>Controles</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -354,15 +355,25 @@
 									<tr>
 										<td><?php echo date('Y-m-d', strtotime($revision->FECHA)); ?></td>
 										<td>
-											<?php echo $detalles_lista['TITULO']; ?><br>
+										<?php echo $detalles_lista['TITULO']; ?><br>
 											<b><?php echo $detalles_responsable['USUARIO_NOMBRE'].' '.$detalles_responsable['USUARIO_APELLIDOS']; ?></b>
 										</td>
-
+										<td>
+											<?php
+												$porcentaje_avance = round(($revision->TOTAL_VERIFICADOS*100)/$revision->TOTAL_PARAMETROS , 2);
+											?>
+											<div class="progress" role="progressbar" aria-label="Progreso" aria-valuenow="<?php echo $porcentaje_avance; ?>" aria-valuemin="0" aria-valuemax="100">
+											<div class="progress-bar" style="width: <?php echo $porcentaje_avance; ?>%"></div>
+											</div>
+										</td>
 										<td>
 											<div class="btn-group justify-end">
-
-												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> </a>
-												<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i></a>
+												<?php if($revision->ESTADO=='activo'){ ?>
+												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> Formulario</a>
+												<?php } ?>
+												<?php if($revision->ESTADO=='finalizado'){ ?>
+												<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$revision->FECHA.'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
+												<?php } ?>
 											</div>
 										</td>
 									</tr>

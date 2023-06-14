@@ -6,6 +6,7 @@
 </style>
 <?php
 	$usuarios = $this->GeneralModel->lista_join('usuarios',['equipos_usuarios'=>'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO'],'',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','usuarios.ID_USUARIO');
+    $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_PROYECTO'=>$proyecto['ID_PROYECTO'],'FECHA'=>$_GET['fecha_revision']]);
 ?>
 <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-primary mb-3"><i class="fas fa-chevron-circle-left"></i> Volver al proyecto</a>
 <div class="row ">
@@ -17,18 +18,33 @@
                 <p>Tareas incluidas en esta revisión</p>
             </div>
             <div class="col-4">
-                <div id="qrcodeb"></div>
             </div>
         </div>
 
             <ul class="list-group">
                 <?php foreach($tareas as $tarea){ ?>
-                    <li class="list-group-item d-flex justify-content-between"><p><a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>"><?php echo $tarea->TAREA_TITULO; ?></a></p>
-                    <?php if(!isset($_GET['tarea'])||$_GET['tarea']!=$tarea->ID_TAREA){ ?>
-                        <a  href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$_GET['fecha_revision'].'&tarea='.$tarea->ID_TAREA); ?>"
-                            class="btn btn-success btn-xs">Cotejar</a>
-                    </li>
-                    <?php } // condición ?>
+                    <?php $verificar_revision = $this->GeneralModel->detalles('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA,'ID_REVISION'=>$detalles_revision['ID_REVISION']]); ?>
+                        
+                            <li class="list-group-item d-flex justify-content-between ">
+                                <p class="mb-0">
+                                <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>"><?php echo $tarea->TAREA_TITULO; ?></a>
+                                </p>
+                                <p class="mb-0">
+                                    <?php
+                                        $cantidad_parametros = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA,'ID_REVISION'=>$detalles_revision['ID_REVISION']]);
+                                        $cantidad_validados = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA,'ID_REVISION'=>$detalles_revision['ID_REVISION'],'VALOR'=>'validada']);
+                                    ?>
+                                    validados: <b><?php echo $cantidad_validados; ?>/<?php echo $cantidad_parametros; ?></b>
+                                </p>
+                                <?php if(!isset($_GET['tarea'])||$_GET['tarea']!=$tarea->ID_TAREA){ ?>
+                                <a  href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&fecha_revision='.$_GET['fecha_revision'].'&tarea='.$tarea->ID_TAREA); ?>"
+                                    class="btn btn-success btn-xs">Cotejar</a>                                
+                                <?php } ?>
+                                <?php if(isset($_GET['tarea'])&&$_GET['tarea']==$tarea->ID_TAREA){ ?>
+                                <h4 class="mb-0"> <i class="fa fa-chevron-right"></i> </h4>
+                                
+                                <?php } ?>
+                            </li>
                 <?php }//bucle de tareas ?>
             </ul>
         </div>
@@ -36,7 +52,7 @@
 	<div class="col-12 col-md-8">
     <?php if(isset($_GET['tarea'])&&!empty($_GET['tarea'])){ ?>
         <?php
-            $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_PROYECTO'=>$proyecto['ID_PROYECTO'],'FECHA'=>$_GET['fecha_revision'],'ID_TAREA'=>$_GET['tarea']]);
+            $verificar_respuestas = $this->GeneralModel->detalles('validacion_respuesta',['ID_TAREA'=>$_GET['tarea'],'ID_REVISION'=>$detalles_revision['ID_REVISION']]);
             $lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$detalles_revision['ID_LISTA']]);
             $dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$detalles_revision['ID_LISTA']],'','','');
             if(isset($_GET['dimension'])&&!empty($_GET['dimension'])){
@@ -63,26 +79,44 @@
             $conteo_dimension = count($dimensiones);
 
         ?>
-        <div class="card proyecto mb-3">
+        <?php if(!empty($verificar_respuestas)){ ?>
+            <div class="card proyecto mb-3">
             <div class="card-header border-bottom border-primary d-flex" style="background-color: transparent;">
             <p class="ml-2"><?php echo $lugar_dimension; ?> de <?php echo $conteo_dimension; ?> | </p><h4 class="ml-2 text-primary display-6 fw-bold">  <?php echo $dimension_activa['TITULO']; ?></h4>
             <p class="text-secondary display-6 text-primary ms-3"></p>
             </div>
+            <?php
+                $enlace = array(
+                    'id'=>$_GET['id'],
+                    'fecha_revision'=>$_GET['fecha_revision'],
+                    'tarea'=>verificar_variable('GET','tarea',''),
+                    'dimension'=> verificar_variable('GET','dimension',''),
+                    'criterio_1' => verificar_variable('GET','criterio_1',''),
+                    'criterio_2' => verificar_variable('GET','criterio_2',''),
+                    'criterio_3' => verificar_variable('GET','criterio_3',''),
+                    'criterio_4' => verificar_variable('GET','criterio_4',''),
+                    'criterio_5' => verificar_variable('GET','criterio_5',''),
+                );
+            ?>
 
             <!-- Filtros -->
             <div class="row px-4 py-2">
-                <div class="col-3"><p>Checklist</p></div>
+                <div class="col-3 text-center"><p>Checklist</p></div>
                 <?php if(!empty($dimension_activa['CRITERIO_1'])){ ?>
                 <div class="col border-left text-center">
                     <div class="btn-group dropdown-center" role="group">
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $dimension_activa['CRITERIO_1']; ?>
+                            <?php echo $dimension_activa['CRITERIO_1']; if(!empty(verificar_variable('GET','criterio_1',''))){ echo ' ('.verificar_variable('GET','criterio_1','').')';} ?>
                         </button>
                         <ul class="dropdown-menu">
-                            <?php $opciones_1 = explode(',', $dimension_activa['OPCIONES_1']);?>
+                            
+                            <?php $opciones_1 = explode(', ', $dimension_activa['OPCIONES_1']);?>
                             <?php foreach($opciones_1 as $opcion){ ?>
-                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                                <?php $enlace_opcion = $enlace; $enlace_opcion['criterio_1'] = $opcion?>
+                                <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>"><?php echo $opcion; ?></a></li>
                             <?php } ?>
+                            <?php $enlace_opcion['criterio_1'] = ''?>
+                            <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>">Ningúno</a></li>
                         </ul>
                     </div>
                 </div>
@@ -91,13 +125,16 @@
                 <div class="col border-left text-center">
                     <div class="btn-group dropdown-center" role="group">
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $dimension_activa['CRITERIO_2']; ?>
+                            <?php echo $dimension_activa['CRITERIO_2']; if(!empty(verificar_variable('GET','criterio_2',''))){ echo ' ('.verificar_variable('GET','criterio_2','').')';} ?>
                         </button>
                         <ul class="dropdown-menu">
-                            <?php $opciones_2 = explode(',', $dimension_activa['OPCIONES_2']);?>
+                            <?php $opciones_2 = explode(', ', $dimension_activa['OPCIONES_2']);?>
                             <?php foreach($opciones_2 as $opcion){ ?>
-                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                                <?php $enlace_opcion = $enlace; $enlace_opcion['criterio_2'] = $opcion;  ?>
+                                <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>"><?php echo $opcion; ?></a></li>
                             <?php } ?>
+                            <?php $enlace_opcion['criterio_2'] = ''?>
+                            <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>">Ningúno</a></li>
                         </ul>
                     </div>
                 </div>
@@ -106,13 +143,16 @@
                 <div class="col border-left text-center">
                     <div class="btn-group dropdown-center" role="group">
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $dimension_activa['CRITERIO_3']; ?>
+                            <?php echo $dimension_activa['CRITERIO_3']; if(!empty(verificar_variable('GET','criterio_3',''))){ echo ' ('.verificar_variable('GET','criterio_3','').')';} ?>
                         </button>
                         <ul class="dropdown-menu">
-                            <?php $opciones_3 = explode(',', $dimension_activa['OPCIONES_3']);?>
+                            <?php $opciones_3 = explode(', ', $dimension_activa['OPCIONES_3']);?>
                             <?php foreach($opciones_3 as $opcion){ ?>
-                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                                <?php $enlace_opcion = $enlace; $enlace_opcion['criterio_3'] = $opcion;  ?>
+                                <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>"><?php echo $opcion; ?></a></li>
                             <?php } ?>
+                            <?php $enlace_opcion['criterio_3'] = ''?>
+                            <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>">Ningúno</a></li>
                         </ul>
                     </div>
                 </div>
@@ -121,13 +161,16 @@
                 <div class="col border-left text-center">
                     <div class="btn-group dropdown-center" role="group">
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $dimension_activa['CRITERIO_4']; ?>
+                            <?php echo $dimension_activa['CRITERIO_4']; if(!empty(verificar_variable('GET','criterio_4',''))){ echo ' ('.verificar_variable('GET','criterio_4','').')';} ?>
                         </button>
                         <ul class="dropdown-menu">
-                            <?php $opciones_4 = explode(',', $dimension_activa['OPCIONES_4']);?>
+                            <?php $opciones_4 = explode(', ', $dimension_activa['OPCIONES_4']);?>
                             <?php foreach($opciones_4 as $opcion){ ?>
-                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                                <?php $enlace_opcion = $enlace; $enlace_opcion['criterio_4'] = $opcion;  ?>
+                                <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>"><?php echo $opcion; ?></a></li>
                             <?php } ?>
+                            <?php $enlace_opcion['criterio_4'] = ''?>
+                            <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>">Ningúno</a></li>
                         </ul>
                     </div>
                 </div>
@@ -136,24 +179,37 @@
                 <div class="col border-left text-center">
                     <div class="btn-group dropdown-center" role="group">
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?php echo $dimension_activa['CRITERIO_5']; ?>
+                            <?php echo $dimension_activa['CRITERIO_5']; if(!empty(verificar_variable('GET','criterio_5',''))){ echo ' ('.verificar_variable('GET','criterio_5','').')';} ?>
                         </button>
                         <ul class="dropdown-menu">
-                            <?php $opciones_5 = explode(',', $dimension_activa['OPCIONES_5']);?>
-                            <?php foreach($opciones_5 as $opcion){ ?>
-                            <li><a class="dropdown-item" href=""><?php echo $opcion; ?></a></li>
+                        <?php foreach($opciones_5 as $opcion){ ?>
+                            <?php $opciones_5 = explode(', ', $dimension_activa['OPCIONES_5']);?>
+                            <?php $enlace_opcion = $enlace; $enlace_opcion['criterio_5'] = $opcion;  ?>
+                                <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>"><?php echo $opcion; ?></a></li>
                             <?php } ?>
+                            <?php $enlace_opcion['criterio_5'] = ''?>
+                            <li><a class="dropdown-item" href="<?php echo base_url('index.php/proyectos/validacion?'.http_build_query($enlace_opcion)); ?>">Ningúno</a></li>
                         </ul>
                     </div>
                 </div>
                 <?php } ?>
-                <div class="col"><p>Comentarios</p></div>
+                <div class="col text-center"><p>Comentarios</p></div>
             </div>
 
             <!-- Cuerpo de listado -->
             <div class="card-body">
             <div class="list-group shadow-sm">
-                <?php $parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension_activa['ID_DIMENSION']],'','',''); ?>
+                <?php
+                    $consulta_parametros = array(
+                        'ID_DIMENSION'=>$dimension_activa['ID_DIMENSION']
+                    );
+                    if(isset($_GET['criterio_1'])&&!empty($_GET['criterio_1'])){ $consulta_parametros['CRITERIO_VALOR_1'] = $_GET['criterio_1']; }
+                    if(isset($_GET['criterio_2'])&&!empty($_GET['criterio_2'])){ $consulta_parametros['CRITERIO_VALOR_2'] = $_GET['criterio_2']; }
+                    if(isset($_GET['criterio_3'])&&!empty($_GET['criterio_3'])){ $consulta_parametros['CRITERIO_VALOR_3'] = $_GET['criterio_3']; }
+                    if(isset($_GET['criterio_4'])&&!empty($_GET['criterio_4'])){ $consulta_parametros['CRITERIO_VALOR_4'] = $_GET['criterio_4']; }
+                    if(isset($_GET['criterio_5'])&&!empty($_GET['criterio_5'])){ $consulta_parametros['CRITERIO_VALOR_5'] = $_GET['criterio_5']; }
+                ?>
+                <?php $parametros = $this->GeneralModel->lista('validacion_parametros','',$consulta_parametros,'','',''); ?>
                 <?php foreach($parametros as $parametro){ ?>
                     <?php
                     $mostrar = '';
@@ -252,15 +308,18 @@
             </div>
         </div>
         </div>
+        <?php } ?>
     <?php }else{ ?>
         <p>Por favor selecciona una de las tareas de la izquierda para comenzar</p>
     <?php } ?>
     </div>
 
 <script type="text/javascript">
+    /*
         new QRCode(document.getElementById("qrcodeb"), {
             text: "<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>"
         });
+        */
         /*-------------------*/
         const checkboxes = document.querySelectorAll('.check-respuesta');
 
