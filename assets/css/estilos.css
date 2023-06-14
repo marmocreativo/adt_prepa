@@ -293,8 +293,71 @@ body.noche td, body.noche th{
 .proyecto.noche{
   background-color: #18233D;
   color: #F2F2F2;
+  border: solid 1px #454b57;
 }
 .proyecto.noche a{
   color: #F2F2F2;
 }
+.col-12.previo_proyecto {
+  color: #727e88;
+}
+.envolvente_noche .col-12.previo_proyecto {
+  color: #727e88;
+}
+.progress {
+  height: 5px;
+  background-color: #eaeef23b;
+  border-radius: .25rem;
+}
 /* /Lista de Proyectos */
+<<<<<<< Updated upstream
+=======
+
+/* Validaciones */
+.modal-content.dia {
+  background-color: #FFF;
+}
+
+.modal-content.noche {
+  background-color: #18233D;
+}
+
+.noche .table td,.noche .table th {
+	/* border: 1px solid #54585e; */
+}
+
+.envolvente_noche .list-group {
+  background-color: #18233D;
+}
+
+td {
+    border: none !important;
+  }
+
+table {
+  border-collapse: collapse;
+  border: 1px solid #54585e;
+}
+
+.table.tabla_parametros {
+  min-width: 300px;
+}
+
+.table.tabla_parametros tr {
+    border-bottom: 1px solid #54585e;
+    border-top: 1px solid #54585e;
+    border-collapse: collapse;
+}​
+
+.table.tabla_parametros td:first-child {
+  min-width: 300px;
+}
+
+.envolvente_noche .table.tabla_parametros td:first-child {
+  background: #3f4553;
+}
+
+.scroll-tabla {
+  overflow-x: scroll;
+}
+>>>>>>> Stashed changes
