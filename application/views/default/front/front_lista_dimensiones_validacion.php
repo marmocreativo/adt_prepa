@@ -4,62 +4,7 @@
             <?php if(isset($_GET['notif'])){notiget($_GET['notif']);} ?>
             <h3><?php echo $lista['TITULO']; ?></h3>
             <p><?php echo $lista['DESCRIPCION']; ?></p>
-			<div class="p-4 border border-primary">
-				<form action="<?php echo base_url('index.php/listas/crear_dimension'); ?>" method='post'>
-                <input type="hidden" name="IdLista" value="<?php echo $lista['ID_LISTA'] ?>">
-				<input type="hidden" name="Descripcion" value="">
-					<div class="row">
-						<div class="col">
-							<div class="form-group">
-								<input type="text" name="Titulo" class="form-control" placeholder='Título de la dimensión'>
-							</div>
-						</div>
-                        <div class="col">
-							<div class="form-group">
-								<input type="text" name="Criterio1" class="form-control" placeholder='Criterio 1'>
-							</div>
-                            <div class="form-group">
-								<textarea name="OpcionesCriterio1" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
-							</div>
-						</div>
-                        <div class="col">
-							<div class="form-group">
-								<input type="text" name="Criterio2" class="form-control" placeholder='Criterio 2'>
-							</div>
-                            <div class="form-group">
-								<textarea name="OpcionesCriterio2" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
-							</div>
-						</div>
-                        <div class="col">
-							<div class="form-group">
-								<input type="text" name="Criterio3" class="form-control" placeholder='Criterio 3'>
-							</div>
-                            <div class="form-group">
-								<textarea name="OpcionesCriterio3" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
-							</div>
-						</div>
-                        <div class="col">
-							<div class="form-group">
-								<input type="text" name="Criterio4" class="form-control" placeholder='Criterio 4'>
-							</div>
-                            <div class="form-group">
-								<textarea name="OpcionesCriterio4" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
-							</div>
-						</div>
-                        <div class="col">
-							<div class="form-group">
-								<input type="text" name="Criterio5" class="form-control" placeholder='Criterio 5'>
-							</div>
-                            <div class="form-group">
-								<textarea name="OpcionesCriterio5" class="form-control" placeholder='Opciones disponibles separadas por coma' rows="10"></textarea>
-							</div>
-						</div>
-						<div class="col">
-							<button type="submit" class="btn btn-success w-100">Crear dimensión</button>
-						</div>
-					</div>
-				</form>
-			</div>
+			
 			<hr>
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
                 <?php $i=0; foreach($dimensiones as $dimension){ ?>
@@ -76,10 +21,13 @@
                             id="tab-<?php echo $dimension->ID_DIMENSION; ?>" data-bs-toggle="tab" data-bs-target="#tab-<?php echo $dimension->ID_DIMENSION; ?>-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><?php echo $dimension->TITULO; ?></button>
                 </li>
                 <?php $i++; } ?>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <?php $i=0; foreach($dimensiones as $dimension){ ?>
-                    <div class="tab-pane fade <?php
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="n-dimension-tab" data-bs-toggle="tab" data-bs-target="#n-dimension" type="button" role="tab" aria-controls="n-dimension" aria-selected="false"><i class="fa-solid fa-circle-plus"></i> Nueva Dimensión</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <?php $i=0; foreach($dimensiones as $dimension){ ?>
+                <div class="tab-pane fade <?php
                             if(isset($_GET['dimension'])&&!empty($_GET['dimension'])){
                                  if($_GET['dimension']==$dimension->ID_DIMENSION){
                                      echo 'show active';
@@ -87,21 +35,24 @@
                             }else{
                                  if($i==0){ echo 'show active'; }
                                 } ?> " id="tab-<?php echo $dimension->ID_DIMENSION; ?>-pane" role="tabpanel" aria-labelledby="tab-<?php echo $dimension->ID_DIMENSION; ?>-pane" tabindex="0">
-                                    <div class="border-primary p-3">
+                                    <h4 class="mt-4">Añade un parámetro</h4>    
+                                    <div class="border-primary px-3">
                                         <form action="<?php echo base_url('index.php/listas/crear_parametro'); ?>" method='post'>
                                         <input type="hidden" name='IdLista' value="<?php echo $lista['ID_LISTA']; ?>">
                                         <input type="hidden" name='IdDimension' value="<?php echo $dimension->ID_DIMENSION; ?>">
-                                            <div class="row">
-                                                <div class="col">
+                                        <div class="row p-3 forma-crear-parametro">
+                                                <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="Titulo">Título del parámetro</label>
-                                                        <input type="text" class="form-control" name='Titulo' placeholder="Titulo">
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-pen"></i></span>
+                                                            <input type="text" class="form-control input_discrete input_head" name='Titulo' placeholder="Titulo del parámetro">
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group">
-                                                        <label for="Obligatorio">Es un parámetro obligatorio?</label>
-                                                        <select name="Obligatorio" class="form-control">
+                                                    <div class="form-group inputs-criterio d-flex flex-column justify-content-end align-items-start">
+                                                        <label class=" " for="Obligatorio">Es un parámetro obligatorio?</label>
+                                                        <select name="Obligatorio" class="form-control  ">
                                                             <option value="si">Obligatorio</option>
                                                             <option value="no">Opcional</option>
                                                         </select>
@@ -110,9 +61,9 @@
                                                 <?php if(!empty($dimension->CRITERIO_1)){ ?>
                                                     <?php $opciones_1 = explode(", ", $dimension->OPCIONES_1); ?>
                                                     <div class="col">
-                                                        <div class="form-group">
-                                                            <label for="CriterioValor1"><?php echo $dimension->CRITERIO_1; ?></label>
-                                                            <select name="CriterioValor1" class="form-control">
+                                                        <div class="form-group inputs-criterio d-flex flex-column justify-content-end align-items-start">
+                                                            <label class=" " for="CriterioValor1"><?php echo $dimension->CRITERIO_1; ?></label>
+                                                            <select name="CriterioValor1" class="form-control  ">
                                                                 <?php foreach($opciones_1 as $opcion){ ?>
                                                                 <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
                                                                 <?php } ?>
@@ -125,9 +76,9 @@
                                                 <?php if(!empty($dimension->CRITERIO_2)){ ?>
                                                     <?php $opciones_2 = explode(", ", $dimension->OPCIONES_2); ?>
                                                     <div class="col">
-                                                        <div class="form-group">
-                                                            <label for="CriterioValor2"><?php echo $dimension->CRITERIO_2; ?></label>
-                                                            <select name="CriterioValor2" class="form-control">
+                                                        <div class="form-group inputs-criterio d-flex flex-column justify-content-end align-items-start">
+                                                            <label class=" " for="CriterioValor2"><?php echo $dimension->CRITERIO_2; ?></label>
+                                                            <select name="CriterioValor2" class="form-control  ">
                                                                 <?php foreach($opciones_2 as $opcion){ ?>
                                                                 <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
                                                                 <?php } ?>
@@ -140,9 +91,9 @@
                                                 <?php if(!empty($dimension->CRITERIO_3)){ ?>
                                                     <?php $opciones_3 = explode(", ", $dimension->OPCIONES_3); ?>
                                                     <div class="col">
-                                                        <div class="form-group">
-                                                            <label for="CriterioValor3"><?php echo $dimension->CRITERIO_3; ?></label>
-                                                            <select name="CriterioValor3" class="form-control">
+                                                        <div class="form-group inputs-criterio d-flex flex-column justify-content-end align-items-start">
+                                                            <label class=" " for="CriterioValor3"><?php echo $dimension->CRITERIO_3; ?></label>
+                                                            <select name="CriterioValor3" class="form-control  ">
                                                                 <?php foreach($opciones_3 as $opcion){ ?>
                                                                 <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
                                                                 <?php } ?>
@@ -155,9 +106,9 @@
                                                 <?php if(!empty($dimension->CRITERIO_4)){ ?>
                                                     <?php $opciones_4 = explode(", ", $dimension->OPCIONES_4); ?>
                                                     <div class="col">
-                                                        <div class="form-group">
-                                                            <label for="CriterioValor4"><?php echo $dimension->CRITERIO_4; ?></label>
-                                                            <select name="CriterioValor4" class="form-control">
+                                                        <div class="form-group inputs-criterio d-flex flex-column justify-content-end align-items-start">
+                                                            <label class=" " for="CriterioValor4"><?php echo $dimension->CRITERIO_4; ?></label>
+                                                            <select name="CriterioValor4" class="form-control  ">
                                                                 <?php foreach($opciones_4 as $opcion){ ?>
                                                                 <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
                                                                 <?php } ?>
@@ -170,9 +121,9 @@
                                                 <?php if(!empty($dimension->CRITERIO_5)){ ?>
                                                     <?php $opciones_5 = explode(", ", $dimension->OPCIONES_5); ?>
                                                     <div class="col">
-                                                        <div class="form-group">
-                                                            <label for="CriterioValor5"><?php echo $dimension->CRITERIO_5; ?></label>
-                                                            <select name="CriterioValor5" class="form-control">
+                                                        <div class="form-group inputs-criterio d-flex flex-column justify-content-end align-items-start">
+                                                            <label class=" " for="CriterioValor5"><?php echo $dimension->CRITERIO_5; ?></label>
+                                                            <select name="CriterioValor5" class="form-control  ">
                                                                 <?php foreach($opciones_5 as $opcion){ ?>
                                                                 <option value="<?php echo $opcion; ?>"><?php echo $opcion; ?></option>
                                                                 <?php } ?>
@@ -182,13 +133,16 @@
                                                 <?php }else{ ?>
                                                     <input type="hidden" name="CriterioValor5" value="">
                                                 <?php } ?>
-                                                <div class="col pt-1">
-                                                    <button type='submit' class="btn btn-primary mt-4">Crear parámetro</button>
+                                                <div class="col-12 pt-1 d-flex justify-content-end">
+                                                <button type='submit' class="btn btn-primary">Crear parámetro</button>
                                                 </div>
                                             </div>
+                                            
                                         </form>
                                     </div>
-                                    <table class="table table-bordered">
+                                    <h4 class="mt-4">Tabla de parámetros</h4>
+                                    <div class="overflow-tabla">
+                                    <table class="table tabla-parametros">
                                         <tr>
                                             <th>TITULO</th>
                                             <th>OBLIGATORIO</th>
@@ -322,6 +276,7 @@
                                         </tr>
                                         <?php } ?>
                                     </table>
+                                    </div>
                                     <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editar_dimension_<?php echo $dimension->ID_DIMENSION; ?>">Editar</button>
                                     <button data-enlace="<?php echo base_url('index.php/listas/borrar_dimension?id='.$dimension->ID_DIMENSION); ?>" class="btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Borrar dimensión <?php echo $dimension->TITULO; ?></button>
 
@@ -393,10 +348,131 @@
                                 </div>
 
                     <?php $i++; } ?>
+                    <div class="tab-pane fade" id="n-dimension" role="tabpanel" aria-labelledby="n-dimension-tab">
+                        <section class="p-4">
+                            <form action="<?php echo base_url('index.php/listas/crear_dimension'); ?>" method='post'>
+                                <input type="hidden" name="IdLista" value="<?php echo $lista['ID_LISTA'] ?>">
+                                <input type="hidden" name="Descripcion" value="">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-pen"></i></span>
+                                                <input type="text" name="Titulo" class="form-control input_discrete input_head"
+                                                    placeholder='Título de la dimensión'>
+                                            </div>
+                                        </div>
+                                        <h5>Establece los criterios</h5>
+                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="pills-criterio1-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-criterio1" type="button" role="tab"
+                                                    aria-controls="pills-criterio1" aria-selected="true">1</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="pills-criterio2-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-criterio2" type="button" role="tab"
+                                                    aria-controls="pills-criterio2" aria-selected="false">2</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="pills-criterio3-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-criterio3" type="button" role="tab"
+                                                    aria-controls="pills-criterio3" aria-selected="false">3</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="pills-criterio4-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-criterio4" type="button" role="tab"
+                                                    aria-controls="pills-criterio4" aria-selected="false">4</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="pills-criterio5-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-criterio5" type="button" role="tab"
+                                                    aria-controls="pills-criterio5" aria-selected="false">5</button>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="pills-tabContent">
+                                            <div class="tab-pane fade show active" id="pills-criterio1" role="tabpanel"
+                                                aria-labelledby="pills-criterio1-tab">
+                                                <div class="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1"><i
+                                                                class="fa-solid fa-pen"></i></span>
+                                                        <input type="text" name="Criterio1"
+                                                            class="form-control rounded-0 input_discrete input_head"
+                                                            placeholder='Nombre Criterio 1'>
+                                                    </div>
+                                                    <textarea name="OpcionesCriterio1" class="form-control opciones-criterio"
+                                                        placeholder='Opciones del criterio separadas por coma' rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-criterio2" role="tabpanel"
+                                                aria-labelledby="pills-criterio2-tab">
+                                                <div class="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1"><i
+                                                                class="fa-solid fa-pen"></i></span>
+                                                        <input type="text" name="Criterio2"
+                                                            class="form-control rounded-0 input_discrete input_head"
+                                                            placeholder='Nombre Criterio 2'>
+                                                    </div>
+                                                    <textarea name="OpcionesCriterio2" class="form-control opciones-criterio"
+                                                        placeholder='Opciones del criterio separadas por coma' rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-criterio3" role="tabpanel"
+                                                aria-labelledby="pills-criterio3-tab">
+                                                <div class="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1"><i
+                                                                class="fa-solid fa-pen"></i></span>
+                                                        <input type="text" name="Criterio3"
+                                                            class="form-control rounded-0 input_discrete input_head"
+                                                            placeholder='Nombre Criterio 3'>
+                                                    </div>
+                                                    <textarea name="OpcionesCriterio3" class="form-control opciones-criterio"
+                                                        placeholder='Opciones del criterio separadas por coma' rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-criterio4" role="tabpanel"
+                                                aria-labelledby="pills-criterio4-tab">
+                                                <div class="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1"><i
+                                                                class="fa-solid fa-pen"></i></span>
+                                                        <input type="text" name="Criterio4"
+                                                            class="form-control rounded-0 input_discrete input_head"
+                                                            placeholder='Nombre Criterio 4'>
+                                                    </div>
+                                                    <textarea name="OpcionesCriterio4" class="form-control opciones-criterio"
+                                                        placeholder='Opciones del criterio separadas por coma' rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-criterio5" role="tabpanel"
+                                                aria-labelledby="pills-criterio5-tab">
+                                                <div class="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="basic-addon1"><i
+                                                                class="fa-solid fa-pen"></i></span>
+                                                        <input type="text" name="Criterio5"
+                                                            class="form-control rounded-0 input_discrete input_head"
+                                                            placeholder='Nombre Criterio 5'>
+                                                    </div>
+                                                    <textarea name="OpcionesCriterio5" class="form-control opciones-criterio"
+                                                        placeholder='Opciones del criterio separadas por coma' rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                        <button type="submit" class="btn btn-success w-100">Crear dimensión</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
                 </div>
                 <div>
 
                 </div>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>

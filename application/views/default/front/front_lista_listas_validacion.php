@@ -1,7 +1,7 @@
 <div class="estadisticas_generales mb-3">
 	<div class="row">
 		<div class="col-12 col-md-8">
-            <h3>Estas listas se pueden asignar a los proyectos para validar distintos parámetros</h3>
+            <p>Estas listas se pueden asignar a los proyectos para validar distintos parámetros</p>
 			<div class="p-4 border border-primary">
 				<form action="<?php echo base_url('index.php/listas/crear'); ?>" method='post'>
 				<input type="hidden" name="Descripcion" value="">
@@ -21,16 +21,17 @@
 			<ul class="list-group">
 			<?php foreach($listas as $lista){ ?>
 				<li class="list-group-item d-flex justify-content-between">
-					<?php echo $lista->TITULO; ?>
-					<div class="btn-group">
-						<a href="<?php echo base_url('index.php/listas/dimensiones?id='.$lista->ID_LISTA); ?>" class="btn btn-sm btn-outline-primary"> Ver dimensiones</a>
-						<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editar_lista_<?php echo $lista->ID_LISTA; ?>">
-						Editar
+					<span><?php echo $lista->TITULO; ?>
+					    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editar_lista_<?php echo $lista->ID_LISTA; ?>">
+					        <i class="fa-solid fa-pen"></i>
 						</button>
-						<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#copiar_lista_<?php echo $lista->ID_LISTA; ?>">
-						Copiar
+					</span>
+					<div class="edicion-lista">
+						<a href="<?php echo base_url('index.php/listas/dimensiones?id='.$lista->ID_LISTA); ?>" class="btn">Editar lista</a>
+						<button type="button" class="btn ml-2" data-bs-toggle="modal" data-bs-target="#copiar_lista_<?php echo $lista->ID_LISTA; ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Copiar lista">
+						<i class="fa-regular fa-copy"></i>
 						</button>
-						<button data-enlace="<?php echo base_url('index.php/listas/borrar_lista?id='.$lista->ID_LISTA); ?>" class="btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</button>
+						<button data-enlace="<?php echo base_url('index.php/listas/borrar_lista?id='.$lista->ID_LISTA); ?>" class="btn ml-2 border-danger borrar_entrada" data-bs-toggle="tooltip" data-bs-placement="top" title="Borrar lista"> <i class="fas fa-trash"></i></button>
 					</div>
 					<div class="modal fade" id="editar_lista_<?php echo $lista->ID_LISTA; ?>" tabindex="-1" aria-labelledby="editar_lista_<?php echo $lista->ID_LISTA; ?>" aria-hidden="true">
 						<div class="modal-dialog">

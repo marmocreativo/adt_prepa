@@ -74,6 +74,7 @@ body.noche td, body.noche th{
 .contenido_principal{
   min-height: 100%;
 }
+
 /* ESTILOS DIA */
 .envolvente_dia .sidebar{
   background-color: #F2F2F2;
@@ -87,7 +88,6 @@ body.noche td, body.noche th{
   color: #79838F;
   min-height: 100%;
 }
-
 .envolvente_dia .sidebar .logo_contenedor{
   background-color: #F2F2F2;
   color: #79838F;
@@ -95,6 +95,10 @@ body.noche td, body.noche th{
 .envolvente_dia .contenido_principal .logo_contenedor{
   background-color: #F8F7FC;
   color: #79838F;
+}
+.envolvente_dia section {
+	background: #303642;
+	border-color: #41464a;
 }
 
 /* ESTILOS NOCHE */
@@ -220,7 +224,47 @@ border: none;
 
 }
 
-/*Estilos de actividades */
+/* Estilos tabs */
+#n-dimension-tab {
+	margin-left: 8px;
+	background: transparent;
+}
+
+.nav-item button:focus {
+	outline: none;
+	border: none;
+}
+
+.envolvente_noche .nav-tabs {
+	border-bottom: 1px solid #3f444f;
+}
+
+.envolvente_noche .nav-tabs .nav-link {
+  background: #3f444f;
+  color: #7b8289;
+}
+
+.envolvente_noche #n-dimension-tab {
+	color: #7d858c;
+	border-color: #3f444f;
+	border-bottom: none;
+}
+
+.envolvente_noche .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	background: #696f7b;
+  color: #d1dbe6;
+	border: none;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+	border: none;
+}
+
+.envolvente_noche .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+	background: #505560;
+}
+
+/* Estilos de actividades */
 .envolvente_noche .list-group-item{
   background-color: transparent;
 }
@@ -309,6 +353,43 @@ border: none;
   background-color: #18233D;
 }
 
+.overflow-tabla {
+	overflow-x: scroll;
+}
+
+table {
+  border-collapse: collapse;
+  border: none;
+}
+
+tbody {
+  border: solid 1px;
+}
+
+.envolvente_noche tbody {
+  border-color: #3f444f;
+}
+
+tr {
+  border-top: 1px solid;
+}
+
+.envolvente_noche tr{
+  border-top-color: #3f444f;
+}
+
+tr:first-child {
+  border-top: none;
+  border: transparent;
+}
+td {
+  border: none !important;
+}
+
+.tabla-parametros td:first-child {
+	min-width: 250px;
+}
+
 .noche .table td,.noche .table th {
 	border-top: 1px solid #3e4955;
 }
@@ -316,3 +397,78 @@ border: none;
 .envolvente_noche .list-group {
   background-color: #18233D;
 }
+
+.form-control.input_discrete {
+	background: transparent;
+	transition: all .2s ease-in-out;
+	text-decoration: underline;
+}
+
+.form-control.input_head {
+	font-size: 1.2em;
+  transition: all .2s ease-in-out;
+  border-bottom: 1px solid;
+}
+
+.envolvente_noche .form-control.input_head {
+  border-color: #3f444f;
+}
+
+.form-control.input_head:focus {
+	font-size: 1em;
+  transition: all .2s ease-in-out;
+}
+
+.form-control.input_discrete:focus {
+	transition: all .2s ease-in-out;
+}
+
+.noche .form-control.input_discrete:focus {
+	background: #3f444f;
+}
+
+.dia .form-control.input_discrete:focus {
+	background: #e8e9ec;
+}
+
+.input-group-text {
+  background: transparent;
+  border: none;
+  padding: 0 5px 0 0;
+}
+
+.noche .input-group-text {
+  color: #69727b;
+}
+
+.nav-pills li.nav-item button {
+	border: none;
+	margin-right: 8px;
+}
+.envolvente_noche .nav-pills li.nav-item button {
+	background: #4b505e;
+}
+
+.forma-crear-parametro {
+  background: #20242d;
+  border-radius: 8px;   
+}
+
+.form-group.inputs-criterio {
+	height: 70px;
+}
+
+label {
+  font-size: .9em;
+  text-transform: uppercase;
+}
+
+.envolvente_noche label {
+    color: #696f7b;
+}
+
+.edicion-lista .btn {
+	background: #00000070;
+	color: #a7a8a8;
+}
+	
