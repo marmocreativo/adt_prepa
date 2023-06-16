@@ -163,6 +163,7 @@
 											<div class="btn-group justify-end">
 												<?php if($revision->ESTADO=='activo'){ ?>
 												<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$revision->ID_REVISION.'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> Formulario</a>
+												<button data-enlace="<?php echo base_url('index.php/proyectos/borrar_validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$revision->ID_REVISION); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>
 												<?php } ?>
 												<?php if($revision->ESTADO=='finalizado'){ ?>
 												<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$revision->ID_REVISION.'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>

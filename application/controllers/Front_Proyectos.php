@@ -501,4 +501,23 @@ class Front_Proyectos extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 
+	public function borrar_validacion(){
+		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
+		$revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+
+        // check if the ID_REVISION exists before trying to delete it
+        if(isset($revision['ID_PROYECTO']))
+        {
+			// Borro la categoría
+			$this->GeneralModel->borrar('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+			$this->GeneralModel->borrar('validacion_respuesta',['ID_REVISION'=>$_GET['id_revision']]);
+						
+            redirect(base_url('index.php/proyectos/detalles?id='.$_GET['id']));
+        } else {
+					// Mensaje Feedback
+					//  Redirecciono
+	         redirect(base_url('index.php/proyectos'));
+				}
+	}
+
 }

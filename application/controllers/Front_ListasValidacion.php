@@ -67,7 +67,9 @@ class Front_ListasValidacion extends CI_Controller {
 			'ESTADO'=>$detalles_lista['ESTADO'],
 		);
 
+		$id_lista = 0;
 		$id_lista = $this->GeneralModel->crear('validacion_lista',$parametros_lista );
+		//echo '<h3>Lista: '.$_POST['Titulo'].'</h3>';
 
 		$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['Identificador']],'','','');
 		foreach($dimensiones as $dimension){
@@ -88,8 +90,10 @@ class Front_ListasValidacion extends CI_Controller {
 				'CRITERIO_5'=>$dimension->CRITERIO_5,
 				'OPCIONES_5'=>$dimension->OPCIONES_5,
 			);
+			$id_dimension = 0;
 
 			$id_dimension = $this->GeneralModel->crear('validacion_dimension',$parametros_dimension );
+			//echo '<h5>Dimension: '.$dimension->TITULO.'</h5>';
 
 			
 			$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
@@ -107,8 +111,8 @@ class Front_ListasValidacion extends CI_Controller {
 					'CRITERIO_VALOR_4'=>$param->CRITERIO_VALOR_4,
 					'CRITERIO_VALOR_5'=>$param->CRITERIO_VALOR_5
 				);
-
-				$id_dimension = $this->GeneralModel->crear('validacion_parametros',$parametros_parametros );
+				//echo '<h6>Parametro: '.$param->TITULO.'</h6>';
+				$this->GeneralModel->crear('validacion_parametros',$parametros_parametros );
 			}
 		}
 
