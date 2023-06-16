@@ -390,6 +390,18 @@ td {
 	min-width: 250px;
 }
 
+.envolvente_dia table {
+  color: #d4dce3;
+}
+
+.envolvente_noche table {
+  color: #3e4955;
+}
+
+.table td, .table th {
+	border-top: 1px solid #d4dce3;
+}
+
 .noche .table td,.noche .table th {
 	border-top: 1px solid #3e4955;
 }
@@ -402,6 +414,7 @@ td {
 	background: transparent;
 	transition: all .2s ease-in-out;
 	text-decoration: underline;
+  border: none;
 }
 
 .form-control.input_head {
@@ -450,8 +463,15 @@ td {
 }
 
 .forma-crear-parametro {
-  background: #20242d;
   border-radius: 8px;   
+}
+
+.envolvente_dia .forma-crear-parametro {
+	background: #e9e9ed;
+}
+
+.envolvente_noche .forma-crear-parametro {
+  background: #20242d;
 }
 
 .form-group.inputs-criterio {
@@ -467,8 +487,11 @@ label {
     color: #696f7b;
 }
 
-.edicion-lista .btn {
+.envolvente_noche .edicion-lista .btn {
 	background: #00000070;
 	color: #a7a8a8;
 }
-	
+.envolvente_dia .edicion-lista .btn {
+	background: #e3e8ee;
+	color: #838c97;
+}
