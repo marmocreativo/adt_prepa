@@ -19,20 +19,20 @@
                 <?php foreach($tareas as $tarea){ ?>
                     <?php $verificar_revision = $this->GeneralModel->detalles('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA,'ID_REVISION'=>$detalles_revision['ID_REVISION']]); ?>
                         
-                            <li class="list-group-item d-flex justify-content-between ">
-                                <p class="mb-0">
-                                <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>" title="<?php echo $tarea->TAREA_TITULO; ?>"><?php echo ellipsize($tarea->TAREA_TITULO, 20,1); ?></a>
-                                </p>
-                                <p class="mb-0">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">
+                                    <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>" title="<?php echo $tarea->TAREA_TITULO; ?>"><?php echo ellipsize($tarea->TAREA_TITULO, 20,1); ?></a>
+                                    </div>
                                     <?php
                                         $cantidad_parametros = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA,'ID_REVISION'=>$detalles_revision['ID_REVISION']]);
                                         $cantidad_validados = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA,'ID_REVISION'=>$detalles_revision['ID_REVISION'],'VALOR'=>'validada']);
                                     ?>
                                     validados: <b><?php echo $cantidad_validados; ?>/<?php echo $cantidad_parametros; ?></b>
-                                </p>
+                                </div>
                                 <?php if(!isset($_GET['tarea'])||$_GET['tarea']!=$tarea->ID_TAREA){ ?>
                                 <a  href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$_GET['fecha_revision'].'&tarea='.$tarea->ID_TAREA); ?>"
-                                    class="btn btn-success btn-xs">Cotejar</a>                                
+                                    class="btn btn-outline-primary btn-xs">Revisar</a>                                
                                 <?php } ?>
                                 <?php if(isset($_GET['tarea'])&&$_GET['tarea']==$tarea->ID_TAREA){ ?>
                                 <h4 class="mb-0"> <i class="fa fa-chevron-right"></i> </h4>
@@ -74,13 +74,13 @@
 
         ?>
         <?php if(!empty($verificar_respuestas)){ ?>
-            <div class="card card-body proyecto mb-3">
+            <div class="card card-body seccion mb-3">
                 <?php
                     $detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['tarea']]);
                 ?>
                 <h4><small>Tarea:</small><br><?php echo $detalles_tarea['TAREA_TITULO']; ?></h4>
             </div>
-            <div class="card proyecto mb-3">
+            <div class="card seccion mb-3">
             <div class="card-header border-bottom border-primary d-flex" style="background-color: transparent;">
             <p class="ml-2"><?php echo $lugar_dimension; ?> de <?php echo $conteo_dimension; ?> | </p><h4 class="ml-2 text-primary display-6 fw-bold">  <?php echo $dimension_activa['TITULO']; ?></h4>
             <p class="text-secondary display-6 text-primary ms-3"></p>

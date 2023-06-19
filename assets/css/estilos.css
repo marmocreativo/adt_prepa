@@ -264,6 +264,28 @@ border: none;
 	background: #505560;
 }
 
+.seccion {
+	padding: 16px;
+	border-radius: 8px;
+	overflow: hidden;
+}
+.dia .seccion{
+  background-color: #FFFFFF;
+  color: #79838F;
+	border: solid 1px #e4ebec;
+}
+.dia .seccion a{
+  color: #79838F;
+}
+.noche .seccion{
+  background-color: #18233D;
+  color: #F2F2F2;
+	border: solid 1px hsl(188, 8%, 35%);
+}
+.noche .seccion a{
+  color: #F2F2F2;
+}
+
 /* Estilos de actividades */
 .envolvente_noche .list-group-item{
   background-color: transparent;
