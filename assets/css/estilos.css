@@ -135,6 +135,107 @@ background-color: #3f444f;
 border: none;
 }
 
+.envolvente_noche .modal-content {
+	background: #292E3A;
+}
+
+/* Toggle noche/dia */
+.toggle-btn {
+	position: absolute;
+	width: 64px;
+	height: 35px;
+	margin: 0 auto;
+	border-radius: 40px;
+	bottom: 20px;
+	left: 55px;
+}
+
+input[type="checkbox"] {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  margin: 0px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+}
+
+/* First toggle btn */
+
+#modo-toggle-btn span {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  overflow: hidden;
+  opacity: 1;
+  background: rgb(150,254,255);
+  background: -moz-linear-gradient(90deg, rgba(150,254,255,1) 0%, rgba(0,212,255,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(150,254,255,1) 0%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(90deg, rgba(150,254,255,1) 0%, rgba(0,212,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#96feff",endColorstr="#00d4ff",GradientType=1); 
+  border-radius: 40px;
+  transition: 0.2s ease background-color, 0.2s ease opacity;
+  border: solid 2px #5e626c;
+}
+
+#modo-toggle-btn span:before,
+#modo-toggle-btn span:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  transition: 0.5s ease transform, 0.125s ease background-color;
+}
+
+#modo-toggle-btn span:before {
+  background-color: #92fdff;
+  transform: translate(-23px, 0px);
+  z-index: 1;
+}
+
+#modo-toggle-btn span:after {
+  background-color: #ffde66;
+  transform: translate(4px, 0px);
+  z-index: 0;
+}
+
+#modo-toggle-btn input[type="checkbox"]:checked + span {
+  background: rgb(23,11,75);
+  background: -moz-linear-gradient(90deg, rgba(23,11,75,1) 0%, rgba(32,56,117,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(23,11,75,1) 0%, rgba(32,56,117,1) 100%);
+  background: linear-gradient(90deg, rgba(23,11,75,1) 0%, rgba(32,56,117,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#170b4b",endColorstr="#203875",GradientType=1); 
+}
+
+#modo-toggle-btn input[type="checkbox"]:active + span {
+  opacity: 0.5;
+}
+
+#modo-toggle-btn input[type="checkbox"]:checked + span:before {
+  background-color: #161d55;
+  transform: translate(25px, -7px);
+}
+
+#modo-toggle-btn input[type="checkbox"]:checked + span:after {
+  background-color: #f2edda;
+  transform: translate(32px, 0px);
+}
+
+#modo-toggle-btn label {
+  position: relative;
+  right: 42px;
+  top: 8px;
+}
+
+
 .sidebar{
   position:absolute;
   color: #fff;
