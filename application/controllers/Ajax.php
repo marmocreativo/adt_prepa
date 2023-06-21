@@ -160,7 +160,6 @@ class Ajax extends CI_Controller {
 
 	public function registrar_respuesta()
 	{
-		var_dump($_GET);
 		if(isset($_GET)){
 			if($_GET['marcada']=='si'){
 				$this->GeneralModel->actualizar('validacion_respuesta',['ID_RESPUESTA'=>$_GET['respuesta']],['VALOR'=>'validada']);
@@ -168,12 +167,21 @@ class Ajax extends CI_Controller {
 			if($_GET['marcada']=='no'){
 				$this->GeneralModel->actualizar('validacion_respuesta',['ID_RESPUESTA'=>$_GET['respuesta']],['VALOR'=>'']);
 			}
+			$detalles_respuesta = $this->GeneralModel->detalles('validacion_respuesta',['ID_RESPUESTA'=>$_GET['respuesta']]);
+			$detalles_revision = $this->GeneralModel->detalles('validacion_respuesta',['ID_REVISION'=>$detalles_respuesta['ID_REVISION']]);
+			$cantidad_parametros = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION']]);
+			$cantidad_validados = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION'],'VALOR'=>'validada']);
+			$parametros = array(
+				'TOTAL_PARAMETROS' => $cantidad_parametros,
+				'TOTAL_VERIFICADOS' => $cantidad_validados
+			);
+	
+			$this->GeneralModel->actualizar('validacion_revisiones',['ID_REVISION'=>$detalles_revision['ID_REVISION']], $parametros);
 		}
 	}
 
 	public function registrar_comentario()
 	{
-		var_dump($_GET);
 		if(isset($_GET)){
 				$this->GeneralModel->actualizar('validacion_respuesta',['ID_RESPUESTA'=>$_GET['respuesta']],['COMENTARIOS'=>$_GET['comentario']]);
 		}

@@ -87,3 +87,9 @@
 					</li>
 						-->
 		    	</ul>
+	
+	<div class="toggle-btn" id="modo-toggle-btn">
+		<label>Modo</label>
+      <input type="checkbox">
+      <span></span>
+    </div>

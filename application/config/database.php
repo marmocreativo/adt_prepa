@@ -100,9 +100,9 @@ $db['default'] = array(
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'polaris',
-	'password' => 'polaris',
-	'database' => 'polaris',
+	'username' => 'Polaris',
+	'password' => 'Polaris',
+	'database' => 'Polaris',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -118,4 +118,3 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-

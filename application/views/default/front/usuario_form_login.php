@@ -14,7 +14,7 @@
 				</div>
 				<button type="submit" class="btn btn-success btn-round btn-block shadow-sm">Iniciar Sesión</button>
 				<div class="row mt-4">
-					<div class="col-12 col-sm-6">
+					<div class="col-12">
 						<a class="btn btn-block btn-link" href="<?php echo base_url('index.php/login/recuperar_pass');?>"> <span class="fa fa-question-circle"></span> Olvidé mi contraseña</a>
 					</div>
 				</div>

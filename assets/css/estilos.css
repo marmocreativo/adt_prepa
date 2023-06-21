@@ -2,6 +2,7 @@ html, body{
   height: 100%;
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
 }
 
 /*-------- PÁGINA DE CARGA -------*/
@@ -73,6 +74,7 @@ body.noche td, body.noche th{
 .contenido_principal{
   min-height: 100%;
 }
+
 /* ESTILOS DIA */
 .envolvente_dia .sidebar{
   background-color: #F2F2F2;
@@ -86,7 +88,6 @@ body.noche td, body.noche th{
   color: #79838F;
   min-height: 100%;
 }
-
 .envolvente_dia .sidebar .logo_contenedor{
   background-color: #F2F2F2;
   color: #79838F;
@@ -94,6 +95,10 @@ body.noche td, body.noche th{
 .envolvente_dia .contenido_principal .logo_contenedor{
   background-color: #F8F7FC;
   color: #79838F;
+}
+.envolvente_dia section {
+	background: #303642;
+	border-color: #41464a;
 }
 
 /* ESTILOS NOCHE */
@@ -123,6 +128,113 @@ body.noche td, body.noche th{
 .envolvente_noche .contenedor_principal .logo_contenedor{
 
 }
+
+.envolvente_noche .form-control {
+  color: #959ba2;
+background-color: #3f444f;
+border: none;
+}
+
+.envolvente_noche .modal-content {
+	background: #292E3A;
+}
+
+/* Toggle noche/dia */
+.toggle-btn {
+	position: absolute;
+	width: 64px;
+	height: 35px;
+	margin: 0 auto;
+	border-radius: 40px;
+	bottom: 20px;
+	left: 55px;
+}
+
+input[type="checkbox"] {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  margin: 0px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+}
+
+/* First toggle btn */
+
+#modo-toggle-btn span {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  overflow: hidden;
+  opacity: 1;
+  background: rgb(150,254,255);
+  background: -moz-linear-gradient(90deg, rgba(150,254,255,1) 0%, rgba(0,212,255,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(150,254,255,1) 0%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(90deg, rgba(150,254,255,1) 0%, rgba(0,212,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#96feff",endColorstr="#00d4ff",GradientType=1); 
+  border-radius: 40px;
+  transition: 0.2s ease background-color, 0.2s ease opacity;
+  border: solid 2px #5e626c;
+}
+
+#modo-toggle-btn span:before,
+#modo-toggle-btn span:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  transition: 0.5s ease transform, 0.125s ease background-color;
+}
+
+#modo-toggle-btn span:before {
+  background-color: #92fdff;
+  transform: translate(-23px, 0px);
+  z-index: 1;
+}
+
+#modo-toggle-btn span:after {
+  background-color: #ffde66;
+  transform: translate(4px, 0px);
+  z-index: 0;
+}
+
+#modo-toggle-btn input[type="checkbox"]:checked + span {
+  background: rgb(23,11,75);
+  background: -moz-linear-gradient(90deg, rgba(23,11,75,1) 0%, rgba(32,56,117,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(23,11,75,1) 0%, rgba(32,56,117,1) 100%);
+  background: linear-gradient(90deg, rgba(23,11,75,1) 0%, rgba(32,56,117,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#170b4b",endColorstr="#203875",GradientType=1); 
+}
+
+#modo-toggle-btn input[type="checkbox"]:active + span {
+  opacity: 0.5;
+}
+
+#modo-toggle-btn input[type="checkbox"]:checked + span:before {
+  background-color: #161d55;
+  transform: translate(25px, -7px);
+}
+
+#modo-toggle-btn input[type="checkbox"]:checked + span:after {
+  background-color: #f2edda;
+  transform: translate(32px, 0px);
+}
+
+#modo-toggle-btn label {
+  position: relative;
+  right: 42px;
+  top: 8px;
+}
+
 
 .sidebar{
   position:absolute;
@@ -213,7 +325,69 @@ body.noche td, body.noche th{
 
 }
 
-/*Estilos de actividades */
+/* Estilos tabs */
+#n-dimension-tab {
+	margin-left: 8px;
+	background: transparent;
+}
+
+.nav-item button:focus {
+	outline: none;
+	border: none;
+}
+
+.envolvente_noche .nav-tabs {
+	border-bottom: 1px solid #3f444f;
+}
+
+.envolvente_noche .nav-tabs .nav-link {
+  background: #3f444f;
+  color: #7b8289;
+}
+
+.envolvente_noche #n-dimension-tab {
+	color: #7d858c;
+	border-color: #3f444f;
+	border-bottom: none;
+}
+
+.envolvente_noche .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	background: #696f7b;
+  color: #d1dbe6;
+	border: none;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+	border: none;
+}
+
+.envolvente_noche .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+	background: #505560;
+}
+
+.seccion {
+	padding: 16px;
+	border-radius: 8px;
+	overflow: hidden;
+}
+.dia .seccion{
+  background-color: #FFFFFF;
+  color: #79838F;
+	border: solid 1px #e4ebec;
+}
+.dia .seccion a{
+  color: #79838F;
+}
+.noche .seccion{
+  background-color: #18233D;
+  color: #F2F2F2;
+	border: solid 1px hsl(188, 8%, 35%);
+}
+.noche .seccion a{
+  color: #F2F2F2;
+}
+
+/* Estilos de actividades */
 .envolvente_noche .list-group-item{
   background-color: transparent;
 }
@@ -233,15 +407,13 @@ body.noche td, body.noche th{
 /* Lista de Tareas */
 .lista_tareas.dia li{
   background-color: #fff;
-  margin-bottom: 8px;
   overflow: hidden;
-  border-bottom: 1px solid #c5c6c7;
+  border-bottom: 1px solid #e5eeee;
 }
 
 .lista_tareas.noche li{
   background-color: #18233D;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #c5c6c7;
+  border-bottom: 1px solid #3a4257;
   overflow: hidden;
 }
 
@@ -273,15 +445,11 @@ body.noche td, body.noche th{
 
 /* /Lista de Tareas */
 /* Lista de Proyectos */
-.proyecto{
+.proyecto {
 	padding: 16px;
-	margin-bottom: 16px;
 	border-radius: 8px;
-	box-shadow: 2px 2px 8px -7px rgba(0,0,0,0.60);
-	-webkit-box-shadow: 2px 2px 8px -7px rgba(0,0,0,0.60);
-	-moz-box-shadow: 22px 2px 8px -7px rgba(0,0,0,0.60);
 	overflow: hidden;
-	border: solid 1px #dbdfe1;
+	border: solid 1px #e4ebec;
 }
 .proyecto.dia{
   background-color: #FFFFFF;
@@ -293,25 +461,11 @@ body.noche td, body.noche th{
 .proyecto.noche{
   background-color: #18233D;
   color: #F2F2F2;
-  border: solid 1px #454b57;
 }
 .proyecto.noche a{
   color: #F2F2F2;
 }
-.col-12.previo_proyecto {
-  color: #727e88;
-}
-.envolvente_noche .col-12.previo_proyecto {
-  color: #727e88;
-}
-.progress {
-  height: 5px;
-  background-color: #eaeef23b;
-  border-radius: .25rem;
-}
 /* /Lista de Proyectos */
-<<<<<<< Updated upstream
-=======
 
 /* Validaciones */
 .modal-content.dia {
@@ -322,42 +476,145 @@ body.noche td, body.noche th{
   background-color: #18233D;
 }
 
+.overflow-tabla {
+	overflow-x: scroll;
+}
+
+table {
+  border-collapse: collapse;
+  border: none;
+}
+
+tbody {
+  border: solid 1px;
+}
+
+.envolvente_noche tbody {
+  border-color: #3f444f;
+}
+
+tr {
+  border-top: 1px solid;
+}
+
+.envolvente_noche tr{
+  border-top-color: #3f444f;
+}
+
+tr:first-child {
+  border-top: none;
+  border: transparent;
+}
+td {
+  border: none !important;
+}
+
+.tabla-parametros td:first-child {
+	min-width: 250px;
+}
+
+.envolvente_dia table {
+  color: #d4dce3;
+}
+
+.envolvente_noche table {
+  color: #3e4955;
+}
+
+.table td, .table th {
+	border-top: 1px solid #d4dce3;
+}
+
 .noche .table td,.noche .table th {
-	/* border: 1px solid #54585e; */
+	border-top: 1px solid #3e4955;
 }
 
 .envolvente_noche .list-group {
   background-color: #18233D;
 }
 
-td {
-    border: none !important;
-  }
-
-table {
-  border-collapse: collapse;
-  border: 1px solid #54585e;
+.form-control.input_discrete {
+	background: transparent;
+	transition: all .2s ease-in-out;
+	text-decoration: underline;
+  border: none;
 }
 
-.table.tabla_parametros {
-  min-width: 300px;
+.form-control.input_head {
+	font-size: 1.2em;
+  transition: all .2s ease-in-out;
+  border-bottom: 1px solid;
 }
 
-.table.tabla_parametros tr {
-    border-bottom: 1px solid #54585e;
-    border-top: 1px solid #54585e;
-    border-collapse: collapse;
-}​
-
-.table.tabla_parametros td:first-child {
-  min-width: 300px;
+.envolvente_noche .form-control.input_head {
+  border-color: #3f444f;
 }
 
-.envolvente_noche .table.tabla_parametros td:first-child {
-  background: #3f4553;
+.form-control.input_head:focus {
+	font-size: 1em;
+  transition: all .2s ease-in-out;
 }
 
-.scroll-tabla {
-  overflow-x: scroll;
+.form-control.input_discrete:focus {
+	transition: all .2s ease-in-out;
 }
->>>>>>> Stashed changes
+
+.noche .form-control.input_discrete:focus {
+	background: #3f444f;
+}
+
+.dia .form-control.input_discrete:focus {
+	background: #e8e9ec;
+}
+
+.input-group-text {
+  background: transparent;
+  border: none;
+  padding: 0 5px 0 0;
+}
+
+.noche .input-group-text {
+  color: #69727b;
+}
+
+.nav-pills li.nav-item button {
+	border: none;
+	margin-right: 8px;
+}
+.envolvente_noche .nav-pills li.nav-item button {
+	background: #4b505e;
+}
+
+.forma-crear-parametro {
+  border-radius: 8px;   
+}
+
+.envolvente_dia .forma-crear-parametro {
+	background: #e9e9ed;
+}
+
+.envolvente_noche .forma-crear-parametro {
+  background: #20242d;
+}
+
+.form-group.inputs-criterio {
+	height: 70px;
+}
+
+label {
+  font-size: .9em;
+  text-transform: uppercase;
+}
+
+.envolvente_noche label {
+    color: #696f7b;
+}
+
+.envolvente_noche .edicion-lista .btn {
+	background: #00000070;
+	color: #a7a8a8;
+}
+.envolvente_dia .edicion-lista .btn {
+	background: #e3e8ee;
+	color: #838c97;
+}

@@ -193,6 +193,51 @@ if ( ! function_exists('verificar_sesion'))
 
   /*
   | -------------------------------------------------------------------------
+  | NOTIFICACIONES GET
+  | -------------------------------------------------------------------------
+  |
+  */
+  if ( ! function_exists('noti_get'))
+  {
+    function notiget($mensaje)
+    {
+      if(!empty($mensaje)){
+        switch ($mensaje) {
+          case 'creado':
+            echo '<div class="alert alert-success alert-dismissible fade show">';
+            echo '<h5 class="alert-heading"><i class="fa fa-check"></i> ';
+            echo 'La entrada fue creada exitosamente </h5>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+            echo '</div> <hr>';
+            break;
+          case 'actualizado':
+            echo '<div class="alert alert-success alert-dismissible fade show">';
+            echo '<h5 class="alert-heading"><i class="fa fa-check"></i> ';
+            echo 'La entrada fue actualizada exitosamente </h5>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+            echo '</div> <hr>';
+            break;
+          case 'borrado':
+            echo '<div class="alert alert-success alert-dismissible fade show">';
+            echo '<h5 class="alert-heading"><i class="fa fa-check"></i> ';
+            echo 'La entrada fue borrada exitosamente </h5>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+            echo '</div> <hr>';
+            break;
+          case 'error':
+            echo '<div class="alert alert-success alert-dismissible fade show">';
+            echo '<h5 class="alert-heading"><i class="fa fa-exclamation-triangle"></i> ';
+            echo 'Ocurrió un error por favor vuelve a intentarlo </h5>';
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+            echo '</div> <hr>';
+            break;
+        }
+      }
+      
+    }
+  }
+  /*
+  | -------------------------------------------------------------------------
   | RETROALIMENTACION
   | -------------------------------------------------------------------------
   |

@@ -51,15 +51,17 @@ class Admin_Inicio extends CI_Controller {
 
 	public function index()
 	{	
+		/*
 		$this->load->dbforge();
-    
-		$fields = array(
-			'COMENTARIOS' => array(
-				'type' => 'text'
-			)
-		);
+		$this->db->empty_table('validacion_revisiones');
+		$this->db->empty_table('validacion_respuesta');
+		*/
 
-		$this->dbforge->add_column('validacion_respuesta', $fields);
+		$revisiones = $this->GeneralModel->lista('validacion_revisiones','','','','','');
+		echo '<pre>';
+		var_dump($revisiones);
+		echo '</pre>';
+
 	}
 	
 	public function ajuste_areas()

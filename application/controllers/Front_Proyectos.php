@@ -11,11 +11,11 @@ class Front_Proyectos extends CI_Controller {
 		$this->data['op'] = opciones_default();
 
 		// Verifico Sesión
-		/*
+		
 		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
 			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
 		}
-		*/
+		
 
 		// reviso el dispositivo
 		if($this->agent->is_mobile()){
@@ -381,21 +381,28 @@ class Front_Proyectos extends CI_Controller {
 		$total_parametros = count($array_parametros);
 
 		$fecha = date('Y-m-d H:i:s');
+		$fecha_limite = null;
+		if(isset($_POST['FechaLimite'])){
+			$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['FechaLimite']));
+		}
+		
+		$revision = array(
+			'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
+			'ID_TAREA'=>'',
+			'ID_ENLACE'=>'',
+			'ID_LISTA'=>$_POST['IdLista'],
+			'FECHA'=>$fecha,
+			'ID_RESPONSABLE'=>$_POST['IdResponsable'],
+			'TOTAL_PARAMETROS'=>$total_parametros,
+			'TOTAL_VERIFICADOS' => 0,
+			'FECHA_LIMITE'=>$fecha_limite,
+			'ESTADO'=>'activo'
+		);
+
+		$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
 
 		foreach($tareas as $tarea){
-			$revision = array(
-				'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
-				'ID_TAREA'=>$tarea->ID_TAREA,
-				'ID_ENLACE'=>$tarea->TAREA_ENLACE_ENTREGABLE,
-				'ID_LISTA'=>$_POST['IdLista'],
-				'FECHA'=>$fecha,
-				'ID_RESPONSABLE'=>$_POST['IdResponsable'],
-				'TOTAL_PARAMETROS'=>$total_parametros,
-				'TOTAL_VERIFICADOS' => 0,
-				'ESTADO'=>'activo'
-			);
-
-			$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
+			
 
 			foreach($array_parametros as $arry_param){
 				$respuesta = array(
@@ -446,6 +453,23 @@ class Front_Proyectos extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 
+	public function validacion_finalizar()
+	{
+		$detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_PROYECTO'=>$_GET['id'],'FECHA'=>$_GET['fecha_revision']]);
+		$cantidad_parametros = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION']]);
+		$cantidad_validados = $this->GeneralModel->conteo_elementos('validacion_respuesta',['ID_REVISION'=>$detalles_revision['ID_REVISION'],'VALOR'=>'validada']);
+		
+		$parametros = array(
+			'TOTAL_PARAMETROS' => $cantidad_parametros,
+			'TOTAL_VERIFICADOS' => $cantidad_validados,
+			'ESTADO' => 'finalizado'
+		);
+
+		$this->GeneralModel->actualizar('validacion_revisiones',['ID_REVISION'=>$detalles_revision['ID_REVISION']], $parametros);
+
+		redirect(base_url('index.php/proyectos/detalles?id='.$_GET['id']));
+	}
+
 	public function validacion_reporte()
 	{
 		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
@@ -475,6 +499,25 @@ class Front_Proyectos extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_proyectos',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_validacion_reporte',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+	}
+
+	public function borrar_validacion(){
+		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
+		$revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+
+        // check if the ID_REVISION exists before trying to delete it
+        if(isset($revision['ID_PROYECTO']))
+        {
+			// Borro la categoría
+			$this->GeneralModel->borrar('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+			$this->GeneralModel->borrar('validacion_respuesta',['ID_REVISION'=>$_GET['id_revision']]);
+						
+            redirect(base_url('index.php/proyectos/detalles?id='.$_GET['id']));
+        } else {
+					// Mensaje Feedback
+					//  Redirecciono
+	         redirect(base_url('index.php/proyectos'));
+				}
 	}
 
 }

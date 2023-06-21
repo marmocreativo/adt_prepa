@@ -48,10 +48,13 @@ class Admin_Base_De_Datos extends CI_Controller {
 	public function index()
 	{
 		// Datos Generales
+		$this->data['titulo']  = 'Herramientas de base de datos';
+		$this->data['descripcion']  = 'Respaldos y restauraciones';
+		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 
-		$this->load->view('default'.$this->data['dispositivo'].'/admin/header_principal',$this->data);
+		$this->load->view('default'.$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
 		$this->load->view('default'.$this->data['dispositivo'].'/admin/base_de_datos',$this->data);
-		$this->load->view('default'.$this->data['dispositivo'].'/admin/footer_principal',$this->data);
+		$this->load->view('default'.$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 	public function limpiar_vistas()
 	{
@@ -68,7 +71,7 @@ class Admin_Base_De_Datos extends CI_Controller {
 		$this->load->dbutil();
 
 		$prefs = array(
-        'format'        => 'zip',                       // gzip, zip, txt
+        'format'        => 'sql',                       // gzip, zip, txt
         'filename'      => 'recuperar.sql',              // File name - NEEDED ONLY WITH ZIP FILES
         'add_drop'      => TRUE,                        // Whether to add DROP TABLE statements to backup file
         'add_insert'    => TRUE,                        // Whether to add INSERT data to backup file
@@ -80,11 +83,11 @@ class Admin_Base_De_Datos extends CI_Controller {
 
 		// Load the file helper and write the file to your server
 		$this->load->helper('file');
-		write_file('contenido/respaldos/respaldo-'.date('Y-m-d-U').'.zip', $backup);
+		write_file('contenido/respaldos/respaldo-'.date('Y-m-d-U').'.sql', $backup);
 
 		// Load the download helper and send the file to your desktop
 		$this->load->helper('download');
-		force_download('respaldo-'.date('Y-m-d-U').'.zip', $backup);
+		force_download('respaldo-'.date('Y-m-d-U').'.sql', $backup);
 	}
 	public function restaurar()
 	{

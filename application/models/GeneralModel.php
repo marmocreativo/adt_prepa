@@ -13,7 +13,7 @@ class GeneralModel extends CI_Model {
   /*
     * Conteo de las entradas
  */
-  function conteo($tabla,$tablas_join,$parametros_or,$parametros_and,$agrupar){
+  function conteo($tabla,$tablas_join,$parametros_or,$parametros_and){
     // Si envio datos Join
     if(!empty($tablas_join)&&!empty($tablas_join)){
       $alias = '';
@@ -28,8 +28,8 @@ class GeneralModel extends CI_Model {
       }
       $this->db->select($tabla.'.*',$alias);
     }
-	   if(!empty($agrupar)){
-      $this->db->group_by($agrupar);
+	   if(!empty('')){
+      $this->db->group_by('');
     }
     // Parametros
     if(!empty($parametros_or)){
@@ -73,7 +73,7 @@ class GeneralModel extends CI_Model {
   /*
     * Enlisto todas las entradas
  */
-  function lista_join($tabla,$tablas_join,$parametros_or,$parametros_and,$orden,$limite,$offset,$agrupar){
+  function lista_join($tabla,$tablas_join,$parametros_or,$parametros_and,$orden,$limite,$offset){
     // Join
     if(!empty($tablas_join)){
       foreach($tablas_join as $tabla_join => $condicion_join){
@@ -98,7 +98,7 @@ class GeneralModel extends CI_Model {
     if(!empty($limite)){
       $this->db->limit($limite,$offset);
     }
-    $this->db->group_by($agrupar);
+    $this->db->group_by('');
     $query = $this->db->get($tabla);
     return $query->result();
   }

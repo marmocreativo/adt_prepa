@@ -1,5 +1,5 @@
 <div class="row mt-3">
-		<div class="col-12 col-md-8">
+		<div class="col-12">
 			<div>
 				<form class="row justify-content-end" action="<?php echo base_url('index.php/proyectos'); ?>" method="get">
 					<!--
@@ -53,4 +53,3 @@
 		</div>
 </div>
 <a href="<?php echo base_url('index.php/proyectos/crear?id_equipo='); ?>" class="btn btn-success btn-round btn-circulo-flotante"> <i class="fa fa-plus"></i> </a>
-

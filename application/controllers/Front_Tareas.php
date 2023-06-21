@@ -612,6 +612,10 @@ class Front_Tareas extends CI_Controller {
 		$total_parametros = count($array_parametros);
 
 		$fecha = date('Y-m-d H:i:s');
+		$fecha_limite = null;
+		if(isset($_POST['FechaLimite'])){
+			$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['FechaLimite']));
+		}
 
 			$revision = array(
 				'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
@@ -622,7 +626,8 @@ class Front_Tareas extends CI_Controller {
 				'ID_RESPONSABLE'=>$_POST['IdResponsable'],
 				'TOTAL_PARAMETROS'=>$total_parametros,
 				'TOTAL_VERIFICADOS' => 0,
-				'ESTADO'=>'activo'
+				'ESTADO'=>'activo',
+				'FECHA'=>$fecha_limite,
 			);
 
 			$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
@@ -642,6 +647,44 @@ class Front_Tareas extends CI_Controller {
 			}
 
 		redirect(base_url('index.php/tareas/detalles?id='.$tarea['ID_TAREA']));
+	}
+
+	public function validacion_faltante(){
+		$revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$revision['ID_PROYECTO']]);
+		$tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['tarea']],'','','');
+		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision['ID_LISTA']]);
+		$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$revision['ID_LISTA']],'','','');
+		$array_parametros = array();
+		foreach($dimensiones as $dimension){
+			$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
+			foreach($parametros as $parametro){
+				$array_parametros[] = $parametro->ID_PARAMETRO;
+			}
+		}
+		$total_parametros = count($array_parametros);
+
+		$fecha = date('Y-m-d H:i:s');
+		$fecha_limite = null;
+		if(isset($_POST['FechaLimite'])){
+			$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['FechaLimite']));
+		}
+
+			foreach($array_parametros as $arry_param){
+				$respuesta = array(
+					'ID_REVISION'=>$revision['ID_REVISION'],
+					'ID_TAREA'=>$tarea['ID_TAREA'],
+					'ID_ENLACE'=>$tarea['TAREA_ENLACE_ENTREGABLE'],
+					'ID_PARAMETRO'=>$arry_param,
+					'ID_RESPONSABLE'=>$revision['ID_RESPONSABLE'],
+					'VALOR'=>'',
+					'FECHA'=> $fecha
+				);
+				$this->GeneralModel->crear('validacion_respuesta',$respuesta);
+
+			}
+
+		redirect(base_url('index.php/proyectos/validacion?id='.$revision['ID_PROYECTO'].'&fecha_revision='.$revision['FECHA'].'&tarea='.$tarea['ID_TAREA']));
 	}
 
 	public function validacion_reporte(){
