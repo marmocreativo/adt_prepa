@@ -74,22 +74,16 @@
 							<i class="fas fa-sitemap fa-lg"></i> <span class="etiqueta_menu">Áreas</span>
 						</a>
 					</li>
-							<li class="nav-item">
+					<li class="nav-item">
 						<a href="<?php echo base_url('index.php/login/cerrar_sesion'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Cerrar sesión">
 							<i class="fas fa-sign-out"></i> <span class="etiqueta_menu">Cerrar sesión</span>
 						</a>
 					</li>
-							<!--
-							<li class="nav-item">
-						<a href="<?php echo base_url('index.php/opciones'); ?>" class="nav-link text-white py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-							<i class="fas fa-cogs fa-lg"></i> <span class="etiqueta_menu">Opciones</span>
-						</a>
+					<li class="nav-item pl-3">
+						<div class="form-check form-switch">
+							<input class="form-check-input configuracion_automatico" data-config='modo_noche' data-valor='<?php if($modo=='noche'){ echo 'no'; }else{ echo 'si'; }?>' type="checkbox" <?php if($modo=='noche'){ echo 'checked'; } ?> role="switch" id="flexSwitchCheckDefault">
+							<label class="form-check-label" for="flexSwitchCheckDefault">Modo Noche</label>
+						</div>
 					</li>
-						-->
+						
 		    	</ul>
-	
-	<div class="toggle-btn" id="modo-toggle-btn">
-		<label>Modo</label>
-      <input type="checkbox">
-      <span></span>
-    </div>

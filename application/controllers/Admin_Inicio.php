@@ -85,7 +85,7 @@ class Admin_Inicio extends CI_Controller {
 			foreach($_POST['Opciones']as $opcion => $valor){
 				$parametros = array(
 					'OPCION_VALOR' => $valor,
-	      );
+	      		);
 				// Creo Actualizo la opción
 				$this->GeneralModel->actualizar('opciones',['OPCION_NOMBRE'=>$opcion],$parametros);
 			}

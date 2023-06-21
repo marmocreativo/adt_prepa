@@ -382,5 +382,33 @@ function cargar_municipios(){
     });
   }
 
+  // Switches de configuraciones automáticos
+  if ( $( ".configuracion_automatico" ).length ) {
+    $('.configuracion_automatico').on('change', function(e){
+      var configuracion = $(this).attr('data-config');
+      var valor = $(this).attr('data-valor');
+
+      jQuery.ajax({
+        method: "POST",
+        url: "<?php echo base_url('index.php/ajax/configuracion_auto'); ?>",
+        data: {
+          configuracion : configuracion,
+          valor : valor
+        },
+        dataType: "html",
+        success : function(respuesta)
+        {
+          location.reload();
+          //console.log(respuesta);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          alert(xhr.status);
+          alert(thrownError);
+        }
+      });
+
+    });
+  }
+
 
 </script>

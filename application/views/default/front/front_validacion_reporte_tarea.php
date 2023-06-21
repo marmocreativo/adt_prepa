@@ -1,5 +1,5 @@
 <?php
-$revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_PROYECTO'=>$_GET['id'],'FECHA'=>$_GET['fecha_revision'],'ID_TAREA'=>$_GET['tarea']]);
+$revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
 $lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision['ID_LISTA']]);
 $dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$revision['ID_LISTA']],'','','');
 $mostrar_parametro = verificar_variable('GET','mostrar','todos');
@@ -14,6 +14,7 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
                         <th>Lista de cotejo
                             <form action="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$tarea['ID_PROYECTO'].'&fecha_revision='.$revision['FECHA'].'&tarea='.$tarea['ID_TAREA']); ?>">
                                 <input type="hidden" name="id" value="<?php echo $tarea['ID_PROYECTO']; ?>">
+                                <input type="hidden" name="id_revision" value="<?php echo $revision['ID_REVISION']; ?>">
                                 <input type="hidden" name="fecha_revision" value="<?php echo $revision['FECHA']; ?>">
                                 <input type="hidden" name="tarea" value="<?php echo $tarea['ID_TAREA']; ?>">
                             <div class="input-group">

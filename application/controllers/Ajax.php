@@ -186,4 +186,22 @@ class Ajax extends CI_Controller {
 				$this->GeneralModel->actualizar('validacion_respuesta',['ID_RESPUESTA'=>$_GET['respuesta']],['COMENTARIOS'=>$_GET['comentario']]);
 		}
 	}
+
+	public function configuracion_auto()
+	{	
+		//var_dump($_POST);
+		$parametros_meta = array(
+			'VALOR'=>$_POST['valor']
+		);
+		// Creo las entradas a la galeria
+		$this->GeneralModel->actualizar('usuarios_preferencias',['ID_USUARIO'=>$_SESSION['usuario']['id'],
+		'CONFIGURACION'=>$_POST['configuracion']],$parametros_meta);
+
+		$configuraciones_usuario = $this->GeneralModel->lista('usuarios_preferencias','',['ID_USUARIO'=>$_SESSION['usuario']['id']],'','','');
+		//var_dump($configuraciones_usuario);
+
+		foreach($configuraciones_usuario as $configuracion){
+			$_SESSION['usuario']['configuraciones'][$configuracion->CONFIGURACION]=$configuracion->VALOR;
+		}
+	}
 }

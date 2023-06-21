@@ -1,7 +1,7 @@
 <?php
-$revisiones = $this->GeneralModel->lista('validacion_revisiones','',['ID_PROYECTO'=>$_GET['id'],'FECHA'=>$_GET['fecha_revision']],'','','');
-$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revisiones[0]->ID_LISTA]);
-$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$revisiones[0]->ID_LISTA],'','','');
+$revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$revision['ID_LISTA']]);
+$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$revision['ID_LISTA']],'','','');
 
 ?>
 <div class="row">
@@ -21,9 +21,10 @@ $dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=
                 $total_validadas= 0;
             ?>
             <tbody>
-                <?php foreach($revisiones as $revision){ ?>
-                    <?php $detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$revision->ID_TAREA]); ?>
-                    <tr>
+                    <?php $tareas = $this->GeneralModel->lista_agrupada('validacion_respuesta','',['ID_REVISION'=>$revision['ID_REVISION']],'','ID_TAREA'); ?>
+                    <?php foreach($tareas as $tarea){ ?>
+                        <?php $detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$tarea->ID_TAREA]); ?>
+                        <tr>
                         <td><?php echo $detalles_tarea['TAREA_TITULO']; ?></td>
                         <?php foreach($dimensiones as $dimension){ ?>
                         <td>
@@ -32,18 +33,21 @@ $dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=
                                 $respuestas = 0;
                                 $respuestas_validadas = 0;
                                 foreach($parametros as $parametro){
-                                    $detalles_respuesta = $this->GeneralModel->detalles('validacion_respuesta',['ID_REVISION'=>$revision->ID_REVISION,'ID_PARAMETRO'=>$parametro->ID_PARAMETRO]);
-                                    $respuestas ++;
-                                    if($detalles_respuesta['VALOR']=='validada'){
-                                        $respuestas_validadas ++;
+                                    $lista_respuestas = $this->GeneralModel->lista('validacion_respuesta','',['ID_REVISION'=>$revision['ID_REVISION'],'ID_PARAMETRO'=>$parametro->ID_PARAMETRO,'ID_TAREA'=>$tarea->ID_TAREA],'','','');
+                                    foreach($lista_respuestas as $respuesta){
+                                        $respuestas ++;
+                                        if($respuesta->VALOR=='validada'){
+                                            $respuestas_validadas ++;
+                                        }
                                     }
+                                    
                                 }
                             ?>
-                            <?php echo ($respuestas_validadas*100)/$respuestas; ?>%
+                            <?php echo round(($respuestas_validadas*100)/$respuestas,2); ?>%
                         </td>
                         <?php } ?>
                     </tr>
-                <?php } ?>
+                    <?php } ?>
             </tbody>
         </table>
         <h4>Resultado final</h4>
