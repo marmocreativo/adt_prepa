@@ -27,7 +27,7 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <?php $i=0; foreach($dimensiones as $dimension){ ?>
-                <div class="tab-pane fade <?php
+                <div class="tab-pane fade pt-4 <?php
                             if(isset($_GET['dimension'])&&!empty($_GET['dimension'])){
                                  if($_GET['dimension']==$dimension->ID_DIMENSION){
                                      echo 'show active';
@@ -35,10 +35,11 @@
                             }else{
                                  if($i==0){ echo 'show active'; }
                                 } ?> " id="tab-<?php echo $dimension->ID_DIMENSION; ?>-pane" role="tabpanel" aria-labelledby="tab-<?php echo $dimension->ID_DIMENSION; ?>-pane" tabindex="0">
-                                    <h2><?php echo $dimension->TITULO; ?></h2>
-                                    <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editar_dimension_<?php echo $dimension->ID_DIMENSION; ?>">Editar</button>
-                                    <button data-enlace="<?php echo base_url('index.php/listas/borrar_dimension?id='.$dimension->ID_DIMENSION); ?>" class="btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Borrar dimensión <?php echo $dimension->TITULO; ?></button>
-                                    <hr>
+                                    <div class="d-flex">
+                                        <h3 class="pe-3 me-3 border-end"><?php echo $dimension->TITULO; ?></h3>
+                                        <button type="button" class="btn btn-sm btn-outline-warning me-2" data-bs-toggle="modal" data-bs-target="#editar_dimension_<?php echo $dimension->ID_DIMENSION; ?>">Editar</button>
+                                        <button data-enlace="<?php echo base_url('index.php/listas/borrar_dimension?id='.$dimension->ID_DIMENSION); ?>" class="btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Borrar dimensión <?php echo $dimension->TITULO; ?></button>
+                                    </div>
                                     <h4 class="mt-4">Añade un parámetro</h4>    
                                     <div class="border-primary px-3">
                                         <form action="<?php echo base_url('index.php/listas/crear_parametro'); ?>" method='post'>

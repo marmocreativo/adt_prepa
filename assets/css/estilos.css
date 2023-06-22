@@ -97,8 +97,8 @@ body.noche td, body.noche th{
   color: #79838F;
 }
 .envolvente_dia section {
-	background: #303642;
-	border-color: #41464a;
+  background: #e9e9ed;
+ border-color: #cacad7;
 }
 
 /* ESTILOS NOCHE */
@@ -139,8 +139,14 @@ border: none;
 	background: #292E3A;
 }
 
+.envolvente_noche section {
+	background: #303642;
+	border-color: #41464a;
+
+}
+
 /* Toggle noche/dia */
-.toggle-btn {
+#modo-toggle-btn.toggle-btn {
 	position: absolute;
 	width: 64px;
 	height: 35px;
@@ -150,7 +156,7 @@ border: none;
 	left: 55px;
 }
 
-input[type="checkbox"] {
+#modo-toggle-btn input[type="checkbox"] {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -390,6 +396,7 @@ input[type="checkbox"] {
 /* Estilos de actividades */
 .envolvente_noche .list-group-item{
   background-color: transparent;
+  color: #c6cfd2;
 }
 
 .envolvente_noche .list-group-item a{
@@ -446,14 +453,13 @@ input[type="checkbox"] {
 /* /Lista de Tareas */
 /* Lista de Proyectos */
 .proyecto {
-	padding: 16px;
 	border-radius: 8px;
 	overflow: hidden;
-	border: solid 1px #e4ebec;
 }
 .proyecto.dia{
   background-color: #FFFFFF;
   color: #79838F;
+	border: solid 1px #e4ebec;
 }
 .proyecto.dia a{
   color: #79838F;
@@ -461,6 +467,7 @@ input[type="checkbox"] {
 .proyecto.noche{
   background-color: #18233D;
   color: #F2F2F2;
+	border: solid 1px #444445;
 }
 .proyecto.noche a{
   color: #F2F2F2;
@@ -617,4 +624,11 @@ label {
 .envolvente_dia .edicion-lista .btn {
 	background: #e3e8ee;
 	color: #838c97;
+}
+.comentario-param {
+  max-width: 200px;
+}
+.lista-revision label{
+  font-size: 1em;
+  text-transform: none;
 }

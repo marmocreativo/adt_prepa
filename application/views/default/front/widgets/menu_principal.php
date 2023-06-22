@@ -80,10 +80,11 @@
 						</a>
 					</li>
 					<li class="nav-item pl-3">
-						<div class="form-check form-switch">
-							<input class="form-check-input configuracion_automatico" data-config='modo_noche' data-valor='<?php if($modo=='noche'){ echo 'no'; }else{ echo 'si'; }?>' type="checkbox" <?php if($modo=='noche'){ echo 'checked'; } ?> role="switch" id="flexSwitchCheckDefault">
-							<label class="form-check-label" for="flexSwitchCheckDefault">Modo Noche</label>
-						</div>
+					<div class="toggle-btn" id="modo-toggle-btn">
+						<label class="form-check-label" for="flexSwitchCheckDefault">Modo</label>
+					    <input class="form-check-input configuracion_automatico" data-config='modo_noche' data-valor='<?php if($modo=='noche'){ echo 'no'; }else{ echo 'si'; }?>' type="checkbox" <?php if($modo=='noche'){ echo 'checked'; } ?> role="switch" id="flexSwitchCheckDefault">
+					    <span></span>
+					</div>
 					</li>
 						
 		    	</ul>

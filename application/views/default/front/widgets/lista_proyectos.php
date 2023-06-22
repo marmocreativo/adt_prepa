@@ -1,7 +1,8 @@
 <!-- Lista de proyectos -->
-<div class="row">
+<div class="row g-3 gy-35">
 <?php foreach($proyectos as $proyecto){ ?>
-<div class="m-2 col-sm-6 col-sm-12 col-lg-3 proyecto <?php echo $modo; ?>">
+<div class="col-sm-6 col-xs-12 col-lg-3 ">
+<div class="proyecto p-4 <?php echo $modo; ?>">
   <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto->ID_PROYECTO); ?>">
     <div class="row">
       <div class="col-12">
@@ -15,7 +16,7 @@
         </div>
 
       </div>
-      <div class="col-12 col-md-4">
+      <div class="col-12">
         <div class="row">
           <div class="col-12 mb-2">
             <?php
@@ -56,16 +57,17 @@
               <div class="progress-bar <?php echo $color; ?>" role="progressbar" style="width: <?php echo $porcentaje_tareas; ?>%" aria-valuenow="<?php echo $porcentaje_tareas; ?>" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
-          <div class="col-6 col-12">
-            <p class="m-0"><b><i class="fas fa-clipboard-list"></i> <?php echo $tareas_completas; ?> / <?php echo $total_tareas; ?> Tareas</b></p>
+          <div class="col-6">
+            <p class="m-0 opacity-75"><i class="fas fa-clipboard-list"></i> <?php echo $tareas_completas; ?> / <?php echo $total_tareas; ?> Tareas</p>
           </div>
-          <div class="col-6 col-12">
-            <p class="m-0"><b><i class="fas fa-users"></i> <?php echo $total_usuario; ?> Usuarios</b></p>
+          <div class="col-6">
+            <p class="m-0 opacity-75"><i class="fas fa-users"></i> <?php echo $total_usuario; ?> Usuarios</p>
           </div>
         </div>
       </div>
     </div>
   </a>
+</div>
 </div>
 
 <?php } ?>
