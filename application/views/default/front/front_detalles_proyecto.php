@@ -1,5 +1,20 @@
 <?php
-	$usuarios = $this->GeneralModel->lista_join('usuarios',['equipos_usuarios'=>'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO'],'',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','usuarios.ID_USUARIO');
+	$equipos_proyecto = $this->GeneralModel->lista('equipos_proyectos','',['ID_PROYECTO'=>$proyecto['ID_PROYECTO']],'','','');
+	$array_equipos = array();
+	foreach($equipos_proyecto as $eq_pro){
+		$array_equipos[] = $eq_pro->ID_EQUIPO;
+	};
+	/* CONSULTA PARA SOLO LOS USUARIOS EN LOS EQUIPOS */
+	$this->db->select('*');
+	$this->db->from('usuarios');
+	$this->db->join('equipos_usuarios', 'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO', 'left');
+	$this->db->where_in('equipos_usuarios.ID_EQUIPO', $array_equipos);
+	$this->db->where('usuarios.ESTADO', 'activo');
+
+	$query = $this->db->get();
+	$usuarios = $query->result();
+
+	/* /CONSULTA PARA SOLO LOS USUARIOS EN LOS EQUIPOS */
 ?>
 <div class="row ">
 	<div class="col-12">
@@ -196,32 +211,29 @@
 					<input type="hidden" name="IdProyecto" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
 					<input type="hidden" name="Tipo" value="general">
 				<div class="modal-body">
-					<div class="form-group">
-						<label for="TareaTitulo">Titulo</label>
-						<input type="text" class="form-control" name="TareaTitulo" value="">
-					</div>
-					<div class="form-group">
-						<label for="TareaDescripcion">Notas</label>
-						<textarea name="TareaDescripcion" rows="3" class="form-control TextEditorSmall"></textarea>
-					</div>
-					<div class="row my-2">
-						<div class="col-12 col-md-6">
+					<div class="row">
+						<div class="col-8">
+							<div class="form-group">
+								<label for="TareaTitulo">Titulo</label>
+								<input type="text" class="form-control" name="TareaTitulo" value="">
+							</div>
+							<div class="form-group">
+								<label for="TareaDescripcion">Notas</label>
+								<textarea name="TareaDescripcion" rows="3" class="form-control TextEditorSmall"></textarea>
+							</div>
+						</div>
+						<div class="col-4">
 							<div class="form-group">
 								<label for="FechaInicio">Fecha Inicio</label>
 								<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php echo date('d-m-Y'); ?>">
 								<div class="form-text">Puede ser una fecha anterior</div>
 							</div>
-						</div>
-						<div class="col-12 col-md-6">
 							<div class="form-group">
 								<label for="FechaFinal">Fecha Final </label>
 								<input type="text" class="form-control datepicker" name="FechaFinal" value="">
 								<div class="form-text">(Dead line) si la tarea se entrega después de esta fecha se considera atrasada</div>
 							</div>
-						</div>
-					</div>
-					<div class="row my-2">
-						<div class="col-12 col-md-6">
+							<hr>
 							<div class="form-group">
 								<label for="EnlaceEditables">Enlace Archivos Editables</label>
 								<input type="text" class="form-control" name="EnlaceEditables" value="<?php echo $proyecto['ENLACE_EDITABLE'] ?>">
@@ -230,8 +242,7 @@
 								<label for="EnlaceEntregables">Enlace Archivos Entregables</label>
 								<input type="text" class="form-control" name="EnlaceEntregables" value="<?php echo $proyecto['ENLACE_ENTREGABLE'] ?>">
 							</div>
-						</div>
-						<div class="col-12 col-md-6">
+							<hr>
 							<div class="form-group">
 								<label for="Estado">Estado</label>
 								<select class="form-control" name="Estado">
@@ -242,8 +253,8 @@
 						</div>
 					</div>
 					<div class="">
-
-						<h4>Asignar a:</h4>
+						<hr>		
+						<h4>¿Quiénes participarán en esta tarea?:</h4>
 						<ul class="list-group">
 							<?php foreach($usuarios as $usuario){ ?>
 							<li  class="list-group-item text-dark">

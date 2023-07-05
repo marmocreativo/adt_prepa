@@ -7,9 +7,9 @@
 
 <div class="row">
 
-	<div class="col-12">
+	<div class="col-8">
 
-		<div class="proyecto <?php echo $modo; ?>" style="overflow: visible;">
+		<div class="proyecto <?php echo $modo; ?> p-3" style="overflow: visible;">
 		<h1 class="h4"><?php echo $tarea['TAREA_TITULO'] ?>
 		<?php
 			switch ($tarea['ESTADO']) {
@@ -88,10 +88,6 @@
 			<?php $proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$tarea['ID_PROYECTO']]); ?>
 			<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"> Validaciones de la tarea</button>
 		</div>
-	</div>
-
-	<div class="col-12 col-md-8">
-
 		<div class="detalles_tarea p-3 mt-3">
 
 			<div class="mb-3">
@@ -275,6 +271,35 @@
 						</div>
 					</div>
 				<?php } ?>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-12 col-md-4">																
+		<div class="card">
+			<div class="card-header">Línea de tiempo</div>
+			<div class="card-body">
+				<h6>Preproducción</h6>
+				<ul>
+					<li>Paso 1 | Usuario | Fecha</li>
+					<li>Paso 2 | Usuario | Fecha</li>
+					<li>Paso 3 | Usuario | Fecha</li>
+					<li><a href="">+ Agregar</a></li>
+				</ul>
+				<h6>Producción</h6>
+				<ul>
+					<li>Paso 1 | Usuario | Fecha</li>
+					<li>Paso 2 | Usuario | Fecha</li>
+					<li>Paso 3 | Usuario | Fecha</li>
+					<li><a href="">+ Agregar</a></li>
+				</ul>
+				<h6>Postproducción</h6>
+				<ul>
+					<li>Paso 1 | Usuario | Fecha</li>
+					<li>Paso 2 | Usuario | Fecha</li>
+					<li>Paso 3 | Usuario | Fecha</li>
+					<li><a href="">+ Agregar</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>

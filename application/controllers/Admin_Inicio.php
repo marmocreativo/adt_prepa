@@ -51,16 +51,25 @@ class Admin_Inicio extends CI_Controller {
 
 	public function index()
 	{	
-		/*
+		
 		$this->load->dbforge();
 		$this->db->empty_table('validacion_revisiones');
 		$this->db->empty_table('validacion_respuesta');
-		*/
 
-		$revisiones = $this->GeneralModel->lista('validacion_revisiones','','','','','');
-		echo '<pre>';
-		var_dump($revisiones);
-		echo '</pre>';
+		$fields = array(
+            'ESTADO' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'default' => 'pendiente'
+            ),
+            'FECHA_TERMINADO' => array(
+                'type' => 'DATETIME',
+                'null' => true
+            )
+        );
+
+        $this->dbforge->add_column('roles_historial', $fields);
+		
 
 	}
 	
