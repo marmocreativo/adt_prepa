@@ -119,19 +119,8 @@
 												}
 												//var_dump($usuarios);
 										?>
-										<h4>Asignar a:</h4>
-										<ul class="list-group">
-											<?php foreach($usuarios as $usuario){ ?>
-											<li  class="list-group-item text-dark">
-												<label class="form-check-label" >
-													<input type="checkbox" class="" name="Usuarios[]"
-													value="<?php echo $usuario->ID_USUARIO; ?>"
-													<?php if(in_array($usuario->ID_USUARIO, $usuarios_asignados)){ echo 'checked'; }?>
-														>
-													<?php echo $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS; ?></label>
-											</li>
-										<?php } ?>
-										</ul>
+										<h4>Espacio para asignación:</h4>
+										
 										<input type="hidden" name="asignaciones_actuales" value="<?php echo implode(', ', $usuarios_asignados); ?>">
 									</div>
 								</div>
@@ -235,19 +224,8 @@
 																		}
 																		//var_dump($usuarios);
 																?>
-																<h4>Asignar a:</h4>
-																<ul class="list-group">
-																	<?php foreach($usuarios as $usuario){ ?>
-																	<li  class="list-group-item text-dark">
-																		<label class="form-check-label" >
-																			<input type="checkbox" class="" name="Usuarios[]"
-																			value="<?php echo $usuario->ID_USUARIO; ?>"
-																			<?php if(in_array($usuario->ID_USUARIO, $usuarios_asignados)){ echo 'checked'; }?>
-																				>
-																			<?php echo $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS; ?></label>
-																	</li>
-																<?php } ?>
-																</ul>
+																<h4>Espacio para asignación</h4>
+																
 																<input type="hidden" name="asignaciones_actuales" value="<?php echo implode(', ', $usuarios_asignados); ?>">
 															</div>
 														</div>
@@ -260,7 +238,7 @@
 																	<option value="completo" <?php if($tarea['ESTADO']=='completo'){ echo 'selected'; } ?>>Completo</option>
 																</select>
 															</div>
-															<button type="submit" class="btn btn-primary btn-actualizar w-100 my-3">Enviar</button>
+															<button type="submit" class="btn btn-primary btn-actualizar w-100 my-3">Actualizar</button>
 														</div>
 													</div>
 												</form>
@@ -280,23 +258,11 @@
 			<div class="card-header">Línea de tiempo</div>
 			<div class="card-body">
 				<h6>Preproducción</h6>
-				<ul>
-					<li>Paso 1 | Usuario | Fecha</li>
-					<li>Paso 2 | Usuario | Fecha</li>
-					<li>Paso 3 | Usuario | Fecha</li>
-					<li><a href="">+ Agregar</a></li>
-				</ul>
-				<h6>Producción</h6>
-				<ul>
-					<li>Paso 1 | Usuario | Fecha</li>
-					<li>Paso 2 | Usuario | Fecha</li>
-					<li>Paso 3 | Usuario | Fecha</li>
-					<li><a href="">+ Agregar</a></li>
-				</ul>
-				<h6>Postproducción</h6>
-				<ul>
-					<li>Paso 1 | Usuario | Fecha</li>
-					<li>Paso 2 | Usuario | Fecha</li>
+				<ul class="list-group">
+					<li class="list-group-item">
+					Paso 2 | Usuario | Fecha
+					</li>
+					<li></li>
 					<li>Paso 3 | Usuario | Fecha</li>
 					<li><a href="">+ Agregar</a></li>
 				</ul>

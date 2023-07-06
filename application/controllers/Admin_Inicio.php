@@ -53,22 +53,14 @@ class Admin_Inicio extends CI_Controller {
 	{	
 		
 		$this->load->dbforge();
-		$this->db->empty_table('validacion_revisiones');
-		$this->db->empty_table('validacion_respuesta');
+		$table_name = 'roles_historial';
+        $column_name = 'ID_ROL';
 
-		$fields = array(
-            'ESTADO' => array(
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'default' => 'pendiente'
-            ),
-            'FECHA_TERMINADO' => array(
-                'type' => 'DATETIME',
-                'null' => true
-            )
-        );
-
-        $this->dbforge->add_column('roles_historial', $fields);
+        if ($this->dbforge->drop_column($table_name, $column_name)) {
+            echo "La columna se eliminó correctamente.";
+        } else {
+            echo "Hubo un error al eliminar la columna.";
+        }
 		
 
 	}
