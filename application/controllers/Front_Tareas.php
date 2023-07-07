@@ -615,4 +615,36 @@ class Front_Tareas extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 
+	public function asignar_rol()
+	{
+
+		$parametros = array(
+			'ID_TAREA' => $_POST['IdTarea'],
+			'ID_USUARIO' => $_POST['IdUsuario'],
+			'ETIQUETA' => $_POST['Etiqueta'],
+			'PROCESO' => $_POST['Proceso'],
+			'FECHA' => date('Y-m-d 00:00:00', strtotime($_POST['Fecha'])),
+			'ESTADO' => 'pendiente',
+			'FECHA_TERMINADO' => null
+		);
+
+		$this->GeneralModel->crear('roles_historial',$parametros);
+
+		redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')));
+
+	}
+
+	public function borrar_rol()
+	{
+		$detalles_proceso = $this->GeneralModel->detalles('roles_historial',['ID'=>$_GET['id']]);
+
+		$parametros = [
+			'ID'=>$_GET['id']
+		];
+
+		$this->GeneralModel->borrar('roles_historial',$parametros);
+
+		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
+	}
+
 }

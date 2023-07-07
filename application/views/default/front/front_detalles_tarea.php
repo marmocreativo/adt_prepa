@@ -253,19 +253,140 @@
 		</div>
 	</div>
 
-	<div class="col-12 col-md-4">																
+	<div class="col-12 col-md-4">
+		<?php
+			$equipos_proyecto = $this->GeneralModel->lista('equipos_proyectos','',['ID_PROYECTO'=>$tarea['ID_PROYECTO']],'','','');
+			$array_equipos = array();
+			foreach($equipos_proyecto as $eq_pro){
+				$array_equipos[] = $eq_pro->ID_EQUIPO;
+			};
+			/* CONSULTA PARA SOLO LOS USUARIOS EN LOS EQUIPOS */
+			$this->db->select('*');
+			$this->db->from('usuarios');
+			$this->db->join('equipos_usuarios', 'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO', 'left');
+			$this->db->where_in('equipos_usuarios.ID_EQUIPO', $array_equipos);
+			$this->db->where('usuarios.ESTADO', 'activo');
+
+			$query = $this->db->get();
+			$usuarios_disponibles = $query->result();
+		?>																
 		<div class="card">
 			<div class="card-header">Línea de tiempo</div>
 			<div class="card-body">
-				<h6>Preproducción</h6>
+				<h6 class="mt-3">Preproducción</h6>
+				<?php $procesos_pre = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA'],'PROCESO'=>'preproduccion'],'FECHA ASC','',''); ?>
 				<ul class="list-group">
+					<?php foreach($procesos_pre as $proceso){ ?>
 					<li class="list-group-item">
-					Paso 2 | Usuario | Fecha
+						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
+					<?php echo $proceso->ETIQUETA; ?> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
 					</li>
-					<li></li>
-					<li>Paso 3 | Usuario | Fecha</li>
-					<li><a href="">+ Agregar</a></li>
+					<?php } ?>
 				</ul>
+				<button class="btn btn-sm btn-outline-success mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#form-preproduccion" aria-expanded="false" aria-controls="collapseWidthExample">
+					+ Agregar proceso de preproducción
+				</button>
+				<div class="bg-light m-3 p-3 collapse" id="form-preproduccion">
+					<form action="<?php echo base_url('index.php/tareas/asignar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
+					<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
+					<input type="hidden" name="Proceso" value="preproduccion">
+						<div class="form-group">
+							<label for="Etiqueta">Etiqueta</label>
+							<input type="text" class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
+						</div>
+						<div class="form-group">
+							<label for="IdUsuarioPre">Usuario</label>
+							<select name="IdUsuario" id="IdUsuarioPre" class="form-control">
+								<?php foreach($usuarios_disponibles as $usuario_disp){ ?>
+								<option value="<?php echo $usuario_disp->ID_USUARIO; ?>"><?php echo $usuario_disp->USUARIO_NOMBRE.' '.$usuario_disp->USUARIO_APELLIDOS; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="Fecha">Fecha límite de entrega</label>
+							<input type="text" class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
+						</div>
+						<hr>
+						<button type="submit" class="btn btn-primary">Agregar rol</button>
+					</form>
+				</div>
+				<h6 class="mt-3">Producción</h6>
+				<?php $procesos_pro = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA'],'PROCESO'=>'produccion'],'FECHA ASC','',''); ?>
+				<ul class="list-group">
+					<?php foreach($procesos_pro as $proceso){ ?>
+					<li class="list-group-item">
+						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
+					<?php echo $proceso->ETIQUETA; ?> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
+					</li>
+					<?php } ?>
+				</ul>
+				<button class="btn btn-sm btn-outline-success mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#form-produccion" aria-expanded="false" aria-controls="collapseWidthExample">
+					+ Agregar proceso de producción
+				</button>
+				<div class="bg-light m-3 p-3 collapse" id="form-produccion">
+					<form action="<?php echo base_url('index.php/tareas/asignar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
+					<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
+					<input type="hidden" name="Proceso" value="produccion">
+						<div class="form-group">
+							<label for="Etiqueta">Etiqueta</label>
+							<input type="text" class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
+						</div>
+						<div class="form-group">
+							<label for="IdUsuarioPre">Usuario</label>
+							<select name="IdUsuario" id="IdUsuarioPre" class="form-control">
+								<?php foreach($usuarios_disponibles as $usuario_disp){ ?>
+								<option value="<?php echo $usuario_disp->ID_USUARIO; ?>"><?php echo $usuario_disp->USUARIO_NOMBRE.' '.$usuario_disp->USUARIO_APELLIDOS; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="Fecha">Fecha límite de entrega</label>
+							<input type="text" class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
+						</div>
+						<hr>
+						<button type="submit" class="btn btn-primary">Agregar rol</button>
+					</form>
+				</div>
+				<h6 class="mt-3">Postproducción</h6>
+				<?php $procesos_post = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA'],'PROCESO'=>'postproduccion'],'FECHA ASC','',''); ?>
+				<ul class="list-group">
+					<?php foreach($procesos_post as $proceso){ ?>
+					<li class="list-group-item">
+						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
+					<?php echo $proceso->ETIQUETA; ?> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
+					</li>
+					<?php } ?>
+				</ul>
+				<button class="btn btn-sm btn-outline-success mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#form-postproduccion" aria-expanded="false" aria-controls="collapseWidthExample">
+					+ Agregar proceso de postproducción
+				</button>
+				<div class="bg-light m-3 p-3 collapse" id="form-postproduccion">
+					<form action="<?php echo base_url('index.php/tareas/asignar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
+					<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
+					<input type="hidden" name="Proceso" value="postproduccion">
+						<div class="form-group">
+							<label for="Etiqueta">Etiqueta</label>
+							<input type="text" class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
+						</div>
+						<div class="form-group">
+							<label for="IdUsuarioPre">Usuario</label>
+							<select name="IdUsuario" id="IdUsuarioPre" class="form-control">
+							<?php foreach($procesos_post as $proceso){ ?>
+								<li class="list-group-item">
+									<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
+								<?php echo $proceso->ETIQUETA; ?> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>"></a>
+								</li>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="Fecha">Fecha límite de entrega</label>
+							<input type="text" class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
+						</div>
+						<hr>
+						<button type="submit" class="btn btn-primary">Agregar rol</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

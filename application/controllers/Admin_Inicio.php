@@ -53,14 +53,14 @@ class Admin_Inicio extends CI_Controller {
 	{	
 		
 		$this->load->dbforge();
-		$table_name = 'roles_historial';
-        $column_name = 'ID_ROL';
-
-        if ($this->dbforge->drop_column($table_name, $column_name)) {
-            echo "La columna se eliminó correctamente.";
-        } else {
-            echo "Hubo un error al eliminar la columna.";
-        }
+		$fields = array(
+			'ID_PROCESO' => array(
+				'type' => 'INT',
+				'constraint' => 11,
+				'null' => TRUE
+			)
+		);
+		$this->dbforge->add_column('tareas', $fields);
 		
 
 	}
