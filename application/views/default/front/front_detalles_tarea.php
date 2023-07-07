@@ -277,9 +277,9 @@
 				<?php $procesos_pre = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA'],'PROCESO'=>'preproduccion'],'FECHA ASC','',''); ?>
 				<ul class="list-group">
 					<?php foreach($procesos_pre as $proceso){ ?>
-					<li class="list-group-item">
+					<li class="list-group-item <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-warning'; } ?>" style="<?php if($proceso->ESTADO=='completo'){ echo 'text-decoration: line-through'; } ?>">
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
-					<?php echo $proceso->ETIQUETA; ?> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
+					<b><?php echo $proceso->ETIQUETA; ?></b> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
 					</li>
 					<?php } ?>
 				</ul>
@@ -292,7 +292,7 @@
 					<input type="hidden" name="Proceso" value="preproduccion">
 						<div class="form-group">
 							<label for="Etiqueta">Etiqueta</label>
-							<input type="text" class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
+							<input type="text" required class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
 						</div>
 						<div class="form-group">
 							<label for="IdUsuarioPre">Usuario</label>
@@ -304,19 +304,20 @@
 						</div>
 						<div class="form-group">
 							<label for="Fecha">Fecha límite de entrega</label>
-							<input type="text" class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
+							<input type="text" required class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
 						</div>
 						<hr>
 						<button type="submit" class="btn btn-primary">Agregar rol</button>
 					</form>
 				</div>
+				<hr>
 				<h6 class="mt-3">Producción</h6>
 				<?php $procesos_pro = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA'],'PROCESO'=>'produccion'],'FECHA ASC','',''); ?>
 				<ul class="list-group">
 					<?php foreach($procesos_pro as $proceso){ ?>
-					<li class="list-group-item">
+					<li class="list-group-item <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-warning'; } ?>" style="<?php if($proceso->ESTADO=='completo'){ echo 'text-decoration: line-through'; } ?>">
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
-					<?php echo $proceso->ETIQUETA; ?> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
+					<b><?php echo $proceso->ETIQUETA; ?></b> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
 					</li>
 					<?php } ?>
 				</ul>
@@ -329,11 +330,11 @@
 					<input type="hidden" name="Proceso" value="produccion">
 						<div class="form-group">
 							<label for="Etiqueta">Etiqueta</label>
-							<input type="text" class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
+							<input type="text" required class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
 						</div>
 						<div class="form-group">
-							<label for="IdUsuarioPre">Usuario</label>
-							<select name="IdUsuario" id="IdUsuarioPre" class="form-control">
+							<label for="IdUsuarioPro">Usuario</label>
+							<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
 								<?php foreach($usuarios_disponibles as $usuario_disp){ ?>
 								<option value="<?php echo $usuario_disp->ID_USUARIO; ?>"><?php echo $usuario_disp->USUARIO_NOMBRE.' '.$usuario_disp->USUARIO_APELLIDOS; ?></option>
 								<?php } ?>
@@ -341,19 +342,20 @@
 						</div>
 						<div class="form-group">
 							<label for="Fecha">Fecha límite de entrega</label>
-							<input type="text" class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
+							<input type="text" required class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
 						</div>
 						<hr>
 						<button type="submit" class="btn btn-primary">Agregar rol</button>
 					</form>
 				</div>
+				<hr>
 				<h6 class="mt-3">Postproducción</h6>
 				<?php $procesos_post = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA'],'PROCESO'=>'postproduccion'],'FECHA ASC','',''); ?>
 				<ul class="list-group">
 					<?php foreach($procesos_post as $proceso){ ?>
-					<li class="list-group-item">
+					<li class="list-group-item <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-warning'; } ?>" style="<?php if($proceso->ESTADO=='completo'){ echo 'text-decoration: line-through'; } ?>">
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
-					<?php echo $proceso->ETIQUETA; ?> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
+					<b><?php echo $proceso->ETIQUETA; ?></b> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
 					</li>
 					<?php } ?>
 				</ul>
@@ -366,32 +368,62 @@
 					<input type="hidden" name="Proceso" value="postproduccion">
 						<div class="form-group">
 							<label for="Etiqueta">Etiqueta</label>
-							<input type="text" class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
+							<input type="text" required class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
 						</div>
 						<div class="form-group">
-							<label for="IdUsuarioPre">Usuario</label>
-							<select name="IdUsuario" id="IdUsuarioPre" class="form-control">
-							<?php foreach($procesos_post as $proceso){ ?>
-								<li class="list-group-item">
-									<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
-								<?php echo $proceso->ETIQUETA; ?> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>"></a>
-								</li>
+							<label for="IdUsuarioPro">Usuario</label>
+							<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
+								<?php foreach($usuarios_disponibles as $usuario_disp){ ?>
+								<option value="<?php echo $usuario_disp->ID_USUARIO; ?>"><?php echo $usuario_disp->USUARIO_NOMBRE.' '.$usuario_disp->USUARIO_APELLIDOS; ?></option>
 								<?php } ?>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="Fecha">Fecha límite de entrega</label>
-							<input type="text" class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
+							<input type="text" required class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
 						</div>
 						<hr>
 						<button type="submit" class="btn btn-primary">Agregar rol</button>
 					</form>
 				</div>
+				<hr>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formCompletar">
+					Avanzar línea del tiempo
+					</button>
 			</div>
 		</div>
 	</div>
 </div>
 </div>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="formCompletar" tabindex="-1" aria-labelledby="formCompletarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+		<h4>Selecciona el proceso siguiente, el usuario asignado recibirá la notificación de que es su turno</h4>
+        <form action="<?php echo base_url('index.php/tareas/completar_rol'); ?>" method="post">
+			<input type="hidden" name="IdProcesoActual" value="<?php echo $tarea['ID_PROCESO']; ?>">
+			<div class="form-group">
+				<label for="IdProcesoSiguiente">Siguiente paso</label>
+				<?php $procesos_siguientes = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA']],'FECHA ASC','',''); ?>
+				<select name="IdProcesoSiguiente" id="IdProcesoSiguiente" class="form-control">
+					<?php foreach($procesos_siguientes as $proceso){ ?>
+					<option value="<?php echo $proceso->ID; ?>"><?php echo $proceso->ETIQUETA; ?></option>
+					<?php } ?>
+				</select>
+			</div>
+			<hr>
+			<button class="btn btn-success">Avanzar línea del tiempo</button>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Modal Validaciones-->
 <div class="modal fade" id="ValidacionesCont" tabindex="-1" aria-labelledby="ValidacionesLabel" aria-hidden="true">

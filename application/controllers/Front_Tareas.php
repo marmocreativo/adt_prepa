@@ -617,7 +617,7 @@ class Front_Tareas extends CI_Controller {
 
 	public function asignar_rol()
 	{
-
+		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_POST['IdTarea']]);
 		$parametros = array(
 			'ID_TAREA' => $_POST['IdTarea'],
 			'ID_USUARIO' => $_POST['IdUsuario'],
@@ -628,7 +628,11 @@ class Front_Tareas extends CI_Controller {
 			'FECHA_TERMINADO' => null
 		);
 
-		$this->GeneralModel->crear('roles_historial',$parametros);
+		$id_proceso = $this->GeneralModel->crear('roles_historial',$parametros);
+
+		if(empty($detalles_tarea['ID_PROCESO'])){
+			$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_tarea['ID_TAREA']],['ID_PROCESO'=>$id_proceso]);
+		}
 
 		redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')));
 
@@ -644,6 +648,23 @@ class Front_Tareas extends CI_Controller {
 
 		$this->GeneralModel->borrar('roles_historial',$parametros);
 
+		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
+	}
+
+	public function completar_rol()
+	{
+		
+		$detalles_proceso = $this->GeneralModel->detalles('roles_historial',['ID'=>$_POST['IdProcesoActual']]);
+		$detalles_proceso_siguiente = $this->GeneralModel->detalles('roles_historial',['ID'=>$_POST['IdProcesoSiguiente']]);
+		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']]);
+
+		$parametros_actual = [
+			'ESTADO'=>'completo',
+			'FECHA_TERMINADO'=>date('Y-m-d H:i:s')
+		];
+
+		$this->GeneralModel->actualizar('roles_historial',['ID'=>$_POST['IdProcesoActual']],$parametros_actual);
+		$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']],['ID_PROCESO'=>$detalles_proceso_siguiente['ID']]);
 		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
 	}
 

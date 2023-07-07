@@ -22,14 +22,32 @@
 		foreach($usuarios as $usuario){
 			$usuarios_totales ++;
 			$detalles_usuarios = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]);
+			$procesos_lista = $this->GeneralModel->lista('roles_historial','',['ID_USUARIO'=>$usuario->ID_USUARIO],'','','');
+			$procesos = $this->GeneralModel->conteo_elementos('roles_historial',['ID_USUARIO'=>$usuario->ID_USUARIO]);
+			$procesos_pendientes = $this->GeneralModel->conteo_elementos('roles_historial',['ID_USUARIO'=>$usuario->ID_USUARIO,'ESTADO'=>'pendiente']);
+			$procesos_completados = $this->GeneralModel->conteo_elementos('roles_historial',['ID_USUARIO'=>$usuario->ID_USUARIO,'ESTADO'=>'completo']);
+			$procesos_atrasados = 0;
+			foreach($procesos_lista as $proceso_list){
+				if($proceso_list->FECHA_TERMINADO>$proceso_list->FECHA){
+					$procesos_atrasados ++;
+				}
+			}
 			$array_usuarios[$usuario->ID_USUARIO] = array(
 				'NOMBRE'=> $detalles_usuarios['USUARIO_NOMBRE'].' '.$detalles_usuarios['USUARIO_APELLIDOS'],
 				'TAREAS'=> 0,
 				'TAREAS_PENDIENTES'=> 0,
-				'TAREAS_ATRASADAS'=> 0
+				'TAREAS_ATRASADAS'=> 0,
+				'PROCESO'=> $procesos,
+				'PROCESOS_PENDIENTES'=> $procesos_pendientes,
+				'PROCESOS_COMPLETADOS'=> $procesos_completados,
+				'PROCESOS_ATRASADOS'=> $procesos_atrasados
 			);
+			
+
+
 		}
 		foreach($tareas as $tarea){
+			
 			$tareas_totales ++;
 			if($tarea->ESTADO=='completo'){
 				$tareas_completas ++;
@@ -59,13 +77,13 @@
 		$usuarios_astrasadas = array();
 		foreach($array_usuarios as $usuarios){
 			$usuarios_labels[]="'".$usuarios['NOMBRE']."'";
-			$usuarios_pendientes[]=$usuarios['TAREAS_PENDIENTES'];
-			$usuarios_astrasadas[]=$usuarios['TAREAS_ATRASADAS'];
+			$usuarios_pendientes[]=$usuarios['PROCESOS_PENDIENTES'];
+			$usuarios_astrasadas[]=$usuarios['PROCESOS_ATRASADOS'];
 		}
 	?>
 	<div class="row justify-content-center">
 		<div class="col-12 col-md-3">
-			<div class="proyecto <?php echo $modo; ?>">
+			<div class="proyecto <?php echo $modo; ?> p-3">
 				<h3>Proyectos</h3>
 				<canvas id="GraficaProyectos"></canvas>
 				<script>
@@ -104,7 +122,7 @@
 			</div>
 		</div>
 		<div class="col-12 col-md-3">
-			<div class="proyecto <?php echo $modo; ?>">
+			<div class="proyecto <?php echo $modo; ?> p-3">
 				<h3>Tareas</h3>
 				<canvas id="GraficaTareas"></canvas>
 				<script>
@@ -148,7 +166,7 @@
 
 		</div>
 		<div class="col-12 col-md-6">
-			<div class="proyecto <?php echo $modo; ?>">
+			<div class="proyecto <?php echo $modo; ?> p-3">
 				<h3>Usuarios</h3>
 				<canvas id="GraficaUsuarios"></canvas>
 				<script>

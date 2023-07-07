@@ -539,6 +539,45 @@ class Front_Usuarios extends CI_Controller {
 
 	}
 
+	public function estadisticas(){
+
+		// Variables de busqueda
+		// Variables de busqueda
+		$this->data['consulta']=array();
+		$fecha_inicio = verificar_variable('GET','fecha_inicio',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' -15 days')));
+		$this->data['consulta']['fecha_inicio'] = date('Y-m-d H:i:s', strtotime($fecha_inicio));
+		$fecha_final = verificar_variable('GET','fecha_final',date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' +15 days')));
+		$this->data['consulta']['fecha_final'] = date('Y-m-d H:i:s', strtotime($fecha_final));
+		$agrupar = '';
+		$this->data['consulta']['agrupar'] = $agrupar;
+		$parametros_and = array();
+		$parametros_or = array();
+		/*
+		$parametros_and['tareas.FECHA_FINAL >='] = $this->data['consulta']['fecha_inicio'];
+		$parametros_and['tareas.FECHA_FINAL <='] = $this->data['consulta']['fecha_final'];
+		*/
+		$parametros_and['tareas.ESTADO !='] = 'completo';
+		$tablas_join = array();
+		$tablas_join['usuarios_tareas'] = 'usuarios_tareas.ID_TAREA = tareas.ID_TAREA';
+		$parametros_and['usuarios_tareas.ID_USUARIO'] = $_GET['id'];
+		//var_dump($parametros_and);
+		// Consulta
+		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','',$agrupar);
+		$this->data['usuario'] = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_GET['id']]);
+		$this->data['tipo'] = $this->data['usuario']['TIPO'];
+		// Open Tags
+		$this->data['titulo']  = $this->data['usuario']['USUARIO_NOMBRE'].' '.$this->data['usuario']['USUARIO_APELLIDOS'];
+		$this->data['descripcion']  = 'Detalles del usuario';
+		$this->data['imagen']  = base_url('contenido/img/usuarios/'.$this->data['usuario']['IMAGEN']);
+		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'equipo'],'','','');
+		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+		// Cargo Vistas
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_estadisticas_usuario',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+
+	}
+
 	public function borrar(){
 
 		$usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_GET['id']]);
