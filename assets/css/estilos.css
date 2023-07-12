@@ -520,6 +520,10 @@ td {
 	min-width: 250px;
 }
 
+.tabla-parametros tr:hover {
+	background: #8080801f;
+}
+
 .envolvente_dia table {
   color: #d4dce3;
 }
@@ -541,10 +545,10 @@ td {
 }
 
 .form-control.input_discrete {
-	background: transparent;
+	background: #b6bec14a;
 	transition: all .2s ease-in-out;
-	text-decoration: underline;
-  border: none;
+	border: none;
+	padding: 12px;
 }
 
 .form-control.input_head {
@@ -558,7 +562,7 @@ td {
 }
 
 .form-control.input_head:focus {
-	font-size: 1em;
+	font-size: 1.4em;
   transition: all .2s ease-in-out;
 }
 
