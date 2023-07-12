@@ -356,11 +356,22 @@ class Front_ListasValidacion extends CI_Controller {
             $this->GeneralModel->borrar('validacion_parametros',['ID_PARAMETRO'=>$_GET['id']]);
 			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'parametro']);
 
-            redirect(base_url('index.php/listas/dimensiones?id='.$dimension['ID_LISTA']));
+			redirect(base_url('index.php/listas/dimensiones?id='.$dimension['ID_LISTA'].'&dimension='.$parametro['ID_DIMENSION']));
         } else {
 					// Mensaje Feedback
 					//  Redirecciono
-		redirect(base_url('index.php/listas'));
+		redirect(base_url('index.php/listas/dimensiones?id='.$dimension['ID_LISTA'].'&dimension='.$parametro['ID_DIMENSION']));
+		}
+	}
+
+	public function borrar_parametro_lote ()
+	{
+		foreach($_POST['id_parametros'] as $id_parametro){
+			$parametro = $this->GeneralModel->detalles('validacion_parametros',['ID_PARAMETRO'=>$id_parametro]);
+			$dimension = $this->GeneralModel->detalles('validacion_dimension',['ID_DIMENSION'=>$parametro['ID_DIMENSION']]);
+			$this->GeneralModel->borrar('validacion_parametros',['ID_PARAMETRO'=>$_GET['id']]);
+			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'parametro']);
+
 		}
 	}
 

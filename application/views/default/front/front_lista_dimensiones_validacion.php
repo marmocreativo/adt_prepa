@@ -8,6 +8,7 @@
 			<hr>
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
                 <?php $i=0; foreach($dimensiones as $dimension){ ?>
+                    <?php $conteo_parametros = $this->GeneralModel->conteo_elementos('validacion_parametros',['ID_DIMENSION'=>$dimension->ID_DIMENSION]); ?>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link <?php
                             if(isset($_GET['dimension'])&&!empty($_GET['dimension'])){
@@ -18,7 +19,7 @@
                                  if($i==0){ echo 'active'; }
                                 } ?>"
 
-                            id="tab-<?php echo $dimension->ID_DIMENSION; ?>" data-bs-toggle="tab" data-bs-target="#tab-<?php echo $dimension->ID_DIMENSION; ?>-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><?php echo $dimension->TITULO; ?></button>
+                            id="tab-<?php echo $dimension->ID_DIMENSION; ?>" data-bs-toggle="tab" data-bs-target="#tab-<?php echo $dimension->ID_DIMENSION; ?>-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><?php echo $dimension->TITULO; ?> (<?php echo $conteo_parametros; ?>)</button>
                 </li>
                 <?php $i++; } ?>
                 <li class="nav-item" role="presentation">
@@ -149,6 +150,8 @@
                                     <div class="overflow-tabla">
                                     <table class="table tabla-parametros">
                                         <tr>
+                                            <th >-</th>
+                                            <th>#</th><?php $i = 1; ?>
                                             <th>TITULO</th>
                                             <th>OBLIGATORIO</th>
                                             <?php if(!empty($dimension->CRITERIO_1)){ ?>
@@ -174,6 +177,12 @@
                                                 $meta_datos_parametros = array(); foreach($meta_parametros as $m){ $meta_datos_parametros[$m->DATO_NOMBRE]= $m->DATO_VALOR; }
                                             ?>
                                         <tr>
+                                            <td >
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td><?php echo $i; $i++; ?></td>
                                             <td><?php echo $parametro->TITULO; ?></td>
                                             <td><?php echo $parametro->OBLIGATORIO; ?></td>
                                             <?php if(!empty($dimension->CRITERIO_1)){ ?>

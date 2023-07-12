@@ -517,7 +517,7 @@ td {
 }
 
 .tabla-parametros td:first-child {
-	min-width: 250px;
+	min-width: 20px;
 }
 
 .envolvente_dia table {

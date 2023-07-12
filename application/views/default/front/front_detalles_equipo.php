@@ -25,7 +25,7 @@
 						<?php } ?>
 					</ul>
 					<hr>
-					<a href="<?php echo base_url('equipos/actualizar?id='.$equipo['ID_EQUIPO']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
+					<a href="<?php echo base_url('index.php/equipos/actualizar?id='.$equipo['ID_EQUIPO']); ?>" class="btn btn-link btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
 				</div>
 			</div>
 		</div>
@@ -38,7 +38,7 @@
 
 	</div>
 
-	<a href="<?php echo base_url('proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success btn-round btn-circulo-flotante"> <i class="fa fa-plus"></i> </a>
+	<a href="<?php echo base_url('index.php/proyectos/crear?id_equipo='.$equipo['ID_EQUIPO']); ?>" class="btn btn-success btn-round btn-circulo-flotante"> <i class="fa fa-plus"></i> </a>
 
 </div>
 
