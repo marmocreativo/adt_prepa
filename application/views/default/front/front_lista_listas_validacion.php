@@ -21,7 +21,8 @@
 			<ul class="list-group">
 			<?php foreach($listas as $lista){ ?>
 				<li class="list-group-item d-flex justify-content-between">
-					<span><?php echo $lista->TITULO; ?>
+					<?php $conteo_dimensiones = $this->GeneralModel->conteo_elementos('validacion_dimension',['ID_LISTA'=>$lista->ID_LISTA]); ?>
+					<span><?php echo $lista->TITULO; ?> (<?php echo $conteo_dimensiones; ?> Dimensiones)
 					    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editar_lista_<?php echo $lista->ID_LISTA; ?>">
 					        <i class="fa-solid fa-pen"></i>
 						</button>
