@@ -75,6 +75,12 @@ body.noche td, body.noche th{
   min-height: 100%;
 }
 
+.burbuja-sm {
+  width: 20px;
+  height: 20px;
+  background: aliceblue;
+}
+
 /* ESTILOS DIA */
 .envolvente_dia .sidebar{
   background-color: #F2F2F2;
@@ -119,7 +125,7 @@ body.noche td, body.noche th{
 }
 
 .envolvente_noche .contenido_principal a{
-  color: #f05825;
+  color: #0d6efd;
 }
 
 .envolvente_noche .sidebar .logo_contenedor{
@@ -143,6 +149,10 @@ border: none;
 	background: #303642;
 	border-color: #41464a;
 
+}
+
+.card.proyecto {
+  background: transparent;
 }
 
 /* Toggle noche/dia */
@@ -412,6 +422,10 @@ border: none;
 }
 
 /* Lista de Tareas */
+.lista_tareas a {
+  text-decoration: none;
+}
+
 .lista_tareas.dia li{
   background-color: #fff;
   overflow: hidden;
@@ -448,6 +462,42 @@ border: none;
 
 .lista_tareas.noche .fondo-icono{
   background-color: #000;
+}
+
+.usuario-burbuja {
+	background: #e6ebee;
+  margin: 4px;
+	padding: 4px;
+	border-radius: 20px;
+	border: solid 1px #cbd1d7;
+}
+
+.usuario-burbuja img {
+	width: 25px;
+	height: 25px;
+	background: aliceblue;
+}
+
+.envolvente_noche .usuario-burbuja {
+	background: #28344f;
+	border: solid 1px #3d496c;
+}
+
+.envolvente_noche .usuario-burbuja:hover {
+	background: #182135;
+	border-color: #4f689f;
+}
+
+.usuario-burbuja span {
+	line-height: 2em;
+}
+
+.envolvente_dia .comentario {
+	background: #e4e9ee;
+}
+
+.envolvente_noche .comentario {
+	background: #18233d;
 }
 
 /* /Lista de Tareas */
@@ -518,10 +568,21 @@ td {
 
 .tabla-parametros td:first-child {
 	min-width: 20px;
+  font-size: 1.5em;
+  line-height: -.5em;
+}
+
+.tabla-parametros .form-check {
+  height: 1.5em;
 }
 
 .tabla-parametros tr:hover {
 	background: #8080801f;
+}
+
+.tabla-parametros .numid {
+	opacity: .7;
+  padding: 0 8px;
 }
 
 .envolvente_dia table {

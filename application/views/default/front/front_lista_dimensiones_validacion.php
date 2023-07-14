@@ -148,12 +148,12 @@
                                     </div>
                                     <h4 class="mt-4">Tabla de parámetros</h4>
                                     <div class="overflow-tabla">
-                                    <table class="table tabla-parametros">
-                                        <tr>
+                                    <table class="tableq tabla-parametros">
+                                        <thead>
                                             <th >-</th>
                                             <th>#</th><?php $i = 1; ?>
-                                            <th>TITULO</th>
-                                            <th>OBLIGATORIO</th>
+                                            <th>Titulo</th>
+                                            <th>Obligatorio</th>
                                             <?php if(!empty($dimension->CRITERIO_1)){ ?>
                                             <th><?php echo $dimension->CRITERIO_1; ?></th>
                                             <?php } ?>
@@ -169,7 +169,7 @@
                                             <?php if(!empty($dimension->CRITERIO_5)){ ?>
                                             <th><?php echo $dimension->CRITERIO_5; ?></th>
                                             <?php } ?>
-                                        </tr>
+                                        </thead>
                                             <?php $lista_parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','',''); ?>
                                             <?php foreach($lista_parametros as $parametro){ ?>
                                             <?php
@@ -182,23 +182,23 @@
                                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                 </div>
                                             </td>
-                                            <td><?php echo $i; $i++; ?></td>
+                                            <td class="numid"><?php echo $i; $i++; ?></td>
                                             <td><?php echo $parametro->TITULO; ?></td>
                                             <td><?php echo $parametro->OBLIGATORIO; ?></td>
                                             <?php if(!empty($dimension->CRITERIO_1)){ ?>
-                                            <th><?php echo $parametro->CRITERIO_VALOR_1; ?></th>
+                                            <td><?php echo $parametro->CRITERIO_VALOR_1; ?></td>
                                             <?php } ?>
                                             <?php if(!empty($dimension->CRITERIO_2)){ ?>
-                                            <th><?php echo $parametro->CRITERIO_VALOR_2; ?></th>
+                                            <td><?php echo $parametro->CRITERIO_VALOR_2; ?></td>
                                             <?php } ?>
                                             <?php if(!empty($dimension->CRITERIO_3)){ ?>
-                                            <th><?php echo $parametro->CRITERIO_VALOR_3; ?></th>
+                                            <td><?php echo $parametro->CRITERIO_VALOR_3; ?></td>
                                             <?php } ?>
                                             <?php if(!empty($dimension->CRITERIO_4)){ ?>
-                                            <th><?php echo $parametro->CRITERIO_VALOR_4; ?></th>
+                                            <td><?php echo $parametro->CRITERIO_VALOR_4; ?></td>
                                             <?php } ?>
                                             <?php if(!empty($dimension->CRITERIO_5)){ ?>
-                                            <th><?php echo $parametro->CRITERIO_VALOR_5; ?></th>
+                                            <td><?php echo $parametro->CRITERIO_VALOR_5; ?></td>
                                             <?php } ?>
                                             
                                             <td>

@@ -403,7 +403,7 @@ class Front_Tareas extends CI_Controller {
 			$mensaje = $this->input->post('Mensaje');
 			$tipo = 'mensaje';
 			if($_POST['EstadoActual']!=$_POST['EstadoTarea']){
-				$mensaje .= '<br>Se cambio el estado a: <b>'.$_POST['EstadoTarea'].'</b>';
+				$mensaje .= 'Se cambio el estado a: <b>'.$_POST['EstadoTarea'].'</b>';
 			}
 
 				if(!empty($this->input->post('FechaFinal'))){ $fecha_final = date('Y-m-d', strtotime($this->input->post('FechaFinal'))); }else{ $fecha_final = null; }
@@ -456,7 +456,7 @@ class Front_Tareas extends CI_Controller {
 			$mensaje = $this->input->post('Mensaje');
 			$tipo = 'mensaje';
 			if($_POST['EstadoActual']!=$_POST['EstadoTarea']){
-				$mensaje .= '<br>Se cambio el estado a: <b>'.$_POST['EstadoTarea'].'</b>';
+				$mensaje .= 'Se cambio el estado a: <b>'.$_POST['EstadoTarea'].'</b>';
 			}
 
 				if(!empty($this->input->post('FechaFinal'))){ $fecha_final = date('Y-m-d', strtotime($this->input->post('FechaFinal'))); }else{ $fecha_final = null; }

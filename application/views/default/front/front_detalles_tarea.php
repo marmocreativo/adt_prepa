@@ -10,7 +10,7 @@
 	<div class="col-8">
 
 		<div class="proyecto <?php echo $modo; ?> p-3" style="overflow: visible;">
-		<h1 class="h4"><?php echo $tarea['TAREA_TITULO'] ?>
+		<h2 class="h2"><b><?php echo $tarea['TAREA_TITULO'] ?>
 		<?php
 			switch ($tarea['ESTADO']) {
 				case 'en desarrollo':
@@ -35,13 +35,13 @@
 			}
 		?>
 			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $tarea['ESTADO'] ?></span>
-			</h1>
+		</b></h2>
 					<p>
 						<i class="fas fa-calendar" title="Duración de la tarea"></i> <?php if($tarea['FECHA_INICIO'] != null ){ echo fechas_es($tarea['FECHA_INICIO']); }else{ echo 'N/A'; } ?> -
 						 <?php if($tarea['FECHA_FINAL'] != null ){ echo fechas_es($tarea['FECHA_FINAL']); }else{ echo 'N/A'; } ?>
 						<a href="<?php echo base_url('index.php/tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="ml-5 fa fa-pencil"></i> Editar tarea </a>
 					</p>
-			<p><?php echo $tarea['TAREA_DESCRIPCION']; ?></p>
+			<p class="tarea-descripcion mt-5"><?php echo $tarea['TAREA_DESCRIPCION']; ?></p>
 			<div class="row my-3">
 				<?php if(!empty($tarea['TAREA_ENLACE_EDITABLES'])){ ?>
 				<div class="col-12 col-md-6">
@@ -58,12 +58,15 @@
 				</div>
 				<?php } ?>
 			</div>
-
+			
+			<hr>
+			<h4>Personas asignadas:</h4>
 			<?php $usuarios= $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','',''); ?>
 			<ul class="list-inline">
 				<?php foreach ($usuarios as $usuario) { ?>
 					<?php $detalles_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]); ?>
-					<li class="list-inline-item dropup">
+					<li class="list-inline-item dropup usuario-burbuja" >
+						
 					<div class="dropdown">
 						<img
 							src="<?php echo base_url('contenido/img/usuarios/'.$detalles_usuario['IMAGEN']); ?>"
@@ -74,6 +77,10 @@
 							role="button"
 							data-bs-toggle="dropdown"
 							aria-expanded="false">
+						<span
+							role="button"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"><?php echo $detalles_usuario['USUARIO_NOMBRE']; ?><i class="fa-solid fa-chevron-down px-2"></i></span>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li class="dropdown-item"><b><?php echo $detalles_usuario['USUARIO_NOMBRE']; ?></b></li>
 							<li><hr class="dropdown-divider"></li>
@@ -81,11 +88,15 @@
 							<li><a class="dropdown-item" target="_blank"
 							href="https://wa.me/<?php echo $detalles_usuario['USUARIO_TELEFONO']; ?>?text=<?php echo urlencode('Hola, se te ha asignado la tarea: *'.$tarea['TAREA_TITULO'].'* Puedes verla en: '.base_url('index.php/tareas/detalles?id='.$tarea['ID_TAREA'])); ?>">Notificar por Whatsapp </a></li>
 						</ul>
+
+						
 					</div>
 					</li>
 				<?php } ?>
 			</ul>
 			<?php $proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$tarea['ID_PROYECTO']]); ?>
+			<hr>
+			<h4>Revisiones:</h4>
 			<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"> Validaciones de la tarea</button>
 		</div>
 		<div class="detalles_tarea p-3 mt-3">
@@ -133,7 +144,7 @@
 											<option value="completo" <?php if($tarea['ESTADO']=='completo'){ echo 'selected'; } ?>>Completo</option>
 										</select>
 									</div>
-									<button type="submit" class="btn btn-primary btn-actualizar w-100 my-3">Enviar</button>
+									<button type="submit" class="btn btn-primary btn-actualizar w-100 my-3">Publicar</button>
 								</div>
 							</div>
 						</form>
@@ -149,12 +160,12 @@
 					<div class="col-12 mb-3">
 						<div class="row">
 							<div class="col-1 pr-0">
-								<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$mensaje->ID_USUARIO); ?>" style="display:block; margin-top: -20px">
+								<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$mensaje->ID_USUARIO); ?>" style="display:block;">
 									<img src="<?php echo base_url('contenido/img/usuarios/'.$array_usuarios[$mensaje->ID_USUARIO]['IMAGEN']); ?>" title="<?php echo $array_usuarios[$mensaje->ID_USUARIO]['NOMBRE']; ?>" width="100%" class="rounded-circle border border-secondary" alt="">
 								</a>
 							</div>
 							<div class="col-11 pl-0">
-								<div class="proyecto" style="border-radius: 0 20px 20px 20px;">
+								<div class="comentario p-3" style="border-radius: 0 20px 20px 20px;">
 									<h5><?php echo $array_usuarios[$mensaje->ID_USUARIO]['NOMBRE']; ?>:</h5>
 									<?php echo $mensaje->MENSAJE; ?>
 									<?php if($mensaje->TIPO=='reasignacion'){ ?>
@@ -171,11 +182,16 @@
 															src="<?php echo base_url('contenido/img/usuarios/'.$array_usuarios[$asignacion]['IMAGEN']); ?>"
 															title="<?php echo $array_usuarios[$asignacion]['NOMBRE']; ?>"
 															width="25px"
-															class="rounded-circle border border-secondary"
+															class="rounded-circle border border-secondary burbuja-sm"
 															alt=""
 															role="button"
 															data-bs-toggle="dropdown"
 															aria-expanded="false">
+														<span
+															role="button"
+															data-bs-toggle="dropdown"
+															aria-expanded="false">
+														<?php echo $detalles_usuario['USUARIO_NOMBRE']; ?></span>
 														<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 															<li class="dropdown-item"><b><?php echo $array_usuarios[$asignacion]['NOMBRE']; ?></b></li>
 															<li><hr class="dropdown-divider"></li>
@@ -191,12 +207,12 @@
 										<?php } ?>
 									<?php } ?>
 									<div class="text-end" style="font-size:12px;">
-										<?php echo fechas_es($mensaje->FECHA_REGISTRO).' '.date('g:i a', strtotime($mensaje->FECHA_REGISTRO)); ?>
-										<?php if($mensaje->ID_USUARIO==$_SESSION['usuario']['id']){ ?>
 										<hr>
-										<a class="btn btn-sm btn-outline-warning" data-bs-toggle="collapse" href="#formulario_mensaje_<?php echo $mensaje->ID; ?>" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
-											Editar
-										</a>
+										<a class="btn btn-sm btn-secondary-link" data-bs-toggle="collapse" href="#formulario_mensaje_<?php echo $mensaje->ID; ?>" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
+										<i class="ml-5 fa fa-pencil"></i> Editar comentario
+										</a> | 
+										<span class="px-3"><?php echo fechas_es($mensaje->FECHA_REGISTRO).' </span><span> '.date('g:i a', strtotime($mensaje->FECHA_REGISTRO)); ?></span>
+										<?php if($mensaje->ID_USUARIO==$_SESSION['usuario']['id']){ ?>
 										<?php } ?>
 
 										<div class="collapse p-4 bg-light" id='formulario_mensaje_<?php echo $mensaje->ID; ?>'>
@@ -270,7 +286,7 @@
 			$query = $this->db->get();
 			$usuarios_disponibles = $query->result();
 		?>																
-		<div class="card">
+		<div class="card proyecto">
 			<div class="card-header">Línea de tiempo</div>
 			<div class="card-body">
 				<h6 class="mt-3">Preproducción</h6>

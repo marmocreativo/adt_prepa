@@ -58,18 +58,8 @@ $icono = "far fa-clock";
         <div class="col-2 col-md-1 fondo-icono d-flex justify-content-center align-items-center">
           <i class="<?php echo $icono.' '.$color; ?>"></i>
         </div>
-        <div class="col-7 col-md-8 d-flex justify-content-start align-items-center pt-2">
+        <div class="col-10 col-md-8 d-flex justify-content-start align-items-center pt-2">
           <p title="<?php echo $tarea->ESTADO; ?>" style="word-break: break-word;"> <?php echo $tarea->TAREA_TITULO; ?></p>
-        </div>
-        <div class="col-3 col-md-3 d-flex justify-content-center align-items-center pt-2">
-          <ul class="list-inline justify-content-start">
-            <?php foreach($usuarios as $usuario){ ?>
-              <li class="list-inline-item" title="<?php echo $usuario->USUARIO_NOMBRE.' '.$usuario->USUARIO_APELLIDOS; ?>">
-                <img src="<?php echo base_url('contenido/img/usuarios/'.$usuario->IMAGEN) ?>" width="20" class="rounded-circle border border-primary" alt=""> <span class="badge bg-primary text-white d-none d-sm-inline"><?php echo $usuario->USUARIO_NOMBRE; ?></span>
-              </li>
-            <?php }; ?>
-          </ul>
-
         </div>
 
       </div>
