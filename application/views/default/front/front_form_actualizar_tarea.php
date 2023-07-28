@@ -85,7 +85,7 @@
 				$this->db->from('usuarios');
 				$this->db->join('equipos_usuarios', 'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO', 'left');
 				$this->db->where_in('equipos_usuarios.ID_EQUIPO', $array_equipos);
-				$this->db->where('usuarios.ESTADO', 'activo');
+				//$this->db->where('usuarios.ESTADO', 'activo');
 
 				$query = $this->db->get();
 				$usuarios_disponibles = $query->result();

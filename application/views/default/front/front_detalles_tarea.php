@@ -40,6 +40,7 @@
 						<i class="fas fa-calendar" title="Duración de la tarea"></i> <?php if($tarea['FECHA_INICIO'] != null ){ echo fechas_es($tarea['FECHA_INICIO']); }else{ echo 'N/A'; } ?> -
 						 <?php if($tarea['FECHA_FINAL'] != null ){ echo fechas_es($tarea['FECHA_FINAL']); }else{ echo 'N/A'; } ?>
 						<a href="<?php echo base_url('index.php/tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="ml-5 fa fa-pencil"></i> Editar tarea </a>
+						<button data-enlace="<?php echo base_url('index.php/tareas/borrar?id='.$tarea['ID_TAREA']); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar tarea</button>
 					</p>
 			<p class="tarea-descripcion mt-5"><?php echo $tarea['TAREA_DESCRIPCION']; ?></p>
 			<div class="row my-3">

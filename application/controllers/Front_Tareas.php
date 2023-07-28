@@ -93,7 +93,7 @@ class Front_Tareas extends CI_Controller {
 		$this->form_validation->set_rules('TareaTitulo', 'Nombre', 'required|max_length[255]', array( 'required' => 'Debes designar el %s.', 'max_length' => 'El nombre no puede superar los 255 caracteres' ));
 		if($this->form_validation->run())
 
-    {
+    	{
 				if(!empty($this->input->post('FechaFinal'))){ $fecha_final = date('Y-m-d', strtotime($this->input->post('FechaFinal'))); }else{ $fecha_final = null; }
 
 				$parametros = array(
@@ -150,7 +150,7 @@ class Front_Tareas extends CI_Controller {
 							'ID_USUARIO' => $usuario,
 							'ENLACE'=> base_url('index.php/tareas/detalles?id='.$tarea_id),
 							'GRUPO'=>'tareas',
-							'NOTIFICACION_CONTENIDO'=>'Se te ha asignado la tarea <b>'.$this->input->post('TareaTitulo').'</b>',
+							'NOTIFICACION_CONTENIDO'=>'Participarás en la tarea <b>'.$this->input->post('TareaTitulo').'</b>',
 							'FECHA_CREACION'=>date('Y-m-d H:i:s'),
 							'ESTADO'=>'pendiente'
 						);
@@ -216,6 +216,20 @@ class Front_Tareas extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_tareas',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_detalles_tarea',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+	}
+
+	public function borrar()
+	{
+		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['id']]);
+
+
+		$this->GeneralModel->borrar('tareas',['ID_TAREA'=>$_GET['id']]);
+		$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$_GET['id']]);
+		$this->GeneralModel->borrar('tareas_mensajes',['ID_TAREA'=>$_GET['id']]);	
+		$this->GeneralModel->borrar('validacion_revisiones',['ID_TAREA'=>$_GET['id']]);
+		$this->GeneralModel->borrar('validacion_respuesta',['ID_TAREA'=>$_GET['id']]);	
+
+		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
 	}
 
 
@@ -315,7 +329,7 @@ class Front_Tareas extends CI_Controller {
 						'ID_USUARIO' => $usuario,
 						'ENLACE'=> base_url('index.php/tareas/detalles?id='.$this->input->post('Identificador')),
 						'GRUPO'=>'tareas',
-						'NOTIFICACION_CONTENIDO'=>'Se ha actualizado la tarea <b>'.$this->input->post('TareaTitulo').'</b> y fuiste asignado a ella',
+						'NOTIFICACION_CONTENIDO'=>'Se ha actualizado la tarea <b>'.$this->input->post('TareaTitulo').'</b> y participarás en ella',
 						'FECHA_CREACION'=>date('Y-m-d H:i:s'),
 						'ESTADO'=>'pendiente'
 					);
@@ -325,7 +339,7 @@ class Front_Tareas extends CI_Controller {
 					  $this->data['info'] = array();
 					  $this->data['info']['Titulo'] = 'ASIGNACIÓN DE TAREA | POLARIS';
 					  $this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
-					  $this->data['info']['Mensaje'] = 'Se ha actualizado la tarea <b>'.$this->input->post('TareaTitulo').'</b> y fuiste asignado a ella';
+					  $this->data['info']['Mensaje'] = 'Se ha actualizado la tarea <b>'.$this->input->post('TareaTitulo').'</b> y participarás en ella';
 					  $this->data['info']['TextoBoton'] = 'Ir a la tarea';
 					  $this->data['info']['EnlaceBoton'] = base_url('index.php//tareas/detalles?id='.$this->input->post('Identificador'));
 					  $this->data['info']['MensajeSecundario'] = '';

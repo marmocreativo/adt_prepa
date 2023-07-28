@@ -68,7 +68,7 @@
 			</div>
 
 			<a href="<?php echo base_url('index.php/proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
-			<button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>
+			<button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</button>
 			<button type="button" class="ml-2 btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"> Validaciones del proyecto</button>
 		</div>
 	</div>
