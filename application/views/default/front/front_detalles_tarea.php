@@ -61,10 +61,10 @@
 			</div>
 			
 			<hr>
-			<h4>Personas asignadas:</h4>
-			<?php $usuarios= $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','',''); ?>
+			<h4>Personas que participarán:</h4>
+			<?php $usuarios_asignados= $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','',''); ?>
 			<ul class="list-inline">
-				<?php foreach ($usuarios as $usuario) { ?>
+				<?php foreach ($usuarios_asignados as $usuario) { ?>
 					<?php $detalles_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]); ?>
 					<li class="list-inline-item dropup usuario-burbuja" >
 						
@@ -314,8 +314,9 @@
 						<div class="form-group">
 							<label for="IdUsuarioPre">Usuario</label>
 							<select name="IdUsuario" id="IdUsuarioPre" class="form-control">
-								<?php foreach($usuarios_disponibles as $usuario_disp){ ?>
-								<option value="<?php echo $usuario_disp->ID_USUARIO; ?>"><?php echo $usuario_disp->USUARIO_NOMBRE.' '.$usuario_disp->USUARIO_APELLIDOS; ?></option>
+								<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+									<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp->ID_USUARIO]); ?>
+								<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -352,8 +353,9 @@
 						<div class="form-group">
 							<label for="IdUsuarioPro">Usuario</label>
 							<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
-								<?php foreach($usuarios_disponibles as $usuario_disp){ ?>
-								<option value="<?php echo $usuario_disp->ID_USUARIO; ?>"><?php echo $usuario_disp->USUARIO_NOMBRE.' '.$usuario_disp->USUARIO_APELLIDOS; ?></option>
+								<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+								<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp->ID_USUARIO]); ?>
+								<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -390,8 +392,9 @@
 						<div class="form-group">
 							<label for="IdUsuarioPro">Usuario</label>
 							<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
-								<?php foreach($usuarios_disponibles as $usuario_disp){ ?>
-								<option value="<?php echo $usuario_disp->ID_USUARIO; ?>"><?php echo $usuario_disp->USUARIO_NOMBRE.' '.$usuario_disp->USUARIO_APELLIDOS; ?></option>
+								<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+								<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp->ID_USUARIO]); ?>
+								<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
 								<?php } ?>
 							</select>
 						</div>

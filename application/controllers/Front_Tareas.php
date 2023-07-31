@@ -644,8 +644,21 @@ class Front_Tareas extends CI_Controller {
 
 		$id_proceso = $this->GeneralModel->crear('roles_historial',$parametros);
 
+		
+
 		if(empty($detalles_tarea['ID_PROCESO'])){
 			$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_tarea['ID_TAREA']],['ID_PROCESO'=>$id_proceso]);
+
+			$parametros_notificacion = array(
+				'ID_USUARIO' => $_POST['IdUsuario'],
+				'ENLACE'=> base_url('index.php/tareas/detalles?id='.$_POST['IdTarea']),
+				'GRUPO'=>'tareas',
+				'NOTIFICACION_CONTENIDO'=>'¡Manos a la obra!, se te ha asignado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b>',
+				'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+				'ESTADO'=>'pendiente'
+			);
+			$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+
 		}
 
 		redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')));
@@ -676,6 +689,18 @@ class Front_Tareas extends CI_Controller {
 			'ESTADO'=>'completo',
 			'FECHA_TERMINADO'=>date('Y-m-d H:i:s')
 		];
+
+		$parametros_notificacion = array(
+			'ID_USUARIO' => $detalles_proceso_siguiente['ID_USUARIO'],
+			'ENLACE'=> base_url('index.php/tareas/detalles?id='.$detalles_proceso_siguiente['ID_TAREA']),
+			'GRUPO'=>'tareas',
+			'NOTIFICACION_CONTENIDO'=>'¡Manos a la obra!, se te ha asignado el proceso <b>'.$detalles_proceso_siguiente['ETIQUETA'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b>',
+			'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+			'ESTADO'=>'pendiente'
+		);
+		$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+
+		
 
 		$this->GeneralModel->actualizar('roles_historial',['ID'=>$_POST['IdProcesoActual']],$parametros_actual);
 		$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']],['ID_PROCESO'=>$detalles_proceso_siguiente['ID']]);
