@@ -401,6 +401,16 @@ class Front_Proyectos extends CI_Controller {
 
 		$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
 
+		$parametros_notificacion = array(
+			'ID_USUARIO' => $_POST['IdResponsable'],
+			'ENLACE'=> base_url('/index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$id_revision.'&fecha_revision='.$fecha),
+			'GRUPO'=>'validaciones',
+			'NOTIFICACION_CONTENIDO'=>'Se te ha asignado la lista de validación <b>'.$lista['TITULO'].'</b> del proyecto <b>'.$proyecto['PROYECTO_NOMBRE'].'</b>',
+			'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+			'ESTADO'=>'pendiente'
+		);
+		$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+
 		foreach($tareas as $tarea){
 			
 

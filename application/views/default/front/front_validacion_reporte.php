@@ -25,7 +25,7 @@ $dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=
                     <?php foreach($tareas as $tarea){ ?>
                         <?php $detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$tarea->ID_TAREA]); ?>
                         <tr>
-                        <td><?php echo $detalles_tarea['TAREA_TITULO']; ?></td>
+                        <td><a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$revision['ID_PROYECTO'].'&id_revision='.$revision['ID_REVISION'].'&fecha_revision='.$revision['FECHA'].'&tarea='.$tarea->ID_TAREA); ?>"> <b><?php echo $detalles_tarea['TAREA_TITULO']; ?></b> </a></td>
                         <?php foreach($dimensiones as $dimension){ ?>
                         <td>
                             <?php

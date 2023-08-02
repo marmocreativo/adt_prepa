@@ -47,7 +47,7 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
                         <?php foreach($dimensiones as $dimension){ ?>
                             <table class="table">
                                 <tr>
-                                    <th><?php echo $dimension->TITULO; ?></th>
+                                    <th colspan="2"><?php echo $dimension->TITULO; ?></th>
                                 </tr>
                                 <?php  $parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','',''); ?>
                                 <?php foreach($parametros as $parametro){ ?>
@@ -73,9 +73,15 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
                                                 break;
                                         }
                                     ?>
-                                     <tr class="<?php echo $clase_parametro; ?>">
+                                <tr class="<?php echo $clase_parametro; ?>">
 
-                                    <td><?php echo $parametro->TITULO; ?> <?php if($respuesta['VALOR']=='validada'){ echo '<i class="fa fa-check text-success"></i>';}else{ echo '<i class="fa fa-times text-danger"></i>'; } ?></td>
+                                    <td>
+                                        <p><?php echo $parametro->TITULO; ?> <?php if($respuesta['VALOR']=='validada'){ echo '<i class="fa fa-check text-success"></i>';}else{ echo '<i class="fa fa-times text-danger"></i>'; } ?></p>
+                                        
+                                    </td>
+                                    <td>
+                                         <p><?php if(!empty($respuesta['COMENTARIOS'])){ echo $respuesta['COMENTARIOS']; }else{ echo '-'; } ?></p>
+                                    </td>
 
                                     </tr>
                                 <?php } ?>

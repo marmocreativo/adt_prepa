@@ -148,7 +148,7 @@
                                     </div>
                                     <h4 class="mt-4">Tabla de parámetros</h4>
                                     <div class="overflow-tabla">
-                                    <table class="tableq tabla-parametros">
+                                    <table class="table table bordered tabla-parametros">
                                         <thead>
                                             <th >-</th>
                                             <th>#</th><?php $i = 1; ?>
@@ -169,6 +169,7 @@
                                             <?php if(!empty($dimension->CRITERIO_5)){ ?>
                                             <th><?php echo $dimension->CRITERIO_5; ?></th>
                                             <?php } ?>
+                                            <th>Controles</th>
                                         </thead>
                                             <?php $lista_parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','',''); ?>
                                             <?php foreach($lista_parametros as $parametro){ ?>
@@ -183,7 +184,7 @@
                                                 </div>
                                             </td>
                                             <td class="numid"><?php echo $i; $i++; ?></td>
-                                            <td><?php echo $parametro->TITULO; ?></td>
+                                            <td><b><?php echo $parametro->ID_PARAMETRO; ?></b> <?php echo $parametro->TITULO; ?> D:<?php echo $parametro->ID_DIMENSION; ?></td>
                                             <td><?php echo $parametro->OBLIGATORIO; ?></td>
                                             <?php if(!empty($dimension->CRITERIO_1)){ ?>
                                             <td><?php echo $parametro->CRITERIO_VALOR_1; ?></td>
@@ -376,36 +377,8 @@
                                             </div>
                                         </div>
                                         <h5>Establece los criterios</h5>
-                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link active" id="pills-criterio1-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#pills-criterio1" type="button" role="tab"
-                                                    aria-controls="pills-criterio1" aria-selected="true">1</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="pills-criterio2-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#pills-criterio2" type="button" role="tab"
-                                                    aria-controls="pills-criterio2" aria-selected="false">2</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="pills-criterio3-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#pills-criterio3" type="button" role="tab"
-                                                    aria-controls="pills-criterio3" aria-selected="false">3</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="pills-criterio4-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#pills-criterio4" type="button" role="tab"
-                                                    aria-controls="pills-criterio4" aria-selected="false">4</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="pills-criterio5-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#pills-criterio5" type="button" role="tab"
-                                                    aria-controls="pills-criterio5" aria-selected="false">5</button>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content" id="pills-tabContent">
-                                            <div class="tab-pane fade show active" id="pills-criterio1" role="tabpanel"
-                                                aria-labelledby="pills-criterio1-tab">
+                                        <div class="row">
+                                            <div class="col">
                                                 <div class="form-group">
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" id="basic-addon1"><i
@@ -417,9 +390,12 @@
                                                     <textarea name="OpcionesCriterio1" class="form-control opciones-criterio"
                                                         placeholder='Opciones del criterio separadas por coma' rows="5"></textarea>
                                                 </div>
+                                                <hr>
+                                                
+
+
                                             </div>
-                                            <div class="tab-pane fade" id="pills-criterio2" role="tabpanel"
-                                                aria-labelledby="pills-criterio2-tab">
+                                            <div class="col">
                                                 <div class="form-group">
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" id="basic-addon1"><i
@@ -432,8 +408,7 @@
                                                         placeholder='Opciones del criterio separadas por coma' rows="5"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="pills-criterio3" role="tabpanel"
-                                                aria-labelledby="pills-criterio3-tab">
+                                            <div class="col">
                                                 <div class="form-group">
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" id="basic-addon1"><i
@@ -446,8 +421,8 @@
                                                         placeholder='Opciones del criterio separadas por coma' rows="5"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="pills-criterio4" role="tabpanel"
-                                                aria-labelledby="pills-criterio4-tab">
+                                            
+                                            <div class="col">
                                                 <div class="form-group">
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" id="basic-addon1"><i
@@ -460,8 +435,7 @@
                                                         placeholder='Opciones del criterio separadas por coma' rows="5"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="pills-criterio5" role="tabpanel"
-                                                aria-labelledby="pills-criterio5-tab">
+                                            <div class="col">
                                                 <div class="form-group">
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" id="basic-addon1"><i

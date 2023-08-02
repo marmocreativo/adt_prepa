@@ -239,7 +239,6 @@
 																		foreach($id_asignados as $id_asig){
 																			$usuarios_asignados[] =$id_asig->ID_USUARIO;
 																		}
-																		//var_dump($usuarios);
 																?>
 																<h4>Espacio para asignación</h4>
 																
@@ -315,7 +314,7 @@
 							<label for="IdUsuarioPre">Usuario</label>
 							<select name="IdUsuario" id="IdUsuarioPre" class="form-control">
 								<?php foreach($usuarios_asignados as $usuario_disp){ ?>
-									<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp->ID_USUARIO]); ?>
+									<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
 								<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
 								<?php } ?>
 							</select>
@@ -354,7 +353,7 @@
 							<label for="IdUsuarioPro">Usuario</label>
 							<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
 								<?php foreach($usuarios_asignados as $usuario_disp){ ?>
-								<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp->ID_USUARIO]); ?>
+								<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
 								<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
 								<?php } ?>
 							</select>
@@ -393,7 +392,7 @@
 							<label for="IdUsuarioPro">Usuario</label>
 							<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
 								<?php foreach($usuarios_asignados as $usuario_disp){ ?>
-								<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp->ID_USUARIO]); ?>
+								<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
 								<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
 								<?php } ?>
 							</select>
