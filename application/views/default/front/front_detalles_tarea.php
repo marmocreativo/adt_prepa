@@ -271,6 +271,7 @@
 
 	<div class="col-12 col-md-4">
 		<?php
+		if(!empty($tarea['ID_PROYECTO'])){
 			$equipos_proyecto = $this->GeneralModel->lista('equipos_proyectos','',['ID_PROYECTO'=>$tarea['ID_PROYECTO']],'','','');
 			$array_equipos = array();
 			foreach($equipos_proyecto as $eq_pro){
@@ -285,6 +286,9 @@
 
 			$query = $this->db->get();
 			$usuarios_disponibles = $query->result();
+		}else{
+			$usuarios_disponibles = null;
+		}
 		?>																
 		<div class="card proyecto">
 			<div class="card-header">Línea de tiempo</div>

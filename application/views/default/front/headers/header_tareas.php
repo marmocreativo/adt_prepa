@@ -87,6 +87,6 @@
 				<div class="contenido_principal">
 					<div class="row encabezado_principal d-flex justify-content-between mb-4">
 						<div class="col-12 col-md-6 titulo">
-							<h1 class="h3">Detalles de la tarea</h1>
+							<h1 class="h3"><?php echo $titulo; ?></h1>
 						</div>
 					</div>

@@ -75,6 +75,7 @@
 			<h4>Personas que participarán en la tarea:</h4>
 			<?php
 				$detalles_proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$tarea['ID_PROYECTO']]);
+				if(!empty($detalles_proyecto)){
 				$equipos_proyecto = $this->GeneralModel->lista('equipos_proyectos','',['ID_PROYECTO'=>$tarea['ID_PROYECTO']],'','','');
 				$array_equipos = array();
 				foreach($equipos_proyecto as $eq_pro){
@@ -89,6 +90,9 @@
 
 				$query = $this->db->get();
 				$usuarios_disponibles = $query->result();
+			}else{
+				$usuarios_disponibles = null;
+			}
 			
 			?>
 			<ul class="list-group">
