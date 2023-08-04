@@ -43,7 +43,11 @@ $dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=
                                     
                                 }
                             ?>
-                            <?php echo round(($respuestas_validadas*100)/$respuestas,2); ?>%
+                            <?php
+                                $total_totales += $respuestas;
+                                $total_validadas += $respuestas_validadas;
+                                echo round(($respuestas_validadas*100)/$respuestas,2);
+                            ?>%
                         </td>
                         <?php } ?>
                     </tr>
@@ -51,6 +55,7 @@ $dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=
             </tbody>
         </table>
         <h4>Resultado final</h4>
+        <h2><?php echo round(($total_validadas*100)/$total_totales,2); ?>%</h2>
     </div>
     </div>
 </div>

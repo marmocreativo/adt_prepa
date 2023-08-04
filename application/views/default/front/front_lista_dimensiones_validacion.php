@@ -6,10 +6,10 @@
             <p><?php echo $lista['DESCRIPCION']; ?></p>
 			
 			<hr>
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<ul class="nav nav-tabs ui-sortable" id="myTab" role="tablist" data-tabla="validacion_dimension" data-columna="ID_DIMENSION">
                 <?php $i=0; foreach($dimensiones as $dimension){ ?>
                     <?php $conteo_parametros = $this->GeneralModel->conteo_elementos('validacion_parametros',['ID_DIMENSION'=>$dimension->ID_DIMENSION]); ?>
-                <li class="nav-item" role="presentation">
+                <li class="nav-item ui-sortable-handle" id="item-<?php echo $dimension->ID_DIMENSION; ?>" role="presentation">
                     <button class="nav-link <?php
                             if(isset($_GET['dimension'])&&!empty($_GET['dimension'])){
                                  if($_GET['dimension']==$dimension->ID_DIMENSION){
@@ -146,7 +146,24 @@
                                             
                                         </form>
                                     </div>
-                                    <h4 class="mt-4">Tabla de parámetros</h4>
+                                    <div class="d-flex justify-content-between pt-3">
+                                        <h4 class="mt-4">Tabla de parámetros</h4>
+                                        <div class="row w-50">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <select id="AccionEnLote" class="form-control">
+                                                        <option value="">Acción en lote</option>
+                                                        <option value="borrar">Borrar</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col w-25">
+                                                <button class="btn btn-primary w-100" id="RealizarAccion">
+                                                    Realizar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="overflow-tabla">
                                     <table class="table table bordered tabla-parametros">
                                         <thead>
@@ -171,20 +188,24 @@
                                             <?php } ?>
                                             <th>Controles</th>
                                         </thead>
-                                            <?php $lista_parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','',''); ?>
+                                        <tbody class="ui-sortable" data-tabla="validacion_parametros" data-columna="ID_PARAMETRO">
+                                            <?php $lista_parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'ORDEN ASC','',''); ?>
                                             <?php foreach($lista_parametros as $parametro){ ?>
                                             <?php
                                                 $meta_parametros = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$parametro->ID_PARAMETRO,'TIPO_OBJETO'=>'parametro'],'','','');
                                                 $meta_datos_parametros = array(); foreach($meta_parametros as $m){ $meta_datos_parametros[$m->DATO_NOMBRE]= $m->DATO_VALOR; }
                                             ?>
-                                        <tr>
+                                            
+
+                                            
+                                        <tr id="item-<?php echo $parametro->ID_PARAMETRO; ?>" class="ui-sortable-handle">
                                             <td >
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    <input class="form-check-input ParametroLote" type="checkbox" value="<?php echo $parametro->ID_PARAMETRO; ?>" id="">
                                                 </div>
                                             </td>
                                             <td class="numid"><?php echo $i; $i++; ?></td>
-                                            <td><b><?php echo $parametro->ID_PARAMETRO; ?></b> <?php echo $parametro->TITULO; ?> D:<?php echo $parametro->ID_DIMENSION; ?></td>
+                                            <td><h5> <?php echo $parametro->TITULO; ?> </h5></td>
                                             <td><?php echo $parametro->OBLIGATORIO; ?></td>
                                             <?php if(!empty($dimension->CRITERIO_1)){ ?>
                                             <td><?php echo $parametro->CRITERIO_VALOR_1; ?></td>
@@ -290,6 +311,7 @@
 
                                         </tr>
                                         <?php } ?>
+                                        </tbody>
                                     </table>
                                     </div>
                                     

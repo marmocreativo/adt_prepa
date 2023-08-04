@@ -204,4 +204,12 @@ class Ajax extends CI_Controller {
 			$_SESSION['usuario']['configuraciones'][$configuracion->CONFIGURACION]=$configuracion->VALOR;
 		}
 	}
+
+	public function borrar_parametros_en_lote()
+	{
+		foreach($_POST['ids'] as $index=>$id){
+			$this->GeneralModel->borrar('validacion_parametros',['ID_PARAMETRO'=>$id]);
+			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$id,'TIPO_OBJETO'=>'parametro']);
+		}
+	}
 }

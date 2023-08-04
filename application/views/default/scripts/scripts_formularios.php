@@ -410,5 +410,44 @@ function cargar_municipios(){
     });
   }
 
+    /* LISTA DE PARAMETROS */
+  //Acciones en lote
+  if ( $( "#RealizarAccion" ).length ) {
+    $( "#RealizarAccion" ).click(function(){
+      var accion = $( "#AccionEnLote").val();
+      const checkboxes = document.querySelectorAll('.ParametroLote');
+      const valoresMarcados = Array.from(checkboxes)
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+      switch (accion) {
+        case 'borrar':
+          console.log('borrar');
+          console.log(valoresMarcados);
+          jQuery.ajax({
+            method: "POST",
+            url: "<?php echo base_url('index.php/ajax/borrar_parametros_en_lote'); ?>",
+            data: {
+              ids : valoresMarcados
+            },
+            dataType: "html",
+            success : function(respuesta)
+            {
+              location.reload();
+              //console.log(respuesta);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              alert(xhr.status);
+              alert(thrownError);
+            }
+          });
+          break;
+      
+        default:
+          break;
+      }
+
+    });
+  }
+
 
 </script>

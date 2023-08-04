@@ -94,7 +94,7 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
     </div>
     <div class="col-4">
         <h4>Resumen</h4>
-        <p><?php echo $total_validadas; ?> / <?php echo $total_totales; ?><br>
-            <?php echo round(($total_validadas / $total_totales) * 100,2); ?>%<br></p>
+        <h2><?php echo $total_validadas; ?> / <?php echo $total_totales; ?><br>
+            <?php echo round(($total_validadas / $total_totales) * 100,2); ?>%<br></h2>
     </div>
 </div>

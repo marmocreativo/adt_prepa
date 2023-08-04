@@ -161,7 +161,7 @@ class Front_ListasValidacion extends CI_Controller {
 		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 
 		$this->data['lista'] = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_GET['id']]);
-		$this->data['dimensiones'] = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_GET['id'],'ESTADO'=>'activo'],'','','');
+		$this->data['dimensiones'] = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_GET['id'],'ESTADO'=>'activo'],'ORDEN ASC','','');
 
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_lista_dimensiones_validacion',$this->data);
@@ -381,7 +381,14 @@ class Front_ListasValidacion extends CI_Controller {
 		
 		foreach($parametros as $parametro){
 			$detalles_dimension = $this->GeneralModel->detalles('validacion_dimension',['ID_DIMENSION'=>$parametro->ID_DIMENSION]);
-			echo '<p>'.$parametro->ID_DIMENSION.' | '..'</p>'
+			$dimension = '-';
+			if(empty($detalles_dimension)){
+				$this->GeneralModel->borrar('validacion_parametros',['ID_PARAMETRO'=>$parametro->ID_PARAMETRO]);
+			}else{
+				var_dump($detalles_dimension);
+				echo '<hr>';
+			}
+			
 
 		}
 	}
