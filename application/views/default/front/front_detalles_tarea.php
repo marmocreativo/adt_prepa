@@ -293,96 +293,27 @@
 		<div class="card proyecto">
 			<div class="card-header">Línea de tiempo</div>
 			<div class="card-body">
-				<h6 class="mt-3">Preproducción</h6>
-				<?php $procesos_pre = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA'],'PROCESO'=>'preproduccion'],'FECHA ASC','',''); ?>
-				<ul class="list-group">
-					<?php foreach($procesos_pre as $proceso){ ?>
-					<li class="list-group-item <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-warning'; } ?>" style="<?php if($proceso->ESTADO=='completo'){ echo 'text-decoration: line-through'; } ?>">
-						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
-					<b><?php echo $proceso->ETIQUETA; ?></b> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
-					</li>
-					<?php } ?>
-				</ul>
-				<button class="btn btn-sm btn-outline-success mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#form-preproduccion" aria-expanded="false" aria-controls="collapseWidthExample">
-					+ Agregar proceso de preproducción
-				</button>
-				<div class="bg-light m-3 p-3 collapse" id="form-preproduccion">
-					<form action="<?php echo base_url('index.php/tareas/asignar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
-					<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
-					<input type="hidden" name="Proceso" value="preproduccion">
-						<div class="form-group">
-							<label for="Etiqueta">Etiqueta</label>
-							<input type="text" required class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
-						</div>
-						<div class="form-group">
-							<label for="IdUsuarioPre">Usuario</label>
-							<select name="IdUsuario" id="IdUsuarioPre" class="form-control">
-								<?php foreach($usuarios_asignados as $usuario_disp){ ?>
-									<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
-								<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
-								<?php } ?>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="Fecha">Fecha límite de entrega</label>
-							<input type="text" required class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
-						</div>
-						<hr>
-						<button type="submit" class="btn btn-primary">Agregar rol</button>
-					</form>
-				</div>
-				<hr>
-				<h6 class="mt-3">Producción</h6>
-				<?php $procesos_pro = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA'],'PROCESO'=>'produccion'],'FECHA ASC','',''); ?>
-				<ul class="list-group">
-					<?php foreach($procesos_pro as $proceso){ ?>
-					<li class="list-group-item <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-warning'; } ?>" style="<?php if($proceso->ESTADO=='completo'){ echo 'text-decoration: line-through'; } ?>">
-						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
-					<b><?php echo $proceso->ETIQUETA; ?></b> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
-					</li>
-					<?php } ?>
-				</ul>
-				<button class="btn btn-sm btn-outline-success mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#form-produccion" aria-expanded="false" aria-controls="collapseWidthExample">
-					+ Agregar proceso de producción
-				</button>
-				<div class="bg-light m-3 p-3 collapse" id="form-produccion">
-					<form action="<?php echo base_url('index.php/tareas/asignar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
-					<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
-					<input type="hidden" name="Proceso" value="produccion">
-						<div class="form-group">
-							<label for="Etiqueta">Etiqueta</label>
-							<input type="text" required class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
-						</div>
-						<div class="form-group">
-							<label for="IdUsuarioPro">Usuario</label>
-							<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
-								<?php foreach($usuarios_asignados as $usuario_disp){ ?>
-								<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
-								<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
-								<?php } ?>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="Fecha">Fecha límite de entrega</label>
-							<input type="text" required class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
-						</div>
-						<hr>
-						<button type="submit" class="btn btn-primary">Agregar rol</button>
-					</form>
-				</div>
-				<hr>
-				<h6 class="mt-3">Postproducción</h6>
-				<?php $procesos_post = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA'],'PROCESO'=>'postproduccion'],'FECHA ASC','',''); ?>
-				<ul class="list-group">
+				
+				<?php $procesos_post = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA']],'ORDEN ASC','',''); ?>
+				<ul class="list-group ui-sortable" id="myTab" role="tablist" data-tabla="roles_historial" data-columna="ID">
 					<?php foreach($procesos_post as $proceso){ ?>
-					<li class="list-group-item <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-warning'; } ?>" style="<?php if($proceso->ESTADO=='completo'){ echo 'text-decoration: line-through'; } ?>">
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
-					<b><?php echo $proceso->ETIQUETA; ?></b> | <?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
+					<li class="list-group-item <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-warning'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" style="<?php if($proceso->ESTADO=='completo'){ echo 'text-decoration: line-through'; } ?>" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
+						
+						<b class='text-primary'>#<?php echo $proceso->ORDEN; ?></b> <b><?php echo $proceso->ETIQUETA; ?></b> | <img
+							src="<?php echo base_url('contenido/img/usuarios/'.$detalle_usuario['IMAGEN']); ?>"
+							title="<?php echo $detalle_usuario['USUARIO_NOMBRE']; ?>"
+							width="25px"
+							class="rounded-circle border border-secondary burbuja-sm"
+							alt=""
+							role="button"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"> <?php echo $detalle_usuario['USUARIO_NOMBRE']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
 					</li>
 					<?php } ?>
 				</ul>
 				<button class="btn btn-sm btn-outline-success mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#form-postproduccion" aria-expanded="false" aria-controls="collapseWidthExample">
-					+ Agregar proceso de postproducción
+					+ Agregar y asignar proceso
 				</button>
 				<div class="bg-light m-3 p-3 collapse" id="form-postproduccion">
 					<form action="<?php echo base_url('index.php/tareas/asignar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
@@ -405,14 +336,69 @@
 							<label for="Fecha">Fecha límite de entrega</label>
 							<input type="text" required class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
 						</div>
+						<div class="form-group">
+							<label for="Proceso">Este proceso es parte de</label>
+							<select name="Proceso" id="Proceso" class="form-control">
+								<option value="preproduccion">Preparación (pre-producción)</option>
+								<option value="produccion" selected>Producción (producción)</option>
+								<option value="postproduccion">Revisión (post-producción)</option>
+							</select>
+						</div>
 						<hr>
 						<button type="submit" class="btn btn-primary">Agregar rol</button>
 					</form>
 				</div>
 				<hr>
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formCompletar">
-					Avanzar línea del tiempo
+				<div class="row">
+					<?php $detalles_proceso_actual = $this->GeneralModel->detalles('roles_historial',['ID'=>$tarea['ID_PROCESO']]); ?>
+					<div class="col-6">
+						<?php
+							if(!empty($detalles_proceso_actual)){
+								$proceso_anterior = $this->GeneralModel->detalles('roles_historial',['ID_TAREA'=>$tarea['ID_TAREA'],'ORDEN'=>$detalles_proceso_actual['ORDEN']-1]);
+							}else{
+								$proceso_anterior = null;
+							}
+							?>
+						<?php if(!empty($proceso_anterior)){ ?>
+						<form action="<?php echo base_url('index.php/tareas/completar_rol'); ?>" method="post">
+							<input type="hidden" name="IdProcesoActual" value="<?php echo $tarea['ID_PROCESO']; ?>">
+							<input type="hidden" name="IdProcesoSiguiente" value="<?php echo $proceso_anterior['ID']; ?>">
+							<hr>
+							<button class="btn btn-success w-100"><i class="fa fa-chevron-left"></i> Retroceder línea del tiempo</button>
+						</form>
+						<?php } ?>
+					</div>
+					<div class="col-6">
+						<?php
+						
+						if(!empty($detalles_proceso_actual)){
+							$proceso_siguiente = $this->GeneralModel->detalles('roles_historial',['ID_TAREA'=>$tarea['ID_TAREA'],'ORDEN'=>$detalles_proceso_actual['ORDEN']+1]);
+						}else{
+							$proceso_siguiente = null;
+						}
+						 ?>
+						
+						<?php if(!empty($proceso_siguiente)){ ?>
+						<form action="<?php echo base_url('index.php/tareas/completar_rol'); ?>" method="post">
+							<input type="hidden" name="IdProcesoActual" value="<?php echo $tarea['ID_PROCESO']; ?>">
+							<input type="hidden" name="IdProcesoSiguiente" value="<?php echo $proceso_siguiente['ID']; ?>">
+							<hr>
+							<button class="btn btn-success w-100">Avanzar línea del tiempo <i class="fa fa-chevron-right"></i> </button>
+						</form>
+						<?php }else{ ?>
+							<form action="<?php echo base_url('index.php/tareas/completar_rol_final'); ?>" method="post">
+							<input type="hidden" name="IdProcesoActual" value="<?php echo $tarea['ID_PROCESO']; ?>">
+							<hr>
+							<button class="btn btn-danger w-100">Finalizar tarea <i class="fa fa-chevron-right"></i> </button>
+						</form>
+						<?php } ?>
+					</div>
+				</div>
+				<div>
+					<button type="button" class="btn btn-link w-100" data-bs-toggle="modal" data-bs-target="#formCompletar">
+					Mover en línea del tiempo
 					</button>
+				</div>
 			</div>
 		</div>
 	</div>

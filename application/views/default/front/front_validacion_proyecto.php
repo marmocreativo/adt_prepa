@@ -31,7 +31,7 @@
                                     validados: <b><?php echo $cantidad_validados; ?>/<?php echo $cantidad_parametros; ?></b>
                                 </div>
                                 <?php if(!isset($_GET['tarea'])||$_GET['tarea']!=$tarea->ID_TAREA){ ?>
-                                <a  href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$_GET['fecha_revision'].'&tarea='.$tarea->ID_TAREA); ?>"
+                                <a  href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&tarea='.$tarea->ID_TAREA); ?>"
                                     class="btn btn-outline-primary btn-xs">Revisar</a>                                
                                 <?php } ?>
                                 <?php if(isset($_GET['tarea'])&&$_GET['tarea']==$tarea->ID_TAREA){ ?>

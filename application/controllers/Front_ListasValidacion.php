@@ -309,6 +309,10 @@ class Front_ListasValidacion extends CI_Controller {
 			//borro las dimensiones
 			$this->GeneralModel->borrar('validacion_dimension',['ID_LISTA'=>$lista['ID_LISTA']]);
 
+			// Borro las revisiones
+				$this->GeneralModel->borrar('validacion_revisiones',['ID_LISTA'=>$lista['ID_LISTA']]);
+				$this->GeneralModel->borrar('validacion_respuesta',['ID_LISTA'=>$lista['ID_LISTA']]);
+
 			//borro la lista
 			$this->GeneralModel->borrar('validacion_lista',['ID_LISTA'=>$_GET['id']]);
 

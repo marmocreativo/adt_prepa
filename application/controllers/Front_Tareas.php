@@ -194,29 +194,40 @@ class Front_Tareas extends CI_Controller {
 
 	public function detalles(){
 		$this->data['tarea'] = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['id']]);
-		$this->data['tipo'] = $this->data['tarea']['TIPO'];
-		// Open Tags
-		$this->data['titulo']  = $this->data['tarea']['TAREA_TITULO'];
-		$this->data['descripcion']  = $this->data['tarea']['TAREA_DESCRIPCION'];
-		$this->data['imagen']  = base_url('contenido/img/proyectos/default.jpg');
-		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'tarea'],'','','');
-		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
-		$this->data['todos_usuarios'] = $this->GeneralModel->lista('usuarios','','','','','');
-		$this->data['array_usuarios'] = array();
-		foreach($this->data['todos_usuarios'] as $user_data){
-			$this->data['array_usuarios'][$user_data->ID_USUARIO]= array(
-				'NOMBRE' => $user_data->USUARIO_NOMBRE.' '.$user_data->USUARIO_APELLIDOS,
-				'CORREO' => $user_data->USUARIO_CORREO,
-				'IMAGEN' => $user_data->IMAGEN,
-				'USUARIO_TELEFONO' => $user_data->USUARIO_TELEFONO,
-			);
-		}
+		if(!empty($this->data['tarea'])){
+			$this->data['tipo'] = $this->data['tarea']['TIPO'];
+				// Open Tags
+				$this->data['titulo']  = $this->data['tarea']['TAREA_TITULO'];
+				$this->data['descripcion']  = $this->data['tarea']['TAREA_DESCRIPCION'];
+				$this->data['imagen']  = base_url('contenido/img/proyectos/default.jpg');
+				$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'tarea'],'','','');
+				$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+				$this->data['todos_usuarios'] = $this->GeneralModel->lista('usuarios','','','','','');
+				$this->data['array_usuarios'] = array();
+				foreach($this->data['todos_usuarios'] as $user_data){
+					$this->data['array_usuarios'][$user_data->ID_USUARIO]= array(
+						'NOMBRE' => $user_data->USUARIO_NOMBRE.' '.$user_data->USUARIO_APELLIDOS,
+						'CORREO' => $user_data->USUARIO_CORREO,
+						'IMAGEN' => $user_data->IMAGEN,
+						'USUARIO_TELEFONO' => $user_data->USUARIO_TELEFONO,
+					);
+				}
 
-		// Cargo Vistas
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_tareas',$this->data);
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_detalles_tarea',$this->data);
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+				// Cargo Vistas
+				$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_tareas',$this->data);
+				$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_detalles_tarea',$this->data);
+				$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+		}else{
+				$this->data['titulo']  = 'Tarea no encontrada';
+				$this->data['descripcion']  = 'El contenido al que intentaste acceder no está disponible';
+				$this->data['imagen']  = base_url('contenido/img/proyectos/default.jpg');
+
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_tarea_no_encontrada',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+		}
 	}
+		
 
 	public function borrar()
 	{
@@ -229,7 +240,7 @@ class Front_Tareas extends CI_Controller {
 		$this->GeneralModel->borrar('validacion_revisiones',['ID_TAREA'=>$_GET['id']]);
 		$this->GeneralModel->borrar('validacion_respuesta',['ID_TAREA'=>$_GET['id']]);	
 
-		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
+		redirect(base_url('index.php/proyectos/detalles?id='.$detalles_tarea['ID_PROYECTO']));
 	}
 
 
@@ -632,12 +643,20 @@ class Front_Tareas extends CI_Controller {
 	public function asignar_rol()
 	{
 		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_POST['IdTarea']]);
+		$ultimo_orden = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$_POST['IdTarea']],'ORDEN DESC','1','');
+		$nuevo_orden = 0;
+		if(!empty($ultimo_orden)){
+			foreach($ultimo_orden as $ultimo){
+				$nuevo_orden = $ultimo->ORDEN+1;
+			}
+		}
 		$parametros = array(
 			'ID_TAREA' => $_POST['IdTarea'],
 			'ID_USUARIO' => $_POST['IdUsuario'],
 			'ETIQUETA' => $_POST['Etiqueta'],
 			'PROCESO' => $_POST['Proceso'],
 			'FECHA' => date('Y-m-d 00:00:00', strtotime($_POST['Fecha'])),
+			'ORDEN' => $nuevo_orden,
 			'ESTADO' => 'pendiente',
 			'FECHA_TERMINADO' => null
 		);
@@ -690,6 +709,11 @@ class Front_Tareas extends CI_Controller {
 			'FECHA_TERMINADO'=>date('Y-m-d H:i:s')
 		];
 
+		$parametros_siguientes = [
+			'ESTADO'=>'pendiente',
+			'FECHA_TERMINADO'=>null
+		];
+
 		$parametros_notificacion = array(
 			'ID_USUARIO' => $detalles_proceso_siguiente['ID_USUARIO'],
 			'ENLACE'=> base_url('index.php/tareas/detalles?id='.$detalles_proceso_siguiente['ID_TAREA']),
@@ -703,7 +727,45 @@ class Front_Tareas extends CI_Controller {
 		
 
 		$this->GeneralModel->actualizar('roles_historial',['ID'=>$_POST['IdProcesoActual']],$parametros_actual);
+		$this->GeneralModel->actualizar('roles_historial',['ID_TAREA'=>$detalles_tarea['ID_TAREA'],'ORDEN >='=>$detalles_proceso_siguiente['ORDEN']],$parametros_siguientes);
 		$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']],['ID_PROCESO'=>$detalles_proceso_siguiente['ID']]);
+		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
+	}
+
+	public function completar_rol_final()
+	{
+		
+		$detalles_proceso = $this->GeneralModel->detalles('roles_historial',['ID'=>$_POST['IdProcesoActual']]);
+		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']]);
+		$usuarios_participantes = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$detalles_proceso['ID_TAREA']],'','','');
+
+		$parametros_actual = [
+			'ESTADO'=>'completo',
+			'FECHA_TERMINADO'=>date('Y-m-d H:i:s')
+		];
+
+		$parametros_tarea = [
+			'ESTADO'=>'completo',
+			'FECHA_ENTREGA'=>date('Y-m-d'),
+			'ID_PROCESO'=>''
+		];
+
+		foreach($usuarios_participantes as $usuario){
+			$parametros_notificacion = array(
+				'ID_USUARIO' => $usuario->ID_USUARIO,
+				'ENLACE'=> base_url('index.php/tareas/detalles?id='.$usuario->ID_TAREA),
+				'GRUPO'=>'tareas',
+				'NOTIFICACION_CONTENIDO'=>'¡Buen trabajo!, Se ha completado la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b>',
+				'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+				'ESTADO'=>'pendiente'
+			);
+			$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+		}
+	
+		
+
+		$this->GeneralModel->actualizar('roles_historial',['ID'=>$_POST['IdProcesoActual']],$parametros_actual);
+		$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']],$parametros_tarea);
 		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
 	}
 

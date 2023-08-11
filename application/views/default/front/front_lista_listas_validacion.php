@@ -8,7 +8,7 @@
 					<div class="row">
 						<div class="col-9">
 							<div class="form-group">
-								<input type="text" name="Titulo" class="form-control" placeholder='Título de la lista de cotejo'>
+								<input type="text" name="Titulo" class="form-control" placeholder='Título de la lista de cotejo' required>
 							</div>
 						</div>
 						<div class="col-3">

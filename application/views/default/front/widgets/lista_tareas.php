@@ -28,7 +28,6 @@ $icono = "far fa-clock";
       </li>
     <?php } ?>
   <li>
-    <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
       <div class="row">
         <?php
           // variables de estado
@@ -58,12 +57,17 @@ $icono = "far fa-clock";
         <div class="col-2 col-md-1 fondo-icono d-flex justify-content-center align-items-center">
           <i class="<?php echo $icono.' '.$color; ?>"></i>
         </div>
-        <div class="col-10 col-md-8 d-flex justify-content-start align-items-center pt-2">
+        <div class="col-9 col-md-8 d-flex justify-content-start align-items-center pt-2">
+          <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
           <p title="<?php echo $tarea->ESTADO; ?>" style="word-break: break-word;"> <?php echo $tarea->TAREA_TITULO; ?></p>
+          </a>
+        </div>
+        <div class="col-1 col-md-3">
+        <button data-enlace="<?php echo base_url('index.php/tareas/borrar?id='.$tarea->ID_TAREA); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar tarea</button>
         </div>
 
       </div>
-    </a>
+   
   </li>
 <?php } ?>
 </ul>

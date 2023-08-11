@@ -51,16 +51,19 @@ class Admin_Inicio extends CI_Controller {
 
 	public function index()
 	{	
-		$lista_respuestas = $this->GeneralModel->lista('validacion_respuesta','','','','','');
-		foreach($lista_respuestas as $respuesta){
-			$numero = rand(1, 100); // Genera un número aleatorio entre 1 y 100
+		// Carga la librería dbforge
+		$this->load->dbforge();
 
-			if ($numero >= 1 && $numero <= 10) {
-				$this->GeneralModel->actualizar('validacion_respuesta',['ID_RESPUESTA'=>$respuesta->ID_RESPUESTA],['VALOR'=>'validada']);
-			}else{
-				$this->GeneralModel->actualizar('validacion_respuesta',['ID_RESPUESTA'=>$respuesta->ID_RESPUESTA],['VALOR'=>'']);
-			}
-		}
+		// Define la información de la columna a agregar
+		$column = array(
+			'ORDEN' => array(
+				'type' => 'INT',
+				'default' => 0
+			)
+		);
+
+		// Agrega la columna a la tabla roles_historial
+		$this->dbforge->add_column('roles_historial', $column);
 	}
 	
 	public function ajuste_areas()

@@ -304,32 +304,48 @@ class Front_Proyectos extends CI_Controller {
 
 	public function detalles(){
 		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);
-		$this->data['tipo'] = $this->data['proyecto']['TIPO'];
-		// Open Tags
-		$this->data['titulo']  = $this->data['proyecto']['PROYECTO_NOMBRE'];
-		$this->data['descripcion']  = $this->data['proyecto']['PROYECTO_DESCRIPCION'];
-		$this->data['imagen']  = base_url('contenido/img/proyectos/'.$this->data['proyecto']['IMAGEN']);
+		if(!empty($this->data['proyecto'])){
+			$this->data['tipo'] = $this->data['proyecto']['TIPO'];
+			// Open Tags
+			$this->data['titulo']  = $this->data['proyecto']['PROYECTO_NOMBRE'];
+			$this->data['descripcion']  = $this->data['proyecto']['PROYECTO_DESCRIPCION'];
+			$this->data['imagen']  = base_url('contenido/img/proyectos/'.$this->data['proyecto']['IMAGEN']);
 
-		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'proyecto'],'','','');
-		$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
+			$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'proyecto'],'','','');
+			$this->data['meta_datos'] = array(); foreach($this->data['meta'] as $m){ $this->data['meta_datos'][$m->DATO_NOMBRE]= $m->DATO_VALOR; }
 
-		// Variables de busqueda
-		$parametros_and = array();
-		$parametros_or = array();
+			// Variables de busqueda
+			$parametros_and = array();
+			$parametros_or = array();
 
-		$parametros_and['tareas.ID_PROYECTO'] = $_GET['id'];
+			$parametros_and['tareas.ID_PROYECTO'] = $_GET['id'];
 
-		$tablas_join = array();
+			$tablas_join = array();
 
 
-		// Consultas
-		$this->data['equipos'] = $this->GeneralModel->lista('equipos','',['ESTADO'=>'activo'],'','','');
-		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','','');
+			// Consultas
+			$this->data['equipos'] = $this->GeneralModel->lista('equipos','',['ESTADO'=>'activo'],'','','');
+			$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','','');
 
-		// Cargo Vistas
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_proyectos',$this->data);
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_detalles_proyecto',$this->data);
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+			// Cargo Vistas
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_proyectos',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_detalles_proyecto',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+
+		}else{
+
+			// Open Tags
+			$this->data['titulo']  = 'Proyecto no encontrado';
+			$this->data['descripcion']  = 'El contenido al que intentaste acceder no está disponible';
+			$this->data['imagen']  = base_url('contenido/img/proyectos/default.jpg');
+
+			// Cargo Vistas
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_proyecto_no_encontrado',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+
+		}
+		
 	}
 
 	public function borrar(){
@@ -351,9 +367,14 @@ class Front_Proyectos extends CI_Controller {
 							$this->GeneralModel->borrar('tareas_mensajes',['ID_TAREA'=>$tarea->ID_TAREA]);
 							//echo 'Borrar los mensajes de las tareas con ID: '.$tarea->ID_TAREA;
 							//echo '<br>';
+							$this->GeneralModel->borrar('tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
+							$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
+							$this->GeneralModel->borrar('tareas_mensajes',['ID_TAREA'=>$tarea->ID_TAREA]);	
+							$this->GeneralModel->borrar('validacion_revisiones',['ID_TAREA'=>$tarea->ID_TAREA]);
+							$this->GeneralModel->borrar('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA]);	
 						}
 
-						$this->GeneralModel->borrar('tareas',['ID_PROYECTO'=>$_GET['id']]);
+						
 						//echo 'Borrar tareas con el ID_PROYECTO: '.$_GET['id'];
 						//echo '<br>';
 						// Mensaje Feedback
@@ -456,7 +477,7 @@ class Front_Proyectos extends CI_Controller {
 		// Consultas
 		$this->data['equipos'] = $this->GeneralModel->lista('equipos','',['ESTADO'=>'activo'],'','','');
 		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','','');
-		$this->data['revisiones'] = $this->GeneralModel->lista('validacion_revisiones','',['ID_PROYECTO'=>$_GET['id'],'FECHA'=>$_GET['fecha_revision']],'','','');
+		$this->data['revisiones'] = $this->GeneralModel->lista('validacion_revisiones','',['ID_PROYECTO'=>$_GET['id']],'','','');
 		// Cargo Vistas
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_proyectos',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_validacion_proyecto',$this->data);
@@ -529,5 +550,6 @@ class Front_Proyectos extends CI_Controller {
 	         redirect(base_url('index.php/proyectos'));
 				}
 	}
+
 
 }
