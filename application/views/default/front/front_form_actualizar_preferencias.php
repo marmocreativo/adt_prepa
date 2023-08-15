@@ -34,6 +34,15 @@
 					<option value="si" <?php if(isset($arreglo_preferencias['modo_noche'])){ if($arreglo_preferencias['modo_noche']=='si'){ echo 'selected'; } } ?>>Activo</option>
 				</select>
 			</div>
+			<div class="form-group">
+				<label for="Preferencias[notificaciones]">Recibir notificaciones por</label>
+				<select class="form-control" name="Preferencias[notificaciones]">
+					<option value="correo_y_sistema" <?php if(isset($arreglo_preferencias['notificaciones'])){ if($arreglo_preferencias['notificaciones']=='correo_y_sistema'){ echo 'selected'; } } ?>>Correo y sistema</option>
+					<option value="sistema" <?php if(isset($arreglo_preferencias['notificaciones'])){ if($arreglo_preferencias['notificaciones']=='sistema'){ echo 'selected'; } } ?>>Solo sistema</option>
+				</select>
+			</div>
+			
+			<hr>
 			<button type="submit" class="btn btn-success w-100"> <i class="fa fa-save"></i> Actualizar</button>
 		</div>
 

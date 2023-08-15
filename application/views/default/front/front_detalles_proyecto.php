@@ -168,7 +168,12 @@
 										</td>
 										<td>
 											<?php
+											if($revision->TOTAL_PARAMETROS==0){
+												$porcentaje_avance = 0;
+											}else{
 												$porcentaje_avance = round(($revision->TOTAL_VERIFICADOS*100)/$revision->TOTAL_PARAMETROS , 2);
+											}
+												
 											?>
 											<div class="progress" role="progressbar" aria-label="Progreso" aria-valuenow="<?php echo $porcentaje_avance; ?>" aria-valuemin="0" aria-valuemax="100">
 											<div class="progress-bar" style="width: <?php echo $porcentaje_avance; ?>%"></div>
@@ -182,6 +187,7 @@
 												<?php } ?>
 												<?php if($revision->ESTADO=='finalizado'){ ?>
 												<a href="<?php echo base_url('index.php/proyectos/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$revision->ID_REVISION.'&fecha_revision='.$revision->FECHA); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
+												<button data-enlace="<?php echo base_url('index.php/proyectos/copiar_validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$revision->ID_REVISION); ?>" class="ml-2 btn btn-warning btn-sm borrar_entrada"> <i class="fa fa-copy"></i> Revalidar</a>
 												<?php } ?>
 											</div>
 										</td>

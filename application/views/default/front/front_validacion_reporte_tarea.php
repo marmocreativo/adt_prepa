@@ -76,10 +76,11 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
                                 <tr class="<?php echo $clase_parametro; ?>">
 
                                     <td>
-                                        <p><?php echo $parametro->TITULO; ?> <?php if($respuesta['VALOR']=='validada'){ echo '<i class="fa fa-check text-success"></i>';}else{ echo '<i class="fa fa-times text-danger"></i>'; } ?></p>
+                                        <p><?php if($respuesta['VALOR']=='validada'){ echo '<i class="fa fa-x3 fa-check text-success"></i>';}else{ echo '<i class="fa fa-x3 fa-times text-danger"></i>'; } ?> <?php echo $parametro->TITULO; ?> </p>
                                         
                                     </td>
-                                    <td>
+                                    <td>   
+                                        <p><b>Comentario:</p></p>
                                          <p><?php if(!empty($respuesta['COMENTARIOS'])){ echo $respuesta['COMENTARIOS']; }else{ echo '-'; } ?></p>
                                     </td>
 

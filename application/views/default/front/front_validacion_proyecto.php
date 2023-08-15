@@ -275,7 +275,7 @@
                                                     <div class="input-group">
                                                     <div>
                                                         <label for="comentario-<?php echo $respuesta['ID_RESPUESTA']; ?>" class="form-label text-secondary">Comentarios</label>
-                                                        <textarea class="form-control comentario-respuesta" data-respuesta='<?php echo $respuesta['ID_RESPUESTA']; ?>' id="comentario-<?php echo $respuesta['ID_RESPUESTA']; ?>" rows="2"><?php echo $respuesta['COMENTARIOS'] ?></textarea>
+                                                        <textarea class="form-control TextEditorSmall comentario-respuesta" data-respuesta='<?php echo $respuesta['ID_RESPUESTA']; ?>' id="comentario-<?php echo $respuesta['ID_RESPUESTA']; ?>" rows="2"><?php echo $respuesta['COMENTARIOS'] ?></textarea>
                                                     </div>
                                                     </div>
                                                 </div>

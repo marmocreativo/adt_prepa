@@ -501,6 +501,53 @@ class Front_Proyectos extends CI_Controller {
 		redirect(base_url('index.php/proyectos/detalles?id='.$_GET['id']));
 	}
 
+	public function copiar_validacion()
+	{
+		$detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+		$lista_respuestas = $this->GeneralModel->lista('validacion_respuesta','',['ID_REVISION'=>$detalles_revision['ID_REVISION'],'VALOR'=>''],'','','');
+		
+		$parametros_revision = array(
+			'ID_PROYECTO' => $detalles_revision['ID_PROYECTO'],
+			'ID_TAREA'=> $detalles_revision['ID_TAREA'],
+			'ID_ENLACE'=> $detalles_revision['ID_ENLACE'],
+			'ID_LISTA'=> $detalles_revision['ID_LISTA'],
+			'FECHA'=> date('Y-m-d H:i:s'),
+			'ID_RESPONSABLE'=> $detalles_revision['ID_RESPONSABLE'],
+			'TOTAL_PARAMETROS'=> $detalles_revision['TOTAL_PARAMETROS'],
+			'TOTAL_VERIFICADOS'=> 0,
+			'ESTADO'=> 'activo',
+			'TIPO'=> 'revalidacion',
+			'FECHA_LIMITE'=> date('Y-m-d H:i:s', strtotime('today + 3 days'))
+		);
+		
+		$id_revision = $this->GeneralModel->crear('validacion_revisiones',$parametros_revision);
+		$i = 0;
+		foreach($lista_respuestas as $respuesta){
+			$parametros_respuesta = array(
+				'ID_REVISION' => $id_revision,
+				'ID_TAREA' => $respuesta->ID_TAREA,
+				'ID_ENLACE' => $respuesta->ID_ENLACE,
+				'ID_PARAMETRO' => $respuesta->ID_PARAMETRO,
+				'ID_RESPONSABLE' => $respuesta->ID_RESPONSABLE,
+				'VALOR' => '',
+				'COMENTARIOS' => '',
+				'ID_LISTA' => $respuesta->ID_LISTA,
+				'ID_DIMENSION' => $respuesta->ID_DIMENSION,
+				'TITULO' => $respuesta->TITULO
+				
+			);
+			$id_resuesta = $this->GeneralModel->crear('validacion_respuesta',$parametros_respuesta);
+			$i ++;
+		}
+
+		$parametros_revision_act = array(
+			'TOTAL_PARAMETROS'=> $i
+		);
+		$this->GeneralModel->actualizar('validacion_revisiones',['ID_REVISION'=>$id_revision],$parametros_revision_act);
+
+		redirect(base_url('index.php/proyectos/detalles?id='.$detalles_revision['ID_PROYECTO']));
+	}
+
 	public function validacion_reporte()
 	{
 		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);

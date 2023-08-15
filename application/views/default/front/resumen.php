@@ -60,13 +60,15 @@
 
 				$lista_usuarios = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea->ID_TAREA],'','','');
 				foreach($lista_usuarios as $list_usuario){
-					$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS'] ++;
-					$fecha_final = '';
-					if($tarea->FECHA_FINAL != null ){ $fecha_final = $tarea->FECHA_FINAL; } 
-					if(date('Y-m-d')>date('Y-m-d', strtotime($fecha_final))){
-						$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS_ATRASADAS'] ++;
-					}else{
-						$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS_PENDIENTES'] ++;
+					if(isset($array_usuarios[$list_usuario->ID_USUARIO])){
+						$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS'] ++;
+						$fecha_final = '';
+						if($tarea->FECHA_FINAL != null ){ $fecha_final = $tarea->FECHA_FINAL; } 
+						if(date('Y-m-d')>date('Y-m-d', strtotime($fecha_final))){
+							$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS_ATRASADAS'] ++;
+						}else{
+							$array_usuarios[$list_usuario->ID_USUARIO]['TAREAS_PENDIENTES'] ++;
+						}
 					}
 				}
 			}

@@ -51,6 +51,7 @@ class Admin_Inicio extends CI_Controller {
 
 	public function index()
 	{	
+<<<<<<< Updated upstream
 		// Carga la librería dbforge
 		$this->load->dbforge();
 
@@ -64,6 +65,28 @@ class Admin_Inicio extends CI_Controller {
 
 		// Agrega la columna a la tabla roles_historial
 		$this->dbforge->add_column('roles_historial', $column);
+=======
+		// Cargar la biblioteca dbforge
+			$this->load->dbforge();
+
+			// Definir el nombre de la tabla y la columna a agregar
+			$table_name = 'validacion_revisiones';
+			$column_name = 'TIPO';
+
+			// Definir las características de la columna
+			$fields = array(
+				$column_name => array(
+					'type' => 'VARCHAR',
+					'constraint' => 255,
+					'default' => 'validacion',
+				),
+			);
+
+			// Agregar la columna a la tabla
+			$this->dbforge->add_column($table_name, $fields);
+
+			echo 'Columna agregada exitosamente.';
+>>>>>>> Stashed changes
 	}
 	
 	public function ajuste_areas()

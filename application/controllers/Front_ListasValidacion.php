@@ -289,7 +289,7 @@ class Front_ListasValidacion extends CI_Controller {
 		redirect(base_url('index.php/listas/dimensiones?id='.$_POST['IdLista'].'&dimension='.$_POST['IdDimension']));
 	}
 
-	public function borrar_lista(){
+	public function borrar_lista_permanente(){
 		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_GET['id']]);
 		
 
@@ -322,6 +322,18 @@ class Front_ListasValidacion extends CI_Controller {
 					//  Redirecciono
 		redirect(base_url('index.php/listas'));
 		}
+	}
+
+	public function borrar_lista(){
+		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_GET['id']]);
+		
+        $parametros = array(
+			'ESTADO' => 'borrado'
+		);
+
+		$this->GeneralModel->actualizar('validacion_lista',['ID_LISTA'=>$_GET['id']],$parametros);
+		redirect(base_url('index.php/listas'));
+		
 	}
 
 	public function borrar_dimension(){
@@ -379,6 +391,7 @@ class Front_ListasValidacion extends CI_Controller {
 		}
 	}
 
+<<<<<<< Updated upstream
 	public function reparar_fantasmas ()
 	{
 		$parametros = $this->GeneralModel->lista_agrupada('validacion_parametros','','','','ID_DIMENSION');
@@ -397,5 +410,7 @@ class Front_ListasValidacion extends CI_Controller {
 		}
 	}
 
+=======
+>>>>>>> Stashed changes
 
 }
