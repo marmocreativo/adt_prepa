@@ -2,3 +2,4 @@
 application/config/config.php
 application/config/database.php
 application/models/GeneralModel.php
+application/config/config.php

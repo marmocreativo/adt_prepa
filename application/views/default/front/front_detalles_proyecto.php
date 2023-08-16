@@ -19,7 +19,7 @@
 <div class="row ">
 	<div class="col-12">
 		<div class=" <?php echo $modo; ?>">
-			<h4><?php echo $proyecto['PROYECTO_NOMBRE'] ?>
+			<h2><b><?php echo $proyecto['PROYECTO_NOMBRE'] ?>
 			<?php
 				switch ($proyecto['ESTADO']) {
 					case 'en desarrollo':
@@ -43,47 +43,59 @@
 						break;
 				}
 			?>
-			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></span></h4>
-			<?php echo $proyecto['PROYECTO_DESCRIPCION']; ?>
-				<p><i class="fas fa-calendar-plus"></i> <b>Duración</b>
-					<span><?php if($proyecto['FECHA_INICIO'] != null ){ echo fechas_es($proyecto['FECHA_INICIO']); }else{ echo 'N/A'; } ?></span> -
-					<span><?php if($proyecto['FECHA_FINAL'] != null ){ echo fechas_es($proyecto['FECHA_FINAL']); }else{ echo 'N/A'; } ?></span>
-					<span><?php echo $proyecto['ESTADO']; ?></span>
-				</p>
-			<div class="row pb-2 mb-2 border-bottom">
-				<?php if(!empty($proyecto['ENLACE_EDITABLE'])){ ?>
-				<div class="col-12 col-md-6">
-					<div class="enlace_carpetas">
-						<a href="<?php echo $proyecto['ENLACE_EDITABLE']; ?>"> <i class="fa fa-tools"></i> Editables </a>
-					</div>
+			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></span></b></h2>
+			
+			<div class="d-flex align-items-center border-bottom border-top p-2 bg-secondary bg-opacity-10">
+			    <div class="p-2 pe-4 border-end">
+				    <i class="fas fa-calendar mb-3 pe-2"></i>Duración</br>
+					<b><span><?php if($proyecto['FECHA_INICIO'] != null ){ echo fechas_es($proyecto['FECHA_INICIO']); }else{ echo 'N/A'; } ?></span> -
+					<span><?php if($proyecto['FECHA_FINAL'] != null ){ echo fechas_es($proyecto['FECHA_FINAL']); }else{ echo 'N/A'; } ?></span></b>
 				</div>
-				<?php } ?>
-				<?php if(!empty($proyecto['ENLACE_ENTREGABLE'])){ ?>
-				<div class="col-12 col-md-6">
-					<div class="enlace_carpetas">
-						<a href="<?php echo $proyecto['ENLACE_ENTREGABLE']; ?>"><i class="fa fa-folder"></i> Entregables</a>
-					</div>
+			    <div class="py-2 px-4 border-end">
+				    <i class="fa-solid fa-bars-progress mb-3 pe-2"></i></i>Estado</br>
+					<b><span><?php echo $proyecto['ESTADO']; ?></span></b>
 				</div>
-				<?php } ?>
+			    <div class="me-auto py-2 px-4 border-end">
+				    <i class="fa-solid fa-folder mb-2 pe-2"></i></i>Carpetas y documentos</br>
+					<div class="btn-group"> 
+					    <?php if(!empty($proyecto['ENLACE_EDITABLE'])){ ?>
+						    <a class="enlace_carpetas btn btn-outline-secondary border-secondary-subtle" href="<?php echo $proyecto['ENLACE_EDITABLE']; ?>" target="_blank"> <i class="fa fa-tools"></i> Editables </a>
+				        <?php } ?>
+					    <?php if(!empty($proyecto['ENLACE_ENTREGABLE'])){ ?>
+						    <a class="enlace_carpetas btn btn-outline-secondary border-secondary-subtle" href="<?php echo $proyecto['ENLACE_ENTREGABLE']; ?>" target="_blank"><i class="fa fa-folder"></i> Entregables</a>
+				        <?php } ?>
+                    </div>
+				</div>
+                <div class="p-2">
+				    <a href="<?php echo base_url('index.php/proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-secondary btn-sm "> <i class="fas fa-pencil-alt"></i></a>
+				</div>
+                <div class="p-2">
+				    <button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="ml-2 btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i></button>
+				</div>
+			    </div>
 			</div>
 
-			<a href="<?php echo base_url('index.php/proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline btn-sm"> <i class="fas fa-pencil-alt"></i> Editar</a>
-			<button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</button>
-			<button type="button" class="ml-2 btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"> Validaciones del proyecto</button>
+			<div class="row py-3 border-bottom border-top">
+			    <h5>Validaciones del proyecto</h5>
+				<button type="button" class="ml-2 btn btn-info" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"><i class="fa-solid fa-list-check"></i> Validaciones del proyecto</button>
+			</div>
+
+			<div class="row pb-2 my-4 descripcion">
+				<div class="col-12"><?php echo $proyecto['PROYECTO_DESCRIPCION']; ?></div>
+			</div>
 		</div>
 	</div>
-	</div>
 	<div class="row">
-	<div class="col-12 d-flex justify-content-between mt-4 mb-2">
+	    <div class="col-12 d-flex justify-content-between mt-4 mb-2">
 			<h5>Tareas</h5>
-		<?php if($proyecto['ESTADO']!='terminado'){ ?>
+		    <?php if($proyecto['ESTADO']!='terminado'){ ?>
 			<button type="button" class="btn btn-sm px-4 rounded-pill btn-outline-primary" data-bs-toggle="modal" data-bs-target="#NuevaTarea" title="Nueva tarea">
 				<i class="fa fa-plus"></i> Nueva tarea
 			</button>
-		<?php } ?>
-	</div>
+		    <?php } ?>
+	    </div>
 		<div class="col-12">
-		<?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_tareas', $tareas); ?>
+		    <?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_tareas', $tareas); ?>
 		</div>
 	</div>
 </div>
