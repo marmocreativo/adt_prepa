@@ -702,7 +702,7 @@ class Front_Tareas extends CI_Controller {
 		
 		$detalles_proceso = $this->GeneralModel->detalles('roles_historial',['ID'=>$_POST['IdProcesoActual']]);
 		$detalles_proceso_siguiente = $this->GeneralModel->detalles('roles_historial',['ID'=>$_POST['IdProcesoSiguiente']]);
-		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']]);
+		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$detalles_proceso_siguiente['ID_TAREA']]);
 
 		$parametros_actual = [
 			'ESTADO'=>'completo',
