@@ -686,13 +686,36 @@ class Front_Tareas extends CI_Controller {
 
 	public function borrar_rol()
 	{
+
+		$parametros_tarea = array();
+		$parametros_proceso = array();
 		$detalles_proceso = $this->GeneralModel->detalles('roles_historial',['ID'=>$_GET['id']]);
+		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']]);
+		if($detalles_proceso['ID']==$detalles_tarea['ID_PROCESO']){
+			$ultimo_proceso_pendiente = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$detalles_proceso['ID_TAREA'],'ESTADO'=='pendiente'],'ORDEN ASC','',1);
+			if(!empty($ultimo_proceso_pendiente)){
+				foreach($ultimo_proceso_pendiente as $proceso_pendiente){
+				$parametros_tarea['ID_PROCESO'] = $proceso_pendiente->ID;
+				}
+			}else{
+				$ultimo_proceso_completado = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$detalles_proceso['ID_TAREA'],'ESTADO'=='completo'],'ORDEN DESC','',1);
+				if(!empty($ultimo_proceso_completado)){
+					foreach($ultimo_proceso_completado as $proceso_completado){
+					$parametros_tarea['ID_PROCESO'] = $proceso_completado->ID;
+					}
+				}else{
+					$parametros_tarea['ID_PROCESO'] = null;
+				}
+			}
+		}else{
+			$parametros_tarea['ID_PROCESO'] = $detalles_tarea['ID_PROCESO'];
+		}
+		
 
-		$parametros = [
-			'ID'=>$_GET['id']
-		];
+		$parametros_proceso['ID'] = $_GET['id'];
 
-		$this->GeneralModel->borrar('roles_historial',$parametros);
+		$this->GeneralModel->borrar('roles_historial',$parametros_proceso);
+		$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_tarea['ID_TAREA']],$parametros_tarea);
 
 		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
 	}
@@ -767,6 +790,56 @@ class Front_Tareas extends CI_Controller {
 		$this->GeneralModel->actualizar('roles_historial',['ID'=>$_POST['IdProcesoActual']],$parametros_actual);
 		$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']],$parametros_tarea);
 		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
+	}
+
+	public function reparar_tareas(){
+		$tareas = $this->GeneralModel->lista('tareas','','','','','');
+		$parametros_tarea = array();
+		foreach($tareas as $tarea){
+			if(!empty($tarea->ID_PROCESO)){
+				$detalles_proceso_ativo = $this->GeneralModel->detalles('roles_historial',['ID'=>$tarea->ID_PROCESO]);
+				if(!empty($detalles_proceso_ativo)){
+					echo '<p style="color: green">'.$tarea->TAREA_TITULO.' | '.$detalles_proceso_ativo['ETIQUETA'].'</p>';
+				}else{
+					echo '<p style="color: red">'.$tarea->TAREA_TITULO.' | No hay proceso</p>';
+					$ultimo_proceso_pendiente = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA,'ESTADO'=='pendiente'],'ORDEN ASC','',1);
+					if(!empty($ultimo_proceso_pendiente)){
+						foreach($ultimo_proceso_pendiente as $proceso_pendiente){
+						$parametros_tarea['ID_PROCESO'] = $proceso_pendiente->ID;
+						}
+					}else{
+						$ultimo_proceso_completado = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA,'ESTADO'=='completo'],'ORDEN DESC','',1);
+						if(!empty($ultimo_proceso_completado)){
+							foreach($ultimo_proceso_completado as $proceso_completado){
+							$parametros_tarea['ID_PROCESO'] = $proceso_completado->ID;
+							}
+						}else{
+							$parametros_tarea['ID_PROCESO'] = null;
+						}
+					}
+					$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$tarea->ID_TAREA],$parametros_tarea);
+				}
+			}else{
+				echo '<p style="color: yellow">'.$tarea->TAREA_TITULO.' | No hay proceso</p>';
+				$ultimo_proceso_pendiente = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA,'ESTADO'=='pendiente'],'ORDEN ASC','',1);
+				if(!empty($ultimo_proceso_pendiente)){
+					foreach($ultimo_proceso_pendiente as $proceso_pendiente){
+					$parametros_tarea['ID_PROCESO'] = $proceso_pendiente->ID;
+					}
+				}else{
+					$ultimo_proceso_completado = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA,'ESTADO'=='completo'],'ORDEN DESC','',1);
+					if(!empty($ultimo_proceso_completado)){
+						foreach($ultimo_proceso_completado as $proceso_completado){
+						$parametros_tarea['ID_PROCESO'] = $proceso_completado->ID;
+						}
+					}else{
+						$parametros_tarea['ID_PROCESO'] = null;
+					}
+				}
+				$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$tarea->ID_TAREA],$parametros_tarea);
+			}
+			
+		}
 	}
 
 }

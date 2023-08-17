@@ -391,26 +391,5 @@ class Front_ListasValidacion extends CI_Controller {
 		}
 	}
 
-<<<<<<< Updated upstream
-	public function reparar_fantasmas ()
-	{
-		$parametros = $this->GeneralModel->lista_agrupada('validacion_parametros','','','','ID_DIMENSION');
-		
-		foreach($parametros as $parametro){
-			$detalles_dimension = $this->GeneralModel->detalles('validacion_dimension',['ID_DIMENSION'=>$parametro->ID_DIMENSION]);
-			$dimension = '-';
-			if(empty($detalles_dimension)){
-				$this->GeneralModel->borrar('validacion_parametros',['ID_PARAMETRO'=>$parametro->ID_PARAMETRO]);
-			}else{
-				var_dump($detalles_dimension);
-				echo '<hr>';
-			}
-			
-
-		}
-	}
-
-=======
->>>>>>> Stashed changes
 
 }
