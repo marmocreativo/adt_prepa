@@ -19,7 +19,7 @@
 <div class="row ">
 	<div class="col-12">
 		<div class=" <?php echo $modo; ?>">
-			<h2><b><?php echo $proyecto['PROYECTO_NOMBRE'] ?>
+			<h3><b><?php echo $proyecto['PROYECTO_NOMBRE'] ?>
 			<?php
 				switch ($proyecto['ESTADO']) {
 					case 'en desarrollo':
@@ -43,7 +43,7 @@
 						break;
 				}
 			?>
-			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></span></b></h2>
+			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $proyecto['ESTADO'] ?></span></b></h3>
 			
 			<div class="d-flex align-items-center border-bottom border-top p-2 bg-secondary bg-opacity-10">
 			    <div class="p-2 pe-4 border-end">
@@ -55,29 +55,31 @@
 				    <i class="fa-solid fa-bars-progress mb-3 pe-2"></i></i>Estado</br>
 					<b><span><?php echo $proyecto['ESTADO']; ?></span></b>
 				</div>
-			    <div class="me-auto py-2 px-4 border-end">
-				    <i class="fa-solid fa-folder mb-2 pe-2"></i></i>Carpetas y documentos</br>
+			    <div class="py-2 px-4 border-end">
+				    <i class="fa-solid fa-link mb-2 pe-2"></i></i>Carpetas y documentos</br>
 					<div class="btn-group"> 
 					    <?php if(!empty($proyecto['ENLACE_EDITABLE'])){ ?>
-						    <a class="enlace_carpetas btn btn-outline-secondary border-secondary-subtle" href="<?php echo $proyecto['ENLACE_EDITABLE']; ?>" target="_blank"> <i class="fa fa-tools"></i> Editables </a>
+						    <a class="enlace_carpetas btn btn-outline-secondary border-secondary-subtle btn-sm" href="<?php echo $proyecto['ENLACE_EDITABLE']; ?>" target="_blank"> <i class="fa fa-folder"></i> Carpeta General</a>
 				        <?php } ?>
 					    <?php if(!empty($proyecto['ENLACE_ENTREGABLE'])){ ?>
-						    <a class="enlace_carpetas btn btn-outline-secondary border-secondary-subtle" href="<?php echo $proyecto['ENLACE_ENTREGABLE']; ?>" target="_blank"><i class="fa fa-folder"></i> Entregables</a>
+						    <a class="enlace_carpetas btn btn-outline-secondary border-secondary-subtle btn-sm" href="<?php echo $proyecto['ENLACE_ENTREGABLE']; ?>" target="_blank"><i class="fa fa-file"></i> Version Final</a>
 				        <?php } ?>
                     </div>
 				</div>
-                <div class="p-2">
-				    <a href="<?php echo base_url('index.php/proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-secondary btn-sm "> <i class="fas fa-pencil-alt"></i></a>
+                <div class="ms-2 p-2">
+				    <a href="<?php echo base_url('index.php/proyectos/actualizar?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-secondary btn"> <i class="fas fa-pencil-alt"></i></a>
 				</div>
                 <div class="p-2">
-				    <button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="ml-2 btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i></button>
+				    <button data-enlace="<?php echo base_url('index.php/proyectos/borrar?id='.$proyecto['ID_PROYECTO']); ?>" class="ml-2 btn btn-outline-danger btn borrar_entrada"> <i class="fas fa-trash"></i></button>
 				</div>
 			    </div>
 			</div>
 
-			<div class="row py-3 border-bottom border-top">
-			    <h5>Validaciones del proyecto</h5>
-				<button type="button" class="ml-2 btn btn-info" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"><i class="fa-solid fa-list-check"></i> Validaciones del proyecto</button>
+			<div class="row mt-3 py-3 border-bottom">
+				<div class="col-12">
+			        <h5>Validaciones del proyecto</h5>
+				    <button type="button" class="ml-2 btn btn-info" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"><i class="fa-solid fa-list-check"></i> Validaciones del proyecto</button>
+			    </div>
 			</div>
 
 			<div class="row pb-2 my-4 descripcion">
@@ -253,11 +255,11 @@
 							</div>
 							<hr>
 							<div class="form-group">
-								<label for="EnlaceEditables">Enlace Archivos Editables</label>
+								<label for="EnlaceEditables">Enlace a Carpeta Principal</label>
 								<input type="text" class="form-control" name="EnlaceEditables" value="<?php echo $proyecto['ENLACE_EDITABLE'] ?>">
 							</div>
 							<div class="form-group">
-								<label for="EnlaceEntregables">Enlace Archivos Entregables</label>
+								<label for="EnlaceEntregables">Enlace a Versión Final</label>
 								<input type="text" class="form-control" name="EnlaceEntregables" value="<?php echo $proyecto['ENLACE_ENTREGABLE'] ?>">
 							</div>
 							<hr>

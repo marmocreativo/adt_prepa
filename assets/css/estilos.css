@@ -180,6 +180,7 @@ border: none;
   z-index: 2;
 }
 
+
 /* First toggle btn */
 
 #modo-toggle-btn span {
@@ -462,6 +463,10 @@ border: none;
 
 .lista_tareas.noche .fondo-icono{
   background-color: #000;
+}
+
+.badge-tarea {
+  width: 97px;
 }
 
 .usuario-burbuja {

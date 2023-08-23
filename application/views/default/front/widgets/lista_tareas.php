@@ -33,17 +33,20 @@ $icono = "far fa-clock";
           // variables de estado
           switch ($tarea->ESTADO) {
             case 'pendiente':
-              $icono = "far fa-clock";
-              $color = 'text-secondary';
+              $icono = "far fa-circle";
+              $color = 'bg-secondary text-secondary border-secondary';
+              $estado ='pendiente';
               break;
             case 'en desarrollo':
-              $icono = "far fa-square";
-              $color = 'text-warning';
+              $icono = "fa-solid fa-spinner";
+              $color = 'bg-info text-bg-info border-info';
+              $estado ='en desarrollo';
               // code...
               break;
             case 'completo':
-              $icono = "fas fa-check-square";
-              $color = 'text-success';
+              $icono = "fas fa-circle-check";
+              $color = 'bg-success text-success border-success';
+              $estado ='finalizada';
               break;
           }
 
@@ -54,16 +57,12 @@ $icono = "far fa-clock";
           $parametros_and['usuarios_tareas.ID_TAREA'] = $tarea->ID_TAREA;
           $usuarios = $this->GeneralModel->lista_join('usuarios_tareas',$tablas_join,$parametros_or,$parametros_and,'','','','');
         ?>
-        <div class="col-2 col-md-1 fondo-icono d-flex justify-content-center align-items-center">
-          <i class="<?php echo $icono.' '.$color; ?>"></i>
-        </div>
-        <div class="col-9 col-md-8 d-flex justify-content-start align-items-center pt-2">
-          <a href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
-          <p title="<?php echo $tarea->ESTADO; ?>" style="word-break: break-word;"> <?php echo $tarea->TAREA_TITULO; ?></p>
+        <div class="d-flex justify-content-start align-items-center py-2">
+          <small class="badge-tarea px-2 border <?php echo ' '.$color; ?> bg-opacity-25 me-3 rounded-pill"><i class="<?php echo $icono.' '; ?>"></i><?php echo ' '.$estado; ?></small>
+          <a class="me-auto" href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
+            <span title="<?php echo $tarea->ESTADO; ?>" style="word-break: break-word;"> <?php echo $tarea->TAREA_TITULO; ?></span>
           </a>
-        </div>
-        <div class="col-1 col-md-3">
-        <button data-enlace="<?php echo base_url('index.php/tareas/borrar?id='.$tarea->ID_TAREA); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar tarea</button>
+          <button data-enlace="<?php echo base_url('index.php/tareas/borrar?id='.$tarea->ID_TAREA); ?>" class="ml-2 btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i></button>
         </div>
 
       </div>
