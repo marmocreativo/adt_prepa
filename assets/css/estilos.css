@@ -506,6 +506,67 @@ border: none;
 }
 
 /* /Lista de Tareas */
+
+/* Linea de tiempo */
+
+.lt-proceso-completo {
+  color: #959799;
+  background: #f0f1f2;
+}
+
+.lt-proceso::after {
+	content: "";
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	border: 3px solid #fff;
+	position: absolute;
+	background: #0dcaf0;
+	left: -25px;
+	top: 8px;
+	display: block;
+}
+
+.lt-proceso::before {
+	content: "";
+	width: 2px;
+	height: 101%;
+	position: absolute;
+	background: #ccc;
+	left: -19px;
+	top: 0px;
+	display: block;
+}
+
+.lt-proceso::after {
+	content: "";
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	border: 3px solid #fff;
+	position: absolute;
+	background: #ccc;
+	left: -25px;
+	top: 8px;
+	display: block;
+}
+
+.lt-proceso.lt-proceso-completo::after {
+	background: #10e99d;
+}
+
+.lt-proceso.lt-proceso-completo::before {
+	background: #10e99d;
+}
+
+.lt-proceso.lt-proceso-actual::after {
+	background: #10b3e9;
+}
+
+.lt-proceso.lt-proceso-actual::before {
+	background: #ccc;
+}
+
 /* Lista de Proyectos */
 .proyecto {
 	border-radius: 8px;

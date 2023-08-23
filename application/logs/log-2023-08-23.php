@@ -19,3 +19,4 @@ WHERE   (
 `ID_TAREA` = '279'
  )
 GROUP BY `ID_REVISION`
+ERROR - 2023-08-23 18:29:55 --> Severity: error --> Exception: syntax error, unexpected token "<" /Applications/MAMP/htdocs/adt_prepa/Untitled/application/views/default/front/front_detalles_tarea.php 313

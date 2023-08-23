@@ -1,7 +1,7 @@
 <?php if(!empty($tarea['ID_PROYECTO'])){ ?>
 
-<a href="<?php echo base_url('index.php/proyectos/detalles?id='.$tarea['ID_PROYECTO']); ?>" class="btn btn-outline-primary"><i class="fas fa-chevron-circle-left"></i> Volver al proyecto</a>
-<?php } ?>
+<!-- <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$tarea['ID_PROYECTO']); ?>" class="btn btn-outline-primary"><i class="fas fa-chevron-circle-left"></i> Volver al proyecto</a>
+<?php } ?> -->
 
 <div class="pt-3">
 
@@ -10,7 +10,7 @@
 	<div class="col-8">
 
 		<div class="proyecto <?php echo $modo; ?> p-3" style="overflow: visible;">
-		<h2 class="h2"><b><?php echo $tarea['TAREA_TITULO'] ?>
+		<!-- <h3><b><?php echo $tarea['TAREA_TITULO'] ?>
 		<?php
 			switch ($tarea['ESTADO']) {
 				case 'en desarrollo':
@@ -35,30 +35,62 @@
 			}
 		?>
 			<span class="badge bg-<?php echo $color_estado.' '.$texto_estado; ?> "><?php echo $tarea['ESTADO'] ?></span>
-		</b></h2>
-					<p>
-						<i class="fas fa-calendar" title="Duración de la tarea"></i> <?php if($tarea['FECHA_INICIO'] != null ){ echo fechas_es($tarea['FECHA_INICIO']); }else{ echo 'N/A'; } ?> -
-						 <?php if($tarea['FECHA_FINAL'] != null ){ echo fechas_es($tarea['FECHA_FINAL']); }else{ echo 'N/A'; } ?>
-						<a href="<?php echo base_url('index.php/tareas/actualizar?id='.$tarea['ID_TAREA']); ?>"> <i class="ml-5 fa fa-pencil"></i> Editar tarea </a>
-						<button data-enlace="<?php echo base_url('index.php/tareas/borrar?id='.$tarea['ID_TAREA']); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar tarea</button>
-					</p>
-			<p class="tarea-descripcion mt-5"><?php echo $tarea['TAREA_DESCRIPCION']; ?></p>
-			<div class="row my-3">
-				<?php if(!empty($tarea['TAREA_ENLACE_EDITABLES'])){ ?>
-				<div class="col-12 col-md-6">
-					<div class="enlace_carpetas">
-						<a href="<?php echo $tarea['TAREA_ENLACE_EDITABLES']; ?>"> <i class="fa fa-tools"></i> Editables </a>
-					</div>
-				</div>
-				<?php } ?>
-				<?php if(!empty($tarea['TAREA_ENLACE_ENTREGABLE'])){ ?>
-				<div class="col-12 col-md-6">
-					<div class="enlace_carpetas">
-						<a href="<?php echo $tarea['TAREA_ENLACE_ENTREGABLE']; ?>"><i class="fa fa-folder"></i> Entregables</a>
-					</div>
-				</div>
-				<?php } ?>
+		</b></h3> -->
+
+		<div class="d-flex align-items-center border-bottom border-top p-2 bg-secondary bg-opacity-10">
+		    <div class="p-2 pe-4 border-end">
+				<i class="fas fa-calendar mb-3 pe-2"></i>Duración</br>
+				<b><span><?php if ($tarea['FECHA_INICIO'] != null) {
+							echo fechas_es($tarea['FECHA_INICIO']);
+						} else {
+							echo 'N/A';
+						} ?>
+					</span> -
+					<span>
+						<?php if ($tarea['FECHA_FINAL'] != null) {
+							echo fechas_es($tarea['FECHA_FINAL']);
+						} else {
+							echo 'N/A';
+						} ?>
+					</span></b>
 			</div>
+			<div class="py-2 px-4 border-end">
+				<i class="fa-solid fa-bars-progress mb-3 pe-2"></i></i>Estado</br>
+				<b><span>
+						<?php echo $tarea['ESTADO'] ?>
+					</span></b>
+			</div>
+			<div class="py-2 px-4 border-end">
+				<i class="fa-solid fa-link mb-2 pe-2"></i></i>Carpetas y documentos</br>
+				<div class="btn-group">
+				<?php if(!empty($tarea['TAREA_ENLACE_EDITABLES'])){ ?>
+						<a class="enlace_carpetas btn btn-outline-secondary border-secondary-subtle btn-sm"
+							href="<?php echo $tarea['TAREA_ENLACE_EDITABLES']; ?>" target="_blank"> <i class="fa fa-folder"></i> Carpeta
+							General</a>
+					<?php } ?>
+					<?php if(!empty($tarea['TAREA_ENLACE_ENTREGABLE'])){ ?>
+						<a class="enlace_carpetas btn btn-outline-secondary border-secondary-subtle btn-sm"
+							href="<?php echo $tarea['TAREA_ENLACE_ENTREGABLE']; ?>" target="_blank"><i class="fa fa-file"></i> Version
+							Final</a>
+					<?php } ?>
+				</div>
+			</div>
+            <div class="ms-2 p-2">
+				<a href="<?php echo base_url('index.php/tareas/actualizar?id='.$tarea['ID_TAREA']); ?>" class="btn btn-outline-secondary btn"> <i class="fas fa-pencil-alt"></i></a>
+			</div>
+            <div class="p-2">
+				<button data-enlace="<?php echo base_url('index.php/tareas/borrar?id='.$tarea['ID_TAREA']); ?>" class="ml-2 btn btn-outline-danger btn borrar_entrada"> <i class="fas fa-trash"></i></button>
+			</div>
+		</div>
+
+		<div class="row mt-3 py-3 border-bottom">
+			<div class="col-12">
+		        <h5>Revisiones</h5>
+				<button type="button" class="ml-2 btn btn-info" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"> Validaciones de la tarea</button>
+			</div>
+		</div>
+
+			<p class="tarea-descripcion mt-5"><?php echo $tarea['TAREA_DESCRIPCION']; ?></p>
 			
 			<hr>
 			<h4>Personas que participarán:</h4>
@@ -96,9 +128,6 @@
 				<?php } ?>
 			</ul>
 			<?php $proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$tarea['ID_PROYECTO']]); ?>
-			<hr>
-			<h4>Revisiones:</h4>
-			<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"> Validaciones de la tarea</button>
 		</div>
 		<div class="detalles_tarea p-3 mt-3">
 
@@ -250,8 +279,7 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="col-12 col-md-4">
+	<div class="col-4">
 		<?php
 		if(!empty($tarea['ID_PROYECTO'])){
 			$equipos_proyecto = $this->GeneralModel->lista('equipos_proyectos','',['ID_PROYECTO'=>$tarea['ID_PROYECTO']],'','','');
@@ -274,26 +302,33 @@
 		
 		$detalles_proceso_actual = $this->GeneralModel->detalles('roles_historial',['ID'=>$tarea['ID_PROCESO']]);
 		?>															
-		<div class="card proyecto">
+		<div class="card linea-tiempo">
 			<div class="card-header">Línea de tiempo</div>
-			<div class="card-body">
+			<div class="card-body ps-5">
 				
 				<?php $procesos_post = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA']],'ORDEN ASC','',''); ?>
-				<ul class="list-group ui-sortable" id="myTab" role="tablist" data-tabla="roles_historial" data-columna="ID">
+				<ul class="list-group ui-sortable linea-tiempo" id="myTab" role="tablist" data-tabla="roles_historial" data-columna="ID">
 					<?php foreach($procesos_post as $proceso){ ?>
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
-					<li class="list-group-item <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-warning'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" style="<?php if($proceso->ESTADO=='completo'){ echo 'text-decoration: line-through'; } ?>" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
-						<div>
-						<b class='text-primary'>#<?php echo $proceso->ORDEN; ?></b> <b><?php echo $proceso->ETIQUETA; ?></b> | <img
+					<li class="list-group-item lt-proceso <?php if($proceso->ESTADO=='completo'){ echo 'lt-proceso-completo'; } ?> p-2 <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-info lt-proceso-actual'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
+						<div class="d-flex w-100 align-items-start flex-column">
+							<small class="lt-fecha mb-2"><?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?></small>
+						    <strong class="mb-auto pb-2"><h5 class="fw-bold">#<?php echo $proceso->ORDEN; ?> <?php echo $proceso->ETIQUETA; ?></h5></strong>
+							<div class="d-flex w-100 justify-content-start align-items-center">
+							<img
 							src="<?php echo base_url('contenido/img/usuarios/'.$detalle_usuario['IMAGEN']); ?>"
 							title="<?php echo $detalle_usuario['USUARIO_NOMBRE']; ?>"
 							width="25px"
-							class="rounded-circle border border-secondary burbuja-sm"
+							class="rounded-circle border border-secondary burbuja-sm me-2"
 							alt=""
 							role="button"
 							data-bs-toggle="dropdown"
-							aria-expanded="false"> <?php echo $detalle_usuario['USUARIO_NOMBRE']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a> | <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#form-proceso-<?php echo $proceso->ID; ?>" aria-expanded="false" aria-controls=""> Editar
-						</button>
+							aria-expanded="false">
+							
+							<span class="me-auto"><?php echo $detalle_usuario['USUARIO_NOMBRE']; ?> </span>
+							<button class="btn btn-sm btn-outline-secondary border-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#form-proceso-<?php echo $proceso->ID; ?>" aria-expanded="false" aria-controls=""><i class="fas fa-pencil-alt"></i></button>
+							<a class="btn btn-sm btn-outline-secondary border-0" href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>"><i class="fas fa-trash"></i></a>
+							</div>
 						<div>
 						
 						<div class="bg-light m-3 p-3 collapse" id="form-proceso-<?php echo $proceso->ID; ?>">
