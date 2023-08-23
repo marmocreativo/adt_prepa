@@ -114,15 +114,12 @@
 							<input type="hidden" name="EstadoActual" value="<?php echo $tarea['ESTADO']; ?>">
 							<input type="hidden" name="Enlace" value="">
 							<div class="row">
-								<div class="col-6">
+								<div class="col-12">
 									<div class="form-group">
 										<label for="Mensaje">Comentario</label>
 										<textarea name="Mensaje" class="TextEditorSmall"></textarea>
 									</div>
-								</div>
-								<div class="col-3">
-									<div class="">
-										<?php
+									<?php
 												$usuarios = $this->GeneralModel->lista('usuarios','',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','');
 												$id_asignados = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','','');
 												$usuarios_asignados = array();
@@ -131,21 +128,13 @@
 												}
 												//var_dump($usuarios);
 										?>
-										<h4>Espacio para asignación:</h4>
 										
 										<input type="hidden" name="asignaciones_actuales" value="<?php echo implode(', ', $usuarios_asignados); ?>">
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="form-group">
-										<label for="EstadoTarea">Estado de la tarea</label>
-										<select class="form-control" name="EstadoTarea">
-											<option value="pendiente" <?php if($tarea['ESTADO']=='pendiente'){ echo 'selected'; } ?>>Pendiente</option>
-											<option value="en desarrollo" <?php if($tarea['ESTADO']=='en desarrollo'){ echo 'selected'; } ?>>En Desarrollo</option>
-											<option value="completo" <?php if($tarea['ESTADO']=='completo'){ echo 'selected'; } ?>>Completo</option>
-										</select>
-									</div>
-									<button type="submit" class="btn btn-primary btn-actualizar w-100 my-3">Publicar</button>
+										<input type="hidden" name="EstadoTarea" value="<?php echo $tarea['ESTADO']; ?>">
+									<button type="submit" class="btn btn-primary btn-actualizar my-3">Publicar</button>
+									<a class="btn btn-outline-danger mb-3" data-bs-toggle="collapse" href="#formulario_mensaje" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
+										Cancelar
+									</a>
 								</div>
 							</div>
 						</form>
@@ -176,7 +165,7 @@
 											<ul class="list-inline">
 												<li class="list-inline-item">Reasignado a:</li>
 												<?php foreach ($lista_asignados as $asignacion) { ?>
-													<?php if(!empty($asignacion)){ ?>
+													<?php if(!empty($asignacion)&&!empty($array_usuarios[$asignacion]['NOMBRE'])){ ?>
 													<li class="list-inline-item">
 													<div class="dropdown">
 														<img
@@ -209,12 +198,16 @@
 									<?php } ?>
 									<div class="text-end" style="font-size:12px;">
 										<hr>
+										<?php if($mensaje->ID_USUARIO==$_SESSION['usuario']['id']){ ?>
 										<a class="btn btn-sm btn-secondary-link" data-bs-toggle="collapse" href="#formulario_mensaje_<?php echo $mensaje->ID; ?>" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
 										<i class="ml-5 fa fa-pencil"></i> Editar comentario
 										</a> | 
-										<span class="px-3"><?php echo fechas_es($mensaje->FECHA_REGISTRO).' </span><span> '.date('g:i a', strtotime($mensaje->FECHA_REGISTRO)); ?></span>
-										<?php if($mensaje->ID_USUARIO==$_SESSION['usuario']['id']){ ?>
+										<button data-enlace="<?php echo base_url('index.php/tareas/borrar_mensaje?id='.$mensaje->ID_TAREA); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar mensaje</button>
+											|
 										<?php } ?>
+										<span class="px-3"><?php echo fechas_es($mensaje->FECHA_REGISTRO).' </span><span> '.date('g:i a', strtotime($mensaje->FECHA_REGISTRO)); ?></span>
+										
+										
 
 										<div class="collapse p-4 bg-light" id='formulario_mensaje_<?php echo $mensaje->ID; ?>'>
 												<form class="" action="<?php echo base_url('index.php/tareas/actualizar_mensaje'); ?>" method="post">
@@ -224,15 +217,12 @@
 													<input type="hidden" name="EstadoActual" value="<?php echo $tarea['ESTADO']; ?>">
 													<input type="hidden" name="Enlace" value="">
 													<div class="row">
-														<div class="col-6">
+														<div class="col-12">
 															<div class="form-group">
 																<label for="Mensaje">Comentario</label>
 																<textarea name="Mensaje" class="TextEditorSmall"><?php echo $mensaje->MENSAJE; ?></textarea>
 															</div>
-														</div>
-														<div class="col-3">
-															<div class="">
-																<?php
+															<?php
 																		$usuarios = $this->GeneralModel->lista('usuarios','',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','');
 																		$id_asignados = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','','');
 																		$usuarios_asignados = array();
@@ -240,21 +230,13 @@
 																			$usuarios_asignados[] =$id_asig->ID_USUARIO;
 																		}
 																?>
-																<h4>Espacio para asignación</h4>
 																
 																<input type="hidden" name="asignaciones_actuales" value="<?php echo implode(', ', $usuarios_asignados); ?>">
-															</div>
-														</div>
-														<div class="col-3">
-															<div class="form-group">
-																<label for="EstadoTarea">Estado de la tarea</label>
-																<select class="form-control" name="EstadoTarea">
-																	<option value="pendiente" <?php if($tarea['ESTADO']=='pendiente'){ echo 'selected'; } ?>>Pendiente</option>
-																	<option value="en desarrollo" <?php if($tarea['ESTADO']=='en desarrollo'){ echo 'selected'; } ?>>En Desarrollo</option>
-																	<option value="completo" <?php if($tarea['ESTADO']=='completo'){ echo 'selected'; } ?>>Completo</option>
-																</select>
-															</div>
-															<button type="submit" class="btn btn-primary btn-actualizar w-100 my-3">Actualizar</button>
+																<input type="hidden" name="EstadoTarea" value="<?php echo $tarea['ESTADO']; ?>">
+															<button type="submit" class="btn btn-primary btn-actualizar my-3">Actualizar</button>
+															<a class="btn btn-sm btn-outline-danger" data-bs-toggle="collapse" href="#formulario_mensaje_<?php echo $mensaje->ID; ?>" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
+																 Cancelar
+																</a>
 														</div>
 													</div>
 												</form>
@@ -289,7 +271,9 @@
 		}else{
 			$usuarios_disponibles = null;
 		}
-		?>																
+		
+		$detalles_proceso_actual = $this->GeneralModel->detalles('roles_historial',['ID'=>$tarea['ID_PROCESO']]);
+		?>															
 		<div class="card proyecto">
 			<div class="card-header">Línea de tiempo</div>
 			<div class="card-body">
@@ -299,7 +283,7 @@
 					<?php foreach($procesos_post as $proceso){ ?>
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
 					<li class="list-group-item <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-warning'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" style="<?php if($proceso->ESTADO=='completo'){ echo 'text-decoration: line-through'; } ?>" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
-						
+						<div>
 						<b class='text-primary'>#<?php echo $proceso->ORDEN; ?></b> <b><?php echo $proceso->ETIQUETA; ?></b> | <img
 							src="<?php echo base_url('contenido/img/usuarios/'.$detalle_usuario['IMAGEN']); ?>"
 							title="<?php echo $detalle_usuario['USUARIO_NOMBRE']; ?>"
@@ -308,7 +292,44 @@
 							alt=""
 							role="button"
 							data-bs-toggle="dropdown"
-							aria-expanded="false"> <?php echo $detalle_usuario['USUARIO_NOMBRE']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a>
+							aria-expanded="false"> <?php echo $detalle_usuario['USUARIO_NOMBRE']; ?> | <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?> | <a href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>">Borrar</a> | <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#form-proceso-<?php echo $proceso->ID; ?>" aria-expanded="false" aria-controls=""> Editar
+						</button>
+						<div>
+						
+						<div class="bg-light m-3 p-3 collapse" id="form-proceso-<?php echo $proceso->ID; ?>">
+							<form action="<?php echo base_url('index.php/tareas/actualizar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
+							<input type="hidden" name="Identificador" value="<?php echo $proceso->ID; ?>">
+							<input type="hidden" name="IdTarea" value="<?php echo $proceso->ID_TAREA; ?>">
+							<input type="hidden" name="Proceso" value="<?php echo $proceso->PROCESO; ?>">
+								<div class="form-group">
+									<label for="Etiqueta">Etiqueta</label>
+									<input type="text" required class="form-control" name="Etiqueta" placeholder='Nombre del proceso' value="<?php echo $proceso->ETIQUETA; ?>">
+								</div>
+								<div class="form-group">
+									<label for="IdUsuarioPro">Usuario</label>
+									<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
+										<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+										<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
+										<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" <?php if($proceso->ID_USUARIO==$detalles_usuario_asignado['ID_USUARIO']){ echo 'selected'; } ?>><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
+										<?php } ?>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="Fecha">Fecha límite de entrega</label>
+									<input type="text" required class="form-control datepicker" name="Fecha" placeholder='Fecha límite' value="<?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?>">
+								</div>
+								<div class="form-group">
+									<label for="Proceso">Este proceso es parte de</label>
+									<select name="Proceso" id="Proceso" class="form-control">
+										<option value="preproduccion" <?php if($proceso->PROCESO=='preproduccion'){ echo 'selected'; } ?>>Preparación (pre-producción)</option>
+										<option value="produccion"  <?php if($proceso->PROCESO=='produccion'){ echo 'selected'; } ?>>Producción (producción)</option>
+										<option value="postproduccion" <?php if($proceso->PROCESO=='postproduccion'){ echo 'selected'; } ?>>Revisión (post-producción)</option>
+									</select>
+								</div>
+								<hr>
+								<button type="submit" class="btn btn-primary">Actualizar proceso</button>
+							</form>
+						</div>	
 					</li>
 					<?php } ?>
 				</ul>
@@ -345,12 +366,13 @@
 							</select>
 						</div>
 						<hr>
-						<button type="submit" class="btn btn-primary">Agregar rol</button>
+						<button type="submit" class="btn btn-primary">Agregar proceso</button>
 					</form>
 				</div>
+				
 				<hr>
-				<div class="row">
-					<?php $detalles_proceso_actual = $this->GeneralModel->detalles('roles_historial',['ID'=>$tarea['ID_PROCESO']]); ?>
+				<div class="row <?php if(!empty($detalles_proceso_actual['ID_USUARIO'])&&$detalles_proceso_actual['ID_USUARIO']!=$_SESSION['usuario']['id']){ echo 'd-none'; } ?>">
+					
 					<div class="col-6">
 						<?php
 							if(!empty($detalles_proceso_actual)){
@@ -394,7 +416,7 @@
 						<?php } ?>
 					</div>
 				</div>
-				<div>
+				<div class="<?php if(!empty($detalles_proceso_actual['ID_USUARIO'])&&$detalles_proceso_actual['ID_USUARIO']!=$_SESSION['usuario']['id']){ echo 'd-none'; } ?>">
 					<button type="button" class="btn btn-link w-100" data-bs-toggle="modal" data-bs-target="#formCompletar">
 					Mover en línea del tiempo
 					</button>

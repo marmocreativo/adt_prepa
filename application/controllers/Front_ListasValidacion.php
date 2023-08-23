@@ -48,7 +48,13 @@ class Front_ListasValidacion extends CI_Controller {
 		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
 		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 
-		$this->data['listas'] = $this->GeneralModel->lista('validacion_lista','',['ESTADO'=>'activo'],'','','');
+		$parametros_or = array();
+
+		if(isset($_GET['Busqueda'])&&!empty($_GET['Busqueda'])){
+			$parametros_or['TITULO'] = $_GET['Busqueda'];
+		}
+
+		$this->data['listas'] = $this->GeneralModel->lista('validacion_lista',$parametros_or,['ESTADO'=>'activo'],'','','');
 
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_lista_listas_validacion',$this->data);

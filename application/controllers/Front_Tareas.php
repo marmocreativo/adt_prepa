@@ -524,6 +524,16 @@ class Front_Tareas extends CI_Controller {
 		}
 	}
 
+	public function borrar_mensaje()
+	{
+		$detalles_mensaje = $this->GeneralModel->detalles('tareas_mensajes',['ID'=>$_GET['id']]);
+
+
+		$this->GeneralModel->borrar('tareas_mensajes',['ID'=>$_GET['id']]);
+
+		redirect(base_url('index.php/tareas/detalles?id='.$detalles_mensaje['ID_TAREA']));
+	}
+
 	public function crear_validacion(){
 		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_POST['IdProyecto']]);
 		$tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_POST['IdTarea']],'','','');
@@ -679,6 +689,37 @@ class Front_Tareas extends CI_Controller {
 			$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
 
 		}
+
+		redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')));
+
+	}
+
+	public function actualizar_rol()
+	{
+		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_POST['IdTarea']]);
+		$parametros = array(
+			'ID_TAREA' => $_POST['IdTarea'],
+			'ID_USUARIO' => $_POST['IdUsuario'],
+			'ETIQUETA' => $_POST['Etiqueta'],
+			'PROCESO' => $_POST['Proceso'],
+			'FECHA' => date('Y-m-d 00:00:00', strtotime($_POST['Fecha']))
+		);
+
+		$id_proceso = $this->GeneralModel->actualizar('roles_historial',['ID'=>$_POST['Identificador']],$parametros);
+
+		
+
+		
+
+			$parametros_notificacion = array(
+				'ID_USUARIO' => $_POST['IdUsuario'],
+				'ENLACE'=> base_url('index.php/tareas/detalles?id='.$_POST['IdTarea']),
+				'GRUPO'=>'tareas',
+				'NOTIFICACION_CONTENIDO'=>'¡Atento!, se actualizaron los datos del proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b>',
+				'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+				'ESTADO'=>'pendiente'
+			);
+			$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
 
 		redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')));
 
