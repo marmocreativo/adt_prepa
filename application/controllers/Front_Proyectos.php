@@ -62,7 +62,7 @@ class Front_Proyectos extends CI_Controller {
 		$this->data['consulta']['fecha_final'] = $fecha_final;
 		$orden = verificar_variable('GET','orden','');
 		$this->data['consulta']['orden'] = $orden;
-		$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina',$this->data['op']['cantidad_publicaciones_por_pagina']);
+		$mostrar_por_pagina = verificar_variable('GET','mostrar_por_pagina','36');
 		$this->data['consulta']['mostrar_por_pagina'] = $mostrar_por_pagina;
 		$pagina = verificar_variable('GET','pagina','1');
 		$this->data['consulta']['pagina'] = $pagina;

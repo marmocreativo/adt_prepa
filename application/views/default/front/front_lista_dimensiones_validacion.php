@@ -2,9 +2,30 @@
 	<div class="row">
 		<div class="col-12">
             <?php if(isset($_GET['notif'])){notiget($_GET['notif']);} ?>
-            <h3><?php echo $lista['TITULO']; ?></h3>
+            <h3><?php echo $lista['TITULO']; ?> <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editar_lista_<?php echo $lista['ID_LISTA']; ?>">
+					        <i class="fa-solid fa-pen"></i>
+						</button></h3>
             <p><?php echo $lista['DESCRIPCION']; ?></p>
-			
+			<div class="modal fade" id="editar_lista_<?php echo $lista['ID_LISTA']; ?>" tabindex="-1" aria-labelledby="editar_lista_<?php echo $lista['ID_LISTA']; ?>" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form action="<?php echo base_url('index.php/listas/actualizar'); ?>" method='post'>
+                                <input type="hidden" name="Identificador" value="<?php echo $lista['ID_LISTA']; ?>">
+                                <div class="form-group">
+                                    <label for="Titulo">Titulo</label>
+                                    <input type="text" class="form-control" name="Titulo" value="<?php echo $lista['TITULO']; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Descripcion">Descripción</label>
+                                    <textarea name="Descripcion" class="form-control" rows="5"><?php echo $lista['DESCRIPCION']; ?></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 			<hr>
 			<ul class="nav nav-tabs ui-sortable" id="myTab" role="tablist" data-tabla="validacion_dimension" data-columna="ID_DIMENSION">
                 <?php $i=0; foreach($dimensiones as $dimension){ ?>

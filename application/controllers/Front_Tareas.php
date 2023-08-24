@@ -61,8 +61,8 @@ class Front_Tareas extends CI_Controller {
 		$parametros_and['tareas.ESTADO !='] = 'completo';
 		$parametros_and['tareas.ID_AREA'] = $_SESSION['usuario']['area'];
 		$tablas_join = array();
-			$tablas_join['usuarios_tareas'] = 'usuarios_tareas.ID_TAREA = tareas.ID_TAREA';
-		$parametros_and['usuarios_tareas.ID_USUARIO'] = $_SESSION['usuario']['id'];
+			$tablas_join['roles_historial'] = 'roles_historial.ID = tareas.ID_PROCESO';
+		$parametros_and['roles_historial.ID_USUARIO'] = $_SESSION['usuario']['id'];
 
 		// Consulta
 		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','',$agrupar);
@@ -194,6 +194,7 @@ class Front_Tareas extends CI_Controller {
 
 	public function detalles(){
 		$this->data['tarea'] = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['id']]);
+		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$this->data['tarea']['ID_PROYECTO']]);
 		if(!empty($this->data['tarea'])){
 			$this->data['tipo'] = $this->data['tarea']['TIPO'];
 				// Open Tags
@@ -425,6 +426,11 @@ class Front_Tareas extends CI_Controller {
 			}else{
 				$usuarios_asignados = '';
 			}
+			if(isset($_POST['Padre'])){
+				$padre = $_POST['Padre'];
+			}else{
+				$padre = '0';
+			}
 			$mensaje = $this->input->post('Mensaje');
 			$tipo = 'mensaje';
 			if($_POST['EstadoActual']!=$_POST['EstadoTarea']){
@@ -438,7 +444,8 @@ class Front_Tareas extends CI_Controller {
 					'MENSAJE' => $mensaje,
 					'ASIGNACIONES' => $usuarios_asignados,
 					'ENLACE' => $this->input->post('Enlace'),
-					'TIPO' => $tipo
+					'TIPO' => $tipo,
+					'ID_PADRE'=> $padre
 				);
 
 				$this->GeneralModel->crear('tareas_mensajes',$parametros);
@@ -488,10 +495,11 @@ class Front_Tareas extends CI_Controller {
 				$parametros = array(
 					'ID_TAREA' => $this->input->post('IdTarea'),
 					'ID_USUARIO' => $this->input->post('IdUsuario'),
-					'MENSAJE' => $mensaje,
+					'MENSAJE' => $mensaje.' <small>(Editado: '.date('Y-m-d H:i:s').')</small>',
 					'ASIGNACIONES' => $usuarios_asignados,
 					'ENLACE' => $this->input->post('Enlace'),
-					'TIPO' => $tipo
+					'TIPO' => $tipo,
+					'FECHA_REGISTRO' => date('Y-m-d H:i:s')
 				);
 
 				$this->GeneralModel->actualizar('tareas_mensajes',['ID'=>$_POST['Identificador']],$parametros);
@@ -530,6 +538,7 @@ class Front_Tareas extends CI_Controller {
 
 
 		$this->GeneralModel->borrar('tareas_mensajes',['ID'=>$_GET['id']]);
+		$this->GeneralModel->borrar('tareas_mensajes',['ID_PADRE'=>$_GET['id']]);
 
 		redirect(base_url('index.php/tareas/detalles?id='.$detalles_mensaje['ID_TAREA']));
 	}
@@ -688,6 +697,52 @@ class Front_Tareas extends CI_Controller {
 			);
 			$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
 
+						/*
+						| -------------------------------------------------------------------------
+						| PREPARO CORREO ELECTRÓNICO
+						| -------------------------------------------------------------------------
+						*/
+						// Parametros de correo
+
+						$config['protocol']    = 'smtp';
+						$config['smtp_host']    = $this->data['op']['mailer_host'];
+						$config['smtp_port']    = $this->data['op']['mailer_port'];
+						$config['smtp_timeout'] = '7';
+						$config['smtp_user']    = $this->data['op']['mailer_user'];
+						$config['smtp_pass']    = $this->data['op']['mailer_pass'];
+
+						$config['charset']    = 'utf-8';
+						$config['mailtype'] = 'html'; // or html
+						$config['validation'] = TRUE; // bool whether to validate email or not
+						/*
+						| -------------------------------------------------------------------------
+						| /PREPARO CORREO ELECTRÓNICO
+						| -------------------------------------------------------------------------
+						*/
+
+					  // Datos para enviar por correo
+					  $datos_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_POST['IdUsuario']]);
+					  $this->data['info'] = array();
+					  $this->data['info']['Titulo'] = 'Asignado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b> | POLARIS';
+					  $this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
+					  $this->data['info']['Mensaje'] = '¡Manos a la obra!, se te ha asignado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b>';
+					  $this->data['info']['TextoBoton'] = 'Ir a la tarea';
+					  $this->data['info']['EnlaceBoton'] = base_url('index.php//tareas/detalles?id='.$_POST['IdTarea']);
+					  $this->data['info']['MensajeSecundario'] = '';
+					  $this->data['info']['Despedida'] = 'Saludos!';
+					  $this->data['info']['Contacto'] = '';
+
+					  $mensaje = $this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/emails/mensaje_general',$this->data,true);
+
+					  $this->email->initialize($config);
+					  $this->email->clear();
+					  $this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
+					  $this->email->to($datos_usuario['USUARIO_CORREO']);
+					  $this->email->subject('Asignado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b> | POLARIS');
+					  $this->email->message($mensaje);
+					  // envio el correo
+					  $this->email->send();
+
 		}
 
 		redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')));
@@ -720,6 +775,52 @@ class Front_Tareas extends CI_Controller {
 				'ESTADO'=>'pendiente'
 			);
 			$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+
+			/*
+						| -------------------------------------------------------------------------
+						| PREPARO CORREO ELECTRÓNICO
+						| -------------------------------------------------------------------------
+						*/
+						// Parametros de correo
+
+						$config['protocol']    = 'smtp';
+						$config['smtp_host']    = $this->data['op']['mailer_host'];
+						$config['smtp_port']    = $this->data['op']['mailer_port'];
+						$config['smtp_timeout'] = '7';
+						$config['smtp_user']    = $this->data['op']['mailer_user'];
+						$config['smtp_pass']    = $this->data['op']['mailer_pass'];
+
+						$config['charset']    = 'utf-8';
+						$config['mailtype'] = 'html'; // or html
+						$config['validation'] = TRUE; // bool whether to validate email or not
+						/*
+						| -------------------------------------------------------------------------
+						| /PREPARO CORREO ELECTRÓNICO
+						| -------------------------------------------------------------------------
+						*/
+
+					  // Datos para enviar por correo
+					  $datos_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$_POST['IdUsuario']]);
+					  $this->data['info'] = array();
+					  $this->data['info']['Titulo'] = 'Actualizado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b> | POLARIS';
+					  $this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
+					  $this->data['info']['Mensaje'] = '¡Atento!, se actualizaron los datos del proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b>';
+					  $this->data['info']['TextoBoton'] = 'Ir a la tarea';
+					  $this->data['info']['EnlaceBoton'] = base_url('index.php//tareas/detalles?id='.$_POST['IdTarea']);
+					  $this->data['info']['MensajeSecundario'] = '';
+					  $this->data['info']['Despedida'] = 'Saludos!';
+					  $this->data['info']['Contacto'] = '';
+
+					  $mensaje = $this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/emails/mensaje_general',$this->data,true);
+
+					  $this->email->initialize($config);
+					  $this->email->clear();
+					  $this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
+					  $this->email->to($datos_usuario['USUARIO_CORREO']);
+					  $this->email->subject('Actualizado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b> | POLARIS');
+					  $this->email->message($mensaje);
+					  // envio el correo
+					  $this->email->send();
 
 		redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')));
 
@@ -792,8 +893,8 @@ class Front_Tareas extends CI_Controller {
 
 		$this->GeneralModel->actualizar('roles_historial',['ID'=>$_POST['IdProcesoActual']],$parametros_actual);
 		$this->GeneralModel->actualizar('roles_historial',['ID_TAREA'=>$detalles_tarea['ID_TAREA'],'ORDEN >='=>$detalles_proceso_siguiente['ORDEN']],$parametros_siguientes);
-		$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_proceso['ID_TAREA']],['ID_PROCESO'=>$detalles_proceso_siguiente['ID']]);
-		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
+		$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_tarea['ID_TAREA']],['ID_PROCESO'=>$detalles_proceso_siguiente['ID']]);
+		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso_siguiente['ID_TAREA']));
 	}
 
 	public function completar_rol_final()

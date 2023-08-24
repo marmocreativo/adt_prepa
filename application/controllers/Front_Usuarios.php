@@ -519,8 +519,8 @@ class Front_Usuarios extends CI_Controller {
 		*/
 		$parametros_and['tareas.ESTADO !='] = 'completo';
 		$tablas_join = array();
-		$tablas_join['usuarios_tareas'] = 'usuarios_tareas.ID_TAREA = tareas.ID_TAREA';
-		$parametros_and['usuarios_tareas.ID_USUARIO'] = $_GET['id'];
+		$tablas_join['roles_historial'] = 'roles_historial.ID = tareas.ID_PROCESO';
+		$parametros_and['roles_historial.ID_USUARIO'] = $_GET['id'];
 		//var_dump($parametros_and);
 		// Consulta
 		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','',$agrupar);

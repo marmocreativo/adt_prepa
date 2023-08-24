@@ -14,9 +14,7 @@
 				<li class="list-group-item d-flex justify-content-between">
 					<?php $conteo_dimensiones = $this->GeneralModel->conteo_elementos('validacion_dimension',['ID_LISTA'=>$lista->ID_LISTA]); ?>
 					<span><?php echo $lista->TITULO; ?> (<?php echo $conteo_dimensiones; ?> Dimensiones)
-					    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editar_lista_<?php echo $lista->ID_LISTA; ?>">
-					        <i class="fa-solid fa-pen"></i>
-						</button>
+					    
 					</span>
 					<div class="edicion-lista">
 						<a href="<?php echo base_url('index.php/listas/dimensiones?id='.$lista->ID_LISTA); ?>" class="btn">Editar lista</a>
@@ -25,26 +23,7 @@
 						</button>
 						<button data-enlace="<?php echo base_url('index.php/listas/borrar_lista?id='.$lista->ID_LISTA); ?>" class="btn ml-2 border-danger borrar_entrada" data-bs-toggle="tooltip" data-bs-placement="top" title="Borrar lista"> <i class="fas fa-trash"></i></button>
 					</div>
-					<div class="modal fade" id="editar_lista_<?php echo $lista->ID_LISTA; ?>" tabindex="-1" aria-labelledby="editar_lista_<?php echo $lista->ID_LISTA; ?>" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-body">
-									<form action="<?php echo base_url('index.php/listas/actualizar'); ?>" method='post'>
-										<input type="hidden" name="Identificador" value="<?php echo $lista->ID_LISTA; ?>">
-										<div class="form-group">
-											<label for="Titulo">Titulo</label>
-											<input type="text" class="form-control" name="Titulo" value="<?php echo $lista->TITULO; ?>">
-										</div>
-										<div class="form-group">
-											<label for="Descripcion">Descripción</label>
-											<textarea name="Descripcion" class="form-control" rows="5"><?php echo $lista->DESCRIPCION; ?></textarea>
-										</div>
-										<button type="submit" class="btn btn-primary">Actualizar</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 					<div class="modal fade" id="copiar_lista_<?php echo $lista->ID_LISTA; ?>" tabindex="-1" aria-labelledby="copiar_lista_<?php echo $lista->ID_LISTA; ?>" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">

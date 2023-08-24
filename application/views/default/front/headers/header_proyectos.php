@@ -88,9 +88,9 @@
 					<div class="row d-flex justify-content-between">
 					    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                           <ol class="breadcrumb py-3 border-bottom">
-                            <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-house"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">?Proyectos?</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">?01S.01_Pruebas_Lista_de_cotejo_2023?</li>
+                            <li class="breadcrumb-item"><a href="<?php echo base_url('index.php'); ?>"><i class="fa-solid fa-house"></i></a></li>
+                            <li class="breadcrumb-item"><a href="<?php echo base_url('index.php/proyectos'); ?>">Proyectos</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><?php echo $titulo; ?></li>
                           </ol>
                         </nav>
 					</div>
