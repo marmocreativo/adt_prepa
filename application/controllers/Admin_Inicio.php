@@ -51,26 +51,35 @@ class Admin_Inicio extends CI_Controller {
 
 	public function index()
 	{	
-		// Cargar la biblioteca dbforge
-			$this->load->dbforge();
+		$this->load->dbforge();
 
-			// Definir el nombre de la tabla y la columna a agregar
-			$table_name = 'tareas_mensajes';
-			$column_name = 'ID_PADRE';
+        $fields = array(
+            'ID' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => TRUE,
+                'auto_increment' => TRUE
+            ),
+            'ID_PROYECTO' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+            ),
+            'ETIQUETA' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 256,
+            ),
+            'ORDEN' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'default' => 0,
+            ),
+        );
 
-			// Definir las características de la columna
-			$fields = array(
-				$column_name => array(
-					'type' => 'int',
-					'constraint' => 11,
-					'default' => '0',
-				),
-			);
-
-			// Agregar la columna a la tabla
-			$this->dbforge->add_column($table_name, $fields);
-
-			echo 'Columna agregada exitosamente.';
+        $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('ID', TRUE);
+        $this->dbforge->create_table('tareas_etiquetas');
+        
+        echo "Tabla creada exitosamente.";
 	}
 	
 	public function ajuste_areas()

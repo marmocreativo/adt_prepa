@@ -94,7 +94,7 @@
 			
 			<hr>
 			<h4>Personas que participarán:</h4>
-			<?php $usuarios_asignados= $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','',''); ?>
+			<?php $usuarios_asignados= $this->GeneralModel->lista_agrupada('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','ID_USUARIO'); ?>
 			<ul class="list-inline">
 				<?php foreach ($usuarios_asignados as $usuario) { ?>
 					<?php $detalles_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario->ID_USUARIO]); ?>
@@ -150,7 +150,7 @@
 									</div>
 									<?php
 												$usuarios = $this->GeneralModel->lista('usuarios','',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','');
-												$id_asignados = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','','');
+												$id_asignados = $this->GeneralModel->lista_agrupada('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','ID_USUARIO');
 												$usuarios_asignados = array();
 												foreach($id_asignados as $id_asig){
 													$usuarios_asignados[] =$id_asig->ID_USUARIO;
@@ -259,7 +259,7 @@
 															</div>
 															<?php
 																		$usuarios = $this->GeneralModel->lista('usuarios','',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','');
-																		$id_asignados = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','','');
+																		$id_asignados = $this->GeneralModel->lista_agrupada('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','ID_USUARIO');
 																		$usuarios_asignados = array();
 																		foreach($id_asignados as $id_asig){
 																			$usuarios_asignados[] =$id_asig->ID_USUARIO;
@@ -292,7 +292,7 @@
 															</div>
 															<?php
 																		$usuarios = $this->GeneralModel->lista('usuarios','',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','');
-																		$id_asignados = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','','');
+																		$id_asignados = $this->GeneralModel->lista_agrupada('usuarios_tareas','',['ID_TAREA'=>$tarea['ID_TAREA']],'','ID_USUARIO');
 																		$usuarios_asignados = array();
 																		foreach($id_asignados as $id_asig){
 																			$usuarios_asignados[] =$id_asig->ID_USUARIO;
@@ -390,7 +390,7 @@
 								</div>
 								<div class="form-group">
 									<label for="Fecha">Fecha límite de entrega</label>
-									<input type="text" required class="form-control datepicker" name="Fecha" placeholder='Fecha límite' value="<?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?>">
+									<input type="date" required class="form-control" name="Fecha" placeholder='Fecha límite' value="<?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?>">
 								</div>
 								<div class="form-group">
 									<label for="Proceso">Este proceso es parte de</label>
@@ -429,7 +429,7 @@
 						</div>
 						<div class="form-group">
 							<label for="Fecha">Fecha límite de entrega</label>
-							<input type="text" required class="form-control datepicker" name="Fecha" placeholder='Fecha límite'>
+							<input type="date" required class="form-control" name="Fecha" placeholder='Fecha límite'>
 						</div>
 						<div class="form-group">
 							<label for="Proceso">Este proceso es parte de</label>

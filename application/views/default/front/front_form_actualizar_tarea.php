@@ -16,14 +16,14 @@
 			<div class="col-12 col-md-6">
 				<div class="form-group">
 					<label for="FechaInicio">Fecha Inicio</label>
-					<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php echo date('d-m-Y', strtotime($tarea['FECHA_INICIO'])); ?>">
+					<input type="date" class="form-control" name="FechaInicio" value="<?php echo date('Y-m-d', strtotime($tarea['FECHA_INICIO'])); ?>">
 					<div class="form-text">Puede ser una fecha anterior</div>
 				</div>
 			</div>
 			<div class="col-12 col-md-6">
 				<div class="form-group">
 					<label for="FechaFinal">Fecha Final</label>
-					<input type="text" class="form-control datepicker" name="FechaFinal" value="<?php echo date('d-m-Y', strtotime($tarea['FECHA_FINAL'])); ?>">
+					<input type="date" class="form-control" name="FechaFinal" value="<?php echo date('Y-m-d', strtotime($tarea['FECHA_FINAL'])); ?>">
 					<div class="form-text">(Dead line) si la tarea se entrega después de esta fecha se considera atrasada</div>
 				</div>
 			</div>

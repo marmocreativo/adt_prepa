@@ -60,12 +60,12 @@
 		<div class="col-12 col-md-4">
 			<div class="form-group">
 				<label for="FechaFinal">Fecha Final</label>
-				<input type="text" class="form-control datepicker" name="FechaFinal" value="<?php if(empty($proyecto['FECHA_FINAL'])){ echo date('d-m-Y',strtotime('+1 month')); }else{ echo date('d-m-Y', strtotime($proyecto['FECHA_FINAL'])); }?>">
+				<input type="date" class="form-control" name="FechaFinal" value="<?php if(empty($proyecto['FECHA_FINAL'])){ echo date('d-m-Y',strtotime('+1 month')); }else{ echo date('d-m-Y', strtotime($proyecto['FECHA_FINAL'])); }?>">
 				<div class="form-text">(Dead line) si la tarea se entrega después de esta fecha se considera atrasada</div>
 			</div>
 			<div class="form-group">
 				<label for="FechaInicio">Fecha Inicio </label>
-				<input type="text" class="form-control datepicker" name="FechaInicio" value="<?php if(empty($proyecto['FECHA_INICIO'])){ echo date('d-m-Y'); }else{ echo date('d-m-Y', strtotime($proyecto['FECHA_INICIO'])); }?>">
+				<input type="date" class="form-control" name="FechaInicio" value="<?php if(empty($proyecto['FECHA_INICIO'])){ echo date('d-m-Y'); }else{ echo date('d-m-Y', strtotime($proyecto['FECHA_INICIO'])); }?>">
 				<div class="form-text">(Inicio del proyecto, puede ser una fecha antigua)</div>
 			</div>
 			<hr>

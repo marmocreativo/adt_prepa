@@ -160,9 +160,9 @@ class Front_Tareas extends CI_Controller {
 						  // Datos para enviar por correo
 						$datos_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario]);
 						$this->data['info'] = array();
-						$this->data['info']['Titulo'] = 'ASIGNACIÓN DE TAREA | POLARIS';
+						$this->data['info']['Titulo'] = 'PARTICIPARÁS EN LA TAREA'.$this->input->post('TareaTitulo').' | POLARIS';
 						$this->data['info']['Usuario'] = $datos_usuario['USUARIO_NOMBRE'].' '.$datos_usuario['USUARIO_APELLIDOS'];
-						$this->data['info']['Mensaje'] = 'Se te ha asignado la tarea <b>'.$this->input->post('TareaTitulo').'</b>';
+						$this->data['info']['Mensaje'] = 'Participarás en la tarea <b>'.$this->input->post('TareaTitulo').'</b>';
 						$this->data['info']['TextoBoton'] = 'Ir a la tarea';
 						$this->data['info']['EnlaceBoton'] = base_url('index.php//tareas/detalles?id='.$tarea_id);
 						$this->data['info']['MensajeSecundario'] = '';
@@ -175,7 +175,7 @@ class Front_Tareas extends CI_Controller {
 						$this->email->clear();
 						$this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
 						$this->email->to($datos_usuario['USUARIO_CORREO']);
-						$this->email->subject('Asignación de tarea | POLARIS');
+						$this->email->subject('Participarás en la tarea '.$this->input->post('TareaTitulo').' | POLARIS');
 						$this->email->message($mensaje);
 						// envio el correo
 						$this->email->send();
@@ -206,12 +206,13 @@ class Front_Tareas extends CI_Controller {
 				$this->data['todos_usuarios'] = $this->GeneralModel->lista('usuarios','','','','','');
 				$this->data['array_usuarios'] = array();
 				foreach($this->data['todos_usuarios'] as $user_data){
-					$this->data['array_usuarios'][$user_data->ID_USUARIO]= array(
-						'NOMBRE' => $user_data->USUARIO_NOMBRE.' '.$user_data->USUARIO_APELLIDOS,
-						'CORREO' => $user_data->USUARIO_CORREO,
-						'IMAGEN' => $user_data->IMAGEN,
-						'USUARIO_TELEFONO' => $user_data->USUARIO_TELEFONO,
-					);
+						$this->data['array_usuarios'][$user_data->ID_USUARIO]= array(
+							'NOMBRE' => $user_data->USUARIO_NOMBRE.' '.$user_data->USUARIO_APELLIDOS,
+							'CORREO' => $user_data->USUARIO_CORREO,
+							'IMAGEN' => $user_data->IMAGEN,
+							'USUARIO_TELEFONO' => $user_data->USUARIO_TELEFONO,
+						);
+					
 				}
 
 				// Cargo Vistas
@@ -364,10 +365,10 @@ class Front_Tareas extends CI_Controller {
 					  $this->email->clear();
 					  $this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
 					  $this->email->to($datos_usuario['USUARIO_CORREO']);
-					  $this->email->subject('Asignación de tarea | POLARIS');
+					  $this->email->subject('Asignación de tarea '.$this->input->post('TareaTitulo').' | POLARIS');
 					  $this->email->message($mensaje);
-					  // envio el correo
-					  $this->email->send();
+					  // envio el correo DESACTIVO TEMPORAL
+					  //$this->email->send();
 				}
 
 			}
@@ -738,7 +739,7 @@ class Front_Tareas extends CI_Controller {
 					  $this->email->clear();
 					  $this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
 					  $this->email->to($datos_usuario['USUARIO_CORREO']);
-					  $this->email->subject('Asignado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b> | POLARIS');
+					  $this->email->subject('Asignado el proceso '.$_POST['Etiqueta'].', de la tarea '.$detalles_tarea['TAREA_TITULO'].' | POLARIS');
 					  $this->email->message($mensaje);
 					  // envio el correo
 					  $this->email->send();
@@ -774,7 +775,8 @@ class Front_Tareas extends CI_Controller {
 				'FECHA_CREACION'=>date('Y-m-d H:i:s'),
 				'ESTADO'=>'pendiente'
 			);
-			$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+			// DESACTIVO TEMPORAL
+			//$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
 
 			/*
 						| -------------------------------------------------------------------------
@@ -817,10 +819,10 @@ class Front_Tareas extends CI_Controller {
 					  $this->email->clear();
 					  $this->email->from($this->data['op']['mailer_user'], $this->data['op']['titulo_sitio']);
 					  $this->email->to($datos_usuario['USUARIO_CORREO']);
-					  $this->email->subject('Actualizado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b> | POLARIS');
+					  $this->email->subject('Actualizado el proceso '.$_POST['Etiqueta'].', de la tarea '.$detalles_tarea['TAREA_TITULO'].' | POLARIS');
 					  $this->email->message($mensaje);
-					  // envio el correo
-					  $this->email->send();
+					  // envio el correo DESACTIVO TEMPORAL
+					  //$this->email->send();
 
 		redirect(base_url('index.php/tareas/detalles?id='.$this->input->post('IdTarea')));
 
