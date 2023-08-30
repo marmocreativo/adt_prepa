@@ -17,6 +17,8 @@ $color = 'text-success';
 $icono = "far fa-clock";
 ?>
 <ul class="list-unstyled lista_tareas <?php echo $modo; ?>">
+
+
   <?php $fecha = ''; foreach($tareas as $tarea){ ?>
     <?php if($fecha != $tarea->FECHA_FINAL){ $fecha = $tarea->FECHA_FINAL; ?>
       <li class="border-0 border-bottom fecha_tareas">
@@ -26,7 +28,14 @@ $icono = "far fa-clock";
           <?php if(date('Y-m-d')<date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-success text-white">A tiempo</span>'; } ?>
         </p>
       </li>
+      <div class="d-flex justify-content-start align-items-center py-2 head-lista-tareas me-3">
+          <small class="status"><i class="fa-solid fa-bars-progress"></i> Estado</small>
+          <small class="me-auto">Nombre de la tarea</small>
+          <small class="usuario-activo"><i class="fa-solid fa-user"></i> Usuario activo</small>
+          <small class="proceso-actual me-4"><i class="fa-solid fa-bars-staggered"></i> Proceso activo</small>
+        </div>
     <?php } ?>
+
   <li>
       <div class="row">
         <?php
@@ -40,7 +49,7 @@ $icono = "far fa-clock";
             case 'en desarrollo':
               $icono = "fa-solid fa-spinner";
               $color = 'bg-info text-bg-info border-info';
-              $estado ='en desarrollo';
+              $estado ='en curso';
               // code...
               break;
             case 'completo':
@@ -59,9 +68,14 @@ $icono = "far fa-clock";
         ?>
         <div class="d-flex justify-content-start align-items-center py-2">
           <small class="badge-tarea px-2 border <?php echo ' '.$color; ?> bg-opacity-25 me-3 rounded-pill"><i class="<?php echo $icono.' '; ?>"></i><?php echo ' '.$estado; ?></small>
-          <a class="me-auto" href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
-            <span title="<?php echo $tarea->ESTADO; ?>" style="word-break: break-word;"> <?php echo $tarea->TAREA_TITULO; ?></span>
+          <a class="me-auto nombre-tarea" href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
+            <span title="<?php echo $tarea->ESTADO; ?>"> <?php echo $tarea->TAREA_TITULO; ?></span>
           </a>
+          <a class="usuario-asignado text-muted pe-4">
+						<img src=" " title="Francisco Javier" width="50px" class="rounded-circle border border-secondary" alt="">
+						<span>Francisco Javier</span>
+          </a>
+          <span class="pe-4 proceso-actual ">2. Bocetaje</span>
           <button data-enlace="<?php echo base_url('index.php/tareas/borrar?id='.$tarea->ID_TAREA); ?>" class="ml-2 btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i></button>
         </div>
 

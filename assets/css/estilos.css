@@ -465,8 +465,34 @@ border: none;
   background-color: #000;
 }
 
-.badge-tarea {
+.head-lista-tareas {
+  text-transform:uppercase;
+}
+
+.head-lista-tareas .status {
   width: 97px;
+}
+
+.head-lista-tareas .usuario-activo, .usuario-asignado {
+  width: 140px;
+}
+
+.badge-tarea {
+  min-width: 87px;
+  text-align: center;
+}
+
+.proceso-actual {
+  width: 120px;
+  overflow: hidden;
+}
+
+.nombre-tarea {
+  min-width: 300px;
+max-width: 500px;
+overflow: hidden;
+word-break: keep-all;
+text-overflow: ellipsis;
 }
 
 .usuario-burbuja {
@@ -481,6 +507,15 @@ border: none;
 	width: 25px;
 	height: 25px;
 	background: aliceblue;
+}
+
+.usuario-asignado {
+  border: none;
+}
+
+.usuario-asignado img {
+	width: 20px;
+	height: 20px;
 }
 
 .envolvente_noche .usuario-burbuja {
