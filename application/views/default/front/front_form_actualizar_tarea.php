@@ -31,11 +31,11 @@
 		<div class="row my-2">
 			<div class="col-12 col-md-6">
 				<div class="form-group">
-					<label for="EnlaceEditables">Enlace Archivos Editables</label>
+					<label for="EnlaceEditables">Enlace Carpeta General</label>
 					<input type="text" class="form-control" name="EnlaceEditables" value="<?php echo $tarea['TAREA_ENLACE_EDITABLES'] ?>">
 				</div>
 				<div class="form-group">
-					<label for="EnlaceEntregables">Enlace Archivos Entregables</label>
+					<label for="EnlaceEntregables">Enlace Version Final</label>
 					<input type="text" class="form-control" name="EnlaceEntregables" value="<?php echo $tarea['TAREA_ENLACE_ENTREGABLE'] ?>">
 				</div>
 			</div>

@@ -347,11 +347,19 @@
 				
 				<?php $procesos_post = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA']],'ORDEN ASC','',''); ?>
 				<ul class="list-group ui-sortable linea-tiempo" id="myTab" role="tablist" data-tabla="roles_historial" data-columna="ID">
+				    <li class="list-group-item lt-proceso lt-proceso-completo text-muted">
+						<small>Inicio de la tarea: <?php if ($tarea['FECHA_INICIO'] != null) {
+							echo fechas_es($tarea['FECHA_INICIO']);
+						} else {
+							echo 'N/A';
+						} ?>
+						</small>
+					</li>
 					<?php $i=1; foreach($procesos_post as $proceso){ ?>
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
-					<li class="list-group-item lt-proceso <?php if($proceso->ESTADO=='completo'){ echo 'lt-proceso-completo'; } ?> p-2 <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-info lt-proceso-actual'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
+						<li class="list-group-item lt-proceso <?php if($proceso->ESTADO=='completo'){ echo 'lt-proceso-completo'; } ?> p-2 <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-info lt-proceso-actual'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
 						<div class="d-flex w-100 align-items-start flex-column">
-							<small class="lt-fecha mb-2"><?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?></small>
+							<small class="lt-fecha mb-2">Fecha límite: <?php echo date('M-d, Y', strtotime($proceso->FECHA)); ?></small>
 						    <strong class="mb-auto pb-2"><h5 class="fw-bold" title="<?php echo $proceso->ID; ?>">#<?php echo $i; ?> <?php echo $proceso->ETIQUETA; ?></h5></strong>
 							<div class="d-flex w-100 justify-content-start align-items-center">
 							<img
