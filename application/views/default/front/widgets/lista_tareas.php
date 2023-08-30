@@ -75,7 +75,7 @@ $icono = "far fa-clock";
 						<img src=" " title="Francisco Javier" width="50px" class="rounded-circle border border-secondary" alt="">
 						<span>Francisco Javier</span>
           </a>
-          <span class="pe-4 proceso-actual ">2. Bocetaje</span>
+          <span class="pe-4 proceso-actual ">2/10 Bocetaje</span>
           <button data-enlace="<?php echo base_url('index.php/tareas/borrar?id='.$tarea->ID_TAREA); ?>" class="ml-2 btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i></button>
         </div>
 
