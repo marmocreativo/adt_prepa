@@ -347,12 +347,12 @@
 				
 				<?php $procesos_post = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA']],'ORDEN ASC','',''); ?>
 				<ul class="list-group ui-sortable linea-tiempo" id="myTab" role="tablist" data-tabla="roles_historial" data-columna="ID">
-					<?php foreach($procesos_post as $proceso){ ?>
+					<?php $i=1; foreach($procesos_post as $proceso){ ?>
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
 					<li class="list-group-item lt-proceso <?php if($proceso->ESTADO=='completo'){ echo 'lt-proceso-completo'; } ?> p-2 <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-info lt-proceso-actual'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
 						<div class="d-flex w-100 align-items-start flex-column">
 							<small class="lt-fecha mb-2"><?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?></small>
-						    <strong class="mb-auto pb-2"><h5 class="fw-bold" title="<?php echo $proceso->ID; ?>">#<?php echo $proceso->ORDEN+1; ?> <?php echo $proceso->ETIQUETA; ?></h5></strong>
+						    <strong class="mb-auto pb-2"><h5 class="fw-bold" title="<?php echo $proceso->ID; ?>">#<?php echo $i; ?> <?php echo $proceso->ETIQUETA; ?></h5></strong>
 							<div class="d-flex w-100 justify-content-start align-items-center">
 							<img
 							src="<?php echo base_url('contenido/img/usuarios/'.$detalle_usuario['IMAGEN']); ?>"
@@ -405,7 +405,7 @@
 							</form>
 						</div>	
 					</li>
-					<?php } ?>
+					<?php $i++; } ?>
 				</ul>
 				<button class="btn btn-sm btn-outline-success mt-3 <?php if($tarea['ESTADO']=='completo'){ echo 'd-none';} ?>" type="button" data-bs-toggle="collapse" data-bs-target="#form-postproduccion" aria-expanded="false" aria-controls="collapseWidthExample">
 					+ Agregar y asignar proceso
@@ -493,11 +493,11 @@
 				<?php if(empty($detalles_proceso_actual)&&$tarea['ESTADO']!='completo'){  ?>
 				<div>
 					<div class="alert alert-danger text-center">
-						<h5>¡Oh oh!, parece que ocurre un error con la línea del tiempo</h5>
+						<h5>¡Oh oh!, parece que ocurre un error con la línea del tiempo <a href="#" class="btn btn-link w-100" data-bs-toggle="modal" data-bs-target="#formCompletar">
+					Click aquí para reparar
+				</a></h5>
 					</div>
-					<button type="button" class="btn btn-link w-100" data-bs-toggle="modal" data-bs-target="#formCompletar">
-					Ajustar línea del tiempo
-					</button>
+					
 				</div>
 				<?php } ?>
 			</div>
@@ -514,7 +514,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-		<h4>Selecciona el proceso siguiente, el usuario asignado recibirá la notificación de que es su turno</h4>
+		<h3>Repara la línea de tiempo</h3>
+		<p>Selecciona el paso donde debe estar la línea de tiempo</p>
         <form action="<?php echo base_url('index.php/tareas/completar_rol'); ?>" method="post">
 			<input type="hidden" name="IdProcesoActual" value="<?php echo $tarea['ID_PROCESO']; ?>">
 			<div class="form-group">
@@ -527,7 +528,7 @@
 				</select>
 			</div>
 			<hr>
-			<button class="btn btn-success">Ajustar línea del tiempo</button>
+			<button class="btn btn-success">Reparar línea del tiempo</button>
 		</form>
       </div>
     </div>
