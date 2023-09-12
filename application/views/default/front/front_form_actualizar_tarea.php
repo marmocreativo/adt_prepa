@@ -52,13 +52,16 @@
 				</div>
 				<input type="hidden" name="Prioridad" value="<?php echo $tarea['PRIORIDAD']; ?>">
 				<div class="form-group">
-					<label for="Estado">Estado</label>
-					<select class="form-control" name="Estado">
-						<option value="pendiente" <?php if($tarea['ESTADO']=='pendiente'){ echo 'selected'; } ?>>Pendiente</option>
-						<option value="en desarrollo" <?php if($tarea['ESTADO']=='en desarrollo'){ echo 'selected'; } ?>>En Desarrollo</option>
-						<option value="completo" <?php if($tarea['ESTADO']=='completo'){ echo 'selected'; } ?>>Completo</option>
+					<?php $etiquetas = $this->GeneralModel->lista('tareas_etiquetas','',['ID_PROYECTO'=>$tarea['ID_PROYECTO']],'ORDEN ASC','',''); ?>
+					<label for="Etiqueta">Etiqueta</label>
+					<select class="form-control" name="Etiqueta">
+						<option value="">Ningúna</option>
+						<?php foreach($etiquetas as $etiqueta){ ?>
+						<option value="<?php echo $etiqueta->ID; ?>" <?php if($tarea['ID_ETIQUETA']==$etiqueta->ID){ echo 'selected'; } ?>><?php echo $etiqueta->ETIQUETA; ?></option>
+						<?php } ?>
 					</select>
 				</div>
+				<input type="hidden" name="Estado" value="<?php echo $tarea['ESTADO']; ?>">
 			</div>
 		</div>
 		<div class="">

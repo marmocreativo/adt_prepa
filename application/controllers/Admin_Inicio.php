@@ -51,35 +51,32 @@ class Admin_Inicio extends CI_Controller {
 
 	public function index()
 	{	
+		
 		$this->load->dbforge();
+		
+       // Nombre de la tabla y nombre de la columna
+	   $table_name = 'tareas';
+	   $column_name = 'ID_ETIQUETA';
 
-        $fields = array(
-            'ID' => array(
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
-            ),
-            'ID_PROYECTO' => array(
-                'type' => 'INT',
-                'constraint' => 11,
-            ),
-            'ETIQUETA' => array(
-                'type' => 'VARCHAR',
-                'constraint' => 256,
-            ),
-            'ORDEN' => array(
-                'type' => 'INT',
-                'constraint' => 11,
-                'default' => 0,
-            ),
-        );
+	   // Definir las características de la columna
+	   $fields = array(
+		   $column_name => array(
+			   'type' => 'VARCHAR',
+			   'constraint' => 255,
+			   'default' => ''
+		   )
+	   );
 
-        $this->dbforge->add_field($fields);
-        $this->dbforge->add_key('ID', TRUE);
-        $this->dbforge->create_table('tareas_etiquetas');
-        
-        echo "Tabla creada exitosamente.";
+	   // Agregar la nueva columna a la tabla
+	   if ($this->dbforge->add_column($table_name, $fields)) {
+		   echo "La columna '$column_name' se ha creado con éxito en la tabla '$table_name'";
+	   } else {
+		   echo "Error al crear la columna '$column_name'";
+	   }
+	   
+
+
+			
 	}
 	
 	public function ajuste_areas()

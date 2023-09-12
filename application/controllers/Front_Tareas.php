@@ -106,7 +106,8 @@ class Front_Tareas extends CI_Controller {
 					'FECHA_FINAL' =>    $fecha_final,
 					'PRIORIDAD' =>  'normal',
 					'TIPO' => $this->input->post('Tipo'),
-					'ESTADO' => $this->input->post('Estado')
+					'ESTADO' => $this->input->post('Estado'),
+					'ID_ETIQUETA' => $this->input->post('Etiqueta')
 				);
 				$tarea_id = $this->GeneralModel->crear('tareas',$parametros);
 
@@ -264,6 +265,7 @@ class Front_Tareas extends CI_Controller {
 				'PRIORIDAD' =>  $this->input->post('Prioridad'),
 				'TIPO' =>  $this->input->post('Tipo'),
 				'ESTADO' =>  $this->input->post('Estado'),
+				'ID_ETIQUETA' => $this->input->post('Etiqueta')
 			);
 			if($this->input->post('Estado')=='completo'){
 				$parametros['FECHA_ENTREGA'] = date('Y-m-d');
@@ -346,7 +348,7 @@ class Front_Tareas extends CI_Controller {
 						'FECHA_CREACION'=>date('Y-m-d H:i:s'),
 						'ESTADO'=>'pendiente'
 					);
-					$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+					//$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
 					  // Datos para enviar por correo
 					  $datos_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario]);
 					  $this->data['info'] = array();
@@ -677,7 +679,7 @@ class Front_Tareas extends CI_Controller {
 			'PROCESO' => $_POST['Proceso'],
 			'FECHA' => date('Y-m-d 00:00:00', strtotime($_POST['Fecha'])),
 			'ORDEN' => $nuevo_orden,
-			'ESTADO' => 'pendiente',
+			'ESTADO' => 'en desarrollo',
 			'FECHA_TERMINADO' => null
 		);
 
@@ -877,7 +879,7 @@ class Front_Tareas extends CI_Controller {
 		];
 
 		$parametros_siguientes = [
-			'ESTADO'=>'pendiente',
+			'ESTADO'=>'en desarrollo',
 			'FECHA_TERMINADO'=>null
 		];
 
@@ -937,53 +939,33 @@ class Front_Tareas extends CI_Controller {
 	}
 
 	public function reparar_tareas(){
+		$this->GeneralModel->actualizar('tareas',['ESTADO'=>'pendiente'],['ESTADO'=>'en desarrollo']);
+	}
+
+	public function tareas_sin_proyectos(){
 		$tareas = $this->GeneralModel->lista('tareas','','','','','');
-		$parametros_tarea = array();
 		foreach($tareas as $tarea){
-			if(!empty($tarea->ID_PROCESO)){
-				$detalles_proceso_ativo = $this->GeneralModel->detalles('roles_historial',['ID'=>$tarea->ID_PROCESO]);
-				if(!empty($detalles_proceso_ativo)){
-					echo '<p style="color: green">'.$tarea->TAREA_TITULO.' | '.$detalles_proceso_ativo['ETIQUETA'].'</p>';
-				}else{
-					echo '<p style="color: red">'.$tarea->TAREA_TITULO.' | No hay proceso</p>';
-					$ultimo_proceso_pendiente = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA,'ESTADO'=='pendiente'],'ORDEN ASC','',1);
-					if(!empty($ultimo_proceso_pendiente)){
-						foreach($ultimo_proceso_pendiente as $proceso_pendiente){
-						$parametros_tarea['ID_PROCESO'] = $proceso_pendiente->ID;
-						}
-					}else{
-						$ultimo_proceso_completado = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA,'ESTADO'=='completo'],'ORDEN DESC','',1);
-						if(!empty($ultimo_proceso_completado)){
-							foreach($ultimo_proceso_completado as $proceso_completado){
-							$parametros_tarea['ID_PROCESO'] = $proceso_completado->ID;
-							}
-						}else{
-							$parametros_tarea['ID_PROCESO'] = null;
-						}
-					}
-					$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$tarea->ID_TAREA],$parametros_tarea);
-				}
+			$detalles_proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$tarea->ID_PROYECTO]);
+			if(!empty($detalles_proyecto)){
+				echo '<p style="color: green;">'.$tarea->TAREA_TITULO.'---->'.$detalles_proyecto['PROYECTO_NOMBRE'].'</p>';
 			}else{
-				echo '<p style="color: yellow">'.$tarea->TAREA_TITULO.' | No hay proceso</p>';
-				$ultimo_proceso_pendiente = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA,'ESTADO'=='pendiente'],'ORDEN ASC','',1);
-				if(!empty($ultimo_proceso_pendiente)){
-					foreach($ultimo_proceso_pendiente as $proceso_pendiente){
-					$parametros_tarea['ID_PROCESO'] = $proceso_pendiente->ID;
-					}
-				}else{
-					$ultimo_proceso_completado = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA,'ESTADO'=='completo'],'ORDEN DESC','',1);
-					if(!empty($ultimo_proceso_completado)){
-						foreach($ultimo_proceso_completado as $proceso_completado){
-						$parametros_tarea['ID_PROCESO'] = $proceso_completado->ID;
-						}
-					}else{
-						$parametros_tarea['ID_PROCESO'] = null;
-					}
-				}
-				$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$tarea->ID_TAREA],$parametros_tarea);
+				echo '<p style="color: red;">'.$tarea->TAREA_TITULO.'----> NO EXISTE</p>';
+				$this->GeneralModel->borrar('tareas_mensajes',['ID_TAREA'=>$tarea->ID_TAREA]);
+				//echo 'Borrar los mensajes de las tareas con ID: '.$tarea->ID_TAREA;
+				//echo '<br>';
+				$this->GeneralModel->borrar('tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
+				$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
+				$this->GeneralModel->borrar('tareas_mensajes',['ID_TAREA'=>$tarea->ID_TAREA]);	
+				$this->GeneralModel->borrar('validacion_revisiones',['ID_TAREA'=>$tarea->ID_TAREA]);
+				$this->GeneralModel->borrar('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA]);	
 			}
 			
 		}
+
+	}
+
+	public function reparar_estado_tareas(){
+		$this->GeneralModel->actualizar('roles_historial',['ESTADO'=>'pendiente'],['ESTADO'=>'en desarrollo']);
 	}
 
 }

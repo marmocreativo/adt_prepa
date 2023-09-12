@@ -325,6 +325,7 @@ class Front_Proyectos extends CI_Controller {
 
 			// Consultas
 			$this->data['equipos'] = $this->GeneralModel->lista('equipos','',['ESTADO'=>'activo'],'','','');
+			$this->data['etiquetas'] = $this->GeneralModel->lista('tareas_etiquetas','',['ID_PROYECTO'=>$_GET['id']],'ORDEN ASC','','');
 			$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','','');
 
 			// Cargo Vistas
@@ -385,6 +386,27 @@ class Front_Proyectos extends CI_Controller {
 					//  Redirecciono
 	         redirect(base_url('index.php/proyectos'));
 				}
+	}
+
+	public function crear_etiqueta(){
+		$ultimo_orden = $this->GeneralModel->lista('tareas_etiquetas','',['ID_PROYECTO'=>$_POST['IdProyecto']],'ORDEN DESC','1','');
+		$nuevo_orden = 0;
+		if(!empty($ultimo_orden)){
+			foreach($ultimo_orden as $ultimo){
+				$nuevo_orden = $ultimo->ORDEN+1;
+			}
+		}
+
+		$parametros = array(
+			'ETIQUETA'=>$_POST['Etiqueta'],
+			'ID_PROYECTO' => $_POST['IdProyecto'],
+			'ORDEN' => $nuevo_orden
+		);
+
+		$id_revision = $this->GeneralModel->crear('tareas_etiquetas',$parametros);
+
+		redirect(base_url('index.php/proyectos/detalles?id='.$_POST['IdProyecto']));
+
 	}
 
 	public function crear_validacion(){
@@ -498,7 +520,7 @@ class Front_Proyectos extends CI_Controller {
 
 		$this->GeneralModel->actualizar('validacion_revisiones',['ID_REVISION'=>$detalles_revision['ID_REVISION']], $parametros);
 
-		redirect(base_url('index.php/proyectos/detalles?id='.$_GET['id']));
+		redirect(base_url('index.php/tareas/detalles?id='.$detalles_revision['ID_TAREA']));
 	}
 
 	public function copiar_validacion()
@@ -545,7 +567,11 @@ class Front_Proyectos extends CI_Controller {
 		);
 		$this->GeneralModel->actualizar('validacion_revisiones',['ID_REVISION'=>$id_revision],$parametros_revision_act);
 
-		redirect(base_url('index.php/proyectos/detalles?id='.$detalles_revision['ID_PROYECTO']));
+		if(isset($_GET['id_tarea'])&&!empty($_GET['id_tarea'])){
+			redirect(base_url('index.php/tareas/detalles?id='.$detalles_revision['ID_TAREA']));
+		}else{
+			redirect(base_url('index.php/proyectos/detalles?id='.$detalles_revision['ID_PROYECTO']));
+		}
 	}
 
 	public function validacion_reporte()

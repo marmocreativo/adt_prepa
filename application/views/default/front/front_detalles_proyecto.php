@@ -75,7 +75,7 @@
 			    </div>
 			</div>
 
-			<div class="row mt-3 py-3 border-bottom">
+			<div class="row mt-3 py-3 border-bottom d-none">
 				<div class="col-12">
 			        <h5>Validaciones del proyecto</h5>
 				    <button type="button" class="ml-2 btn btn-info" data-bs-toggle="modal" data-bs-target="#ValidacionesCont" title="Validaciones"><i class="fa-solid fa-list-check"></i> Validaciones del proyecto</button>
@@ -91,13 +91,18 @@
 	    <div class="col-12 d-flex justify-content-between mt-4 mb-2">
 			<h5>Tareas</h5>
 		    <?php if($proyecto['ESTADO']!='terminado'){ ?>
+			<div>
+			<button type="button" class="btn btn-sm px-4 rounded-pill btn-outline-success" data-bs-toggle="modal" data-bs-target="#NuevaEtiqueta" title="Nueva Etiqueta">
+				<i class="fa fa-plus"></i> Nueva etiqueta de tarea
+			</button>
 			<button type="button" class="btn btn-sm px-4 rounded-pill btn-outline-primary" data-bs-toggle="modal" data-bs-target="#NuevaTarea" title="Nueva tarea">
 				<i class="fa fa-plus"></i> Nueva tarea
 			</button>
+			</div>
 		    <?php } ?>
 	    </div>
 		<div class="col-12">
-		    <?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_tareas', $tareas); ?>
+		    <?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_tareas_etiquetas', $etiquetas); ?>
 		</div>
 	</div>
 </div>
@@ -218,7 +223,33 @@
 	</div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Etiqueta-->
+<div class="modal fade" id="NuevaEtiqueta" tabindex="-1" aria-labelledby="NuevaEtiquetaLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content <?php echo $modo; ?>">
+			<div class="modal-header">
+				<h5 class="modal-title" id="NuevaTareaLabel">Nueva Etiqueta</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form class="" action="<?php echo base_url('index.php/proyectos/crear_etiqueta'); ?>" method="post">
+					<input type="hidden" name="IdProyecto" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="Etiqueta">Nombre</label>
+						<input type="text" class="form-control" name="Etiqueta" value="">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Guardar</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Tareas -->
 <div class="modal fade" id="NuevaTarea" tabindex="-1" aria-labelledby="NuevaTareaLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content <?php echo $modo; ?>">
@@ -264,12 +295,15 @@
 							</div>
 							<hr>
 							<div class="form-group">
-								<label for="Estado">Estado</label>
-								<select class="form-control" name="Estado">
-									<option value="pendiente">Pendiente</option>
-									<option value="en desarrollo">En Desarrollo</option>
+								<label for="Etiqueta">Etiqueta</label>
+								<select class="form-control" name="Etiqueta">
+									<option value="">Ningúna</option>
+									<?php foreach($etiquetas as $etiqueta){ ?>
+									<option value="<?php echo $etiqueta->ID; ?>"><?php echo $etiqueta->ETIQUETA; ?></option>
+									<?php } ?>
 								</select>
 							</div>
+							<input type="hidden" name="Estado" value="en desarrollo">
 						</div>
 					</div>
 					<div class="">

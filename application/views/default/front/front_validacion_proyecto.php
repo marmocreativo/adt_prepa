@@ -7,6 +7,11 @@
 <?php
 	$usuarios = $this->GeneralModel->lista_join('usuarios',['equipos_usuarios'=>'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO'],'',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','usuarios.ID_USUARIO');
     $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+
+    if($detalles_revision['ESTADO']=='finalizado'){
+        echo 'Esto debería activarse';
+        redirect(base_url('index.php/tareas/validacion_reporte?id='.$detalles_revision['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$detalles_revision['ID_TAREA']));
+    }
 ?>
 <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-primary mb-3"><i class="fas fa-chevron-circle-left"></i> Volver al proyecto</a>
 <div class="row ">
@@ -229,6 +234,7 @@
                                     $meta_datos_parametros = array(); foreach($meta_parametros as $m){ $meta_datos_parametros[$m->DATO_NOMBRE]= $m->DATO_VALOR; }
                                 ?>
                                 <tr class="<?php echo $mostrar; ?>">
+                                <?php $i = 1; ?>
                                     <td>
                                         <div class="form-check">
                                             <input class="form-check-input check-respuesta" type="checkbox" value=""
@@ -240,48 +246,56 @@
                                         </div>
                                     </td>
                                     <?php if(!empty($dimension_activa['CRITERIO_1'])){ ?>
+                                        <?php $i ++; ?>
                                     <td class="text-center border-left border-right">
                                         <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_1; ?></span>
                                     </td>
                                     <?php } ?>
                                     <?php if(!empty($dimension_activa['CRITERIO_2'])){ ?>
+                                        <?php $i ++; ?>
                                         <td class="text-center border-left border-right">
                                             <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_2; ?></span>
                                         </td>
                                     <?php } ?>
                                     <?php if(!empty($dimension_activa['CRITERIO_3'])){ ?>
+                                        <?php $i ++; ?>
                                         <td class="text-center border-left border-right">
                                             <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_3; ?></span>
                                         </td>
                                     <?php } ?>
                                     <?php if(!empty($dimension_activa['CRITERIO_4'])){ ?>
+                                        <?php $i ++; ?>
                                         <td class="text-center border-left border-right">
                                             <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_4; ?></span>
                                         </td>
                                     <?php } ?>
                                     <?php if(!empty($dimension_activa['CRITERIO_5'])){ ?>
+                                        <?php $i ++; ?>
                                         <td class="text-center border-left border-right">
                                             <span class="badge bg-info rounded-pill mx-1 text-white p-2"><?php echo $parametro->CRITERIO_VALOR_5; ?></span>
                                         </td>
                                     <?php } ?>
+                                    <?php $i ++; ?>
                                         <td class="text-center">
                                             <button class="btn btn-primary rounded-circle px-2" type="button" data-bs-toggle="collapse" data-bs-target="#comment-<?php echo $parametro->ID_PARAMETRO; ?>" aria-expanded="false" aria-controls="comment-<?php echo $parametro->ID_PARAMETRO; ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-chat mb-1" viewBox="0 0 16 16">
                                                     <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
                                                 </svg>
                                             </button>
-                                            <div class="collapse collapse-horizontal comentario-param" id="comment-<?php echo $parametro->ID_PARAMETRO; ?>">
-                                                <div class="card card-body bg-light">
-                                                    <div class="input-group">
-                                                    <div>
-                                                        <label for="comentario-<?php echo $respuesta['ID_RESPUESTA']; ?>" class="form-label text-secondary">Comentarios</label>
-                                                        <textarea class="form-control TextEditorSmall comentario-respuesta" data-respuesta='<?php echo $respuesta['ID_RESPUESTA']; ?>' id="comentario-<?php echo $respuesta['ID_RESPUESTA']; ?>" rows="2"><?php echo $respuesta['COMENTARIOS'] ?></textarea>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                         </td>
-                                </tr>
+                                    </tr>
+                                    <tr>
+                                        <td colspan='<?php echo $i; ?>'  >
+                                            <div id="contenedor-comentario-<?php echo $respuesta['ID_RESPUESTA']; ?>" class="<?php if(!empty($respuesta['COMENTARIOS'])){ echo 'alert alert-warning'; } ?> p-3"><?php echo $respuesta['COMENTARIOS'] ?></div>
+                                            <div class="collapse" id="comment-<?php echo $parametro->ID_PARAMETRO; ?>">    
+                                                <div class="card card-body bg-light">
+                                                        <textarea class="form-control TextEditorXtraSmall comentario-respuesta" data-respuesta='<?php echo $respuesta['ID_RESPUESTA']; ?>' id="comentario-<?php echo $respuesta['ID_RESPUESTA']; ?>" rows="2"><?php echo $respuesta['COMENTARIOS'] ?></textarea>
+                                                    </div>
+                                                    <button class="btn btn-success guardar_comentario" type="button" data-respuesta='<?php echo $respuesta['ID_RESPUESTA']; ?>' data-colapsar='<?php echo $parametro->ID_PARAMETRO; ?>'>Guardar</button>
+                                                </div>
+                                        </td>
+                                    </tr>
                                 
                                 <?php }// Bucle de parametros ?>
                             </tbody>                     
@@ -335,15 +349,26 @@
         /*-------------------*/
         const checkboxes = document.querySelectorAll('.check-respuesta');
 
-        const textareas = document.querySelectorAll('.comentario-respuesta');
+        const botones_guardar_comentarios = document.querySelectorAll('.guardar_comentario');
+        
 
-        textareas.forEach(function(textarea) {
-            textarea.addEventListener('input', function() {
-                const valor = this.value;
+        botones_guardar_comentarios.forEach(function(boton) {
+            boton.addEventListener('click', function() {
                 const respuesta = this.dataset.respuesta;
+                const colapsar = this.dataset.colapsar;
+                const contenido_comentario = document.getElementById('comentario-'+respuesta);
+                const contenedor_comentario = document.getElementById('contenedor-comentario-'+respuesta);
+                const contenedor_textarea = document.getElementById('comment-'+colapsar);
+                contenedor_textarea.classList.add('collapse');
+                contenedor_textarea.classList.remove('show');
+                contenedor_comentario.innerHTML = contenido_comentario.value;
+                contenedor_comentario.classList.add('alert');
+                contenedor_comentario.classList.add('alert-warning');
+
                 const xhr = new XMLHttpRequest();
                      // Crear un objeto con los datos del formulario
-                     let datosFormulario = "?respuesta="+respuesta+"&comentario="+valor;
+                     let datosFormulario = "?respuesta="+respuesta+"&comentario="+contenido_comentario.value;
+                     console.log(datosFormulario);
                     // Configurar la solicitud
                     xhr.open('GET', '<?php echo base_url('index.php/ajax/registrar_comentario'); ?>'+datosFormulario);
 
@@ -352,15 +377,17 @@
 
                     // Definir el manejo de la respuesta
                     xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        // Procesar la respuesta
-                        const respuesta = xhr.responseText;
-                        console.log(respuesta);
-                    }
+                        if (xhr.status === 200) {
+                            // Procesar la respuesta
+                            const respuesta = xhr.responseText;
+                            console.log(respuesta);
+                        }
                     };
-
-
                     xhr.send();
+
+                //console.log(contenido_comentario.value);
+                //console.log(respuesta);
+                
             });
         });
 

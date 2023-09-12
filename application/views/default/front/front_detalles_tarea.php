@@ -189,7 +189,7 @@
 									<?php echo $mensaje->MENSAJE; ?>
 									<?php $respuestas = $this->GeneralModel->lista('tareas_mensajes','',['ID_TAREA'=>$tarea['ID_TAREA'],'ID_PADRE'=>$mensaje->ID],'FECHA_REGISTRO DESC','',''); ?>
 									<?php foreach($respuestas as $respuesta){ ?>
-										<p class='bg-light p-3 m-3'><b><?php echo $array_usuarios[$respuesta->ID_USUARIO]['NOMBRE']; ?>:</b> <?php echo $respuesta->MENSAJE; ?> </p>
+										<div class='bg-light p-3 m-3'><b><?php echo $array_usuarios[$respuesta->ID_USUARIO]['NOMBRE']; ?>:</b> <?php echo $respuesta->MENSAJE; ?> </div>
 										<?php } ?>
 									<?php if($mensaje->TIPO=='reasignacion'){ ?>
 										<hr>
@@ -244,7 +244,7 @@
 										
 										<span class="px-3"><?php echo fechas_es($mensaje->FECHA_REGISTRO).' </span><span> '.date('g:i a', strtotime($mensaje->FECHA_REGISTRO)); ?></span>
 										
-										<div class="collapse p-4 bg-light" id='formulario_responder_<?php echo $mensaje->ID; ?>'>
+										<div class="collapse p-4 bg-light text-start" id='formulario_responder_<?php echo $mensaje->ID; ?>'>
 												<form class="" action="<?php echo base_url('index.php/tareas/agregar_mensaje'); ?>" method="post">
 													<input type="hidden" name="Padre" value="<?php echo $mensaje->ID; ?>">
 													<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
@@ -254,8 +254,8 @@
 													<div class="row">
 														<div class="col-12">
 															<div class="form-group">
-																<label for="Mensaje">Comentario</label>
-																<textarea name="Mensaje" class="form-control"></textarea>
+																<label for="Mensaje">Respuesta</label>
+																<textarea name="Mensaje" class="form-control TextEditorXtraSmall"></textarea>
 															</div>
 															<?php
 																		$usuarios = $this->GeneralModel->lista('usuarios','',['usuarios.ESTADO'=>'activo'],'usuarios.USUARIO_NOMBRE ASC','','','');
@@ -640,6 +640,7 @@
 												<?php } ?>
 												<?php if($detalles_revision['ESTADO']=='finalizado'){ ?>
 												<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
+												<button data-enlace="<?php echo base_url('index.php/proyectos/copiar_validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&id_tarea='.$detalles_revision['ID_TAREA']); ?>" class="ml-2 btn btn-warning btn-sm borrar_entrada"> <i class="fa fa-copy"></i> Revalidar</a>
 												<?php } ?>
 											</div>
 										</td>

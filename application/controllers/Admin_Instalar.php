@@ -17,16 +17,16 @@ class Admin_Instalar extends CI_Controller {
 			$temp_line = '';
 	    $lines = file('base_de_datos.sql');
 	    foreach ($lines as $line)
-	    {
-	        if (substr($line, 0, 2) == '--' || $line == '' || substr($line, 0, 1) == '#')
-	            continue;
-	        $temp_line .= $line;
-	        if (substr(trim($line), -1, 1) == ';')
-	        {
-	            $this->db->query($temp_line);
-	            $temp_line = '';
-	        }
-	    }
+			{
+				if (substr($line, 0, 2) == '--' || $line == '' || substr($line, 0, 1) == '#')
+					continue;
+				$temp_line .= $line;
+				if (substr(trim($line), -1, 1) == ';')
+				{
+					$this->db->query($temp_line);
+					$temp_line = '';
+				}
+			}
 			redirect(base_url());
 		}
 

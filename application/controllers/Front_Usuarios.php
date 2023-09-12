@@ -517,7 +517,7 @@ class Front_Usuarios extends CI_Controller {
 		$parametros_and['tareas.FECHA_FINAL >='] = $this->data['consulta']['fecha_inicio'];
 		$parametros_and['tareas.FECHA_FINAL <='] = $this->data['consulta']['fecha_final'];
 		*/
-		$parametros_and['tareas.ESTADO !='] = 'completo';
+		//$parametros_and['tareas.ESTADO !='] = 'completo';
 		$tablas_join = array();
 		$tablas_join['roles_historial'] = 'roles_historial.ID = tareas.ID_PROCESO';
 		$parametros_and['roles_historial.ID_USUARIO'] = $_GET['id'];

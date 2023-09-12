@@ -153,7 +153,7 @@ activar_reordenar();
 
     if ( $( ".TextEditorSmall" ).length ) {
       $('.TextEditorSmall').summernote({
-        minHeight: 400,             // set minimum height of editor
+        minHeight: 300,             // set minimum height of editor
         maxHeight: null,             // set maximum height of editor
         focus: true,                  // set focus to editable area after initializing summernote
         followingToolbar: false,
@@ -164,6 +164,20 @@ activar_reordenar();
           ['para', ['style','ul', 'ol', 'paragraph']],
           ['insert', ['link','picture']],
           ['Code', ['codeview']]
+        ]
+      });
+    }
+
+    if ( $( ".TextEditorXtraSmall" ).length ) {
+      $('.TextEditorXtraSmall').summernote({
+        minHeight: 150,             // set minimum height of editor
+        maxHeight: null,             // set maximum height of editor
+        focus: true,                  // set focus to editable area after initializing summernote
+        followingToolbar: false,
+        toolbar: [
+          // [groupName, [list of button]]
+          ['style', ['bold']],
+          ['insert', ['link']]
         ]
       });
     }
