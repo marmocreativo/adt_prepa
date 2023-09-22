@@ -508,6 +508,16 @@
 					
 				</div>
 				<?php } ?>
+				<?php if($_SESSION['usuario']['tipo_usuario']='administrador'&&$tarea['ESTADO']=='completo'){  ?>
+				<div>
+					<div class="alert alert-info text-center">
+						<h6>Si eres un administrador <a href="#" class="btn btn-link w-100" data-bs-toggle="modal" data-bs-target="#formCompletar">
+					Puedes reparar la línea del tiempo dando click aquí
+				</a></h6>
+					</div>
+					
+				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
