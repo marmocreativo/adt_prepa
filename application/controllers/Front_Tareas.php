@@ -662,6 +662,25 @@ class Front_Tareas extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
 
+	public function borrar_validacion(){
+		$tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['id']]);
+		$revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+
+        // check if the ID_REVISION exists before trying to delete it
+        if(isset($revision['ID_REVISION']))
+        {
+			// Borro la categoría
+			$this->GeneralModel->borrar('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+			$this->GeneralModel->borrar('validacion_respuesta',['ID_REVISION'=>$_GET['id_revision']]);
+						
+            redirect(base_url('index.php/tareas/detalles?id='.$_GET['id']));
+        } else {
+					// Mensaje Feedback
+					//  Redirecciono
+	         redirect(base_url('index.php/proyectos'));
+		}
+	}
+
 	public function asignar_rol()
 	{
 		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_POST['IdTarea']]);
