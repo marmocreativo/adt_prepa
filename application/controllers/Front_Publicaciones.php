@@ -41,15 +41,20 @@ class Front_Publicaciones extends CI_Controller {
 	{
 		// Verifico el switch de mantenimiento
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
+		if(isset($_SESSION['usuario'])){
+			redirect(base_url('index.php/tareas'));
+		}else{
+			// Open Tags
+			$this->data['titulo']  = 'Inicio';
+			$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
+			$this->data['imagen']  = base_url('assets/img/share_default.jpg');
 
-		// Open Tags
-		$this->data['titulo']  = 'Inicio';
-		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
-		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_login',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/pagina_inicio',$this->data);
+			$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+		}
 
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_login',$this->data);
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/pagina_inicio',$this->data);
-		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+		
 
 		// Vistas
 	}

@@ -212,4 +212,21 @@ class Ajax extends CI_Controller {
 			$this->GeneralModel->borrar('meta_datos',['ID_OBJETO'=>$id,'TIPO_OBJETO'=>'parametro']);
 		}
 	}
+
+	public function revisar_ultima_notificacion()
+	{
+		$ultima_notificacion = $this->GeneralModel->lista('notificaciones','',['ID_USUARIO'=>$_SESSION['usuario']['id']],'FECHA_CREACION DESC','1','');
+		$datos_notif = array();
+		foreach($ultima_notificacion as $valor){
+			$datos_notif['ENLACE'] = $valor->ENLACE;
+			$datos_notif['NOTIFICACION_CONTENIDO'] = $valor->NOTIFICACION_CONTENIDO;
+			$datos_notif['FECHA_CREACION'] = $valor->FECHA_CREACION;
+		}
+		
+		if($datos_notif['FECHA_CREACION']!=$_SESSION['ultima_notificacion']){
+			echo $datos_notif['NOTIFICACION_CONTENIDO'];
+			$_SESSION['ultima_notificacion'] = $datos_notif['FECHA_CREACION'];
+		}
+		
+	}
 }

@@ -28,15 +28,21 @@
 							<i class="fas fa-columns fa-lg"></i> <span class="etiqueta_menu">Resumen</span>
 						</a>
 					</li>
-					<?php $verificar_notificaciones = $this->GeneralModel->conteo('notificaciones','','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'LEIDO'=>'no'],''); ?>
+					<?php
+						$verificar_notificaciones = $this->GeneralModel->conteo('notificaciones','','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'LEIDO'=>'no'],'');
+						$ultima_notificacion = $this->GeneralModel->lista('notificaciones','',['ID_USUARIO'=>$_SESSION['usuario']['id']],'FECHA_CREACION DESC','1','');
+						foreach($ultima_notificacion as $ultima){
+						$_SESSION['ultima_notificacion'] = $ultima->FECHA_CREACION;
+						}
+					?>
 							<li class="nav-item">
 						<a href="<?php echo base_url('index.php/lista_usuarios/notificaciones'); ?>" class="nav-link  py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Notificaciones">
 							<?php if(empty($verificar_notificaciones)){ ?>
-										<i class="far fa-bell"></i>
-									<?php }else{ ?>
-										<i class="fas fa-bell animate__animated animate__swing animate__infinite"></i> <span class="badge bg-danger text-white"><?php echo $verificar_notificaciones; ?></span>
-									<?php } ?>
-									<span class="etiqueta_menu">Notificaciones</span>
+								<i class="far fa-bell"></i>
+							<?php }else{ ?>
+								<i class="fas fa-bell animate__animated animate__swing animate__infinite"></i> <span class="badge bg-danger text-white"><?php echo $verificar_notificaciones; ?></span>
+							<?php } ?>
+							<span class="etiqueta_menu">Notificaciones</span>
 						</a>
 					</li>
 					<li class="nav-item">

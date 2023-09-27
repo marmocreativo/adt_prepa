@@ -8,7 +8,6 @@
 
 		<div class="pt-4">
 			<a href="<?php echo base_url('index.php/tareas'); ?>" class="btn btn-primary w-100 ">Entrar</a>
-
 		</div>
 	</div>
 </div>

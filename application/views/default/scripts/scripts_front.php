@@ -35,8 +35,83 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     }
   );
 
+  
 
+<?php if(isset($_SESSION['usuario'])){ ?>
+  // Función que se ejecutará cada minuto
+function relojSesion() {
+  // Reloj de actividad
+  var limite_tiempo = <?php echo $this->data['op']['tiempo_inactividad_sesion'] ?>;
 
+  // Fecha de inicio
+  var fechaInicio = new Date('<?php echo date('Y-m-d\TH:i:s',strtotime($_SESSION['usuario']['ultima_actividad'])); ?>'); // Reemplaza esta fecha con la que desees
 
+  // Fecha y hora actual
+  var fechaActual = new Date();
+
+  // Calcula la diferencia en milisegundos
+  var diferencia = fechaActual - fechaInicio;
+
+  // Convierte la diferencia de milisegundos a minutos
+  var minutosPasados = Math.round(diferencia / (1000 * 60));
+
+  if(minutosPasados<limite_tiempo-10){
+    console.log('Han pasado ' + minutosPasados + ' minutos');
+  }else{
+    Swal.fire({
+        title: '¡Te quedan menos de 10 minutos!',
+        text: "Guarda tu trabajo o recarga la página para obtener más tiempo de sesión",
+        type: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: '¡Entendido!'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Confirmado',
+            'No olvides guardar :)',
+            'success'
+          )
+        }
+      });
+  }
+  
+}
+
+// Establecer un intervalo de 1 minuto (60,000 milisegundos)
+<?php if(isset($_SESSION['usuario']['ultima_actividad'])){ ?>
+var intervalo = setInterval(relojSesion, 60000);
+<?php } ?>
+
+<?php } ?>
+
+function buscarNotificacion(){
+  jQuery.ajax({
+    method: "GET",
+    url: "<?php echo base_url('index.php/ajax/revisar_ultima_notificacion'); ?>",
+    dataType: "html",
+    success : function(respuesta)
+    {
+      if(respuesta!=''){
+        Swal.fire({
+        position: 'top-end',
+        toast: true,
+        title: '<strong>Notificación</strong>',
+        html:respuesta,
+        showCloseButton: false,
+        showCancelButton: false,
+        timer: 10000
+      });
+      }
+      
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      console.log(xhr.status);
+      console.log(thrownError);
+    }
+  });
+}
+//buscarNotificacion();
+var intervalo = setInterval(buscarNotificacion, 10000);
 
 </script>

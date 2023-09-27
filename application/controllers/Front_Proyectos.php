@@ -409,6 +409,12 @@ class Front_Proyectos extends CI_Controller {
 
 	}
 
+	public function borrar_etiqueta(){
+		$this->GeneralModel->borrar('tareas_etiquetas',['ID'=>$_GET['id_etiqueta']]);
+		$this->GeneralModel->actualizar('tareas',['ID_ETIQUETA'=>$_GET['id_etiqueta']],['ID_ETIQUETA'=>'']);
+		redirect(base_url('index.php/proyectos/detalles?id='.$_GET['id']));
+	}
+
 	public function crear_validacion(){
 		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_POST['IdProyecto']]);
 		$tareas = $this->GeneralModel->lista('tareas','',['ID_PROYECTO'=>$_POST['IdProyecto']],'','','');
