@@ -78,17 +78,26 @@ class Admin_Inicio extends CI_Controller {
 
 			
 	}
-	
-	public function ajuste_areas()
-	{
-		$usuarios = $this->GeneralModel->lista('usuarios','','','','','');
-		foreach($usuarios as $usuario){
-			$parametros = array(
-				'ID_USUARIO' => $usuario->ID_USUARIO,
-				'ID_AREA' => 1
-			);
 
-			$this->GeneralModel->crear('areas_usuarios',$parametros);
+	public function revisar_proyectos(){
+		$tareas = $this->GeneralModel->lista('tareas','','','','','');
+		foreach($tareas as $tarea){
+			$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$tarea->ID_PROYECTO]);
+			if(empty($proyecto)){
+				echo '<p style="color: red">';
+				echo $tarea->TAREA_TITULO;
+				echo '</p>';
+				$this->GeneralModel->borrar('tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
+				$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
+				$this->GeneralModel->borrar('tareas_mensajes',['ID_TAREA'=>$tarea->ID_TAREA]);	
+				$this->GeneralModel->borrar('validacion_revisiones',['ID_TAREA'=>$tarea->ID_TAREA]);
+				$this->GeneralModel->borrar('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA]);	
+			}else{
+				echo '<p style="color: green">';
+				echo $tarea->TAREA_TITULO;
+				echo '</p>';
+			}
+
 		}
 	}
 

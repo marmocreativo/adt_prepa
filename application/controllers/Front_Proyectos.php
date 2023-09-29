@@ -408,6 +408,16 @@ class Front_Proyectos extends CI_Controller {
 		redirect(base_url('index.php/proyectos/detalles?id='.$_POST['IdProyecto']));
 
 	}
+	public function actualizar_etiqueta(){
+		$parametros = array(
+			'ETIQUETA'=>$_POST['Etiqueta']
+		);
+
+		$id_revision = $this->GeneralModel->actualizar('tareas_etiquetas',['ID'=>$_POST['IdEtiqueta']],$parametros);
+
+		redirect(base_url('index.php/proyectos/detalles?id='.$_POST['IdProyecto']));
+
+	}
 
 	public function borrar_etiqueta(){
 		$this->GeneralModel->borrar('tareas_etiquetas',['ID'=>$_GET['id_etiqueta']]);

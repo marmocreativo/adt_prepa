@@ -326,15 +326,20 @@
 			foreach($equipos_proyecto as $eq_pro){
 				$array_equipos[] = $eq_pro->ID_EQUIPO;
 			};
-			/* CONSULTA PARA SOLO LOS USUARIOS EN LOS EQUIPOS */
-			$this->db->select('*');
-			$this->db->from('usuarios');
-			$this->db->join('equipos_usuarios', 'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO', 'left');
-			$this->db->where_in('equipos_usuarios.ID_EQUIPO', $array_equipos);
-			$this->db->where('usuarios.ESTADO', 'activo');
+			if(!empty($array_equipos)){
+				/* CONSULTA PARA SOLO LOS USUARIOS EN LOS EQUIPOS */
+				$this->db->select('*');
+				$this->db->from('usuarios');
+				$this->db->join('equipos_usuarios', 'equipos_usuarios.ID_USUARIO = usuarios.ID_USUARIO', 'left');
+				$this->db->where_in('equipos_usuarios.ID_EQUIPO', $array_equipos);
+				$this->db->where('usuarios.ESTADO', 'activo');
 
-			$query = $this->db->get();
-			$usuarios_disponibles = $query->result();
+				$query = $this->db->get();
+				$usuarios_disponibles = $query->result();
+			}else{
+				$usuarios_disponibles = null;
+			}
+			
 		}else{
 			$usuarios_disponibles = null;
 		}

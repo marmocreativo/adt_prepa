@@ -153,9 +153,43 @@
             $icono = "far fa-clock";
     ?>
 <div class="etiqueta_contenedor ui-sortable-handle" style="margin-bottom: 30px;" id="item-<?php echo $etiqueta->ID; ?>">
-    <div class="d-flex justify-content-start" data-bs-toggle="collapse" href="#collapse<?php echo $etiqueta->ID ?>" role="button" aria-expanded="false" aria-controls="collapse<?php echo $etiqueta->ID ?>">
-        <h4 class="border-top border-start border-end border-info text-info p-2 d-inline me-4"><i class="fa fa-tag"></i> <?php echo $etiqueta->ETIQUETA ?> <i class="fa fa-chevron-down"></i></h4>
-        <button data-enlace="<?php echo base_url('index.php/proyectos/borrar_etiqueta?id='.$tarea->ID_PROYECTO.'&id_etiqueta='.$etiqueta->ID); ?>" class="ms-2 btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i></button>
+    <div class="d-flex justify-content-start">
+        <h4 class="border-top border-start border-end border-info text-info p-2 d-inline me-4" data-bs-toggle="collapse" href="#collapse<?php echo $etiqueta->ID ?>" role="button" aria-expanded="false" aria-controls="collapse<?php echo $etiqueta->ID ?>"><i class="fa fa-tag"></i> <?php echo $etiqueta->ETIQUETA ?> <i class="fa fa-chevron-down"></i></h4>
+        <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            opciones
+        </button>
+        <ul class="dropdown-menu">
+            <li><a data-enlace="<?php echo base_url('index.php/proyectos/borrar_etiqueta?id='.$tarea->ID_PROYECTO.'&id_etiqueta='.$etiqueta->ID); ?>" class="dropdown-item borrar_entrada"> <i class="fas fa-trash"></i> Borrar</a></li>
+            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditarEtiqueta<?php echo $etiqueta->ID; ?>"> <i class="fas fa-pencil"></i> Editar</a></li>
+        </ul>
+        </div>
+        <!-- Modal edición etiqueta-->
+        <div class="modal fade" id="EditarEtiqueta<?php echo $etiqueta->ID; ?>" tabindex="-1" aria-labelledby="EditarEtiqueta<?php echo $etiqueta->ID; ?>" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="NuevaTareaLabel">Editar Etiqueta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="" action="<?php echo base_url('index.php/proyectos/actualizar_etiqueta'); ?>" method="post">
+                        <input type="hidden" name="IdEtiqueta" value="<?php echo $etiqueta->ID; ?>">
+                        <input type="hidden" name="IdProyecto" value="<?php echo $proyecto['ID_PROYECTO']; ?>">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="Etiqueta">Nuevo Nombre</label>
+                                <input type="text" class="form-control" name="Etiqueta" value="<?php echo $etiqueta->ETIQUETA; ?>">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Guardar</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="border-bottom border-start border-end border-info p-4 collapse show" id="collapse<?php echo $etiqueta->ID ?>">
