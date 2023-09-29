@@ -238,7 +238,7 @@
 										<a class="btn btn-sm btn-secondary-link" data-bs-toggle="collapse" href="#formulario_mensaje_<?php echo $mensaje->ID; ?>" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
 										<i class="ml-5 fa fa-pencil"></i> Editar comentario
 										</a> | 
-										<button data-enlace="<?php echo base_url('index.php/tareas/borrar_mensaje?id='.$mensaje->ID_TAREA); ?>" class="ml-2 btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar mensaje</button>
+										<button data-enlace="<?php echo base_url('index.php/tareas/borrar_mensaje?id='.$mensaje->ID); ?>" class="ml-2 btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar mensaje</button>
 											|
 										<?php } ?>
 										
