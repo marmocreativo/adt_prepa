@@ -465,12 +465,17 @@ border: none;
   background-color: #000;
 }
 
+.lista_tareas .row:hover {
+  background: #f5f5f7;
+  transition: all 200ms;
+}
+
 .head-lista-tareas {
   text-transform:uppercase;
 }
 
 .head-lista-tareas .status {
-  width: 97px;
+  width: 144px;
 }
 
 .head-lista-tareas .usuario-activo, .usuario-asignado {
@@ -483,16 +488,23 @@ border: none;
 }
 
 .proceso-actual {
-  width: 120px;
+  width: 170px;
   overflow: hidden;
+  word-break: keep-all;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
 }
 
 .nombre-tarea {
-  min-width: 300px;
-max-width: 500px;
-overflow: hidden;
-word-break: keep-all;
-text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+  word-break: keep-all;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+
+.tarea-atrasada, .tarea-info, .tarea-atiempo {
+  width: 150px;
 }
 
 .usuario-burbuja {
@@ -511,6 +523,11 @@ text-overflow: ellipsis;
 
 .usuario-asignado {
   border: none;
+  text-wrap: nowrap;
+  width: 170px;
+  word-wrap: unset;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .usuario-asignado img {

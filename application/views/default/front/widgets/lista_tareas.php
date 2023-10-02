@@ -77,6 +77,7 @@ $icono = "far fa-clock";
           <a class="me-auto nombre-tarea" href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
             <span title="<?php echo $tarea->ESTADO; ?>"> <?php echo $tarea->TAREA_TITULO; ?></span>
           </a>
+          
           <?php if(!empty($tarea->ID_PROCESO)){ ?>
           <a class="usuario-asignado text-muted pe-4">
 						<img src=" <?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" title="<?php echo $usuario_proceso['USUARIO_NOMBRE'].' '.$usuario_proceso['USUARIO_APELLIDOS']; ?>" width="50px" class="rounded-circle border border-secondary" alt="">

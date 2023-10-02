@@ -30,29 +30,24 @@
 <?php if(!empty($tareas)){ ?>
 <div class="etiqueta_contenedor" style="margin-bottom: 30px;">
     <div data-bs-toggle="collapse" href="#collapseGenerales" role="button" aria-expanded="false" aria-controls="collapseGenerales">
-        <h4 class="border-top border-start border-end border-info text-info p-2 d-inline collapse show"><i class="fa fa-tag"></i> Generales <i class="fa fa-chevron-down"></i></h4>
+        <h5 class="bg-secondary bg-opacity-10 text-secondary p-2 d-inline mb-0 me-4 rounded-top"><i class="fa fa-tag"></i> Generales <small class="fa fa-chevron-down"></small></h5>
         
     </div>
-    <div class="border-bottom border-start border-end border-info p-4" id="collapseGenerales">
-        <ul class="list-unstyled lista_tareas <?php echo $modo; ?>">
-            <?php $fecha = ''; foreach($tareas as $tarea){ ?>
-            <?php if($fecha != $tarea->FECHA_FINAL){ $fecha = $tarea->FECHA_FINAL; ?>
-                <li class="border-0 border-bottom fecha_tareas">
-                <p><i class="fas fa-calendar-alt"></i> <?php echo fechas_es($tarea->FECHA_FINAL); ?>
-                    <?php if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-danger text-white">Atrasado</span>'; } ?>
-                    <?php if(date('Y-m-d')==date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-warning text-white">Entrega hoy</span>'; } ?>
-                    <?php if(date('Y-m-d')<date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-success text-white">A tiempo</span>'; } ?>
-                </p>
-                </li>
-                <div class="d-flex justify-content-start align-items-center py-2 head-lista-tareas me-3">
+    <div class="p-3 bg-secondary bg-opacity-10 collapse show rounded-bottom" id="collapseGenerales">
+        <ul class="list-unstyled lista_tareas <?php echo $modo; ?> m-0">
+
+                <div class="d-flex justify-content-start align-items-center p-2 head-lista-tareas me-3">
                     <small class="status"><i class="fa-solid fa-bars-progress"></i> Estado</small>
-                    <small class="me-auto">Nombre de la tarea</small>
+                    <small class="ps-4 me-auto nombre-tarea">Nombre de la tarea</small>
+                    <small class="usuario-activo"><i class="fa-solid fa-calendar"></i> Fecha Límite</small>
                     <small class="usuario-activo"><i class="fa-solid fa-user"></i> Usuario activo</small>
                     <small class="proceso-actual me-4"><i class="fa-solid fa-bars-staggered"></i> Proceso activo</small>
                 </div>
+            <?php $fecha = ''; foreach($tareas as $tarea){ ?>
+            <?php if($fecha != $tarea->FECHA_FINAL){ $fecha = $tarea->FECHA_FINAL; ?>
             <?php } ?>
 
-            <li>
+            <li class="px-2">
                 <div class="row">
                 <?php
                     // variables de estado
@@ -96,9 +91,16 @@
                 <div class="d-flex justify-content-start align-items-center py-2">
                     <small class="badge-tarea px-2 border <?php echo ' '.$color; ?> bg-opacity-25 me-3 rounded-pill"><i class="<?php echo $icono.' '; ?>"></i><?php echo ' '.$estado; ?></small>
                     <a class="me-auto nombre-tarea" href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
-                    <span title="<?php echo $tarea->ESTADO; ?>"> <?php echo $tarea->TAREA_TITULO; ?></span>
+                    <span title="<?php echo $tarea->TAREA_TITULO; ?>"> <?php echo $tarea->TAREA_TITULO; ?></span>
                     </a>
                     <?php if(!empty($detalles_proceso_activo)){ ?>
+                        <span 
+                    <?php if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo 'class="text-danger tarea-atrasada ms-2"'; } ?>
+                    <?php if(date('Y-m-d')==date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo 'class="text-warning tarea-info ms-2"'; } ?>
+                    <?php if(date('Y-m-d')<date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo 'class="text-success tarea-atiempo ms-2"'; } ?>
+                    >
+                        <i class="fas fa-calendar-alt"></i> <?php echo fechas_es($tarea->FECHA_FINAL); ?>
+                    </span>
                     <a class="usuario-asignado text-muted pe-4">
                                 <img src=" <?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" title="<?php echo $usuario_proceso['USUARIO_NOMBRE'].' '.$usuario_proceso['USUARIO_APELLIDOS']; ?>" width="50px" class="rounded-circle border border-secondary" alt="">
                                 <span><?php echo $usuario_proceso['USUARIO_NOMBRE']; ?></span>
@@ -154,15 +156,15 @@
     ?>
 <div class="etiqueta_contenedor ui-sortable-handle" style="margin-bottom: 30px;" id="item-<?php echo $etiqueta->ID; ?>">
     <div class="d-flex justify-content-start">
-        <h4 class="border-top border-start border-end border-info text-info p-2 d-inline me-4" data-bs-toggle="collapse" href="#collapse<?php echo $etiqueta->ID ?>" role="button" aria-expanded="false" aria-controls="collapse<?php echo $etiqueta->ID ?>"><i class="fa fa-tag"></i> <?php echo $etiqueta->ETIQUETA ?> <i class="fa fa-chevron-down"></i></h4>
+        <h5 class="bg-secondary bg-opacity-10 text-secondary p-2 d-inline mb-0 me-2 rounded-top" data-bs-toggle="collapse" href="#collapse<?php echo $etiqueta->ID ?>" role="button" aria-expanded="false" aria-controls="collapse<?php echo $etiqueta->ID ?>"><i class="fa fa-tag"></i> <?php echo $etiqueta->ETIQUETA ?> <small class="fa fa-chevron-down"></small></h5>
         <div class="dropdown">
-        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            opciones
-        </button>
-        <ul class="dropdown-menu">
-            <li><a data-enlace="<?php echo base_url('index.php/proyectos/borrar_etiqueta?id='.$tarea->ID_PROYECTO.'&id_etiqueta='.$etiqueta->ID); ?>" class="dropdown-item borrar_entrada"> <i class="fas fa-trash"></i> Borrar</a></li>
-            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditarEtiqueta<?php echo $etiqueta->ID; ?>"> <i class="fas fa-pencil"></i> Editar</a></li>
-        </ul>
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i> 
+            </button>
+            <ul class="dropdown-menu">
+                <li><a data-enlace="<?php echo base_url('index.php/proyectos/borrar_etiqueta?id='.$tarea->ID_PROYECTO.'&id_etiqueta='.$etiqueta->ID); ?>" class="dropdown-item borrar_entrada"> <i class="fas fa-trash"></i> Borrar</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditarEtiqueta<?php echo $etiqueta->ID; ?>"> <i class="fas fa-pencil"></i> Editar</a></li>
+            </ul>
         </div>
         <!-- Modal edición etiqueta-->
         <div class="modal fade" id="EditarEtiqueta<?php echo $etiqueta->ID; ?>" tabindex="-1" aria-labelledby="EditarEtiqueta<?php echo $etiqueta->ID; ?>" aria-hidden="true">
@@ -192,26 +194,21 @@
         </div>
     </div>
 
-    <div class="border-bottom border-start border-end border-info p-4 collapse show" id="collapse<?php echo $etiqueta->ID ?>">
-        <ul class="list-unstyled lista_tareas <?php echo $modo; ?>">
-            <?php $fecha = ''; foreach($tareas as $tarea){ ?>
-            <?php if($fecha != $tarea->FECHA_FINAL){ $fecha = $tarea->FECHA_FINAL; ?>
-                <li class="border-0 border-bottom fecha_tareas">
-                <p><i class="fas fa-calendar-alt"></i> <?php echo fechas_es($tarea->FECHA_FINAL); ?>
-                    <?php if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-danger text-white">Atrasado</span>'; } ?>
-                    <?php if(date('Y-m-d')==date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-warning text-white">Entrega hoy</span>'; } ?>
-                    <?php if(date('Y-m-d')<date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-success text-white">A tiempo</span>'; } ?>
-                </p>
-                </li>
-                <div class="d-flex justify-content-start align-items-center py-2 head-lista-tareas me-3">
+    <div class="p-3 bg-secondary bg-opacity-10 collapse show rounded-bottom" id="collapse<?php echo $etiqueta->ID ?>">
+        <ul class="list-unstyled lista_tareas <?php echo $modo; ?> m-0">
+
+            <div class="d-flex justify-content-start align-items-center p-2 head-lista-tareas me-3">
                     <small class="status"><i class="fa-solid fa-bars-progress"></i> Estado</small>
-                    <small class="me-auto">Nombre de la tarea</small>
+                    <small class="me-auto nombre-tarea">Nombre de la tarea</small>
+                    <small class="usuario-activo"><i class="fa-solid fa-calendar"></i> Fecha Límite</small>
                     <small class="usuario-activo"><i class="fa-solid fa-user"></i> Usuario activo</small>
                     <small class="proceso-actual me-4"><i class="fa-solid fa-bars-staggered"></i> Proceso activo</small>
-                </div>
+            </div>
+            <?php $fecha = ''; foreach($tareas as $tarea){ ?>
+            <?php if($fecha != $tarea->FECHA_FINAL){ $fecha = $tarea->FECHA_FINAL; ?>
             <?php } ?>
 
-            <li>
+            <li class="px-2">
                 <div class="row">
                 <?php
                     // variables de estado
@@ -255,12 +252,19 @@
                 <div class="d-flex justify-content-start align-items-center py-2">
                     <small class="badge-tarea px-2 border <?php echo ' '.$color; ?> bg-opacity-25 me-3 rounded-pill"><i class="<?php echo $icono.' '; ?>"></i><?php echo ' '.$estado; ?></small>
                     <a class="me-auto nombre-tarea" href="<?php echo base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA); ?>">
-                    <span title="<?php echo $tarea->ESTADO; ?>"> <?php echo $tarea->TAREA_TITULO; ?></span>
+                        <span title="<?php echo $tarea->TAREA_TITULO; ?>"> <?php echo $tarea->TAREA_TITULO; ?></span>
                     </a>
+                    <span 
+                    <?php if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo 'class="text-danger tarea-atrasada ms-2"'; } ?>
+                    <?php if(date('Y-m-d')==date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo 'class="text-warning tarea-info ms-2"'; } ?>
+                    <?php if(date('Y-m-d')<date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo 'class="text-success tarea-atiempo ms-2"'; } ?>
+                    >
+                        <i class="fas fa-calendar-alt"></i> <?php echo fechas_es($tarea->FECHA_FINAL); ?>
+                    </span>
                     <?php if(!empty($tarea->ID_PROCESO)){ ?>
                     <a class="usuario-asignado text-muted pe-4">
-                                <img src=" <?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" title="<?php echo $usuario_proceso['USUARIO_NOMBRE'].' '.$usuario_proceso['USUARIO_APELLIDOS']; ?>" width="50px" class="rounded-circle border border-secondary" alt="">
-                                <span><?php echo $usuario_proceso['USUARIO_NOMBRE']; ?></span>
+                        <img src=" <?php echo base_url('contenido/img/usuarios/default.jpg'); ?>" title="<?php echo $usuario_proceso['USUARIO_NOMBRE'].' '.$usuario_proceso['USUARIO_APELLIDOS']; ?>" width="50px" class="rounded-circle border border-secondary" alt="">
+                        <span><?php echo $usuario_proceso['USUARIO_NOMBRE']; ?></span>
                     </a>
                     <?php }else{ ?>
                     <a class="usuario-asignado text-muted pe-4">
