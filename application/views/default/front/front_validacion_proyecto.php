@@ -16,7 +16,7 @@
 <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$proyecto['ID_PROYECTO']); ?>" class="btn btn-outline-primary mb-3"><i class="fas fa-chevron-circle-left"></i> Volver al proyecto</a>
 <div class="row ">
 	<div class="col-12 col-md-4">
-		<div class="proyecto <?php echo $modo; ?> border-0 border-bottom border-end p-3">
+		<div class="proyecto <?php echo $modo; ?> p-3">
         <h1 class="h4"><small>Proyecto:</small><br><?php echo $proyecto['PROYECTO_NOMBRE'] ?></h1>
         <p>Tareas incluidas en esta revisión</p>
 
@@ -119,7 +119,7 @@
                                     <th>Checklist</th>
                                     <?php if(!empty($dimension_activa['CRITERIO_1'])){ ?>
                                     <th>
-                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0" data-bs-toggle="dropdown" aria-expanded="false">
                                         <?php echo $dimension_activa['CRITERIO_1']; if(!empty(verificar_variable('GET','criterio_1',''))){ echo ' ('.verificar_variable('GET','criterio_1','').')';} ?>
                                         </button>
                                         <ul class="dropdown-menu">
@@ -137,7 +137,7 @@
                                     <?php if(!empty($dimension_activa['CRITERIO_2'])){ ?>
                                     <th>
                                     <div class="btn-group dropdown-center" role="group">
-                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <?php echo $dimension_activa['CRITERIO_2']; if(!empty(verificar_variable('GET','criterio_2',''))){ echo ' ('.verificar_variable('GET','criterio_2','').')';} ?>
                                             </button>
                                             <ul class="dropdown-menu">
@@ -155,7 +155,7 @@
                                     <?php if(!empty($dimension_activa['CRITERIO_3'])){ ?>
                                     <th>
                                         <div class="btn-group dropdown-center" role="group">
-                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0 border-bottom" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle border-0" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <?php echo $dimension_activa['CRITERIO_3']; if(!empty(verificar_variable('GET','criterio_3',''))){ echo ' ('.verificar_variable('GET','criterio_3','').')';} ?>
                                             </button>
                                             <ul class="dropdown-menu">

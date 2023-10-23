@@ -136,7 +136,7 @@
 				<a class="btn btn-outline-success mb-3" data-bs-toggle="collapse" href="#formulario_mensaje" role="button" aria-expanded="false" aria-controls="formulario_mensaje">
 					+ Agregar un comentario
 				</a>
-				<div class="collapse p-4 bg-light" id='formulario_mensaje'>
+				<div class="collapse" id='formulario_mensaje'>
 						<form class="" action="<?php echo base_url('index.php/tareas/agregar_mensaje'); ?>" method="post">
 							<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
 							<input type="hidden" name="IdUsuario" value="<?php echo $_SESSION['usuario']['id']; ?>">
@@ -178,7 +178,7 @@
 
 					<div class="col-12 mb-3">
 						<div class="row">
-							<div class="col-1 pr-0">
+							<div class="foto-perfil-comentario col-1 pr-0">
 								<a href="<?php echo base_url('index.php/lista_usuarios/detalles?id='.$mensaje->ID_USUARIO); ?>" style="display:block;">
 									<img src="<?php echo base_url('contenido/img/usuarios/'.$array_usuarios[$mensaje->ID_USUARIO]['IMAGEN']); ?>" title="<?php echo $array_usuarios[$mensaje->ID_USUARIO]['NOMBRE']; ?>" width="100%" class="rounded-circle border border-secondary" alt="">
 								</a>
@@ -277,7 +277,7 @@
 												</form>
 										</div>
 
-										<div class="collapse p-4 bg-light" id='formulario_mensaje_<?php echo $mensaje->ID; ?>'>
+										<div class="collapse" id='formulario_mensaje_<?php echo $mensaje->ID; ?>'>
 												<form class="" action="<?php echo base_url('index.php/tareas/actualizar_mensaje'); ?>" method="post">
 													<input type="hidden" name="Identificador" value="<?php echo $mensaje->ID; ?>">
 													<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
@@ -380,10 +380,10 @@
 							<span class="me-auto"><?php echo $detalle_usuario['USUARIO_NOMBRE']; ?> </span>
 							<button class="btn btn-sm btn-outline-secondary border-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#form-proceso-<?php echo $proceso->ID; ?>" aria-expanded="false" aria-controls=""><i class="fas fa-pencil-alt"></i></button>
 							<a class="btn btn-sm btn-outline-secondary border-0" href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>"><i class="fas fa-trash"></i></a>
-							</div>
-						<div>
+						</div>
+						<div class="w-100">
 						
-						<div class="bg-light m-3 p-3 collapse" id="form-proceso-<?php echo $proceso->ID; ?>">
+						<div class="m-3 p-3 collapse" id="form-proceso-<?php echo $proceso->ID; ?>">
 							<form action="<?php echo base_url('index.php/tareas/actualizar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
 							<input type="hidden" name="Identificador" value="<?php echo $proceso->ID; ?>">
 							<input type="hidden" name="IdTarea" value="<?php echo $proceso->ID_TAREA; ?>">
@@ -423,7 +423,7 @@
 				<button class="btn btn-sm btn-outline-success mt-3 <?php if($tarea['ESTADO']=='completo'){ echo 'd-none';} ?>" type="button" data-bs-toggle="collapse" data-bs-target="#form-postproduccion" aria-expanded="false" aria-controls="collapseWidthExample">
 					+ Agregar y asignar proceso
 				</button>
-				<div class="bg-light m-3 p-3 collapse" id="form-postproduccion">
+				<div class="m-3 p-3 collapse" id="form-postproduccion">
 					<form action="<?php echo base_url('index.php/tareas/asignar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
 					<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
 					<input type="hidden" name="Proceso" value="postproduccion">

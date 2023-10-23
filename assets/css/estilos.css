@@ -110,22 +110,26 @@ body.noche td, body.noche th{
 /* ESTILOS NOCHE */
 .envolvente_noche .sidebar{
   background-color: #18233D;
-  color: #F2F2F2;
+  color: #ebedee;
 
 }
 
+.envolvente_noche {
+  color: #ebedee;
+}
+
 .envolvente_noche .sidebar a{
-  color: #ffffff;
+  color: #ebedee;
 
 }
 .envolvente_noche .contenido_principal{
   background-color: #292E3A;
-  color: #F2F2F2;
+  color: #ebedee;
   min-height: 100%;
 }
-
+ 
 .envolvente_noche .contenido_principal a{
-  color: #0d6efd;
+  /* color: #0d6efd; */
 }
 
 .envolvente_noche .sidebar .logo_contenedor{
@@ -151,8 +155,37 @@ border: none;
 
 }
 
+.envolvente_noche .note-editable, .envolvente_noche .note-editor.note-frame .note-editing-area .note-editable {
+  background: #3f444f;
+  color: #ebedee;
+}
+
+.envolvente_noche .note-toolbar {
+  background: #555b68;
+  border-color: #292e3a;
+}
+
+.envolvente_noche button.note-btn {
+  background-color: #555b68;
+  border-color: #292e3a;
+  color: #9197a4;
+}
+
+.envolvente_noche .note-dropdown-menu {
+  background: #292e3a;
+  border-color: #3f444f;
+}
+
 .card.proyecto {
   background: transparent;
+}
+
+.noche .dropdown-menu.show {
+  background: #434a5a;
+}
+
+.envolvente_noche .dropdown-item:focus, .envolvente_noche .dropdown-item:hover {
+  background: #292e3a;
 }
 
 /* Toggle noche/dia */
@@ -470,6 +503,11 @@ border: none;
   transition: all 200ms;
 }
 
+.envolvente_noche .lista_tareas .row:hover {
+  background: #222d47;
+  transition: all 200ms;
+}
+
 .head-lista-tareas {
   text-transform:uppercase;
 }
@@ -557,6 +595,13 @@ border: none;
 	background: #18233d;
 }
 
+.foto-perfil-comentario a {
+  width: 50px;
+  height: 50px;
+  background: rgb(24 35 61);
+  border-radius: 50%;
+}
+
 /* /Lista de Tareas */
 
 /* Linea de tiempo */
@@ -619,27 +664,45 @@ border: none;
 	background: #ccc;
 }
 
+.envolvente_noche .card.linea-tiempo {
+  background: #18233d;
+}
+
+.envolvente_noche .lt-proceso-actual {
+  color: #18233d;
+}
+
 /* Lista de Proyectos */
 .proyecto {
 	border-radius: 8px;
 	overflow: hidden;
+  text-decoration: none;
 }
+
 .proyecto.dia{
   background-color: #FFFFFF;
   color: #79838F;
 	border: solid 1px #e4ebec;
 }
+
 .proyecto.dia a{
   color: #79838F;
 }
+
 .proyecto.noche{
   background-color: #18233D;
   color: #F2F2F2;
 	border: solid 1px #444445;
 }
+
 .proyecto.noche a{
   color: #F2F2F2;
 }
+
+.envolvente_noche .progress {
+  background: #3f444f;
+}
+
 /* /Lista de Proyectos */
 
 /* Detalles de Proyectos */

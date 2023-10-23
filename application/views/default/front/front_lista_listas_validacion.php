@@ -1,7 +1,7 @@
 <div class="estadisticas_generales mb-3">
 	<div class="row">
 		<div class="col-12 col-md-8">
-			<div class="bg-light p-4">
+			<div class="p-4">
 				<form action="<?php echo base_url('index.php/listas'); ?>" class="d-flex justify-content-end" method="get">
 					<div class="form-group me-3">
 						<input type="text" class="form-control" name="Busqueda" value="<?php echo verificar_variable('GET','Busqueda','') ?>" placeholder="Buscar">
