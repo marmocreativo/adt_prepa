@@ -114,4 +114,31 @@ function buscarNotificacion(){
 //buscarNotificacion();
 var intervalo = setInterval(buscarNotificacion, 10000);
 
+
+// Obtén todos los enlaces de la página
+var enlaces = document.querySelectorAll('.tarea-descripcion a');
+
+// Obtén el dominio actual
+const dominioActual = window.location.hostname;
+
+// Itera a través de todos los enlaces
+enlaces.forEach((enlace) => {
+  var enlaceDestino = enlace.href;
+  console.log(enlaceDestino);
+  
+  try {
+    var urlDestino = new URL(enlaceDestino);
+    var dominioDestino = urlDestino.hostname;
+
+    // Verifica si el dominio de destino es diferente al dominio actual
+    if (dominioDestino !== dominioActual) {
+      // Agrega el atributo target="_blank" al enlace
+      enlace.setAttribute('target', '_blank');
+    }
+  } catch (error) {
+    // Muestra una alerta si la URL es inválida
+    console.log('URL inválida: ' + enlaceDestino);
+  }
+  
+});
 </script>
