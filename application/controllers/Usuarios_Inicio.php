@@ -57,6 +57,24 @@ class Usuarios_Inicio extends CI_Controller {
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/pagina_inicio',$this->data);
 		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
 	}
+	public function mi_espacio()
+	{
+		// Open Tags
+		$this->data['titulo']  = 'Usuarios | '.$this->data['op']['titulo_sitio'];
+		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
+		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
+
+		// Inicio Sesión
+		if(!verificar_sesion($this->data['op']['tiempo_inactividad_sesion'])){
+			redirect(base_url('index.php/login?url_redirect='.base_url('index.php/'.uri_string().'?'.$_SERVER['QUERY_STRING'])));
+		}
+		// Datos Generales
+		$this->data['titulo']  = 'Mi espacio';
+		// Vistas
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/headers/header_principal',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/mi_espacio',$this->data);
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/footers/footer_principal',$this->data);
+	}
 	public function crear()
 	{
 		// Open Tags

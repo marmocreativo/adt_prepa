@@ -774,15 +774,67 @@ class Front_Tareas extends CI_Controller {
 	public function actualizar_rol()
 	{
 		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_POST['IdTarea']]);
+		$procesos = $this->GeneralModel->lista('roles_historial', '',['ID_TAREA'=>$_POST['IdTarea']],'ORDEN ASC','','');
+		$detalles_proceso_actual = $this->GeneralModel->detalles('roles_historial',['ID'=>$_POST['Identificador']]);
+		$detalles_proceso_anterior = $this->GeneralModel->detalles('roles_historial',['ID_TAREA'=>$_POST['IdTarea'],'ORDEN'=>$detalles_proceso_actual['ORDEN']-1]);
+		if($detalles_proceso_actual['ORDEN']=='0'){
+			$dias_desde_anterior = 0;
+			echo 'El orden es 0 <br>';
+		}else{
+			if(empty($detalles_proceso_anterior)){
+				$dias_desde_anterior = 0;
+				echo 'Está vacio el proceso anterior <br>';
+			}else{
+					$fecha1 = new DateTime($detalles_proceso_anterior['FECHA']); // Reemplaza '2023-01-01' con tu primera fecha
+					$fecha2 = new DateTime($_POST['Fecha']); // Reemplaza '2023-11-13' con tu segunda fecha
+
+					$intervalo = $fecha1->diff($fecha2);
+					$dias_desde_anterior = $intervalo->days;
+					echo 'Se calculó la fecha <br>';
+			}
+		}
 		$parametros = array(
 			'ID_TAREA' => $_POST['IdTarea'],
 			'ID_USUARIO' => $_POST['IdUsuario'],
 			'ETIQUETA' => $_POST['Etiqueta'],
 			'PROCESO' => $_POST['Proceso'],
-			'FECHA' => date('Y-m-d 00:00:00', strtotime($_POST['Fecha']))
+			'FECHA' => date('Y-m-d 00:00:00', strtotime($_POST['Fecha'])),
+			'DIAS_DESPUES_ANTERIOR' => $dias_desde_anterior
 		);
 
 		$id_proceso = $this->GeneralModel->actualizar('roles_historial',['ID'=>$_POST['Identificador']],$parametros);
+
+		if(isset($_POST['recalcularFechas'])){
+			foreach($procesos as $proceso){
+				
+				if($proceso->ORDEN>$detalles_proceso_actual['ORDEN']){
+					
+					$proceso_anterior_relativo = $this->GeneralModel->detalles('roles_historial',['ID_TAREA'=>$_POST['IdTarea'],'ORDEN'=>$proceso->ORDEN-1]);
+					$fecha_nueva = date('Y-m-d 00:00:00', strtotime($proceso_anterior_relativo['FECHA']." + ".$proceso->DIAS_DESPUES_ANTERIOR.' days'));
+
+					// verifico fin de semana
+					$fecha_revision = new DateTime($fecha_nueva); // Reemplaza '2023-11-13' con tu fecha
+
+					// Verifica si la fecha es sábado o domingo
+					$diaSemana = $fecha_revision->format('N'); // 'N' devuelve el número del día de la semana (1 para lunes, 2 para martes, ..., 7 para domingo)
+
+					if ($diaSemana == 6 || $diaSemana == 7) { // 6 es sábado, 7 es domingo
+						$fecha_revision->modify('next monday');
+					}
+
+					$fecha_final = $fecha_revision->format('Y-m-d 00:00:00');
+					
+					
+					$parametros_relativos = array(
+						'FECHA' => $fecha_final
+					);
+					$this->GeneralModel->actualizar('roles_historial',['ID'=>$proceso->ID],$parametros_relativos);
+					echo 'Proceso #'.$proceso->ORDEN.' | del: '.fechas_es($proceso->FECHA).' | al:'.fechas_es($fecha_final);
+					echo '<br>';
+				}
+			}
+		}
+		//
 
 		
 

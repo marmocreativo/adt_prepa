@@ -360,11 +360,16 @@
 						} ?>
 						</small>
 					</li>
-					<?php $i=1; foreach($procesos_post as $proceso){ ?>
+					<?php $i=1; $fecha_anterior = ''; foreach($procesos_post as $proceso){ ?>
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
 						<li class="list-group-item lt-proceso <?php if($proceso->ESTADO=='completo'){ echo 'lt-proceso-completo'; } ?> p-2 <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-info lt-proceso-actual'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
 						<div class="d-flex w-100 align-items-start flex-column">
-							<small class="lt-fecha mb-2">Fecha límite: <?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?></small>
+							
+							<small
+								class="lt-fecha mb-2 <?php if(!empty($fecha_anterior)&&$fecha_anterior>$proceso->FECHA){ echo 'text-danger'; } ?>"
+								title="<?php echo $proceso->DIAS_DESPUES_ANTERIOR; ?> días después del anterior">
+								Fecha límite: <?php echo fechas_es(date('Y-m-d', strtotime($proceso->FECHA))); ?>
+							</small>
 						    <strong class="mb-auto pb-2"><h5 class="fw-bold" title="<?php echo $proceso->ID; ?>">#<?php echo $i; ?> <?php echo $proceso->ETIQUETA; ?></h5></strong>
 							<div class="d-flex w-100 justify-content-start align-items-center">
 							<img
@@ -405,6 +410,10 @@
 									<label for="Fecha">Fecha límite de entrega</label>
 									<input type="date" required class="form-control" name="Fecha" placeholder='Fecha límite' value="<?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?>">
 								</div>
+								<div class="form-check my-2">
+								<input class="form-check-input" type="checkbox" id="recalcularFechas" name="recalcularFechas" value="si">
+								<label class="form-check-label">Recalcular fechas siguientes</label>
+								<hr>
 								<div class="form-group">
 									<label for="Proceso">Este proceso es parte de</label>
 									<select name="Proceso" id="Proceso" class="form-control">
@@ -413,12 +422,13 @@
 										<option value="postproduccion" <?php if($proceso->PROCESO=='postproduccion'){ echo 'selected'; } ?>>Revisión (post-producción)</option>
 									</select>
 								</div>
+								
 								<hr>
 								<button type="submit" class="btn btn-primary">Actualizar proceso</button>
 							</form>
 						</div>	
 					</li>
-					<?php $i++; } ?>
+					<?php $i++; $fecha_anterior = $proceso->FECHA; } ?>
 				</ul>
 				<button class="btn btn-sm btn-outline-success mt-3 <?php if($tarea['ESTADO']=='completo'){ echo 'd-none';} ?>" type="button" data-bs-toggle="collapse" data-bs-target="#form-postproduccion" aria-expanded="false" aria-controls="collapseWidthExample">
 					+ Agregar y asignar proceso

@@ -42,7 +42,7 @@ class Front_Publicaciones extends CI_Controller {
 		// Verifico el switch de mantenimiento
 		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
 		if(isset($_SESSION['usuario'])){
-			redirect(base_url('index.php/tareas'));
+			redirect(base_url('index.php/usuarios/mi_espacio'));
 		}else{
 			// Open Tags
 			$this->data['titulo']  = 'Inicio';

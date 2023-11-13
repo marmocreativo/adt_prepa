@@ -28,6 +28,11 @@
 							<i class="fas fa-columns fa-lg"></i> <span class="etiqueta_menu">Resumen</span>
 						</a>
 					</li>
+					<li class="nav-item">
+						<a href="<?php echo base_url('index.php/usuarios/mi_espacio'); ?>" class="nav-link   py-3" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Resumen">
+						<i class="fas fa-bullseye fa-lg"></i> <span class="etiqueta_menu">Mi espacio</span>
+						</a>
+					</li>
 					<?php
 						$verificar_notificaciones = $this->GeneralModel->conteo('notificaciones','','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'LEIDO'=>'no'],'');
 						$ultima_notificacion = $this->GeneralModel->lista('notificaciones','',['ID_USUARIO'=>$_SESSION['usuario']['id']],'FECHA_CREACION DESC','1','');

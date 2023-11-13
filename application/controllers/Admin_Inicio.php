@@ -55,15 +55,15 @@ class Admin_Inicio extends CI_Controller {
 		$this->load->dbforge();
 		
        // Nombre de la tabla y nombre de la columna
-	   $table_name = 'tareas';
-	   $column_name = 'ID_ETIQUETA';
+	   $table_name = 'roles_historial';
+	   $column_name = 'DIAS_DESPUES_ANTERIOR';
 
 	   // Definir las características de la columna
 	   $fields = array(
 		   $column_name => array(
-			   'type' => 'VARCHAR',
-			   'constraint' => 255,
-			   'default' => ''
+			   'type' => 'INT',
+			   'constraint' => 11,
+			   'default' => '0'
 		   )
 	   );
 
@@ -79,28 +79,97 @@ class Admin_Inicio extends CI_Controller {
 			
 	}
 
-	public function revisar_proyectos(){
+
+
+	public function dias_linea_de_tiempo(){
+		echo '
+		<style>
+		table, th, td {
+			border: 1px solid black;
+  			border-collapse: collapse;
+			padding:5px;
+		}
+		</style>
+		  ';
 		$tareas = $this->GeneralModel->lista('tareas','','','','','');
 		foreach($tareas as $tarea){
-			$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$tarea->ID_PROYECTO]);
-			if(empty($proyecto)){
-				echo '<p style="color: red">';
-				echo $tarea->TAREA_TITULO;
-				echo '</p>';
-				$this->GeneralModel->borrar('tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
-				$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
-				$this->GeneralModel->borrar('tareas_mensajes',['ID_TAREA'=>$tarea->ID_TAREA]);	
-				$this->GeneralModel->borrar('validacion_revisiones',['ID_TAREA'=>$tarea->ID_TAREA]);
-				$this->GeneralModel->borrar('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA]);	
-			}else{
-				echo '<p style="color: green">';
-				echo $tarea->TAREA_TITULO;
-				echo '</p>';
-			}
+			$procesos = $this->GeneralModel->lista('roles_historial', '',['ID_TAREA'=>$tarea->ID_TAREA],'ORDEN ASC','','');
+			echo '<p style="color: green">';
+			echo '<a href="'.base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA).'" target="_blank">'.$tarea->TAREA_TITULO.'</a>';
+			echo '</p>';
+			echo '<table >';
+			echo '<tr>';
+				echo '<th>';
+					echo 'Orden';
+				echo '</th>';
+				echo '<th>';
+					echo 'Proceso';
+				echo '</th>';
+				echo '<th>';
+					echo 'Fecha';
+				echo '</th>';
+				echo '<th>';
+					echo 'Días registrado';
+				echo '</th>';
+				echo '<th>';
+					echo 'Días calculado';
+				echo '</th>';
+			echo '<tr>';
+			foreach($procesos as $proceso){
+				$detalles_proceso_anterior = $this->GeneralModel->detalles('roles_historial',['ID_TAREA'=>$tarea->ID_TAREA, 'ORDEN'=>$proceso->ORDEN-1]);
+				echo '<tr>';
+				echo '<td>';
+					echo $proceso->ORDEN;
+				echo '</td>';
+				echo '<td>';
+					echo $proceso->ETIQUETA;
+				echo '</td>';
+				echo '<td>';
+					echo $proceso->FECHA;
+				echo '</td>';
+				echo '<td>';
+					echo $proceso->DIAS_DESPUES_ANTERIOR;
+				echo '</td>';
+				echo '<td>';
+				if(empty($detalles_proceso_anterior)){
+					$intervalo = 0;
+					$dias = $intervalo;
+				}else{
+					$fecha1 = new DateTime($detalles_proceso_anterior['FECHA']); // Reemplaza '2023-01-01' con tu primera fecha
+					$fecha2 = new DateTime($proceso->FECHA); // Reemplaza '2023-11-13' con tu segunda fecha
 
+					$intervalo = $fecha1->diff($fecha2);
+					$dias = $intervalo->days;
+				}
+
+				if($proceso->DIAS_DESPUES_ANTERIOR != $dias){
+					$this->GeneralModel->actualizar('roles_historial',['ID'=>$proceso->ID],['DIAS_DESPUES_ANTERIOR'=>$dias]);
+				}
+
+				
+				
+					echo $dias;
+				echo '</td>';
+			echo '<tr>';
+			}
+			echo '</table>';
+			echo '<hr>';
 		}
 	}
 
+	public function procesos_olvidados(){
+		$procesos = $this->GeneralModel->lista('roles_historial','','','','','');
+		$no_procesos = 0;
+		$tarea_borrada = 0;
+
+		foreach($procesos as $proceso){
+			$tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$proceso->ID_TAREA]);
+			$no_procesos ++;
+			if(empty($tarea)){
+				$tarea = $this->GeneralModel->borrar('roles_historial',['ID_TAREA'=>$proceso->ID_TAREA]);
+			}
+		}
+	}
 	public function opciones()
 	{
 		$this->form_validation->set_rules('Opciones[]', 'Opciones', 'required');

@@ -229,4 +229,74 @@ class Ajax extends CI_Controller {
 		}
 		
 	}
+
+	public function calendario_procesos()
+	{	
+		
+		$fecha_inicio = verificar_variable('GET','fecha_inicio',date('Y-m-d 00:00:00', strtotime('today - 3 months')));
+		$fecha_final = verificar_variable('GET','fecha_final',date('Y-m-d 00:00:00', strtotime('today + 3 months')));
+		$procesos = $this->GeneralModel->lista('roles_historial','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'ESTADO'=>'en desarrollo'],'','','');
+		$eventos = array();
+		foreach($procesos as $proceso){
+			$detalles_tarea= $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$proceso->ID_TAREA]);
+			if($proceso->FECHA >= date('Y-m-d 00:00:00')){
+				$eventos[] = array(
+					'title'=>$proceso->ETIQUETA,
+					'description'=> $detalles_tarea['TAREA_TITULO'],
+					'start'=>$proceso->FECHA,
+					'allDay'=>'true',
+					'url' => base_url('index.php/tareas/detalles?id='.$proceso->ID_TAREA),
+					'backgroundColor' => '#0d6efd'
+				);
+			}else{
+				$eventos[] = array(
+					'title'=>$proceso->ETIQUETA,
+					'description'=> $detalles_tarea['TAREA_TITULO'],
+					'start'=>$proceso->FECHA,
+					'allDay'=>'true',
+					'url' => base_url('index.php/tareas/detalles?id='.$proceso->ID_TAREA),
+					'backgroundColor' => '#dc3545'
+				);
+			}
+		}
+		
+
+		echo json_encode($eventos);
+		
+	}
+	public function calendario_procesos_todos()
+	{	
+		
+		$fecha_inicio = verificar_variable('GET','fecha_inicio',date('Y-m-d 00:00:00', strtotime('today - 3 months')));
+		$fecha_final = verificar_variable('GET','fecha_final',date('Y-m-d 00:00:00', strtotime('today + 3 months')));
+		$procesos = $this->GeneralModel->lista('roles_historial','',['ESTADO'=>'en desarrollo'],'','','');
+		$eventos = array();
+		foreach($procesos as $proceso){
+			$detalles_tarea= $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$proceso->ID_TAREA]);
+			$detalles_usuarios= $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);
+			if($proceso->FECHA >= date('Y-m-d 00:00:00')){
+				$eventos[] = array(
+					'title'=>$proceso->ETIQUETA.' | '.$detalles_tarea['TAREA_TITULO'].' | '.$detalles_usuarios['USUARIO_NOMBRE'], 
+					'description'=> $detalles_tarea['TAREA_TITULO'],
+					'start'=>$proceso->FECHA,
+					'allDay'=>'true',
+					'url' => base_url('index.php/tareas/detalles?id='.$proceso->ID_TAREA),
+					'backgroundColor' => '#0d6efd'
+				);
+			}else{
+				$eventos[] = array(
+					'title'=>$proceso->ETIQUETA,
+					'title'=>$proceso->ETIQUETA.' | '.$detalles_tarea['TAREA_TITULO'].' | '.$detalles_usuarios['USUARIO_NOMBRE'], 
+					'start'=>$proceso->FECHA,
+					'allDay'=>'true',
+					'url' => base_url('index.php/tareas/detalles?id='.$proceso->ID_TAREA),
+					'backgroundColor' => '#dc3545'
+				);
+			}
+		}
+		
+
+		echo json_encode($eventos);
+		
+	}
 }

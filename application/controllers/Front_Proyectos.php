@@ -370,6 +370,7 @@ class Front_Proyectos extends CI_Controller {
 							//echo '<br>';
 							$this->GeneralModel->borrar('tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
 							$this->GeneralModel->borrar('usuarios_tareas',['ID_TAREA'=>$tarea->ID_TAREA]);
+							$this->GeneralModel->borrar('roles_historial',['ID_TAREA'=>$tarea->ID_TAREA]);
 							$this->GeneralModel->borrar('tareas_mensajes',['ID_TAREA'=>$tarea->ID_TAREA]);	
 							$this->GeneralModel->borrar('validacion_revisiones',['ID_TAREA'=>$tarea->ID_TAREA]);
 							$this->GeneralModel->borrar('validacion_respuesta',['ID_TAREA'=>$tarea->ID_TAREA]);	
