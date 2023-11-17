@@ -79,95 +79,48 @@ class Admin_Inicio extends CI_Controller {
 			
 	}
 
-
-
-	public function dias_linea_de_tiempo(){
-		echo '
-		<style>
-		table, th, td {
-			border: 1px solid black;
-  			border-collapse: collapse;
-			padding:5px;
-		}
-		</style>
-		  ';
-		$tareas = $this->GeneralModel->lista('tareas','','','','','');
+	public function tareas_linea_de_tiempo(){
+		$tareas = $this->GeneralModel->lista('tareas','','','ID_PROYECTO','','');
 		foreach($tareas as $tarea){
-			$procesos = $this->GeneralModel->lista('roles_historial', '',['ID_TAREA'=>$tarea->ID_TAREA],'ORDEN ASC','','');
-			echo '<p style="color: green">';
-			echo '<a href="'.base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA).'" target="_blank">'.$tarea->TAREA_TITULO.'</a>';
-			echo '</p>';
-			echo '<table >';
-			echo '<tr>';
-				echo '<th>';
-					echo 'Orden';
-				echo '</th>';
-				echo '<th>';
-					echo 'Proceso';
-				echo '</th>';
-				echo '<th>';
-					echo 'Fecha';
-				echo '</th>';
-				echo '<th>';
-					echo 'Días registrado';
-				echo '</th>';
-				echo '<th>';
-					echo 'Días calculado';
-				echo '</th>';
-			echo '<tr>';
-			foreach($procesos as $proceso){
-				$detalles_proceso_anterior = $this->GeneralModel->detalles('roles_historial',['ID_TAREA'=>$tarea->ID_TAREA, 'ORDEN'=>$proceso->ORDEN-1]);
+			echo '<table border="1" style="border-collapse: true; margin-bottom: 20px;">';
 				echo '<tr>';
-				echo '<td>';
-					echo $proceso->ORDEN;
-				echo '</td>';
-				echo '<td>';
-					echo $proceso->ETIQUETA;
-				echo '</td>';
-				echo '<td>';
-					echo $proceso->FECHA;
-				echo '</td>';
-				echo '<td>';
-					echo $proceso->DIAS_DESPUES_ANTERIOR;
-				echo '</td>';
-				echo '<td>';
-				if(empty($detalles_proceso_anterior)){
-					$intervalo = 0;
-					$dias = $intervalo;
-				}else{
-					$fecha1 = new DateTime($detalles_proceso_anterior['FECHA']); // Reemplaza '2023-01-01' con tu primera fecha
-					$fecha2 = new DateTime($proceso->FECHA); // Reemplaza '2023-11-13' con tu segunda fecha
+					echo '<td style="padding:5px;">'.$tarea->TAREA_TITULO.'</td>';
+					$color_estado = 'red';
+					if($tarea->ESTADO=='completo'){ $color_estado = 'green';}
+					echo '<td style="padding:5px; color:'.$color_estado.'">'.$tarea->ESTADO.'</td>';
+					echo '<td style="padding:5px;">'.$tarea->FECHA_INICIO.'</td>';
+					echo '<td style="padding:5px;">'.$tarea->FECHA_FINAL.'</td>';
+					echo '<td style="padding:5px;">'.$tarea->ID_PROCESO.'</td>';
+					$procesos = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA],'ORDEN ASC','','');
+					$linea_del_tiempo_completa = true;
+					echo '<td style="padding:5px;">';
+						echo '<table border="1">';
+						$fechas = array();
+						foreach($procesos as $proceso){
+							echo '<tr>';
+								echo '<td>'.$proceso->ID.'</td>';	
+								echo '<td>'.$proceso->ORDEN.'</td>';
+								echo '<td>'.$proceso->ETIQUETA.'</td>';
+								$color_estado = 'red';
+								if($proceso->ESTADO=='completo'){ $color_estado = 'green';}
+								if($proceso->ESTADO=='en desarrollo'){ $linea_del_tiempo_completa = false; }
+								echo '<td style="color: '.$color_estado.'">'.$proceso->ESTADO.'</td>';
+								echo '<td>'.$proceso->FECHA.'</td>';
+							echo '</tr>';
+							if($proceso->ID==$tarea->ID_PROCESO){ $error_proceso = true; }
+							$fechas[] = $proceso->FECHA;
+						}
+						echo '</table>';
+						if(!empty($procesos)&&$tarea->FECHA_INICIO<$proceso->FECHA){
+							echo '<p style="color: red; font-weight: bold;">Incongruencia con fechas</p>';
+							$primer_fecha = reset($fechas);
+							$ultima_fecha = end($fechas);
 
-					$intervalo = $fecha1->diff($fecha2);
-					$dias = $intervalo->days;
-				}
-
-				if($proceso->DIAS_DESPUES_ANTERIOR != $dias){
-					$this->GeneralModel->actualizar('roles_historial',['ID'=>$proceso->ID],['DIAS_DESPUES_ANTERIOR'=>$dias]);
-				}
-
-				
-				
-					echo $dias;
-				echo '</td>';
-			echo '<tr>';
-			}
+							//$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$tarea->ID_TAREA],['FECHA_INICIO'=>date('Y-m-d', strtotime($primer_fecha)),'FECHA_FINAL'=>date('Y-m-d', strtotime($ultima_fecha))]);
+						}
+					echo '</td>';
+				echo '</tr>';
 			echo '</table>';
-			echo '<hr>';
-		}
-	}
-
-	public function procesos_olvidados(){
-		$procesos = $this->GeneralModel->lista('roles_historial','','','','','');
-		$no_procesos = 0;
-		$tarea_borrada = 0;
-
-		foreach($procesos as $proceso){
-			$tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$proceso->ID_TAREA]);
-			$no_procesos ++;
-			if(empty($tarea)){
-				$tarea = $this->GeneralModel->borrar('roles_historial',['ID_TAREA'=>$proceso->ID_TAREA]);
-			}
 		}
 	}
 	public function opciones()

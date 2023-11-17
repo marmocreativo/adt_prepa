@@ -137,7 +137,7 @@
 		<div class="col-3">
 		<div class="proyecto card card-body text-center mb-3">
                 <h3><i class="fas fa-calendar"></i> Hoy se deben entregar:</h3>
-                <?php $entregas_hoy = $this->GeneralModel->lista('roles_historial','',['ESTADO'=>'en desarrollo','FECHA'=>date('Y-m-d')],'','',''); ?>
+                <?php $entregas_hoy = $this->GeneralModel->lista_agrupada('roles_historial','',['ESTADO'=>'en desarrollo','FECHA'=>date('Y-m-d')],'','ID_TAREA'); ?>
                 <table class='table table-bordered'>
                     <tr>
                         <th>Proceso</th>
@@ -160,7 +160,7 @@
             </div>  
             <div class="proyecto card card-body text-center mb-3">
                 <h3 class="text-danger"> <i class="fas fa-exclamation-triangle"></i> Están atrasados:</h3>
-                <?php $entregas_hoy = $this->GeneralModel->lista('roles_historial','',['ESTADO'=>'en desarrollo','FECHA <'=>date('Y-m-d')],'','',''); ?>
+                <?php $entregas_hoy = $this->GeneralModel->lista_agrupada('roles_historial','',['ESTADO'=>'en desarrollo','FECHA <'=>date('Y-m-d')],'','ID_TAREA'); ?>
                 <table class='table table-bordered'>
                     <tr>
                         <th>Proceso</th>

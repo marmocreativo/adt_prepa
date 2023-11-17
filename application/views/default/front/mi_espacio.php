@@ -14,7 +14,7 @@
 		<div class="col-3">
             <div class="proyecto card card-body text-center mb-3">
                 <h3><i class="fas fa-calendar"></i> Hoy tienes por entregar:</h3>
-                <?php $entregas_hoy = $this->GeneralModel->lista('roles_historial','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'ESTADO'=>'en desarrollo','FECHA'=>date('Y-m-d')],'','',''); ?>
+                <?php $entregas_hoy = $this->GeneralModel->lista_agrupada('roles_historial','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'ESTADO'=>'en desarrollo','FECHA'=>date('Y-m-d')],'','ID_TAREA'); ?>
                 <table class='table table-bordered'>
                     <tr>
                         <th>Proceso</th>
@@ -32,7 +32,7 @@
             </div>  
             <div class="proyecto card card-body text-center mb-3">
                 <h3 class="text-danger"> <i class="fas fa-exclamation-triangle"></i> Tienes atrasado:</h3>
-                <?php $entregas_hoy = $this->GeneralModel->lista('roles_historial','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'ESTADO'=>'en desarrollo','FECHA <'=>date('Y-m-d')],'','',''); ?>
+                <?php $entregas_hoy = $this->GeneralModel->lista_agrupada('roles_historial','',['ID_USUARIO'=>$_SESSION['usuario']['id'],'ESTADO'=>'en desarrollo','FECHA <'=>date('Y-m-d')],'','ID_TAREA'); ?>
                 <table class='table table-bordered'>
                     <tr>
                         <th>Proceso</th>

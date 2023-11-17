@@ -778,18 +778,22 @@ class Front_Tareas extends CI_Controller {
 		$detalles_proceso_actual = $this->GeneralModel->detalles('roles_historial',['ID'=>$_POST['Identificador']]);
 		$detalles_proceso_anterior = $this->GeneralModel->detalles('roles_historial',['ID_TAREA'=>$_POST['IdTarea'],'ORDEN'=>$detalles_proceso_actual['ORDEN']-1]);
 		if($detalles_proceso_actual['ORDEN']=='0'){
-			$dias_desde_anterior = 0;
+			$dias_desde_anterior = 1;
 			echo 'El orden es 0 <br>';
 		}else{
 			if(empty($detalles_proceso_anterior)){
-				$dias_desde_anterior = 0;
+				$dias_desde_anterior = 1;
 				echo 'Está vacio el proceso anterior <br>';
 			}else{
 					$fecha1 = new DateTime($detalles_proceso_anterior['FECHA']); // Reemplaza '2023-01-01' con tu primera fecha
 					$fecha2 = new DateTime($_POST['Fecha']); // Reemplaza '2023-11-13' con tu segunda fecha
 
 					$intervalo = $fecha1->diff($fecha2);
+					if($intervalo->days>0){
 					$dias_desde_anterior = $intervalo->days;
+					}else{
+						$dias_desde_anterior = 1;
+					}
 					echo 'Se calculó la fecha <br>';
 			}
 		}

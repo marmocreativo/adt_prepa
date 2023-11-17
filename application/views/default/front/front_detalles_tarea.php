@@ -350,7 +350,11 @@
 			<div class="card-header" title="<?php echo $tarea['ID_PROCESO']; ?>">Línea de tiempo</div>
 			<div class="card-body ps-5">
 				
-				<?php $procesos_post = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA']],'ORDEN ASC','',''); ?>
+				<?php
+					$procesos_post = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA']],'ORDEN ASC','','');
+					$array_procesos = array();
+					$index_proceso = 0;
+				?>
 				<ul class="list-group ui-sortable linea-tiempo" id="myTab" role="tablist" data-tabla="roles_historial" data-columna="ID">
 				    <li class="list-group-item lt-proceso lt-proceso-completo text-muted">
 						<small>Inicio de la tarea: <?php if ($tarea['FECHA_INICIO'] != null) {
@@ -361,6 +365,7 @@
 						</small>
 					</li>
 					<?php $i=1; $fecha_anterior = ''; foreach($procesos_post as $proceso){ ?>
+						<?php $array_procesos[$index_proceso] = $proceso->ID; $index_proceso ++; ?>
 						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
 						<li class="list-group-item lt-proceso <?php if($proceso->ESTADO=='completo'){ echo 'lt-proceso-completo'; } ?> p-2 <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-info lt-proceso-actual'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
 						<div class="d-flex w-100 align-items-start flex-column">
@@ -428,8 +433,24 @@
 							</form>
 						</div>	
 					</li>
+					
 					<?php $i++; $fecha_anterior = $proceso->FECHA; } ?>
 				</ul>
+				<?php
+					
+						$indice_actual = array_search($tarea['ID_PROCESO'], $array_procesos);
+						if($indice_actual==0){
+							$proceso_anterior = null;
+						}else{
+							$proceso_anterior = $array_procesos[$indice_actual-1];
+						}
+						
+						if(isset($array_procesos[$indice_actual+1])){
+							$proceso_siguiente = $array_procesos[$indice_actual+1];
+						}else{
+							$proceso_siguiente = null;
+						}
+					?>
 				<button class="btn btn-sm btn-outline-success mt-3 <?php if($tarea['ESTADO']=='completo'){ echo 'd-none';} ?>" type="button" data-bs-toggle="collapse" data-bs-target="#form-postproduccion" aria-expanded="false" aria-controls="collapseWidthExample">
 					+ Agregar y asignar proceso
 				</button>
@@ -468,20 +489,19 @@
 				</div>
 				
 				<hr>
+				
 				<div class="row <?php if(!empty($detalles_proceso_actual['ID_USUARIO'])&&$detalles_proceso_actual['ID_USUARIO']!=$_SESSION['usuario']['id']){ echo 'd-none'; } ?>">
 					
 					<div class="col-6">
 						<?php
-							if(!empty($detalles_proceso_actual)){
-								$proceso_anterior = $this->GeneralModel->detalles('roles_historial',['ID_TAREA'=>$tarea['ID_TAREA'],'ORDEN'=>$detalles_proceso_actual['ORDEN']-1]);
-							}else{
+							if(empty($detalles_proceso_actual)){
 								$proceso_anterior = null;
 							}
 							?>
 						<?php if(!empty($proceso_anterior)){ ?>
 						<form action="<?php echo base_url('index.php/tareas/completar_rol'); ?>" method="post">
 							<input type="hidden" name="IdProcesoActual" value="<?php echo $tarea['ID_PROCESO']; ?>">
-							<input type="hidden" name="IdProcesoSiguiente" value="<?php echo $proceso_anterior['ID']; ?>">
+							<input type="hidden" name="IdProcesoSiguiente" value="<?php echo $proceso_anterior; ?>">
 							<hr>
 							<button class="btn btn-success w-100"><i class="fa fa-chevron-left"></i> Retroceder línea del tiempo</button>
 						</form>
@@ -489,10 +509,7 @@
 					</div>
 					<div class="col-6 <?php if($tarea['ESTADO']=='completo'){ echo 'd-none';} ?>">
 						<?php
-						
-						if(!empty($detalles_proceso_actual)){
-							$proceso_siguiente = $this->GeneralModel->detalles('roles_historial',['ID_TAREA'=>$tarea['ID_TAREA'],'ORDEN'=>$detalles_proceso_actual['ORDEN']+1]);
-						}else{
+						if(empty($detalles_proceso_actual)){
 							$proceso_siguiente = null;
 						}
 						 ?>
@@ -500,7 +517,7 @@
 						<?php if(!empty($proceso_siguiente)){ ?>
 						<form action="<?php echo base_url('index.php/tareas/completar_rol'); ?>" method="post">
 							<input type="hidden" name="IdProcesoActual" value="<?php echo $tarea['ID_PROCESO']; ?>">
-							<input type="hidden" name="IdProcesoSiguiente" value="<?php echo $proceso_siguiente['ID']; ?>">
+							<input type="hidden" name="IdProcesoSiguiente" value="<?php echo $proceso_siguiente; ?>">
 							<hr>
 							<button class="btn btn-success w-100">Avanzar línea del tiempo <i class="fa fa-chevron-right"></i> </button>
 						</form>
