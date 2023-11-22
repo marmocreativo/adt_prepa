@@ -84,7 +84,7 @@ class Admin_Inicio extends CI_Controller {
 		foreach($tareas as $tarea){
 			echo '<table border="1" style="border-collapse: true; margin-bottom: 20px;">';
 				echo '<tr>';
-					echo '<td style="padding:5px;">'.$tarea->TAREA_TITULO.'</td>';
+					echo '<td style="padding:5px;"><a href="'.base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA).'">'.$tarea->TAREA_TITULO.'</a></td>';
 					$color_estado = 'red';
 					if($tarea->ESTADO=='completo'){ $color_estado = 'green';}
 					echo '<td style="padding:5px; color:'.$color_estado.'">'.$tarea->ESTADO.'</td>';
@@ -96,7 +96,9 @@ class Admin_Inicio extends CI_Controller {
 					echo '<td style="padding:5px;">';
 						echo '<table border="1">';
 						$fechas = array();
+						$proceso_encontrado = false;
 						foreach($procesos as $proceso){
+							if($tarea->ID_PROCESO==$proceso->ID){ $proceso_encontrado = true; }
 							echo '<tr>';
 								echo '<td>'.$proceso->ID.'</td>';	
 								echo '<td>'.$proceso->ORDEN.'</td>';
@@ -111,12 +113,8 @@ class Admin_Inicio extends CI_Controller {
 							$fechas[] = $proceso->FECHA;
 						}
 						echo '</table>';
-						if(!empty($procesos)&&$tarea->FECHA_INICIO<$proceso->FECHA){
-							echo '<p style="color: red; font-weight: bold;">Incongruencia con fechas</p>';
-							$primer_fecha = reset($fechas);
-							$ultima_fecha = end($fechas);
-
-							//$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$tarea->ID_TAREA],['FECHA_INICIO'=>date('Y-m-d', strtotime($primer_fecha)),'FECHA_FINAL'=>date('Y-m-d', strtotime($ultima_fecha))]);
+						if(!$proceso_encontrado){
+							echo '<p style="color: red; font-weight: bold;">Error en el proceso</p>';
 						}
 					echo '</td>';
 				echo '</tr>';
