@@ -21,18 +21,12 @@ $icono = "far fa-clock";
 
   <?php $fecha = ''; foreach($tareas as $tarea){ ?>
     <?php if($fecha != $tarea->FECHA_FINAL){ $fecha = $tarea->FECHA_FINAL; ?>
-      <li class="border-0 border-bottom fecha_tareas">
-        <p><i class="fas fa-calendar-alt"></i> <?php echo fechas_es($tarea->FECHA_FINAL); ?>
-          <?php if(date('Y-m-d')>date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-danger text-white">Atrasado</span>'; } ?>
-          <?php if(date('Y-m-d')==date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-warning text-white">Entrega hoy</span>'; } ?>
-          <?php if(date('Y-m-d')<date('Y-m-d', strtotime($tarea->FECHA_FINAL))&&$porcentaje_completo!=100){ echo '<span class="badge bg-success text-white">A tiempo</span>'; } ?>
-        </p>
-      </li>
       <div class="d-flex justify-content-start align-items-center py-2 head-lista-tareas me-3">
           <small class="status"><i class="fa-solid fa-bars-progress"></i> Estado</small>
-          <small class="me-auto">Nombre de la tarea</small>
-          <small class="usuario-activo"><i class="fa-solid fa-user"></i> Usuario activo</small>
-          <small class="proceso-actual me-4"><i class="fa-solid fa-bars-staggered"></i> Proceso activo</small>
+          <small class="me-auto">Tarea</small>
+          <small class="usuario-activo"><i class="fa-solid fa-user"></i> Usuario</small>
+          <small class="proceso-actual me-4"><i class="fa-solid fa-bars-staggered"></i> Proceso</small>
+          <small class="me-4">Controles</small>
         </div>
     <?php } ?>
 
@@ -89,10 +83,18 @@ $icono = "far fa-clock";
             </a>
             <?php } ?>
             <?php if($procesos_totales>0){ ?>
-          <span class="pe-4 proceso-actual "><?php echo $procesos_completo; ?>/<?php echo $procesos_totales; ?> <?php echo $detalles_proceso_activo['ETIQUETA']; ?></span>
-              <?php }else{ ?>
-                <span class="pe-4 proceso-actual ">N/A</span>
-                <?php } ?>
+              <span class="pe-4">
+              <?php echo fechas_es($detalles_proceso_activo['FECHA']); ?>
+                <?php if(date('Y-m-d')>date('Y-m-d', strtotime($detalles_proceso_activo['FECHA']))&&$porcentaje_completo!=100){ echo '<span class="badge bg-danger text-white" title="'.$detalles_proceso_activo['FECHA'].'">Atrasado</span>'; } ?>
+                <?php if(date('Y-m-d')==date('Y-m-d', strtotime($detalles_proceso_activo['FECHA']))&&$porcentaje_completo!=100){ echo '<span class="" title="'.$detalles_proceso_activo['FECHA'].'">Entrega hoy</span>'; } ?>
+                <?php if(date('Y-m-d')<date('Y-m-d', strtotime($detalles_proceso_activo['FECHA']))&&$porcentaje_completo!=100){ echo '<span class="" title="'.$detalles_proceso_activo['FECHA'].'">A tiempo</span>'; } ?>
+              
+              </span>
+              <span class="pe-4 proceso-actual ">
+              <?php echo $procesos_completo; ?>/<?php echo $procesos_totales; ?> <?php echo $detalles_proceso_activo['ETIQUETA']; ?></span>
+            <?php }else{ ?>
+              <span class="pe-4 proceso-actual ">N/A</span>
+            <?php } ?>
           <button data-enlace="<?php echo base_url('index.php/tareas/borrar?id='.$tarea->ID_TAREA); ?>" class="ml-2 btn btn-outline-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i></button>
         </div>
 

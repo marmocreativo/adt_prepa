@@ -489,9 +489,21 @@
 				</div>
 				
 				<hr>
+				<?php
+					$ocultar_controles_linea_de_tiempo = false;
+					if(empty($detalles_proceso_actual['ID_USUARIO'])){ $ocultar_controles_linea_de_tiempo = true; }
+					if($detalles_proceso_actual['ID_USUARIO']!=$_SESSION['usuario']['id']){$ocultar_controles_linea_de_tiempo = true;}
+					if($detalles_proceso_actual['FECHA']<date('Y-m-d H:i:s')){
+						$ocultar_controles_linea_de_tiempo = false;
+					}
+				?>
 				
-				<div class="row <?php if(!empty($detalles_proceso_actual['ID_USUARIO'])&&$detalles_proceso_actual['ID_USUARIO']!=$_SESSION['usuario']['id']){ echo 'd-none'; } ?>">
-					
+				<div class="row <?php if($ocultar_controles_linea_de_tiempo){ echo 'd-none'; } ?>">
+					<?php if($detalles_proceso_actual['FECHA']<date('Y-m-d')){ ?>
+					<div class="col-12">
+						<p class="text-info text-center"> <i class="fa fa-info-circle"></i><br> El proceso actual presenta un atraso por lo cual se han activado los controles para continuar con el proceso.</p>
+					</div>
+					<?php } ?>
 					<div class="col-6">
 						<?php
 							if(empty($detalles_proceso_actual)){
@@ -531,7 +543,7 @@
 					</div>
 				</div>
 				<?php if(empty($detalles_proceso_actual)&&$tarea['ESTADO']!='completo'){  ?>
-				<div>
+				<div class="my-3">
 					<div class="alert alert-danger text-center">
 						<h5>¡Oh oh!, parece que ocurre un error con la línea del tiempo <a href="#" class="btn btn-link w-100" data-bs-toggle="modal" data-bs-target="#formCompletar">
 					Click aquí para reparar
@@ -541,7 +553,7 @@
 				</div>
 				<?php } ?>
 				<?php if($_SESSION['usuario']['tipo_usuario']='administrador'){  ?>
-				<div>
+				<div class="my-3">
 					<div class="alert alert-info text-center">
 						<h6>Si eres un administrador <a href="#" class="btn btn-link w-100" data-bs-toggle="modal" data-bs-target="#formCompletar">
 					Puedes reparar la línea del tiempo dando click aquí
