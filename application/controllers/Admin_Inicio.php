@@ -79,47 +79,29 @@ class Admin_Inicio extends CI_Controller {
 			
 	}
 
-	public function tareas_linea_de_tiempo(){
-		$tareas = $this->GeneralModel->lista('tareas','','','ID_PROYECTO','','');
-		foreach($tareas as $tarea){
-			echo '<table border="1" style="border-collapse: true; margin-bottom: 20px;">';
-				echo '<tr>';
-					echo '<td style="padding:5px;"><a href="'.base_url('index.php/tareas/detalles?id='.$tarea->ID_TAREA).'">'.$tarea->TAREA_TITULO.'</a></td>';
-					$color_estado = 'red';
-					if($tarea->ESTADO=='completo'){ $color_estado = 'green';}
-					echo '<td style="padding:5px; color:'.$color_estado.'">'.$tarea->ESTADO.'</td>';
-					echo '<td style="padding:5px;">'.$tarea->FECHA_INICIO.'</td>';
-					echo '<td style="padding:5px;">'.$tarea->FECHA_FINAL.'</td>';
-					echo '<td style="padding:5px;">'.$tarea->ID_PROCESO.'</td>';
-					$procesos = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea->ID_TAREA],'ORDEN ASC','','');
-					$linea_del_tiempo_completa = true;
-					echo '<td style="padding:5px;">';
-						echo '<table border="1">';
-						$fechas = array();
-						$proceso_encontrado = false;
-						foreach($procesos as $proceso){
-							if($tarea->ID_PROCESO==$proceso->ID){ $proceso_encontrado = true; }
-							echo '<tr>';
-								echo '<td>'.$proceso->ID.'</td>';	
-								echo '<td>'.$proceso->ORDEN.'</td>';
-								echo '<td>'.$proceso->ETIQUETA.'</td>';
-								$color_estado = 'red';
-								if($proceso->ESTADO=='completo'){ $color_estado = 'green';}
-								if($proceso->ESTADO=='en desarrollo'){ $linea_del_tiempo_completa = false; }
-								echo '<td style="color: '.$color_estado.'">'.$proceso->ESTADO.'</td>';
-								echo '<td>'.$proceso->FECHA.'</td>';
-							echo '</tr>';
-							if($proceso->ID==$tarea->ID_PROCESO){ $error_proceso = true; }
-							$fechas[] = $proceso->FECHA;
-						}
-						echo '</table>';
-						if(!$proceso_encontrado){
-							echo '<p style="color: red; font-weight: bold;">Error en el proceso</p>';
-						}
-					echo '</td>';
-				echo '</tr>';
-			echo '</table>';
-		}
+	public function procesos_validaciones(){
+		$this->load->dbforge();
+		
+		$fields = array(
+            'ID_PROCESO' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => true,
+            ),
+        );
+
+        $this->dbforge->add_column('validacion_revisiones', $fields, 'ID_TAREA');
+		
+
+		$campos = array(
+            'ID_LISTA' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => true,
+            ),
+        );
+
+        $this->dbforge->add_column('roles_historial', $campos, 'ID_TAREA');
 	}
 	public function opciones()
 	{

@@ -3,6 +3,8 @@
 <!-- <a href="<?php echo base_url('index.php/proyectos/detalles?id='.$tarea['ID_PROYECTO']); ?>" class="btn btn-outline-primary"><i class="fas fa-chevron-circle-left"></i> Volver al proyecto</a>
 <?php } ?> -->
 
+<?php $listas_validacion = $this->GeneralModel->lista('validacion_lista','',['ESTADO'=>'activo','ID_AREA'=>$_SESSION['usuario']['area']],'','',''); ?>
+
 <div class="pt-3">
 
 <div class="row">
@@ -391,6 +393,70 @@
 							<button class="btn btn-sm btn-outline-secondary border-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#form-proceso-<?php echo $proceso->ID; ?>" aria-expanded="false" aria-controls=""><i class="fas fa-pencil-alt"></i></button>
 							<a class="btn btn-sm btn-outline-secondary border-0" href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>"><i class="fas fa-trash"></i></a>
 						</div>
+						<?php $validaciones = $this->GeneralModel->lista('validacion_revisiones','',['ID_PROCESO'=>$proceso->ID, 'ID_LISTA'=>$proceso->ID_LISTA],'','',''); ?>
+						<?php if(!empty($proceso->ID_LISTA)){ ?>
+							<button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#validacionesProceso<?php echo $proceso->ID; ?>">Validaciones del proceso</button>
+						<?php } ?>
+						<div>
+							<!-- Modal -->
+								<div class="modal fade" id="validacionesProceso<?php echo $proceso->ID; ?>" tabindex="-1" aria-labelledby="validacionesProceso<?php echo $proceso->ID; ?>Label" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+										<div class="modal-body">
+											<h3>Validaciones del proceso</h3>
+											<table class="table table-stripped">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Lista</th>
+														<th>Avance</th>
+														<th>Controles</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php foreach($validaciones as $validacion){ ?>
+														<?php $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$validacion->ID_REVISION]); ?>
+														<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$detalles_revision['ID_LISTA']]); ?>
+														<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$detalles_revision['ID_RESPONSABLE']]); ?>
+														<tr>
+															<td><?php echo date('Y-m-d', strtotime($detalles_revision['FECHA'])); ?></td>
+															<td>
+															<?php echo $detalles_lista['TITULO']; ?><br>
+																<b><?php echo $detalles_responsable['USUARIO_NOMBRE'].' '.$detalles_responsable['USUARIO_APELLIDOS']; ?></b>
+															</td>
+															<td>
+																<?php
+																	$porcentaje_avance = round(($detalles_revision['TOTAL_VERIFICADOS']*100)/$detalles_revision['TOTAL_PARAMETROS'] , 2);
+																?>
+																<div class="progress" role="progressbar" aria-label="Progreso" aria-valuenow="<?php echo $porcentaje_avance; ?>" aria-valuemin="0" aria-valuemax="100">
+																<div class="progress-bar" style="width: <?php echo $porcentaje_avance; ?>%"></div>
+																</div>
+																<p><?php echo $detalles_revision['TOTAL_VERIFICADOS']; ?>/<?php echo $detalles_revision['TOTAL_PARAMETROS']; ?> (<?php echo $porcentaje_avance; ?>%)</p>
+															</td>
+															<td>
+																<div class="btn-group justify-end">
+																	<?php if($detalles_revision['ESTADO']=='activo'){ ?>
+																	<a href="<?php echo base_url('index.php/proyectos/validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-success text-white" title="Formulario"> <i class="fas fa-clipboard-check"></i> Formulario</a>
+																	<?php } ?>
+																	<?php if($detalles_revision['ESTADO']=='finalizado'){ ?>
+																	<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
+																	<button data-enlace="<?php echo base_url('index.php/proyectos/copiar_validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&id_tarea='.$detalles_revision['ID_TAREA']); ?>" class="ml-2 btn btn-warning btn-sm borrar_entrada"> <i class="fa fa-copy"></i> Revalidar</a>
+																	<?php } ?>
+																	<?php if($_SESSION['usuario']['tipo_usuario']='administrador'){ ?>
+																	<button data-enlace="<?php echo base_url('index.php/tareas/borrar_validacion?id='.$tarea['ID_TAREA'].'&id_revision='.$detalles_revision['ID_REVISION']); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>
+																	<?php } ?>
+																</div>
+															</td>
+														</tr>
+													<?php }//bucle revisiones ?>
+												</tbody>
+											</table>
+										</div>
+										</div>
+									</div>
+								</div>
+													
+						</div>
 						<div class="w-100">
 						
 						<div class="m-3 p-3 collapse" id="form-proceso-<?php echo $proceso->ID; ?>">
@@ -426,6 +492,17 @@
 										<option value="produccion"  <?php if($proceso->PROCESO=='produccion'){ echo 'selected'; } ?>>Producción (producción)</option>
 										<option value="postproduccion" <?php if($proceso->PROCESO=='postproduccion'){ echo 'selected'; } ?>>Revisión (post-producción)</option>
 									</select>
+								</div>
+								<div id="Listas<?php echo $proceso->ID; ?>" class="">
+									<div class="form-group">
+										<label for="IdLista">Lista de validación (para revisión)</label>
+										<select name="IdLista" class="form-control">
+											<option value="">Ningúna</option>
+											<?php foreach($listas_validacion as $lista){ ?>
+											<option value="<?php echo $lista->ID_LISTA; ?>" <?php if($lista->ID_LISTA==$proceso->ID_LISTA){ echo 'selected'; } ?>><?php echo $lista->TITULO; ?></option>
+											<?php }  ?>
+										</select>
+									</div>
 								</div>
 								
 								<hr>
@@ -482,6 +559,17 @@
 								<option value="produccion" selected>Producción (producción)</option>
 								<option value="postproduccion">Revisión (post-producción)</option>
 							</select>
+						</div>
+						<div id="Listas<?php echo $proceso->ID; ?>" class="">
+							<div class="form-group">
+								<label for="IdLista">Lista de validación (para revisión)</label>
+								<select name="IdLista" class="form-control">
+									<option value="">Ningúna</option>
+									<?php foreach($listas_validacion as $lista){ ?>
+									<option value="<?php echo $lista->ID_LISTA; ?>" ><?php echo $lista->TITULO; ?></option>
+									<?php }  ?>
+								</select>
+							</div>
 						</div>
 						<hr>
 						<button type="submit" class="btn btn-primary">Agregar proceso</button>
@@ -621,8 +709,7 @@
 										<div class="col">
 											<div class="form-group">
 												<label for="IdLista">Lista</label>
-												<select name="IdLista" class="form-control">ç
-													<?php $listas_validacion = $this->GeneralModel->lista('validacion_lista','',['ESTADO'=>'activo','ID_AREA'=>$_SESSION['usuario']['area']],'','',''); ?>
+												<select name="IdLista" class="form-control">
 													<?php foreach($listas_validacion as $lista){ ?>
 													<option value="<?php echo $lista->ID_LISTA; ?>" <?php if($lista->ID_LISTA==$proyecto['ID_LISTA']){ echo 'selected'; } ?>><?php echo $lista->TITULO; ?></option>
 													<?php }  ?>
@@ -686,6 +773,7 @@
 											<div class="progress" role="progressbar" aria-label="Progreso" aria-valuenow="<?php echo $porcentaje_avance; ?>" aria-valuemin="0" aria-valuemax="100">
 											<div class="progress-bar" style="width: <?php echo $porcentaje_avance; ?>%"></div>
 											</div>
+											<p><?php echo $detalles_revision['TOTAL_VERIFICADOS']; ?>/<?php echo $detalles_revision['TOTAL_PARAMETROS']; ?> (<?php echo $porcentaje_avance; ?>%)</p>
 										</td>
 										<td>
 											<div class="btn-group justify-end">
