@@ -400,25 +400,27 @@
 						<div>
 							<!-- Modal -->
 								<div class="modal fade" id="validacionesProceso<?php echo $proceso->ID; ?>" tabindex="-1" aria-labelledby="validacionesProceso<?php echo $proceso->ID; ?>Label" aria-hidden="true">
-									<div class="modal-dialog">
+									<div class="modal-dialog modal-lg">
 										<div class="modal-content">
 										<div class="modal-body">
 											<h3>Validaciones del proceso</h3>
 											<table class="table table-stripped">
 												<thead>
 													<tr>
-														<th>ID</th>
+														<th>#</th>
+														<th>Fecha</th>
 														<th>Lista</th>
 														<th>Avance</th>
 														<th>Controles</th>
 													</tr>
 												</thead>
 												<tbody>
-													<?php foreach($validaciones as $validacion){ ?>
+													<?php $i=1; foreach($validaciones as $validacion){ ?>
 														<?php $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$validacion->ID_REVISION]); ?>
 														<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$detalles_revision['ID_LISTA']]); ?>
 														<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$detalles_revision['ID_RESPONSABLE']]); ?>
 														<tr>
+														<td><?php echo $i; ?></td>
 															<td><?php echo date('Y-m-d', strtotime($detalles_revision['FECHA'])); ?></td>
 															<td>
 															<?php echo $detalles_lista['TITULO']; ?><br>
@@ -448,7 +450,7 @@
 																</div>
 															</td>
 														</tr>
-													<?php }//bucle revisiones ?>
+													<?php $i++; }//bucle revisiones ?>
 												</tbody>
 											</table>
 										</div>
@@ -749,18 +751,20 @@
 							<table class="table table-stripped">
 							<thead>
 								<tr>
-									<th>ID</th>
+									<th>#</th>
+									<th>Fecha</th>
 									<th>Lista</th>
 									<th>Avance</th>
 									<th>Controles</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach($respuestas_agrupadas as $respuesta_agru){ ?>
+								<?php $i=1; foreach($respuestas_agrupadas as $respuesta_agru){ ?>
 									<?php $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$respuesta_agru->ID_REVISION]); ?>
 									<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$detalles_revision['ID_LISTA']]); ?>
 									<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$detalles_revision['ID_RESPONSABLE']]); ?>
 									<tr>
+										<td><?php echo $i; ?></td>
 										<td><?php echo date('Y-m-d', strtotime($detalles_revision['FECHA'])); ?></td>
 										<td>
 										<?php echo $detalles_lista['TITULO']; ?><br>
@@ -790,7 +794,7 @@
 											</div>
 										</td>
 									</tr>
-								<?php }//bucle revisiones ?>
+								<?php $i ++; }//bucle revisiones ?>
 							</tbody>
 						</table>
 						<?php } ?>

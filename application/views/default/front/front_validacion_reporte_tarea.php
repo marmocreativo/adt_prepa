@@ -7,11 +7,12 @@ $mostrar_parametro = verificar_variable('GET','mostrar','todos');
 ?>
 <div class="row">
     <div class="col-8">
+        <h3><small>Lista: </small><?php echo $lista['TITULO']; ?></h3>
         <div class="table-responsive">
             <table class="table table-stripped">
                 <thead>
                     <tr>
-                        <th>Lista de cotejo
+                        <th>
                             <form action="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$tarea['ID_PROYECTO'].'&fecha_revision='.$revision['FECHA'].'&tarea='.$tarea['ID_TAREA']); ?>">
                                 <input type="hidden" name="id" value="<?php echo $tarea['ID_PROYECTO']; ?>">
                                 <input type="hidden" name="id_revision" value="<?php echo $revision['ID_REVISION']; ?>">

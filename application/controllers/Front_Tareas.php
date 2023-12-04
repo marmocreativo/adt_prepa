@@ -501,8 +501,7 @@ class Front_Tareas extends CI_Controller {
 					'MENSAJE' => $mensaje.' <small>(Editado: '.date('Y-m-d H:i:s').')</small>',
 					'ASIGNACIONES' => $usuarios_asignados,
 					'ENLACE' => $this->input->post('Enlace'),
-					'TIPO' => $tipo,
-					'FECHA_REGISTRO' => date('Y-m-d H:i:s')
+					'TIPO' => $tipo
 				);
 
 				$this->GeneralModel->actualizar('tareas_mensajes',['ID'=>$_POST['Identificador']],$parametros);
@@ -640,7 +639,7 @@ class Front_Tareas extends CI_Controller {
 		$this->data['tarea'] = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['tarea']]);
 		$this->data['tipo'] = $this->data['tarea']['TIPO'];
 		// Open Tags
-		$this->data['titulo']  = $this->data['tarea']['TAREA_TITULO'];
+		$this->data['titulo']  = 'TAREA: '.$this->data['tarea']['TAREA_TITULO'];
 		$this->data['descripcion']  = $this->data['tarea']['TAREA_DESCRIPCION'];
 		$this->data['imagen']  = base_url('contenido/img/proyectos/default.jpg');
 		$this->data['meta'] = $this->GeneralModel->lista('meta_datos','',['ID_OBJETO'=>$_GET['id'],'TIPO_OBJETO'=>'tarea'],'','','');
