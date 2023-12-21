@@ -92,7 +92,7 @@
 			</div>
 		</div>
 
-			<p class="tarea-descripcion mt-5"><?php echo $tarea['TAREA_DESCRIPCION']; ?></p>
+			<div class="tarea-descripcion mt-5"><?php echo $tarea['TAREA_DESCRIPCION']; ?></div>
 			
 			<hr>
 			<h4>Personas que participarán:</h4>
