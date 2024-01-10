@@ -141,4 +141,51 @@ enlaces.forEach((enlace) => {
   }
   
 });
+
+// Obtén la lista almacenada en localStorage al cargar la página
+var listaAlmacenada = JSON.parse(localStorage.getItem("miListaLocal")) || [];
+
+// Actualiza la lista en la página
+function actualizarLista() {
+  var listaHtml = listaAlmacenada.map(function(item) {
+    return '<li>' + item + '</li>';
+  }).join('');
+  //$('#miLista').html(listaHtml);
+ 
+}
+
+function valorPresenteEnJSON(objeto, valor) {
+  for (var clave in objeto) {
+    if (objeto.hasOwnProperty(clave) && objeto[clave] === valor) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+// Manejador de clic para el botón
+$('.boton_etiqueta').on('click', function() {
+  console.log('boton colapsar');
+  // Simplemente como ejemplo, puedes pedir al usuario que ingrese el valor
+  var nuevoElemento = $(this).attr('href');
+  console.log(nuevoElemento);
+  
+  // Agrega el nuevo elemento a la lista almacenada
+  if(valorPresenteEnJSON(listaAlmacenada, nuevoElemento)){
+    console.log('existe');
+  }else{
+    listaAlmacenada.push(nuevoElemento);
+  }
+  
+  
+  // Guarda la lista actualizada en localStorage
+  localStorage.setItem("miListaLocal", JSON.stringify(listaAlmacenada));
+
+  // Actualiza la lista en la página
+  actualizarLista();
+});
+
+// Actualiza la lista al cargar la página
+actualizarLista();
 </script>

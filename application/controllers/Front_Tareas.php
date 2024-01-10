@@ -1124,6 +1124,68 @@ class Front_Tareas extends CI_Controller {
 		redirect(base_url('index.php/tareas/detalles?id='.$detalles_proceso['ID_TAREA']));
 	}
 
+	public function reactivar_tarea()
+	{
+		$detalles_tarea = $this->GeneralModel->detalles('tareas',['ID_TAREA'=>$_GET['id']]);
+		$ultimos_procesos = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$detalles_tarea['ID_TAREA']],'ORDEN DESC','1','');
+		$usuarios_participantes = $this->GeneralModel->lista('usuarios_tareas','',['ID_TAREA'=>$detalles_tarea['ID_TAREA']],'','','');
+		//var_dump($ultimos_procesos );
+		$orden = 0;
+		$fecha_anterior ='';
+		foreach($ultimos_procesos as $ultimo_proceso){
+			$orden = $ultimo_proceso->ORDEN+1;
+			$fecha_anterior = $ultimo_proceso->FECHA;
+		}
+
+		$fecha1 = new DateTime($fecha_anterior); // Reemplaza '2023-01-01' con tu primera fecha
+		$fecha2 = new DateTime(date('Y-m-d 00:00:00')); // Reemplaza '2023-11-13' con tu segunda fecha
+
+		$intervalo = $fecha1->diff($fecha2);
+		if($intervalo->days>0){
+		$dias_desde_anterior = $intervalo->days;
+		}else{
+			$dias_desde_anterior = 1;
+		}
+
+		$parametros_proceso = array(
+			'ID_TAREA' => $detalles_tarea['ID_TAREA'],
+			'ID_LISTA' => '',
+			'ID_USUARIO' => $_SESSION['usuario']['id'],
+			'ETIQUETA' => 'Reactivación de tarea',
+			'PROCESO' => 'preproduccion',
+			'FECHA' => date('Y-m-d 00:00:00'),
+			'ORDEN' => $orden,
+			'DIAS_DESPUES_ANTERIOR' => $dias_desde_anterior
+		);
+
+		$id_proceso = $this->GeneralModel->crear('roles_historial',$parametros_proceso);
+
+		$parametros_tarea = [
+			'ESTADO'=>'en desarrollo',
+			'FECHA_ENTREGA'=>null,
+			'ID_PROCESO'=>$id_proceso
+		];
+
+		$this->GeneralModel->actualizar('tareas',['ID_TAREA'=>$detalles_tarea['ID_TAREA']],$parametros_tarea);
+		
+		foreach($usuarios_participantes as $usuario){
+			$parametros_notificacion = array(
+				'ID_USUARIO' => $usuario->ID_USUARIO,
+				'ENLACE'=> base_url('index.php/tareas/detalles?id='.$usuario->ID_TAREA),
+				'GRUPO'=>'tareas',
+				'NOTIFICACION_CONTENIDO'=>'¡Alerta!, Se ha reactivado la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b>',
+				'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+				'ESTADO'=>'pendiente'
+			);
+			$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+		}
+		
+	
+	
+		redirect(base_url('index.php/tareas/detalles?id='.$detalles_tarea['ID_TAREA']));
+		
+	}
+
 	public function reparar_tareas(){
 		$this->GeneralModel->actualizar('tareas',['ESTADO'=>'pendiente'],['ESTADO'=>'en desarrollo']);
 	}

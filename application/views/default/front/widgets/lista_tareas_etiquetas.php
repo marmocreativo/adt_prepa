@@ -156,7 +156,7 @@
     ?>
 <div class="etiqueta_contenedor ui-sortable-handle" style="margin-bottom: 30px;" id="item-<?php echo $etiqueta->ID; ?>">
     <div class="d-flex justify-content-start">
-        <h5 class="bg-secondary bg-opacity-10 text-secondary p-2 d-inline mb-0 me-2 rounded-top" data-bs-toggle="collapse" href="#collapse<?php echo $etiqueta->ID ?>" role="button" aria-expanded="false" aria-controls="collapse<?php echo $etiqueta->ID ?>"><i class="fa fa-tag"></i> <?php echo $etiqueta->ETIQUETA ?> <small class="fa fa-chevron-down"></small></h5>
+        <h5 class="boton_etiqueta bg-secondary bg-opacity-10 text-secondary p-2 d-inline mb-0 me-2 rounded-top" data-bs-toggle="collapse" href="#collapse<?php echo $etiqueta->ID ?>" role="button" aria-expanded="false" aria-controls="collapse<?php echo $etiqueta->ID ?>"><i class="fa fa-tag"></i> <?php echo $etiqueta->ETIQUETA ?> <small class="fa fa-chevron-down"></small></h5>
         <div class="dropdown">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-bars"></i> 

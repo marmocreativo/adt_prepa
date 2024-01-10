@@ -96,6 +96,7 @@
 	<div class="row">
 	    <div class="col-12 d-flex justify-content-between mt-4 mb-2">
 			<h5>Tareas</h5>
+			<ul id="miLista"></ul>
 		    <?php if($proyecto['ESTADO']!='terminado'){ ?>
 			<div>
 			<button type="button" class="btn btn-sm px-4 rounded-pill btn-outline-success" data-bs-toggle="modal" data-bs-target="#NuevaEtiqueta" title="Nueva Etiqueta">
@@ -110,6 +111,7 @@
 		<div class="col-12">
 		    <?php $this->load->view('default'.$dispositivo.'/front/widgets/lista_tareas_etiquetas', $etiquetas); ?>
 		</div>
+		
 	</div>
 </div>
 <?php if($proyecto['ESTADO']!='terminado'){ ?>

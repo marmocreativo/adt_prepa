@@ -415,12 +415,12 @@
 													</tr>
 												</thead>
 												<tbody>
-													<?php $i=1; foreach($validaciones as $validacion){ ?>
+													<?php $e=1; foreach($validaciones as $validacion){ ?>
 														<?php $detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$validacion->ID_REVISION]); ?>
 														<?php $detalles_lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$detalles_revision['ID_LISTA']]); ?>
 														<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$detalles_revision['ID_RESPONSABLE']]); ?>
 														<tr>
-														<td><?php echo $i; ?></td>
+														<td><?php echo $e; ?></td>
 															<td><?php echo date('Y-m-d', strtotime($detalles_revision['FECHA'])); ?></td>
 															<td>
 															<?php echo $detalles_lista['TITULO']; ?><br>
@@ -450,7 +450,7 @@
 																</div>
 															</td>
 														</tr>
-													<?php $i++; }//bucle revisiones ?>
+													<?php $e++; }//bucle revisiones ?>
 												</tbody>
 											</table>
 										</div>
@@ -533,6 +533,9 @@
 				<button class="btn btn-sm btn-outline-success mt-3 <?php if($tarea['ESTADO']=='completo'){ echo 'd-none';} ?>" type="button" data-bs-toggle="collapse" data-bs-target="#form-postproduccion" aria-expanded="false" aria-controls="collapseWidthExample">
 					+ Agregar y asignar proceso
 				</button>
+				<a class="btn btn-sm btn-outline-warning mt-3 <?php if($tarea['ESTADO']=='en desarrollo'){ echo 'd-none';} ?>" href="<?php echo base_url('index.php/tareas/reactivar_tarea?id='.$tarea['ID_TAREA']); ?>">
+					Reactivar actividad
+				</a>
 				<div class="m-3 p-3 collapse" id="form-postproduccion">
 					<form action="<?php echo base_url('index.php/tareas/asignar_rol'); ?>" method="post" enctype="multipart/multipart/form-data">
 					<input type="hidden" name="IdTarea" value="<?php echo $tarea['ID_TAREA']; ?>">
@@ -672,11 +675,11 @@
 			<input type="hidden" name="IdProcesoActual" value="<?php echo $tarea['ID_PROCESO']; ?>">
 			<div class="form-group">
 				<label for="IdProcesoSiguiente">Siguiente paso</label>
-				<?php $i=1; $procesos_siguientes = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA']],'ORDEN ASC','',''); ?>
+				<?php $e=1; $procesos_siguientes = $this->GeneralModel->lista('roles_historial','',['ID_TAREA'=>$tarea['ID_TAREA']],'ORDEN ASC','',''); ?>
 				<select name="IdProcesoSiguiente" id="IdProcesoSiguiente" class="form-control">
 					<?php foreach($procesos_siguientes as $proceso){ ?>
-					<option value="<?php echo $proceso->ID; ?>"><?php echo '#'.$i.' - '.$proceso->ETIQUETA; ?></option>
-					<?php $i++; } ?>
+					<option value="<?php echo $proceso->ID; ?>"><?php echo '#'.$e.' - '.$proceso->ETIQUETA; ?></option>
+					<?php $e++; } ?>
 				</select>
 			</div>
 			<hr>
