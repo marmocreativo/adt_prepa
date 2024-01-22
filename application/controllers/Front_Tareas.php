@@ -62,7 +62,9 @@ class Front_Tareas extends CI_Controller {
 		$parametros_and['tareas.ID_AREA'] = $_SESSION['usuario']['area'];
 		$tablas_join = array();
 			$tablas_join['roles_historial'] = 'roles_historial.ID = tareas.ID_PROCESO';
-		$parametros_and['roles_historial.ID_USUARIO'] = $_SESSION['usuario']['id'];
+		$parametros_or['roles_historial.ID_USUARIO'] = $_SESSION['usuario']['id'];
+		$parametros_or['roles_historial.ID_USUARIO_B'] = $_SESSION['usuario']['id'];
+		$parametros_or['roles_historial.ID_USUARIO_C'] = $_SESSION['usuario']['id'];
 
 		// Consulta
 		$this->data['tareas'] = $this->GeneralModel->lista_join('tareas',$tablas_join,$parametros_or,$parametros_and,'tareas.FECHA_FINAL ASC','','',$agrupar);
@@ -694,6 +696,8 @@ class Front_Tareas extends CI_Controller {
 			'ID_TAREA' => $_POST['IdTarea'],
 			'ID_LISTA' => $_POST['IdLista'],
 			'ID_USUARIO' => $_POST['IdUsuario'],
+			'ID_USUARIO_B' => $_POST['IdUsuarioB'],
+			'ID_USUARIO_C' => $_POST['IdUsuarioC'],
 			'ETIQUETA' => $_POST['Etiqueta'],
 			'PROCESO' => $_POST['Proceso'],
 			'FECHA' => date('Y-m-d 00:00:00', strtotime($_POST['Fecha'])),
@@ -771,6 +775,30 @@ class Front_Tareas extends CI_Controller {
 				'ESTADO'=>'pendiente'
 			);
 			$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+
+			if(!empty($_POST['IdUsuarioB'])){
+				$parametros_notificacion = array(
+					'ID_USUARIO' => $_POST['IdUsuarioB'],
+					'ENLACE'=> base_url('index.php/tareas/detalles?id='.$_POST['IdTarea']),
+					'GRUPO'=>'tareas',
+					'NOTIFICACION_CONTENIDO'=>'¡Manos a la obra!, se te ha asignado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b>',
+					'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+					'ESTADO'=>'pendiente'
+				);
+				$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+			}
+
+			if(!empty($_POST['IdUsuarioC'])){
+				$parametros_notificacion = array(
+					'ID_USUARIO' => $_POST['IdUsuarioC'],
+					'ENLACE'=> base_url('index.php/tareas/detalles?id='.$_POST['IdTarea']),
+					'GRUPO'=>'tareas',
+					'NOTIFICACION_CONTENIDO'=>'¡Manos a la obra!, se te ha asignado el proceso <b>'.$_POST['Etiqueta'].'</b>, de la tarea <b>'.$detalles_tarea['TAREA_TITULO'].'</b>',
+					'FECHA_CREACION'=>date('Y-m-d H:i:s'),
+					'ESTADO'=>'pendiente'
+				);
+				$this->GeneralModel->crear('notificaciones',$parametros_notificacion);
+			}
 
 						/*
 						| -------------------------------------------------------------------------
@@ -856,6 +884,8 @@ class Front_Tareas extends CI_Controller {
 			'ID_TAREA' => $_POST['IdTarea'],
 			'ID_LISTA' => $_POST['IdLista'],
 			'ID_USUARIO' => $_POST['IdUsuario'],
+			'ID_USUARIO_B' => $_POST['IdUsuarioB'],
+			'ID_USUARIO_C' => $_POST['IdUsuarioC'],
 			'ETIQUETA' => $_POST['Etiqueta'],
 			'PROCESO' => $_POST['Proceso'],
 			'FECHA' => date('Y-m-d 00:00:00', strtotime($_POST['Fecha'])),

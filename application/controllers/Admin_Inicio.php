@@ -56,14 +56,14 @@ class Admin_Inicio extends CI_Controller {
 		
        // Nombre de la tabla y nombre de la columna
 	   $table_name = 'roles_historial';
-	   $column_name = 'DIAS_DESPUES_ANTERIOR';
+	   $column_name = 'ID_USUARIO_C';
 
 	   // Definir las características de la columna
 	   $fields = array(
 		   $column_name => array(
-			   'type' => 'INT',
-			   'constraint' => 11,
-			   'default' => '0'
+			   'type' => 'VARCHAR',
+			   'constraint' => 255,
+			   'default' => ''
 		   )
 	   );
 

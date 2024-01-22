@@ -27,7 +27,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <?php $this->load->view('default'.$dispositivo.'/scripts/scripts_formularios'); ?>
 <?php $this->load->view('default'.$dispositivo.'/scripts/scripts_front'); ?>
-</script>
+
 
 </body>
 </html>

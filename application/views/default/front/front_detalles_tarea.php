@@ -368,7 +368,11 @@
 					</li>
 					<?php $i=1; $fecha_anterior = ''; foreach($procesos_post as $proceso){ ?>
 						<?php $array_procesos[$index_proceso] = $proceso->ID; $index_proceso ++; ?>
-						<?php $detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);?>
+						<?php 
+							$detalle_usuario = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO]);
+							$detalle_usuario_b = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO_B]);
+							$detalle_usuario_c = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$proceso->ID_USUARIO_C]);
+						?>
 						<li class="list-group-item lt-proceso <?php if($proceso->ESTADO=='completo'){ echo 'lt-proceso-completo'; } ?> p-2 <?php if($proceso->ID==$tarea['ID_PROCESO']){ echo 'bg-info lt-proceso-actual'; } ?> ui-sortable-handle" id="item-<?php echo $proceso->ID; ?>" role="presentation" title="<?php echo $detalle_usuario['USUARIO_NOMBRE'].' '.$detalle_usuario['USUARIO_APELLIDOS']; ?>">
 						<div class="d-flex w-100 align-items-start flex-column">
 							
@@ -379,6 +383,7 @@
 							</small>
 						    <strong class="mb-auto pb-2"><h5 class="fw-bold" title="<?php echo $proceso->ID; ?>">#<?php echo $i; ?> <?php echo $proceso->ETIQUETA; ?></h5></strong>
 							<div class="d-flex w-100 justify-content-start align-items-center">
+							<div class="w-100 mb-3">
 							<img
 							src="<?php echo base_url('contenido/img/usuarios/'.$detalle_usuario['IMAGEN']); ?>"
 							title="<?php echo $detalle_usuario['USUARIO_NOMBRE']; ?>"
@@ -390,6 +395,35 @@
 							aria-expanded="false">
 							
 							<span class="me-auto"><?php echo $detalle_usuario['USUARIO_NOMBRE']; ?> </span>
+							<hr>
+							<?php if(!empty($detalle_usuario_b)){ ?>
+							<img
+							src="<?php echo base_url('contenido/img/usuarios/'.$detalle_usuario_b['IMAGEN']); ?>"
+							title="<?php echo $detalle_usuario_b['USUARIO_NOMBRE']; ?>"
+							width="25px"
+							class="rounded-circle border border-secondary burbuja-sm me-2"
+							alt=""
+							role="button"
+							data-bs-toggle="dropdown"
+							aria-expanded="false">
+							
+							<span class="me-auto"><?php echo $detalle_usuario_b['USUARIO_NOMBRE']; ?> </span>
+							<?php } ?>
+
+							<?php if(!empty($detalle_usuario_c)){ ?>
+							<hr><img
+							src="<?php echo base_url('contenido/img/usuarios/'.$detalle_usuario_c['IMAGEN']); ?>"
+							title="<?php echo $detalle_usuario_c['USUARIO_NOMBRE']; ?>"
+							width="25px"
+							class="rounded-circle border border-secondary burbuja-sm me-2"
+							alt=""
+							role="button"
+							data-bs-toggle="dropdown"
+							aria-expanded="false">
+							
+							<span class="me-auto"><?php echo $detalle_usuario_c['USUARIO_NOMBRE']; ?> </span>
+							<?php } ?>
+							</div>
 							<button class="btn btn-sm btn-outline-secondary border-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#form-proceso-<?php echo $proceso->ID; ?>" aria-expanded="false" aria-controls=""><i class="fas fa-pencil-alt"></i></button>
 							<a class="btn btn-sm btn-outline-secondary border-0" href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>"><i class="fas fa-trash"></i></a>
 						</div>
@@ -479,6 +513,32 @@
 										<?php } ?>
 									</select>
 								</div>
+								<div class="row">
+									<div class="col-6">
+									<div class="form-group">
+										<label for="IdUsuarioPro"> Apoyo 1</label>
+										<select name="IdUsuarioB" id="IdUsuarioPro" class="form-control">
+											<option value="">Nadie</option>
+											<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+											<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
+											<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" <?php if($proceso->ID_USUARIO_B==$detalles_usuario_asignado['ID_USUARIO']){ echo 'selected'; } ?>><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
+											<?php } ?>
+										</select>
+									</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label for="IdUsuarioPro">Apoyo 2</label>
+											<select name="IdUsuarioC" id="IdUsuarioPro" class="form-control">
+												<option value="">Nadie</option>
+												<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+												<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
+												<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" <?php if($proceso->ID_USUARIO_C==$detalles_usuario_asignado['ID_USUARIO']){ echo 'selected'; } ?>><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
+												<?php } ?>
+											</select>
+										</div>
+									</div>
+								</div>
 								<div class="form-group">
 									<label for="Fecha">Fecha límite de entrega</label>
 									<input type="date" required class="form-control" name="Fecha" placeholder='Fecha límite' value="<?php echo date('Y-m-d', strtotime($proceso->FECHA)); ?>">
@@ -553,6 +613,32 @@
 								<?php } ?>
 							</select>
 						</div>
+						<div class="row">
+									<div class="col-6">
+									<div class="form-group">
+										<label for="IdUsuarioPro"> Apoyo 1</label>
+										<select name="IdUsuarioB" id="IdUsuarioProB" class="form-control">
+											<option value="">Nadie</option>
+											<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+											<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
+											<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
+											<?php } ?>
+										</select>
+									</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label for="IdUsuarioPro">Apoyo 2</label>
+											<select name="IdUsuarioC" id="IdUsuarioProC" class="form-control">
+												<option value="">Nadie</option>
+												<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+												<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
+												<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" ><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
+												<?php } ?>
+											</select>
+										</div>
+									</div>
+								</div>
 						<div class="form-group">
 							<label for="Fecha">Fecha límite de entrega</label>
 							<input type="date" required class="form-control" name="Fecha" placeholder='Fecha límite'>
