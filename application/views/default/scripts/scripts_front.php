@@ -117,5 +117,28 @@ var intervalo = setInterval(buscarNotificacion, 10000);
 
 // Obtén todos los enlaces de la página
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Selecciona la div con la clase tarea-descripcion
+    var tareaDescripcion = document.querySelector('.tarea-descripcion');
+
+    // Obtiene todos los enlaces dentro de la div
+    var enlaces = tareaDescripcion.querySelectorAll('a');
+
+    // Itera sobre cada enlace y agrega el atributo target="_blank" si el destino está fuera del dominio actual
+    enlaces.forEach(function(enlace) {
+      var destino = enlace.getAttribute('href');
+      
+      if (destino && !esEnlaceInterno(destino)) {
+        enlace.setAttribute('target', '_blank');
+      }
+    });
+
+    // Función para verificar si un enlace es interno
+    function esEnlaceInterno(destino) {
+      var dominioActual = window.location.hostname;
+      return destino.indexOf(dominioActual) !== -1;
+    }
+  });
+
 
 </script>
