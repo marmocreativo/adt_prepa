@@ -120,25 +120,113 @@ var intervalo = setInterval(buscarNotificacion, 10000);
 document.addEventListener("DOMContentLoaded", function() {
     // Selecciona la div con la clase tarea-descripcion
     var tareaDescripcion = document.querySelector('.tarea-descripcion');
+    if (tareaDescripcion) {   
+      // Obtiene todos los enlaces dentro de la div
+      var enlaces = tareaDescripcion.querySelectorAll('a');
 
-    // Obtiene todos los enlaces dentro de la div
-    var enlaces = tareaDescripcion.querySelectorAll('a');
+      // Itera sobre cada enlace y agrega el atributo target="_blank" si el destino está fuera del dominio actual
+      enlaces.forEach(function(enlace) {
+        var destino = enlace.getAttribute('href');
+        
+        if (destino && !esEnlaceInterno(destino)) {
+          enlace.setAttribute('target', '_blank');
+        }
+      });
 
-    // Itera sobre cada enlace y agrega el atributo target="_blank" si el destino está fuera del dominio actual
-    enlaces.forEach(function(enlace) {
-      var destino = enlace.getAttribute('href');
-      
-      if (destino && !esEnlaceInterno(destino)) {
-        enlace.setAttribute('target', '_blank');
+      // Función para verificar si un enlace es interno
+      function esEnlaceInterno(destino) {
+        var dominioActual = window.location.hostname;
+        return destino.indexOf(dominioActual) !== -1;
       }
-    });
-
-    // Función para verificar si un enlace es interno
-    function esEnlaceInterno(destino) {
-      var dominioActual = window.location.hostname;
-      return destino.indexOf(dominioActual) !== -1;
     }
   });
+
+
+  // Verifica si existe una div con la clase "contenedor-etiquetas"
+  const contenedorEtiquetas = document.querySelector('.contenedor-etiquetas');
+
+if (contenedorEtiquetas) {
+  // Función para cargar la lista desde el localStorage
+  function cargarLista() {
+    // Intenta obtener la lista desde el localStorage
+    const listaJSON = localStorage.getItem('tabs_tareas');
+
+    // Si la lista existe, conviértela de JSON a un array
+    if (listaJSON) {
+      
+
+      const listaARRAY = JSON.parse(listaJSON);
+      for (const id of listaARRAY) {
+        // Obtener el elemento por su ID
+        const elemento = document.getElementById(id);
+
+        // Verificar si el elemento existe antes de agregar la clase
+        if (elemento) {
+          console.log('Elemento encontrado '+elemento);
+          // Agregar la clase 'collapse' al elemento
+          elemento.classList.add('collapse');
+          elemento.classList.remove('show');
+        }
+      }
+
+      return listaARRAY;
+    } else {
+      // Si no existe, devuelve un array vacío
+      return [];
+    }
+  }
+
+  // Función para guardar la lista en el localStorage
+  function guardarLista(lista) {
+    // Convierte el array a JSON y guárdalo en el localStorage
+    localStorage.setItem('tabs_tareas', JSON.stringify(lista));
+  }
+
+  // Cargar la lista al cargar el sitio
+  const listaTareas = cargarLista();
+  // Defino los botones 
+
+    // Seleccionar todos los elementos con data-bs-toggle="collapse"
+    const elementosConCollapse = document.querySelectorAll('[data-bs-toggle="collapse"]');
+
+    // Agregar un evento de clic a cada elemento
+    elementosConCollapse.forEach(elemento => {
+      elemento.addEventListener('click', () => {
+        // Obtener el valor del atributo href
+        const hrefValor = elemento.getAttribute('href');
+        
+        // Verificar si hay un elemento con el ID correspondiente
+        const elementoConId = document.getElementById(hrefValor.slice(1));
+
+        if (elementoConId) {
+
+        // Revisar si el valor ya existe en el array
+        const indice = listaTareas.indexOf(hrefValor.slice(1));
+
+        if (indice !== -1) {
+          // Si el valor existe, quitarlo del array
+          listaTareas.splice(indice, 1);
+        } else {
+          // Si el valor no existe, agregarlo al array
+          listaTareas.push(hrefValor.slice(1));
+        }
+          guardarLista(listaTareas);
+          cargarLista();
+          
+        } else {
+          console.log(`No se encontró un elemento con ID ${hrefValor.slice(1)}`);
+        }
+      });
+    });
+
+
+  // Puedes manipular la listaTareas como desees en tu código
+
+  // Ejemplo de cómo imprimir la lista en la consola
+  console.log(listaTareas);
+} else {
+  console.log('No se encontró la div con clase "contenedor-etiquetas".');
+}
 
 
 </script>

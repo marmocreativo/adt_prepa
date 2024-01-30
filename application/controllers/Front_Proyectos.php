@@ -594,6 +594,75 @@ class Front_Proyectos extends CI_Controller {
 		}
 	}
 
+	public function copiar_proceso_validacion()
+	{
+		$detalles_proceso = $this->GeneralModel->detalles('roles_historial',['ID'=>$_GET['id_proceso']]);
+		$detalles_revision = $this->GeneralModel->detalles('validacion_revisiones',['ID_REVISION'=>$_GET['id_revision']]);
+		$lista_respuestas = $this->GeneralModel->lista('validacion_respuesta','',['ID_REVISION'=>$detalles_revision['ID_REVISION'],'VALOR'=>''],'','','');
+
+		$parametros_proceso_nuevo = array(
+			'ID_TAREA' => $detalles_proceso['ID_TAREA'],
+			'ID_LISTA' => $detalles_proceso['ID_LISTA'],
+			'ID_USUARIO' => $detalles_proceso['ID_USUARIO'],
+			'ETIQUETA' => $detalles_proceso['ETIQUETA'].' (Revalidación)',
+			'PROCESO' => $detalles_proceso['PROCESO'],
+			'FECHA' => date('Y-m-d H:i:s', strtotime($detalles_proceso['FECHA_TERMINADO'].' +2 days')),
+			'ESTADO' => 'en desarrollo',
+			'ORDEN' => $detalles_proceso['ORDEN']+1,
+			'DIAS_DESPUES_ANTERIOR' => $detalles_proceso['DIAS_DESPUES_ANTERIOR'],
+			'ID_USUARIO_B' => $detalles_proceso['ID_USUARIO_B'],
+			'ID_USUARIO_C' => $detalles_proceso['ID_USUARIO_C'],
+		);
+
+		$id_proceso = $this->GeneralModel->crear('roles_historial',$parametros_proceso_nuevo);
+		
+		$parametros_revision = array(
+			'ID_PROYECTO' => $detalles_revision['ID_PROYECTO'],
+			'ID_TAREA'=> $detalles_revision['ID_TAREA'],
+			'ID_PROCESO' => $id_proceso,
+			'ID_ENLACE'=> $detalles_revision['ID_ENLACE'],
+			'ID_LISTA'=> $detalles_revision['ID_LISTA'],
+			'FECHA'=> date('Y-m-d H:i:s'),
+			'ID_RESPONSABLE'=> $detalles_revision['ID_RESPONSABLE'],
+			'TOTAL_PARAMETROS'=> $detalles_revision['TOTAL_PARAMETROS'],
+			'TOTAL_VERIFICADOS'=> 0,
+			'ESTADO'=> 'activo',
+			'TIPO'=> 'revalidacion',
+			'FECHA_LIMITE'=> date('Y-m-d H:i:s', strtotime('today + 3 days'))
+		);
+		
+		$id_revision = $this->GeneralModel->crear('validacion_revisiones',$parametros_revision);
+		$i = 0;
+		foreach($lista_respuestas as $respuesta){
+			$parametros_respuesta = array(
+				'ID_REVISION' => $id_revision,
+				'ID_TAREA' => $respuesta->ID_TAREA,
+				'ID_ENLACE' => $respuesta->ID_ENLACE,
+				'ID_PARAMETRO' => $respuesta->ID_PARAMETRO,
+				'ID_RESPONSABLE' => $respuesta->ID_RESPONSABLE,
+				'VALOR' => '',
+				'COMENTARIOS' => '',
+				'ID_LISTA' => $respuesta->ID_LISTA,
+				'ID_DIMENSION' => $respuesta->ID_DIMENSION,
+				'TITULO' => $respuesta->TITULO
+				
+			);
+			$id_resuesta = $this->GeneralModel->crear('validacion_respuesta',$parametros_respuesta);
+			$i ++;
+		}
+
+		$parametros_revision_act = array(
+			'TOTAL_PARAMETROS'=> $i
+		);
+		$this->GeneralModel->actualizar('validacion_revisiones',['ID_REVISION'=>$id_revision],$parametros_revision_act);
+
+		if(isset($_GET['id_tarea'])&&!empty($_GET['id_tarea'])){
+			redirect(base_url('index.php/tareas/detalles?id='.$detalles_revision['ID_TAREA']));
+		}else{
+			redirect(base_url('index.php/proyectos/detalles?id='.$detalles_revision['ID_PROYECTO']));
+		}
+	}
+
 	public function validacion_reporte()
 	{
 		$this->data['proyecto'] = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$_GET['id']]);

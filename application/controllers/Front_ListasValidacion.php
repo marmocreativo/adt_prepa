@@ -176,6 +176,24 @@ class Front_ListasValidacion extends CI_Controller {
 		// Vistas
 	}
 
+	public function pdf_dimensiones()
+	{
+		$this->load->helper('pdf_helper');
+		// Verifico el switch de mantenimiento
+		if(verificar_mantenimiento($this->data['op']['modo_mantenimiento'])){ redirect(base_url('index.php/mantenimiento')); }
+
+		// Open Tags
+		$this->data['titulo']  = 'Listas de validacion';
+		$this->data['descripcion']  = $this->data['op']['acerca_sitio'];
+		$this->data['imagen']  = base_url('assets/img/share_default.jpg');
+
+		$this->data['lista'] = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_GET['id']]);
+		$this->data['dimensiones'] = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_GET['id'],'ESTADO'=>'activo'],'ORDEN ASC','','');
+
+		$this->load->view($this->data['op']['plantilla'].$this->data['dispositivo'].'/front/front_lista_dimensiones_validacion_pdf',$this->data);
+
+	}
+
 	public function crear_dimension(){
 		if(isset($_POST['Titulo'])&&!empty($_POST['Titulo'])){
 			$parametros = array(

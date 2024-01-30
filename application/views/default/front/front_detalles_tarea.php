@@ -476,7 +476,7 @@
 																	<?php } ?>
 																	<?php if($detalles_revision['ESTADO']=='finalizado'){ ?>
 																	<a href="<?php echo base_url('index.php/tareas/validacion_reporte?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&fecha_revision='.$detalles_revision['FECHA'].'&tarea='.$tarea['ID_TAREA']); ?>" class="btn btn-primary text-white" title="Reporte"><i class="fas fa-chart-bar"></i> Reporte</a>
-																	<button data-enlace="<?php echo base_url('index.php/proyectos/copiar_validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&id_tarea='.$detalles_revision['ID_TAREA']); ?>" class="ml-2 btn btn-warning btn-sm borrar_entrada"> <i class="fa fa-copy"></i> Revalidar</a>
+																	<button data-enlace="<?php echo base_url('index.php/proyectos/copiar_proceso_validacion?id='.$proyecto['ID_PROYECTO'].'&id_revision='.$detalles_revision['ID_REVISION'].'&id_tarea='.$detalles_revision['ID_TAREA'].'&id_proceso='.$proceso->ID); ?>" class="ml-2 btn btn-warning btn-sm borrar_entrada"> <i class="fa fa-copy"></i> Revalidar</a>
 																	<?php } ?>
 																	<?php if($_SESSION['usuario']['tipo_usuario']='administrador'){ ?>
 																	<button data-enlace="<?php echo base_url('index.php/tareas/borrar_validacion?id='.$tarea['ID_TAREA'].'&id_revision='.$detalles_revision['ID_REVISION']); ?>" class="ml-2 btn btn-danger btn-sm borrar_entrada"> <i class="fas fa-trash"></i> Eliminar</a>

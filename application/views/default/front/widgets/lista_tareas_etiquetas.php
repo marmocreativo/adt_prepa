@@ -193,9 +193,6 @@
 
     <div class="p-3 bg-secondary bg-opacity-10 collapse show rounded-bottom" id="collapse<?php echo $etiqueta->ID ?>">
         <ul class="list-unstyled lista_tareas <?php echo $modo; ?>">
-
-
-        <?php $fecha = ''; foreach($tareas as $tarea){ ?>
         <?php if($fecha != $tarea->FECHA_FINAL){ $fecha = $tarea->FECHA_FINAL; ?>
             <div class="d-flex justify-content-start align-items-center py-2 head-lista-tareas me-3">
                 <small class="status"><i class="fa-solid fa-bars-progress"></i> Estado</small>
@@ -205,6 +202,9 @@
                 <small class="me-4">Controles</small>
             </div>
         <?php } ?>
+
+        <?php $fecha = ''; foreach($tareas as $tarea){ ?>
+        
 
         <li>
             <div class="row">
