@@ -714,8 +714,14 @@ class Front_Tareas extends CI_Controller {
 
 		$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$detalles_tarea['ID_PROYECTO']]);
 		$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_POST['IdLista']]);
+		$lista_b = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_POST['IdListaB']]);
+		$lista_c = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_POST['IdListaC']]);
 		$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['IdLista']],'','','');
 
+		
+
+
+		/* Revisión 1 */
 		$array_parametros = array();
 		foreach($dimensiones as $dimension){
 			$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
@@ -759,6 +765,106 @@ class Front_Tareas extends CI_Controller {
 			$this->GeneralModel->crear('validacion_respuesta',$respuesta);
 
 		}
+
+		/* /Termina la revisión 1 */
+
+		/* Revisión b */
+		if(!empty($lista_b)){
+			$dimensiones_b = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['IdListaB']],'','','');
+			$array_parametros = array();
+			foreach($dimensiones_b as $dimension){
+				$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
+				foreach($parametros as $parametro){
+					$array_parametros[] = $parametro->ID_PARAMETRO;
+				}
+			}
+			$total_parametros = count($array_parametros);
+
+			$fecha = date('Y-m-d H:i:s');
+			$fecha_limite = null;
+			if(isset($_POST['Fecha'])){
+				$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['Fecha']));
+			}
+
+			$revision = array(
+				'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
+				'ID_TAREA'=>$detalles_tarea['ID_TAREA'],
+				'ID_PROCESO'=>$id_proceso,
+				'ID_ENLACE'=>$detalles_tarea['TAREA_ENLACE_ENTREGABLE'],
+				'ID_LISTA'=>$_POST['IdListaB'],
+				'FECHA'=>$fecha_limite,
+				'ID_RESPONSABLE'=>$_POST['IdUsuarioB'],
+				'TOTAL_PARAMETROS'=>$total_parametros,
+				'TOTAL_VERIFICADOS' => 0,
+				'ESTADO'=>'activo'
+			);
+
+			$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
+
+			foreach($array_parametros as $arry_param){
+				$respuesta = array(
+					'ID_REVISION'=>$id_revision,
+					'ID_TAREA'=>$detalles_tarea['ID_TAREA'],
+					'ID_ENLACE'=>$detalles_tarea['TAREA_ENLACE_ENTREGABLE'],
+					'ID_PARAMETRO'=>$arry_param,
+					'ID_RESPONSABLE'=>$_POST['IdUsuarioB'],
+					'VALOR'=>'',
+					'FECHA'=> $fecha
+				);
+				$this->GeneralModel->crear('validacion_respuesta',$respuesta);
+
+			}
+		}
+		/* /Termina Revisión b */
+
+		/* Revisión c */
+		if(!empty($lista_c)){
+			$dimensiones_c = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['IdListaC']],'','','');
+			$array_parametros = array();
+			foreach($dimensiones_c as $dimension){
+				$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
+				foreach($parametros as $parametro){
+					$array_parametros[] = $parametro->ID_PARAMETRO;
+				}
+			}
+			$total_parametros = count($array_parametros);
+
+			$fecha = date('Y-m-d H:i:s');
+			$fecha_limite = null;
+			if(isset($_POST['Fecha'])){
+				$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['Fecha']));
+			}
+
+			$revision = array(
+				'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
+				'ID_TAREA'=>$detalles_tarea['ID_TAREA'],
+				'ID_PROCESO'=>$id_proceso,
+				'ID_ENLACE'=>$detalles_tarea['TAREA_ENLACE_ENTREGABLE'],
+				'ID_LISTA'=>$_POST['IdListaC'],
+				'FECHA'=>$fecha_limite,
+				'ID_RESPONSABLE'=>$_POST['IdUsuarioC'],
+				'TOTAL_PARAMETROS'=>$total_parametros,
+				'TOTAL_VERIFICADOS' => 0,
+				'ESTADO'=>'activo'
+			);
+
+			$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
+
+			foreach($array_parametros as $arry_param){
+				$respuesta = array(
+					'ID_REVISION'=>$id_revision,
+					'ID_TAREA'=>$detalles_tarea['ID_TAREA'],
+					'ID_ENLACE'=>$detalles_tarea['TAREA_ENLACE_ENTREGABLE'],
+					'ID_PARAMETRO'=>$arry_param,
+					'ID_RESPONSABLE'=>$_POST['IdUsuarioC'],
+					'VALOR'=>'',
+					'FECHA'=> $fecha
+				);
+				$this->GeneralModel->crear('validacion_respuesta',$respuesta);
+
+			}
+		}
+		/* /Termina Revisión c */
 	}
 
 		
@@ -900,6 +1006,8 @@ class Front_Tareas extends CI_Controller {
 			if(empty($validacion_creada)){
 				$proyecto = $this->GeneralModel->detalles('proyectos',['ID_PROYECTO'=>$detalles_tarea['ID_PROYECTO']]);
 				$lista = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_POST['IdLista']]);
+				$lista_b = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_POST['IdLista']]);
+				$lista_c = $this->GeneralModel->detalles('validacion_lista',['ID_LISTA'=>$_POST['IdLista']]);
 				$dimensiones = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['IdLista']],'','','');
 		
 				$array_parametros = array();
@@ -945,6 +1053,104 @@ class Front_Tareas extends CI_Controller {
 					$this->GeneralModel->crear('validacion_respuesta',$respuesta);
 		
 				}
+
+				/* Revisión b */
+				if(!empty($lista_b)){
+					$dimensiones_b = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['IdListaB']],'','','');
+					$array_parametros = array();
+					foreach($dimensiones_b as $dimension){
+						$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
+						foreach($parametros as $parametro){
+							$array_parametros[] = $parametro->ID_PARAMETRO;
+						}
+					}
+					$total_parametros = count($array_parametros);
+
+					$fecha = date('Y-m-d H:i:s');
+					$fecha_limite = null;
+					if(isset($_POST['Fecha'])){
+						$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['Fecha']));
+					}
+
+					$revision = array(
+						'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
+						'ID_TAREA'=>$detalles_tarea['ID_TAREA'],
+						'ID_PROCESO'=>$_POST['Identificador'],
+						'ID_ENLACE'=>$detalles_tarea['TAREA_ENLACE_ENTREGABLE'],
+						'ID_LISTA'=>$_POST['IdListaB'],
+						'FECHA'=>$fecha_limite,
+						'ID_RESPONSABLE'=>$_POST['IdUsuarioB'],
+						'TOTAL_PARAMETROS'=>$total_parametros,
+						'TOTAL_VERIFICADOS' => 0,
+						'ESTADO'=>'activo'
+					);
+			
+					$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
+			
+					foreach($array_parametros as $arry_param){
+						$respuesta = array(
+							'ID_REVISION'=>$id_revision,
+							'ID_TAREA'=>$detalles_tarea['ID_TAREA'],
+							'ID_ENLACE'=>$detalles_tarea['TAREA_ENLACE_ENTREGABLE'],
+							'ID_PARAMETRO'=>$arry_param,
+							'ID_RESPONSABLE'=>$_POST['IdUsuarioB'],
+							'VALOR'=>'',
+							'FECHA'=> $fecha
+						);
+						$this->GeneralModel->crear('validacion_respuesta',$respuesta);
+			
+					}
+				}
+				/* /Termina Revisión b */
+
+				/* Revisión c */
+				if(!empty($lista_c)){
+					$dimensiones_c = $this->GeneralModel->lista('validacion_dimension','',['ID_LISTA'=>$_POST['IdListaC']],'','','');
+					$array_parametros = array();
+					foreach($dimensiones_c as $dimension){
+						$parametros = $this->GeneralModel->lista('validacion_parametros','',['ID_DIMENSION'=>$dimension->ID_DIMENSION],'','','');
+						foreach($parametros as $parametro){
+							$array_parametros[] = $parametro->ID_PARAMETRO;
+						}
+					}
+					$total_parametros = count($array_parametros);
+
+					$fecha = date('Y-m-d H:i:s');
+					$fecha_limite = null;
+					if(isset($_POST['Fecha'])){
+						$fecha_limite = date('Y-m-d H:i:s', strtotime($_POST['Fecha']));
+					}
+
+					$revision = array(
+						'ID_PROYECTO'=>$proyecto['ID_PROYECTO'],
+						'ID_TAREA'=>$detalles_tarea['ID_TAREA'],
+						'ID_PROCESO'=>$_POST['Identificador'],
+						'ID_ENLACE'=>$detalles_tarea['TAREA_ENLACE_ENTREGABLE'],
+						'ID_LISTA'=>$_POST['IdListaC'],
+						'FECHA'=>$fecha_limite,
+						'ID_RESPONSABLE'=>$_POST['IdUsuarioC'],
+						'TOTAL_PARAMETROS'=>$total_parametros,
+						'TOTAL_VERIFICADOS' => 0,
+						'ESTADO'=>'activo'
+					);
+			
+					$id_revision = $this->GeneralModel->crear('validacion_revisiones',$revision);
+			
+					foreach($array_parametros as $arry_param){
+						$respuesta = array(
+							'ID_REVISION'=>$id_revision,
+							'ID_TAREA'=>$detalles_tarea['ID_TAREA'],
+							'ID_ENLACE'=>$detalles_tarea['TAREA_ENLACE_ENTREGABLE'],
+							'ID_PARAMETRO'=>$arry_param,
+							'ID_RESPONSABLE'=>$_POST['IdUsuarioC'],
+							'VALOR'=>'',
+							'FECHA'=> $fecha
+						);
+						$this->GeneralModel->crear('validacion_respuesta',$respuesta);
+			
+					}
+				}
+				/* /Termina Revisión c */
 			}
 			
 		}

@@ -427,7 +427,7 @@
 							<button class="btn btn-sm btn-outline-secondary border-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#form-proceso-<?php echo $proceso->ID; ?>" aria-expanded="false" aria-controls=""><i class="fas fa-pencil-alt"></i></button>
 							<a class="btn btn-sm btn-outline-secondary border-0" href="<?php echo base_url('index.php/tareas/borrar_rol?id='.$proceso->ID); ?>"><i class="fas fa-trash"></i></a>
 						</div>
-						<?php $validaciones = $this->GeneralModel->lista('validacion_revisiones','',['ID_PROCESO'=>$proceso->ID, 'ID_LISTA'=>$proceso->ID_LISTA],'','',''); ?>
+						<?php $validaciones = $this->GeneralModel->lista('validacion_revisiones','',['ID_PROCESO'=>$proceso->ID],'','',''); ?>
 						<?php if(!empty($proceso->ID_LISTA)){ ?>
 							<button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#validacionesProceso<?php echo $proceso->ID; ?>">Validaciones del proceso</button>
 						<?php } ?>
@@ -504,28 +504,63 @@
 									<label for="Etiqueta">Etiqueta</label>
 									<input type="text" required class="form-control" name="Etiqueta" placeholder='Nombre del proceso' value="<?php echo $proceso->ETIQUETA; ?>">
 								</div>
-								<div class="form-group">
-									<label for="IdUsuarioPro">Usuario</label>
-									<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
-										<?php foreach($usuarios_asignados as $usuario_disp){ ?>
-										<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
-										<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" <?php if($proceso->ID_USUARIO==$detalles_usuario_asignado['ID_USUARIO']){ echo 'selected'; } ?>><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
-										<?php } ?>
-									</select>
+								
+								<h4>Usuarios asignados</h4>
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+											<label for="IdUsuarioPro">Usuario</label>
+											<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
+												<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+												<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
+												<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" <?php if($proceso->ID_USUARIO==$detalles_usuario_asignado['ID_USUARIO']){ echo 'selected'; } ?>><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
+												<?php } ?>
+											</select>
+										</div>
+									</div>
+									<div class="col-6">
+										<div id="Listas<?php echo $proceso->ID; ?>" class="">
+											<div class="form-group">
+												<label for="IdLista">Lista de validación </label>
+												<select name="IdLista" class="form-control">
+													<option value="">Ningúna</option>
+													<?php foreach($listas_validacion as $lista){ ?>
+													<option value="<?php echo $lista->ID_LISTA; ?>" <?php if($lista->ID_LISTA==$proceso->ID_LISTA){ echo 'selected'; } ?>><?php echo $lista->TITULO; ?></option>
+													<?php }  ?>
+												</select>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-6">
-									<div class="form-group">
-										<label for="IdUsuarioPro"> Apoyo 1</label>
-										<select name="IdUsuarioB" id="IdUsuarioPro" class="form-control">
-											<option value="">Nadie</option>
-											<?php foreach($usuarios_asignados as $usuario_disp){ ?>
-											<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
-											<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" <?php if($proceso->ID_USUARIO_B==$detalles_usuario_asignado['ID_USUARIO']){ echo 'selected'; } ?>><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
-											<?php } ?>
-										</select>
+										<div class="form-group">
+											<label for="IdUsuarioPro"> Apoyo 1</label>
+											<select name="IdUsuarioB" id="IdUsuarioPro" class="form-control">
+												<option value="">Nadie</option>
+												<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+												<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
+												<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" <?php if($proceso->ID_USUARIO_B==$detalles_usuario_asignado['ID_USUARIO']){ echo 'selected'; } ?>><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
+												<?php } ?>
+											</select>
+										</div>
 									</div>
+									<div class="col-6">
+										<div id="Listas<?php echo $proceso->ID; ?>B" class="">
+											<div class="form-group">
+												<label for="IdListaB">Lista de validación</label>
+												<select name="IdListaB" class="form-control">
+													<option value="">Ningúna</option>
+													<?php foreach($listas_validacion as $lista){ ?>
+													<option value="<?php echo $lista->ID_LISTA; ?>" ><?php echo $lista->TITULO; ?></option>
+													<?php }  ?>
+												</select>
+											</div>
+										</div>
 									</div>
+								</div>
+								<div class="row">
+									
 									<div class="col-6">
 										<div class="form-group">
 											<label for="IdUsuarioPro">Apoyo 2</label>
@@ -536,6 +571,19 @@
 												<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" <?php if($proceso->ID_USUARIO_C==$detalles_usuario_asignado['ID_USUARIO']){ echo 'selected'; } ?>><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
 												<?php } ?>
 											</select>
+										</div>
+									</div>
+									<div class="col-6">
+										<div id="Listas<?php echo $proceso->ID; ?>C" class="">
+											<div class="form-group">
+												<label for="IdListaC">Lista de validación</label>
+												<select name="IdListaC" class="form-control">
+													<option value="">Ningúna</option>
+													<?php foreach($listas_validacion as $lista){ ?>
+													<option value="<?php echo $lista->ID_LISTA; ?>" ><?php echo $lista->TITULO; ?></option>
+													<?php }  ?>
+												</select>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -555,17 +603,7 @@
 										<option value="postproduccion" <?php if($proceso->PROCESO=='postproduccion'){ echo 'selected'; } ?>>Revisión (post-producción)</option>
 									</select>
 								</div>
-								<div id="Listas<?php echo $proceso->ID; ?>" class="">
-									<div class="form-group">
-										<label for="IdLista">Lista de validación (para revisión)</label>
-										<select name="IdLista" class="form-control">
-											<option value="">Ningúna</option>
-											<?php foreach($listas_validacion as $lista){ ?>
-											<option value="<?php echo $lista->ID_LISTA; ?>" <?php if($lista->ID_LISTA==$proceso->ID_LISTA){ echo 'selected'; } ?>><?php echo $lista->TITULO; ?></option>
-											<?php }  ?>
-										</select>
-									</div>
-								</div>
+								
 								
 								<hr>
 								<button type="submit" class="btn btn-primary">Actualizar proceso</button>
@@ -604,7 +642,10 @@
 							<label for="Etiqueta">Etiqueta</label>
 							<input type="text" required class="form-control" name="Etiqueta" placeholder='Nombre del proceso'>
 						</div>
-						<div class="form-group">
+						<h4>Usuarios asignados</h4>
+						<div class="row">
+							<div class="col-6">
+							<div class="form-group">
 							<label for="IdUsuarioPro">Usuario</label>
 							<select name="IdUsuario" id="IdUsuarioPro" class="form-control">
 								<?php foreach($usuarios_asignados as $usuario_disp){ ?>
@@ -613,32 +654,76 @@
 								<?php } ?>
 							</select>
 						</div>
-						<div class="row">
-									<div class="col-6">
+							</div>
+							<div class="col-6">
+								<div id="Listas<?php echo $proceso->ID; ?>" class="">
 									<div class="form-group">
-										<label for="IdUsuarioPro"> Apoyo 1</label>
-										<select name="IdUsuarioB" id="IdUsuarioProB" class="form-control">
-											<option value="">Nadie</option>
-											<?php foreach($usuarios_asignados as $usuario_disp){ ?>
-											<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
-											<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
-											<?php } ?>
+										<label for="IdLista">Lista de validación (para revisión)</label>
+										<select name="IdLista" class="form-control">
+											<option value="">Ningúna</option>
+											<?php foreach($listas_validacion as $lista){ ?>
+											<option value="<?php echo $lista->ID_LISTA; ?>" ><?php echo $lista->TITULO; ?></option>
+											<?php }  ?>
 										</select>
 									</div>
-									</div>
-									<div class="col-6">
-										<div class="form-group">
-											<label for="IdUsuarioPro">Apoyo 2</label>
-											<select name="IdUsuarioC" id="IdUsuarioProC" class="form-control">
-												<option value="">Nadie</option>
-												<?php foreach($usuarios_asignados as $usuario_disp){ ?>
-												<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
-												<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" ><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
-												<?php } ?>
-											</select>
-										</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+							<div class="form-group">
+									<label for="IdUsuarioPro"> Apoyo 1</label>
+									<select name="IdUsuarioB" id="IdUsuarioProB" class="form-control">
+										<option value="">Nadie</option>
+										<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+										<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
+										<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>"><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
+										<?php } ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-6">
+								<div id="Listas<?php echo $proceso->ID; ?>B" class="">
+									<div class="form-group">
+										<label for="IdListaB">Lista de validación (para revisión)</label>
+										<select name="IdListaB" class="form-control">
+											<option value="">Ningúna</option>
+											<?php foreach($listas_validacion as $lista){ ?>
+											<option value="<?php echo $lista->ID_LISTA; ?>" ><?php echo $lista->TITULO; ?></option>
+											<?php }  ?>
+										</select>
 									</div>
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="IdUsuarioPro">Apoyo 2</label>
+									<select name="IdUsuarioC" id="IdUsuarioProC" class="form-control">
+										<option value="">Nadie</option>
+										<?php foreach($usuarios_asignados as $usuario_disp){ ?>
+										<?php $detalles_usuario_asignado = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$usuario_disp]); ?>
+										<option value="<?php echo $detalles_usuario_asignado['ID_USUARIO']; ?>" ><?php echo $detalles_usuario_asignado['USUARIO_NOMBRE'].' '.$detalles_usuario_asignado['USUARIO_APELLIDOS']; ?></option>
+										<?php } ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-6">
+								<div id="Listas<?php echo $proceso->ID; ?>C" class="">
+									<div class="form-group">
+										<label for="IdListaC">Lista de validación (para revisión)</label>
+										<select name="IdListaC" class="form-control">
+											<option value="">Ningúna</option>
+											<?php foreach($listas_validacion as $lista){ ?>
+											<option value="<?php echo $lista->ID_LISTA; ?>" ><?php echo $lista->TITULO; ?></option>
+											<?php }  ?>
+										</select>
+									</div>
+								</div>
+							</div>
+							
+						</div>
 						<div class="form-group">
 							<label for="Fecha">Fecha límite de entrega</label>
 							<input type="date" required class="form-control" name="Fecha" placeholder='Fecha límite'>
@@ -651,17 +736,7 @@
 								<option value="postproduccion">Revisión (post-producción)</option>
 							</select>
 						</div>
-						<div id="Listas<?php echo $proceso->ID; ?>" class="">
-							<div class="form-group">
-								<label for="IdLista">Lista de validación (para revisión)</label>
-								<select name="IdLista" class="form-control">
-									<option value="">Ningúna</option>
-									<?php foreach($listas_validacion as $lista){ ?>
-									<option value="<?php echo $lista->ID_LISTA; ?>" ><?php echo $lista->TITULO; ?></option>
-									<?php }  ?>
-								</select>
-							</div>
-						</div>
+						
 						<hr>
 						<button type="submit" class="btn btn-primary">Agregar proceso</button>
 					</form>
@@ -841,6 +916,7 @@
 							<thead>
 								<tr>
 									<th>#</th>
+									<th>Proceso</th>
 									<th>Fecha</th>
 									<th>Lista</th>
 									<th>Avance</th>
@@ -854,6 +930,7 @@
 									<?php $detalles_responsable = $this->GeneralModel->detalles('usuarios',['ID_USUARIO'=>$detalles_revision['ID_RESPONSABLE']]); ?>
 									<tr>
 										<td><?php echo $i; ?></td>
+										<td><?php echo $detalles_revision['ID_PROCESO']; ?></td>
 										<td><?php echo date('Y-m-d', strtotime($detalles_revision['FECHA'])); ?></td>
 										<td>
 										<?php echo $detalles_lista['TITULO']; ?><br>
